@@ -1,4 +1,3 @@
-$(function(){
 
 	var Typed = function(el, values){
 		// for variable scope's sake
@@ -9,9 +8,6 @@ $(function(){
 
 		// text content of element
 		self.text = self.el.text();
-
-		// varying values for setTimeout during typing
-		self.humanize = Math.round(Math.random() * (100 - 30)) + 30;
 
 		// amount of time to wait before backspacing
 		self.backDelay = 500;
@@ -54,10 +50,15 @@ $(function(){
 				// begin the loop w/ first current string (global self.string)
 				// current string will be passed as an argument each time after this
 				self.typewrite(self.string, self.strPos);
+				self.el.after("<span id=\"typed-cursor\">|</span>");
 			}
 
 			// pass current string state to each function
 			, typewrite: function(curString, curStrPos){
+
+				// varying values for setTimeout during typing
+				// can't be global since number changes each time loop is executed
+				var humanize = Math.round(Math.random() * (100 - 30)) + 30;
 
 				// containg entire typing function in a timeout
 				setTimeout(function() {
@@ -96,11 +97,15 @@ $(function(){
 					}
 
 				// humanized value for typing
-				}, self.humanize);
+				}, humanize);
 			
 			}
 
 			, backspace: function(curString, curStrPos){
+
+				// varying values for setTimeout during typing
+				// can't be global since number changes each time loop is executed
+				var humanize = Math.round(Math.random() * (100 - 30)) + 30;
 
 				setTimeout(function() {
 
@@ -140,7 +145,7 @@ $(function(){
 						}
 
 				// humanized value for typing
-				}, self.humanize);	
+				}, humanize);	
 
 			}
 
@@ -163,14 +168,4 @@ $(function(){
 	//   localStorage.removeItem("mb-animated-state");
 	// });
 	
-	// -------------------------------------------------------- //
-	// ------------------- Go forth and type! ----------------- //
-	// -------------------------------------------------------- //
-	// ---- be sure to use an empty element for typed text ---- //
-	// -------------------------------------------------------- //
-	new Typed("#typed");
-
-
-
-});
 
