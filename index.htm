@@ -12,11 +12,60 @@
 		// -------------------------------------------------------- //
 		// ---- be sure to use an empty element for typed text ---- //
 		// -------------------------------------------------------- //
-		new Typed("#typed");
+		new Typed("#typed", ["These are the default values...", "You know what yoy sho", "You know what you should do?", "Use your own!", "Have a great day!"]);
+		// new Typed("#typed", ["These are the"]);
+
 	});
 	</script>
 
 <style>
+*{
+	padding:0;
+	margin:0;
+}
+/* text editor styles */
+
+.text-editor-wrap{
+	display: block;
+	margin:100px auto 30px;
+	width:530px;
+	border-radius:10px;
+	border:#999 1px solid;
+	box-shadow:rgba(0,0,0,0.3) 0px 15px 30px;
+	clear:both;
+	overflow: hidden;
+	-webkit-transition:all 0.5s ease-out;
+}
+	.title-bar{
+		padding:5px 0;
+		font-family: "Lucida Grande", sans-serif;
+		text-align: center;
+		text-shadow:rgba(255,255,255,0.8) 0px 1px 0px;
+		background-color:#f8f8f8;
+		background-image:-webkit-linear-gradient(top, #e8e8e8, #bcbbbc);
+			background-image:-moz-linear-gradient(top, #e8e8e8, #bcbbbc);
+				background-image:linear-gradient(top, #e8e8e8, #bcbbbc);
+		box-shadow:inset rgba(255,255,255,0.7) 0px 1px 1px;
+		border-bottom:#6a6a6a 1px solid;
+	}
+	.text-body{
+		height:300px;
+		background-color:#1A1A1A;
+		padding:10px;
+		color:#f8f8f8;
+		font-family: "Consolas", "Courier New", "Courier";
+		line-height: 1.40em;
+		font-weight: 500;
+		overflow: hidden;
+		-webkit-transition:all 0.5s ease-out;
+	}
+	
+.shift-text{
+	margin-top:50px;
+}
+.shift-text .text-body{
+	height:120px;
+}
 
 #typed-cursor{
 	opacity: 1;
@@ -37,15 +86,10 @@
 </style>
 </head>
 <body>
-	<div class="header">
-		<div class="wrapper">
-			<div class="head-text">
-
-				<h1 class="tagline">Hey! <span id="typed"></span></h1>
-
-			
-
-			</div>
+	<div class="text-editor-wrap left">
+		<div class="title-bar"><span class="title">typed.js &mdash; bash &mdash; 80x<span class="terminal-height">25</span></span></div>
+		<div class="text-body">
+			$ <span id="typed"></span>
 		</div>
 	</div>
 	
