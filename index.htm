@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>typed.js</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script src="js/typed.js" type="text/javascript"></script>
+	<script src="js/typed.custom.js" type="text/javascript"></script>
 	<script>
 	$(function(){
 		// -------------------------------------------------------- //
@@ -12,86 +12,91 @@
 		// -------------------------------------------------------- //
 		// ---- be sure to use an empty element for typed text ---- //
 		// -------------------------------------------------------- //
-		new Typed("#typed", ["These are the default values...", "You know what yoy sho", "You know what you should do?", "Use your own!", "Have a great day!"]);
-		// new Typed("#typed", ["These are the"]);
+		$("#typed").typed({
+			strings: ["Typed.js is a jQuery plugin.", "It tyops out", "It types out sentences.", "And then deletes them.", "Try it out!"],
+			typeSpeed: 30
+		});
 
 	});
 	</script>
-
-<style>
-*{
-	padding:0;
-	margin:0;
-}
-/* text editor styles */
-
-.text-editor-wrap{
-	display: block;
-	margin:100px auto 30px;
-	width:530px;
-	border-radius:10px;
-	border:#999 1px solid;
-	box-shadow:rgba(0,0,0,0.3) 0px 15px 30px;
-	clear:both;
-	overflow: hidden;
-	-webkit-transition:all 0.5s ease-out;
-}
-	.title-bar{
-		padding:5px 0;
-		font-family: "Lucida Grande", sans-serif;
-		text-align: center;
-		text-shadow:rgba(255,255,255,0.8) 0px 1px 0px;
-		background-color:#f8f8f8;
-		background-image:-webkit-linear-gradient(top, #e8e8e8, #bcbbbc);
-			background-image:-moz-linear-gradient(top, #e8e8e8, #bcbbbc);
-				background-image:linear-gradient(top, #e8e8e8, #bcbbbc);
-		box-shadow:inset rgba(255,255,255,0.7) 0px 1px 1px;
-		border-bottom:#6a6a6a 1px solid;
-	}
-	.text-body{
-		height:300px;
-		background-color:#1A1A1A;
-		padding:10px;
-		color:#f8f8f8;
-		font-family: "Consolas", "Courier New", "Courier";
-		line-height: 1.40em;
-		font-weight: 500;
-		overflow: hidden;
-		-webkit-transition:all 0.5s ease-out;
-	}
-	
-.shift-text{
-	margin-top:50px;
-}
-.shift-text .text-body{
-	height:120px;
-}
-
-#typed-cursor{
-	opacity: 1;
-	font-weight: 100;
-	-webkit-animation: blink 0.7s infinite;
-	-moz-animation: blink 0.7s infinite;
-	-ms-animation: blink 0.7s infinite;
-	-o-animation: blink 0.7s infinite;
-	animation: blink 0.7s infinite;
-}
-
-@-webkit-keyframes blink{
-	0% { opacity:1; }
-	50% { opacity:0; }
-	100% { opacity:1; }
-}
-
-</style>
+	<link href="css/main.css" rel="stylesheet" />
 </head>
 <body>
-	<div class="text-editor-wrap left">
-		<div class="title-bar"><span class="title">typed.js &mdash; bash &mdash; 80x<span class="terminal-height">25</span></span></div>
-		<div class="text-body">
-			$ <span id="typed"></span>
+
+<div class="header">
+	<div class="head-wrap">
+		<h1 class="h1">Typed.js</h1>
+		<div class="text-editor-wrap">
+			<div class="title-bar"><span class="title">typed.js &mdash; bash &mdash; 80x<span class="terminal-height">25</span></span></div>
+			<div class="text-body">
+				$ <span id="typed"></span>
+			</div>
 		</div>
 	</div>
-	
+</div>
+
+<div class="wrap">
+
+	<div class="btn-wrap">
+		<div class="btn">
+			<a href="#">Download from Github</a>
+		</div>
+		<div class="btn">
+			<a href="#">View Source</a>
+		</div>
+	</div>
+
+	<p>Another demo made with love by <a href="http://www.mattboldt.com/">Matt Boldt</a>.</p>
+
+
+<h2 class="h2">Setup</h2>
+<pre>
+&lt;script src="typed.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  $(function(){
+      $(".element").typed({
+        strings: ["First sentence.", "Second sentence."],
+        typeSpeed: 0
+      });
+  });
+&lt;/script&gt;
+...
+
+&lt;div class="element"&gt;&lt;/div&gt;
+</pre>
+
+<h2 class="h2">Custom Stuff</h2>
+
+<pre>
+// Add this CSS to get the blinking cursor
+#typed-cursor{
+  opacity: 1;
+  font-weight: 100;
+  // add prefixes
+  animation: blink 0.7s infinite;
+}
+
+@-keyframes blink{
+  0% { opacity:1; }
+  50% { opacity:0; }
+  100% { opacity:1; }
+}
+</pre>
+
+<pre>
+&lt;script&gt;
+  $(function(){
+      $(".element").typed({
+        strings: ["First sentence.", "Second sentence."],
+        typeSpeed: 30, // typing speed
+        backDelay: 500, // pause before backspacing
+        callback: function(){ } // call function after typing is done
+      });
+  });
+&lt;/script&gt;
+</pre>
+
+</div>
+
 </body>
 </html>

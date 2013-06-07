@@ -1,0 +1,55 @@
+// ------ BUTTON WRAPPER FOR POSITIONING CONTROL ------ //
+.btn-wrap{
+	display: block;
+	margin:0 auto 1em;
+	clear:both;
+	text-align: center;
+}
+	
+	// ------ BASE BUTTON CLASS ------ //
+	.btn{
+		display: inline-block;
+		position: relative;
+		margin:0 10px 5px;
+		text-align: left;
+		vertical-align: top;
+
+		// spreads button 100% of container
+		@media screen and (max-width:500px){
+			display:block;
+		}
+
+		& > a{
+			display: block;
+			position: relative;
+			padding:0.8em 1.75em 0.7em;
+			color:#fff;
+			text-shadow:rgba(0,0,0,0.3) 0px -1px 0px;
+			font-size: 1.5em;
+			font-weight: 400;
+			line-height: 1em;
+			text-align: center;
+			background-color:#3479b4;
+			border-radius:4px;
+			z-index:0;
+			-webkit-transition:all 0.1s ease-in-out;
+				-moz-transition:all 0.1s ease-in-out;
+					-ms-transition:all 0.1s ease-in-out;
+						-o-transition:all 0.1s ease-in-out;
+							transition:all 0.1s ease-in-out;
+			&:hover{
+				background-color:lighten(#3479b4, 10%);
+			}
+		}
+
+
+		p{
+			line-height: 1em;
+			a{
+				color:#333;
+				&:hover{
+					color:#CCC;
+				}
+			}
+		}
+	}

@@ -64,12 +64,11 @@
 				// can't be global since number changes each time loop is executed
 				var humanize = Math.round(Math.random() * (100 - 30)) + self.typeSpeed;
 
-				// ------ optional ------ //
-				// custom backspace delay
-				// if (self.arrayPos == 1){
-				// 	self.backDelay = 50;
-				// }
-				// else{ self.backDelay = 500; }
+				// custom backspace delay for the typo
+				if (self.arrayPos == 1){
+					self.backDelay = 50;
+				}
+				else{ self.backDelay = 500; }
 
 				// containg entire typing function in a timeout
 				setTimeout(function() {
@@ -102,7 +101,7 @@
 							if (self.arrayPos == self.stopArray && curStrPos == curString.length){
 								// animation that occurs on the last typed string
 								// place any finishing code here
-								self.options.callback();
+								self.shift();
 								clearTimeout();
 							}
 						}
@@ -125,14 +124,14 @@
 						// check string array position
 						// on the first string, only delete one word
 						// the stopNum actually represents the amount of chars to
-						// keep in the current string. In my case it's 14.
-						// if (self.arrayPos == 1){
-						//	self.stopNum = 14;
-						// }
+						// keep in the current string. In my case it's 9.
+						if (self.arrayPos == 1){
+							self.stopNum = 3;
+						}
 						//every other time, delete the whole typed string
-						// else{
-						//	self.stopNum = 0;
-						// }
+						else{
+							self.stopNum = 0;
+						}
 
 					// ----- continue important stuff ----- //
 						// replace text with current text + typed characters
@@ -161,6 +160,32 @@
 
 			}
 
+			, shift: function(){
+				$(".head-wrap").addClass("shift-text");
+				self.terminalHeight();
+			}
+
+			, terminalHeight: function(){
+
+				var termHeight = $(".terminal-height");
+				var value = termHeight.text();
+				value = parseInt(value);
+
+				setTimeout(function(){
+
+					if (value > 10){
+						value = value-1;
+						this.txtValue = value.toString();
+						termHeight.text(this.txtValue);
+						self.terminalHeight();
+					}
+					else{
+						clearTimeout();
+					}
+				}, 10);
+
+			}
+
 		}
 
 	$.fn.typed = function (option) {
@@ -174,14 +199,13 @@
 	}
 
 	$.fn.typed.defaults = {
-		strings: ["These are the default values...", "You know what you should do?", "Use your own!", "Have a great day!"],
+		strings: ["These are the default values...", "You know what yoy sho", "You know what you should do?", "Use your own!", "Have a great day!"],
 		// typing and backspacing speed
-		typeSpeed: 0,
+		typeSpeed: 30,
 		// time before backspacing
-		backDelay: 500,
-		// ending callback function
-		callback: function(){ null }
+		backDelay: 500
 	}
+
 
 
 }(window.jQuery);
