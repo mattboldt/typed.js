@@ -185,22 +185,5 @@
 
 
 }(window.jQuery);
-
-	// -------------------------------------------------------- //
-	// ----- very optional localstorage setting to check if --- // 
-	// ----- the user has seen your awesome animation yet ----- //
-	// ----- and disable it in case it's annoying ------------- //
-	// -------------------------------------------------------- //
-	// if( localStorage.getItem("mb-animated-state") !== "true" ){ 
-	// 	
-	// 	localStorage.setItem("mb-animated-state", "true" );
-	// }
-	// else{
-	// 	$("#typed").text("Matt.");
-	// 	Typed.prototype.lift();
-	// }
-	// $(window).unload(function() {
-	//   localStorage.removeItem("mb-animated-state");
-	// });
 	
 
