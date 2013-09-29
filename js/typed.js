@@ -1,6 +1,6 @@
 !function($){
 
-	"use strict";
+	//"use strict";
 
 	var Typed = function(el, options){
 
@@ -66,10 +66,10 @@
 
 				// ------ optional ------ //
 				// custom backspace delay
-				// if (self.arrayPos == 1){
-				// 	self.backDelay = 50;
-				// }
-				// else{ self.backDelay = 500; }
+				//if (self.arrayPos == 0){
+				//    self.backDelay = 4000;
+				//}
+				//else{ self.backDelay = 1000; }
 
 				// containg entire typing function in a timeout
 				setTimeout(function() {
@@ -85,14 +85,14 @@
 						// and if the current array position is less than the stopping point
 						// if so, backspace after backDelay setting
 						if (curStrPos > curString.length && self.arrayPos < self.stopArray){
-							clearTimeout();
-							setTimeout(function(){
+							clearTimeout(clear);
+							var clear = setTimeout(function(){
 								self.backspace(curString, curStrPos);
 							}, self.backDelay);
 						}
 
 						// else, keep typing
-						else{
+						else {
 							// add characters one by one
 							curStrPos++;
 							// loop the function
@@ -102,8 +102,8 @@
 							if (self.arrayPos == self.stopArray && curStrPos == curString.length){
 								// animation that occurs on the last typed string
 								// place any finishing code here
-								self.options.callback();
-								clearTimeout();
+								var clear = self.options.callback();
+								clearTimeout(clear);
 							}
 						}
 					}
@@ -121,17 +121,20 @@
 
 				setTimeout(function() {
 
-						// ----- this part is optional ----- //
+					// ----- this part is optional ----- //
 						// check string array position
 						// on the first string, only delete one word
 						// the stopNum actually represents the amount of chars to
-						// keep in the current string. In my case it's 14.
-						// if (self.arrayPos == 1){
-						//	self.stopNum = 14;
+						// keep in the current string. In my case it's 14.						
+						// if (self.arrayPos == 0) {
+						//     self.stopNum = 11;
+						// }
+						// else if (self.arrayPos == 1) {
+						//     self.stopNum = 11;
 						// }
 						//every other time, delete the whole typed string
-						// else{
-						//	self.stopNum = 0;
+						// else {
+						//     self.stopNum = 0;
 						// }
 
 					// ----- continue important stuff ----- //
@@ -149,8 +152,8 @@
 						// if the stop number has been reached, increase 
 						// array position to next string
 						else if (curStrPos <= self.stopNum){
-							clearTimeout();
-							self.arrayPos = self.arrayPos+1;
+							clearTimeout(clear);
+							var clear = self.arrayPos = self.arrayPos+1;
 							// must pass new array position in this instance
 							// instead of using global arrayPos
 							self.typewrite(self.strings[self.arrayPos], curStrPos);
@@ -185,5 +188,8 @@
 
 
 }(window.jQuery);
+	
+
+
 	
 
