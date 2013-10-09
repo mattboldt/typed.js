@@ -4,46 +4,43 @@
 
 	var Typed = function(el, options){
 
-		// for variable scope's sake
-		self = this;
-
 		// chosen element to manipulate text
-		self.el = $(el);
+		this.el = $(el);
 		// options
-		self.options = $.extend({}, $.fn.typed.defaults, options);
+		this.options = $.extend({}, $.fn.typed.defaults, options);
 
 		// text content of element
-		self.text = self.el.text();
+		this.text = this.el.text();
 
 		// typing speed
-		self.typeSpeed = self.options.typeSpeed;
+		this.typeSpeed = this.options.typeSpeed;
 
 		// amount of time to wait before backspacing
-		self.backDelay = self.options.backDelay;
+		this.backDelay = this.options.backDelay;
 
 		// input strings of text
-		self.strings = self.options.strings;
+		this.strings = this.options.strings;
 
 		// character number position of current string
-		self.strPos = 0;
+		this.strPos = 0;
 
 		// current array position
-		self.arrayPos = 0;
+		this.arrayPos = 0;
 
 		// current string based on current values[] array position
-		self.string = self.strings[self.arrayPos];
+		this.string = this.strings[this.arrayPos];
 
 		// number to stop backspacing on.
 		// default 0, can change depending on how many chars
 		// you want to remove at the time
-		self.stopNum = 0;
+		this.stopNum = 0;
 
 		// number in which to stop going through array
 		// set to strings[] array (length - 1) to stop deleting after last string is typed
-		self.stopArray = self.strings.length-1;
+		this.stopArray = this.strings.length-1;
 
 		// All systems go!
-		self.init();
+		this.init();
 	}
 
 		Typed.prototype =  {
@@ -53,11 +50,8 @@
 			, init: function(){
 				// begin the loop w/ first current string (global self.string)
 				// current string will be passed as an argument each time after this
-				var string = self.string,
-					strPos = self.strPos,
-					arrayPos = self.arrayPos;
-				self.typewrite(string, strPos);
-				self.el.after("<span id=\"typed-cursor\">|</span>");
+				this.typewrite(this.string, this.strPos);
+				this.el.after("<span id=\"typed-cursor\">|</span>");
 			}
 
 			// pass current string state to each function
@@ -65,7 +59,8 @@
 
 				// varying values for setTimeout during typing
 				// can't be global since number changes each time loop is executed
-				var humanize = Math.round(Math.random() * (100 - 30)) + self.typeSpeed;
+				var humanize = Math.round(Math.random() * (100 - 30)) + this.typeSpeed;
+				var self = this;
 
 				// ------ optional ------ //
 				// custom backspace delay
@@ -120,7 +115,8 @@
 
 				// varying values for setTimeout during typing
 				// can't be global since number changes each time loop is executed
-				var humanize = Math.round(Math.random() * (100 - 30)) + self.typeSpeed;
+				var humanize = Math.round(Math.random() * (100 - 30)) + this.typeSpeed;
+				var self = this;
 
 				setTimeout(function() {
 
