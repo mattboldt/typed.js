@@ -13,9 +13,11 @@
 			strings: ["Typed.js is a jQuery plugin.", "It types out sentences.", "And then deletes them.", "Try it out!"],
 			typeSpeed: 30,
 			backDelay: 500,
+			loop: false,
+			callback: function(){ foo(); }
 		});
 
-		function foo(){ return "Callback"; }
+		function foo(){ console.log("Callback"); }
 
 	});
 	</script>
@@ -64,8 +66,7 @@
 		<h1 class="h1">Typed.js</h1>
 
 		<div class="type-wrap">
-			<span id="typed">
-			</span>
+			<span id="typed"></span>
 		</div>
 
 		<div class="links">

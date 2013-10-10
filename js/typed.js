@@ -35,12 +35,20 @@
 		// you want to remove at the time
 		this.stopNum = 0;
 
-		// number in which to stop going through array
-		// set to strings[] array (length - 1) to stop deleting after last string is typed
-		this.stopArray = this.strings.length-1;
+		// Looping logic
+		this.loop = this.options.loop;
+		if (this.loop === false){
+			// number in which to stop going through array
+			// set to strings[] array (length - 1) to stop deleting after last string is typed
+			this.stopArray = this.strings.length-1;
+		}
+		else{
+			this.stopArray = this.strings.length;
+		}
 
 		// All systems go!
 		this.init();
+		this.build();
 	}
 
 		Typed.prototype =  {
@@ -51,6 +59,9 @@
 				// begin the loop w/ first current string (global self.string)
 				// current string will be passed as an argument each time after this
 				this.typewrite(this.string, this.strPos);
+			}
+
+			, build: function(){
 				this.el.after("<span id=\"typed-cursor\">|</span>");
 			}
 
@@ -62,8 +73,9 @@
 				var humanize = Math.round(Math.random() * (100 - 30)) + this.typeSpeed;
 				var self = this;
 
-				// ------ optional ------ //
-				// custom backspace delay
+				// ------------- optional ------------- //
+				// backpaces a certain string faster
+				// ------------------------------------ //
 				// if (self.arrayPos == 1){
 				// 	self.backDelay = 50;
 				// }
@@ -97,13 +109,21 @@
 							self.typewrite(curString, curStrPos);
 							// if the array position is at the stopping position
 							// finish code, on to next task
-							if (self.arrayPos == self.stopArray && curStrPos == curString.length){
-								// animation that occurs on the last typed string
-								// place any finishing code here
-								var clear = self.options.callback();
-								clearTimeout(clear);
+							if (self.loop === false){
+								if (self.arrayPos == self.stopArray && curStrPos == curString.length){
+									// animation that occurs on the last typed string
+									// fires callback function
+									var clear = self.options.callback();
+									clearTimeout(clear);
+								}
 							}
 						}
+					}
+					// if the array position is greater than array length
+					// and looping is active, reset array pos and start over.
+					else if (self.loop === true){
+					   self.arrayPos = 0;
+					   self.init();
 					}
 
 				// humanized value for typing
@@ -121,39 +141,39 @@
 				setTimeout(function() {
 
 					// ----- this part is optional ----- //
-						// check string array position
-						// on the first string, only delete one word
-						// the stopNum actually represents the amount of chars to
-						// keep in the current string. In my case it's 14.
-						// if (self.arrayPos == 1){
-						//	self.stopNum = 14;
-						// }
-						//every other time, delete the whole typed string
-						// else{
-						//	self.stopNum = 0;
-						// }
+					// check string array position
+					// on the first string, only delete one word
+					// the stopNum actually represents the amount of chars to
+					// keep in the current string. In my case it's 14.
+					// if (self.arrayPos == 1){
+					//	self.stopNum = 14;
+					// }
+					//every other time, delete the whole typed string
+					// else{
+					//	self.stopNum = 0;
+					// }
 
 					// ----- continue important stuff ----- //
-						// replace text with current text + typed characters
-						self.el.text(self.text + curString.substr(0, curStrPos));
+					// replace text with current text + typed characters
+					self.el.text(self.text + curString.substr(0, curStrPos));
 
-						// if the number (id of character in current string) is
-						// less than the stop number, keep going
-						if (curStrPos > self.stopNum){
-							// subtract characters one by one
-							curStrPos--;
-							// loop the function
-							self.backspace(curString, curStrPos);
-						}
-						// if the stop number has been reached, increase
-						// array position to next string
-						else if (curStrPos <= self.stopNum){
-							clearTimeout(clear);
-							var clear = self.arrayPos = self.arrayPos+1;
-							// must pass new array position in this instance
-							// instead of using global arrayPos
-							self.typewrite(self.strings[self.arrayPos], curStrPos);
-						}
+					// if the number (id of character in current string) is
+					// less than the stop number, keep going
+					if (curStrPos > self.stopNum){
+						// subtract characters one by one
+						curStrPos--;
+						// loop the function
+						self.backspace(curString, curStrPos);
+					}
+					// if the stop number has been reached, increase
+					// array position to next string
+					else if (curStrPos <= self.stopNum){
+						clearTimeout(clear);
+						var clear = self.arrayPos = self.arrayPos+1;
+						// must pass new array position in this instance
+						// instead of using global arrayPos
+						self.typewrite(self.strings[self.arrayPos], curStrPos);
+					}
 
 				// humanized value for typing
 				}, humanize);
@@ -178,6 +198,8 @@
 		typeSpeed: 0,
 		// time before backspacing
 		backDelay: 500,
+		// Infinite loop
+		loop: false,
 		// ending callback function
 		callback: function(){ null }
 	}
