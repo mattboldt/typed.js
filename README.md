@@ -42,9 +42,9 @@ Want the animated blinking cursor? Add this CSS.
   		50% { opacity:0; }
   		100% { opacity:1; }
 	}
-	
+
 Customization
-----	
+----
 
 	<script>
 		$(function(){
@@ -52,11 +52,13 @@ Customization
         		strings: ["First sentence.", "Second sentence."],
         		typeSpeed: 30, // typing speed
         		backDelay: 500, // pause before backspacing
+        		loop: false, // loop on or off (true or false)
+        		loopCount: false, // number of loops, false = infinite
         		callback: function(){ } // call function after typing is done
       		});
  		});
 	</script>
-	
+
 Want to get really custom? On my site and in the Typed.js demo I have the code type out two words, and then backspace only those two, then continue where it left off. This is done in an `if` statement in the `backspace()` function. Here's what it looks like.
 
 	...
@@ -77,7 +79,7 @@ Want to get really custom? On my site and in the Typed.js demo I have the code t
 					self.stopNum = 0;
 				}
 	...
-	
+
 This checks if the `arrayPos` is `1`, which would be the second string you entered. If so, it sets `stopNum` to `3` instead of `0`, which tells it to stop when there are 3 characters left. For now you'll have to create custom `if` statements for each specific case you want. I may automate this somehow in the future.
 
 end
@@ -90,4 +92,4 @@ If you're using this, let me know! I'd love to see it.
 
 It would also be great if you mentioned me or my website somewhere. [www.mattboldt.com](http://www.mattboldt.com)
 
-	
+
