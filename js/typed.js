@@ -37,6 +37,8 @@
 
 		// Looping logic
 		this.loop = this.options.loop;
+		this.loopCount = this.options.loopCount;
+		this.curLoop = 1;
 		if (this.loop === false){
 			// number in which to stop going through array
 			// set to strings[] array (length - 1) to stop deleting after last string is typed
@@ -110,7 +112,7 @@
 							// if the array position is at the stopping position
 							// finish code, on to next task
 							if (self.loop === false){
-								if (self.arrayPos == self.stopArray && curStrPos == curString.length){
+								if (self.arrayPos === self.stopArray && curStrPos === curString.length){
 									// animation that occurs on the last typed string
 									// fires callback function
 									var clear = self.options.callback();
@@ -121,10 +123,15 @@
 					}
 					// if the array position is greater than array length
 					// and looping is active, reset array pos and start over.
-					else if (self.loop === true){
-					   self.arrayPos = 0;
-					   self.init();
+					else if (self.loop === true && self.loopCount === false){
+						self.arrayPos = 0;
+						self.init();
 					}
+						else if(self.loopCount !== false && self.curLoop < self.loopCount){
+							self.arrayPos = 0;
+							self.curLoop = self.curLoop+1;
+							self.init();
+						}
 
 				// humanized value for typing
 				}, humanize);
@@ -198,8 +205,10 @@
 		typeSpeed: 0,
 		// time before backspacing
 		backDelay: 500,
-		// Infinite loop
+		// loop
 		loop: false,
+		// false = infinite
+		loopCount: false,
 		// ending callback function
 		callback: function(){ null }
 	}
