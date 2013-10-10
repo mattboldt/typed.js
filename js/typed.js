@@ -1,6 +1,6 @@
 !function($){
 
-	"use strict";
+	//"use strict";
 
 	var Typed = function(el, options){
 
@@ -64,10 +64,10 @@
 
 				// ------ optional ------ //
 				// custom backspace delay
-				// if (self.arrayPos == 1){
-				// 	self.backDelay = 50;
-				// }
-				// else{ self.backDelay = 500; }
+				//if (self.arrayPos == 0){
+				//    self.backDelay = 4000;
+				//}
+				//else{ self.backDelay = 1000; }
 
 				// containg entire typing function in a timeout
 				setTimeout(function() {
@@ -90,7 +90,7 @@
 						}
 
 						// else, keep typing
-						else{
+						else {
 							// add characters one by one
 							curStrPos++;
 							// loop the function
@@ -124,13 +124,16 @@
 						// check string array position
 						// on the first string, only delete one word
 						// the stopNum actually represents the amount of chars to
-						// keep in the current string. In my case it's 14.
-						// if (self.arrayPos == 1){
-						//	self.stopNum = 14;
+						// keep in the current string. In my case it's 14.						
+						// if (self.arrayPos == 0) {
+						//     self.stopNum = 11;
+						// }
+						// else if (self.arrayPos == 1) {
+						//     self.stopNum = 11;
 						// }
 						//every other time, delete the whole typed string
-						// else{
-						//	self.stopNum = 0;
+						// else {
+						//     self.stopNum = 0;
 						// }
 
 					// ----- continue important stuff ----- //
@@ -185,4 +188,7 @@
 
 }(window.jQuery);
 
+
+
+	
 
