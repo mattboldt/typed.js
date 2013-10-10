@@ -31,16 +31,38 @@ This is really all you need to get going.
 Want the animated blinking cursor? Add this CSS.
 
 	#typed-cursor{
-  		opacity: 1;
-  		font-weight: 100;
-  		// add prefixes
-  		animation: blink 0.7s infinite;
+		opacity: 1;
+		font-weight: 100;
+		-webkit-animation: blink 0.7s infinite;
+		-moz-animation: blink 0.7s infinite;
+		-ms-animation: blink 0.7s infinite;
+		-o-animation: blink 0.7s infinite;
+		animation: blink 0.7s infinite;
 	}
-
 	@-keyframes blink{
-  		0% { opacity:1; }
-  		50% { opacity:0; }
-  		100% { opacity:1; }
+		0% { opacity:1; }
+		50% { opacity:0; }
+		100% { opacity:1; }
+	}
+	@-webkit-keyframes blink{
+		0% { opacity:1; }
+		50% { opacity:0; }
+		100% { opacity:1; }
+	}
+	@-moz-keyframes blink{
+		0% { opacity:1; }
+		50% { opacity:0; }
+		100% { opacity:1; }
+	}
+	@-ms-keyframes blink{
+		0% { opacity:1; }
+		50% { opacity:0; }
+		100% { opacity:1; }
+	}
+	@-o-keyframes blink{
+		0% { opacity:1; }
+		50% { opacity:0; }
+		100% { opacity:1; }
 	}
 
 Customization
