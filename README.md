@@ -81,6 +81,9 @@ Customization
  		});
 	</script>
 
+
+**Get Super Custom**
+
 Want to get really custom? On my site and in the Typed.js demo I have the code type out two words, and then backspace only those two, then continue where it left off. This is done in an `if` statement in the `backspace()` function. Here's what it looks like.
 
 	...
@@ -107,7 +110,6 @@ This checks if the `arrayPos` is `1`, which would be the second string you enter
 end
 ---
 
----
 Thanks for checking this out. If you have any questions, I'll be on [Twitter](http://www.twitter.com/atmattb).
 
 If you're using this, let me know! I'd love to see it.
