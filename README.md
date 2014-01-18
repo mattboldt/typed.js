@@ -41,53 +41,28 @@ Want the animated blinking cursor? Add this CSS.
 	}
 	 
 	@-webkit-keyframes blink {
-	    0% {
-	        opacity: 0;
-	    }
-	 
-	    100% {
-	        opacity: 1;
-	    }
+	    0% { opacity: 0; }
+	    100% { opacity: 1; }
 	}
 	 
 	@-moz-keyframes blink {
-	    0% {
-	        opacity: 0;
-	    }
-	 
-	    100% {
-	        opacity: 1;
-	    }
+	    0% { opacity: 0; }
+	    100% { opacity: 1; }
 	}
 	 
 	@-ms-keyframes blink {
-	    0% {
-	        opacity: 0;
-	    }
-	 
-	    100% {
-	        opacity: 1;
-	    }
+	    0% { opacity: 0; }
+	    100% {  opacity: 1;  }
 	}
 	 
 	@-o-keyframes blink {
-	    0% {
-	        opacity: 0;
-	    }
-	 
-	    100% {
-	        opacity: 1;
-	    }
+	    0% {  opacity: 0; }
+	    100% { opacity: 1; }
 	}
 	 
 	@keyframes blink {
-	    0% {
-	        opacity: 0;
-	    }
-	 
-	    100% {
-	        opacity: 1;
-	    }
+	    0% { opacity: 0; }
+	    100% { opacity: 1; }
 	}
 
 Customization
