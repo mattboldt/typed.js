@@ -15,95 +15,103 @@ Installation
 ------------
 This is really all you need to get going.
 
-	<script src="typed.js"></script>
-	<script>
-  		$(function(){
-      		$(".element").typed({
-        		strings: ["First sentence.", "Second sentence."],
-        		typeSpeed: 0
-      		});
-  		});
-	</script>
-	...
+~~~ javascript
+<script src="typed.js"></script>
+<script>
+  	$(function(){
+      	$(".element").typed({
+		strings: ["First sentence.", "Second sentence."],
+		typeSpeed: 0
+      	});
+  	});
+</script>
+...
 
-	<div class="element"></div>
+<div class="element"></div>
+~~~
 
 Want the animated blinking cursor? Add this CSS.
 
-	#typed-cursor{
-		opacity: 1;
-		font-weight: 100;
-		-webkit-animation: blink 0.7s infinite;
-		-moz-animation: blink 0.7s infinite;
-		-ms-animation: blink 0.7s infinite;
-		-o-animation: blink 0.7s infinite;
-		animation: blink 0.7s infinite;
-	}
-	@-keyframes blink{
-		0% { opacity:1; }
-		50% { opacity:0; }
-		100% { opacity:1; }
-	}
-	@-webkit-keyframes blink{
-		0% { opacity:1; }
-		50% { opacity:0; }
-		100% { opacity:1; }
-	}
-	@-moz-keyframes blink{
-		0% { opacity:1; }
-		50% { opacity:0; }
-		100% { opacity:1; }
-	}
-	@-ms-keyframes blink{
-		0% { opacity:1; }
-		50% { opacity:0; }
-		100% { opacity:1; }
-	}
-	@-o-keyframes blink{
-		0% { opacity:1; }
-		50% { opacity:0; }
-		100% { opacity:1; }
-	}
+~~~ scss
+#typed-cursor{
+	opacity: 1;
+	font-weight: 100;
+	-webkit-animation: blink 0.7s infinite;
+	-moz-animation: blink 0.7s infinite;
+	-ms-animation: blink 0.7s infinite;
+	-o-animation: blink 0.7s infinite;
+	animation: blink 0.7s infinite;
+}
+@-keyframes blink{
+	0% { opacity:1; }
+	50% { opacity:0; }
+	100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+	0% { opacity:1; }
+	50% { opacity:0; }
+	100% { opacity:1; }
+}
+@-moz-keyframes blink{
+	0% { opacity:1; }
+	50% { opacity:0; }
+	100% { opacity:1; }
+}
+@-ms-keyframes blink{
+	0% { opacity:1; }
+	50% { opacity:0; }
+	100% { opacity:1; }
+}
+@-o-keyframes blink{
+	0% { opacity:1; }
+	50% { opacity:0; }
+	100% { opacity:1; }
+}
+~~~
 
 Customization
 ----
 
-	<script>
-		$(function(){
-      		$(".element").typed({
-        		strings: ["First sentence.", "Second sentence."],
-        		typeSpeed: 30, // typing speed
-        		backDelay: 500, // pause before backspacing
-        		loop: false, // loop on or off (true or false)
-        		loopCount: false, // number of loops, false = infinite
-        		callback: function(){ } // call function after typing is done
-      		});
- 		});
-	</script>
+~~~ javascript
+<script>
+	$(function(){
+      	$(".element").typed({
+		strings: ["First sentence.", "Second sentence."],
+		typeSpeed: 30, // typing speed
+		backDelay: 500, // pause before backspacing
+		loop: false, // loop on or off (true or false)
+		loopCount: false, // number of loops, false = infinite
+		callback: function(){ } // call function after typing is done
+      	});
+ 	});
+</script>
+~~~
 
 
 **Get Super Custom**
 
 Want to get really custom? On my site and in the Typed.js demo I have the code type out two words, and then backspace only those two, then continue where it left off. This is done in an `if` statement in the `backspace()` function. Here's what it looks like.
 
+~~~ javascript
+...
+, backspace: function(curString, curStrPos){
 	...
-	, backspace: function(curString, curStrPos){
-		...
 
-		setTimeout(function() {
+	setTimeout(function() {
 
-				// check string array position
-				// on the first string, only delete one word
-				// the stopNum actually represents the amount of chars to
-				// keep in the current string. In my case it's 3.
-				if (self.arrayPos == 1){
-					self.stopNum = 3;
-				}
-				//every other time, delete the whole typed string
-				else{
-					self.stopNum = 0;
-				}
-	...
+			// check string array position
+			// on the first string, only delete one word
+			// the stopNum actually represents the amount of chars to
+			// keep in the current string. In my case it's 3.
+			if (self.arrayPos == 1){
+				self.stopNum = 3;
+			}
+			//every other time, delete the whole typed string
+			else{
+				self.stopNum = 0;
+			}
+...
+~~~
 
 This checks if the `arrayPos` is `1`, which would be the second string you entered. If so, it sets `stopNum` to `3` instead of `0`, which tells it to stop when there are 3 characters left. For now you'll have to create custom `if` statements for each specific case you want. I may automate this somehow in the future.
 
