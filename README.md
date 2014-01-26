@@ -16,6 +16,7 @@ Installation
 This is really all you need to get going.
 
 ~~~ javascript
+<script src="jquery.js"></script>
 <script src="typed.js"></script>
 <script>
   	$(function(){
