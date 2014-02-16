@@ -49,7 +49,6 @@
 		}
 
 		// All systems go!
-		this.init();
 		this.build();
 	}
 
@@ -65,6 +64,7 @@
 
 			, build: function(){
 				this.el.after("<span id=\"typed-cursor\">|</span>");
+				this.init();
 			}
 
 			// pass current string state to each function
