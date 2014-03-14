@@ -33,7 +33,7 @@
 		// number to stop backspacing on.
 		// default 0, can change depending on how many chars
 		// you want to remove at the time
-		this.stopNum = 0;
+		this.stopNum = 0;                
 
 		// Looping logic
 		this.loop = this.options.loop;
@@ -47,9 +47,18 @@
 		else{
 			this.stopArray = this.strings.length;
 		}
-
+        
+        // Add a property to hold the type timer.
+        this.typeTimer = null;
+        
 		// All systems go!
 		this.build();
+        
+        // Add public function to allow clearing the type timer so it can be 
+        // called to stop itself.
+        this.stop = function() {
+            clearTimeout(this.typeTimer);
+        };
 	}
 
 		Typed.prototype =  {
@@ -82,9 +91,8 @@
 				// 	self.backDelay = 50;
 				// }
 				// else{ self.backDelay = 500; }
-
-				// containg entire typing function in a timeout
-				setTimeout(function() {
+                
+				this.typeTimer = setTimeout(function() {
 
 					// make sure array position is less than array length
 					if (self.arrayPos < self.strings.length){
@@ -198,7 +206,7 @@
 	      if (typeof option == 'string') data[option]()
 	    });
 	}
-
+    
 	$.fn.typed.defaults = {
 		strings: ["These are the default values...", "You know what you should do?", "Use your own!", "Have a great day!"],
 		// typing and backspacing speed
@@ -212,8 +220,8 @@
 		// ending callback function
 		callback: function(){ null }
 	}
-
-
+    
+    
 }(window.jQuery);
 
 
