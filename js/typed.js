@@ -35,6 +35,9 @@
 		// you want to remove at the time
 		this.stopNum = 0;
 
+		//add a delay before typing starts
+		this.startDelay = this.options.startDelay;
+
 		// Looping logic
 		this.loop = this.options.loop;
 		this.loopCount = this.options.loopCount;
@@ -59,7 +62,8 @@
 			, init: function(){
 				// begin the loop w/ first current string (global self.string)
 				// current string will be passed as an argument each time after this
-				this.typewrite(this.string, this.strPos);
+				var self  = this;
+			  setTimeout(function() { self.typewrite(self.string, self.strPos) }, self.startDelay);
 			}
 
 			, build: function(){
@@ -209,11 +213,11 @@
 		loop: false,
 		// false = infinite
 		loopCount: false,
+		//time before typing starts
+		startDelay: 0,
 		// ending callback function
 		callback: function(){ null }
 	}
 
 
 }(window.jQuery);
-
-
