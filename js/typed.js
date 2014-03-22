@@ -39,6 +39,9 @@
 
 		// typing speed
 		this.typeSpeed = this.options.typeSpeed;
+		
+		// add a delay before typing starts
+		this.startDelay = this.options.startDelay;
 
 		// amount of time to wait before backspacing
 		this.backDelay = this.options.backDelay;
@@ -59,9 +62,6 @@
 		// default 0, can change depending on how many chars
 		// you want to remove at the time
 		this.stopNum = 0;
-
-		//add a delay before typing starts
-		this.startDelay = this.options.startDelay;
 
 		// Looping logic
 		this.loop = this.options.loop;
@@ -88,10 +88,14 @@
 				// begin the loop w/ first current string (global self.string)
 				// current string will be passed as an argument each time after this
 				var self  = this;
-			  setTimeout(function() { self.typewrite(self.string, self.strPos) }, self.startDelay);
+			  	setTimeout(function() {
+			  		// Start typing
+					self.typewrite(self.string, self.strPos)
+			  	}, self.startDelay);
 			}
 
 			, build: function(){
+				// Insert cursor
 				this.el.after("<span id=\"typed-cursor\">|</span>");
 				this.init();
 			}
@@ -232,14 +236,14 @@
 		strings: ["These are the default values...", "You know what you should do?", "Use your own!", "Have a great day!"],
 		// typing and backspacing speed
 		typeSpeed: 0,
+		// time before typing starts
+		startDelay: 0,
 		// time before backspacing
 		backDelay: 500,
 		// loop
 		loop: false,
 		// false = infinite
 		loopCount: false,
-		//time before typing starts
-		startDelay: 0,
 		// ending callback function
 		callback: function(){ null }
 	}
