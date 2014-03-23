@@ -13,6 +13,10 @@ Weighing in at only 6kb uncompressed, it's got a small footprint and doesn't slo
 
 ---
 
+Looking for some custom use cases for Typed.js? [Check out the wiki ](https://github.com/mattboldt/typed.js/wiki)
+
+---
+
 Installation
 ------------
 This is really all you need to get going.
