@@ -119,43 +119,59 @@
 				// }
 				// else{ self.backDelay = 500; }
 
-				// containg entire typing function in a timeout
+				// containing entire typing function in a timeout
 				setTimeout(function() {
 
 					// make sure array position is less than array length
 					if (self.arrayPos < self.strings.length){
-
-						// start typing each new char into existing string
-						// curString is function arg
-						self.el.text(self.text + curString.substr(0, curStrPos));
-
-						// check if current character number is the string's length
-						// and if the current array position is less than the stopping point
-						// if so, backspace after backDelay setting
-						if (curStrPos > curString.length && self.arrayPos < self.stopArray){
-							clearTimeout(clear);
-							var clear = setTimeout(function(){
-								self.backspace(curString, curStrPos);
-							}, self.backDelay);
+					
+						// check for an escape character before a pause value
+						if (curString.substr(curStrPos,1)=="^") {
+							var charPauseEnd = curString.substr(curStrPos+1).indexOf(" ");
+							var charPause = curString.substr(curStrPos+1,charPauseEnd);
+							// strip out the escape character and pause value so they're not printed
+							curString = curString.replace("^"+charPause,"");
+						} else {
+							var charPause = 0;
 						}
+						
+						// timeout for any pause after a character
+						setTimeout(function() {
 
-						// else, keep typing
-						else{
-							// add characters one by one
-							curStrPos++;
-							// loop the function
-							self.typewrite(curString, curStrPos);
-							// if the array position is at the stopping position
-							// finish code, on to next task
-							if (self.loop === false){
-								if (self.arrayPos === self.stopArray && curStrPos === curString.length){
-									// animation that occurs on the last typed string
-									// fires callback function
-									var clear = self.options.callback();
-									clearTimeout(clear);
+							// start typing each new char into existing string
+							// curString is function arg
+							self.el.text(self.text + curString.substr(0, curStrPos));
+
+							// check if current character number is the string's length
+							// and if the current array position is less than the stopping point
+							// if so, backspace after backDelay setting
+							if (curStrPos > curString.length && self.arrayPos < self.stopArray){
+								clearTimeout(clear);
+								var clear = setTimeout(function(){
+									self.backspace(curString, curStrPos);
+								}, self.backDelay);
+							}
+
+							// else, keep typing
+							else{
+								// add characters one by one
+								curStrPos++;
+								// loop the function
+								self.typewrite(curString, curStrPos);
+								// if the array position is at the stopping position
+								// finish code, on to next task
+								if (self.loop === false){
+									if (self.arrayPos === self.stopArray && curStrPos === curString.length){
+										// animation that occurs on the last typed string
+										// fires callback function
+										var clear = self.options.callback();
+										clearTimeout(clear);
+									}
 								}
 							}
-						}
+							
+						// end of character pause
+						},charPause);
 					}
 					// if the array position is greater than array length
 					// and looping is active, reset array pos and start over.
