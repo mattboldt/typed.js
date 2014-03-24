@@ -43,6 +43,9 @@
 		// add a delay before typing starts
 		this.startDelay = this.options.startDelay;
 
+		// backspacing speed
+		this.backSpeed = this.options.backSpeed;
+
 		// amount of time to wait before backspacing
 		this.backDelay = this.options.backDelay;
 
@@ -175,7 +178,7 @@
 
 				// varying values for setTimeout during typing
 				// can't be global since number changes each time loop is executed
-				var humanize = Math.round(Math.random() * (100 - 30)) + this.typeSpeed;
+				var humanize = Math.round(Math.random() * (100 - 30)) + this.backSpeed;
 				var self = this;
 
 				setTimeout(function() {
@@ -234,10 +237,12 @@
 
 	$.fn.typed.defaults = {
 		strings: ["These are the default values...", "You know what you should do?", "Use your own!", "Have a great day!"],
-		// typing and backspacing speed
+		// typing speed
 		typeSpeed: 0,
 		// time before typing starts
 		startDelay: 0,
+		// backspacing speed
+		backSpeed: 0,
 		// time before backspacing
 		backDelay: 500,
 		// loop
