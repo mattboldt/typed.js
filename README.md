@@ -34,7 +34,7 @@ This is really all you need to get going.
 </script>
 ...
 
-<div class="element"></div>
+<span class="element"></span>
 ~~~
 
 Want the animated blinking cursor? Add this CSS.
