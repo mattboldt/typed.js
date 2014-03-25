@@ -119,19 +119,20 @@
 				// }
 				// else{ self.backDelay = 500; }
 
-				// containing entire typing function in a timeout
+				// contain typing function in a timeout
 				setTimeout(function() {
 
 					// make sure array position is less than array length
 					if (self.arrayPos < self.strings.length){
 					
 						// check for an escape character before a pause value
-						if (curString.substr(curStrPos,1)=="^") {
-							var charPauseEnd = curString.substr(curStrPos+1).indexOf(" ");
-							var charPause = curString.substr(curStrPos+1,charPauseEnd);
+						if (curString.substr(curStrPos, 1) === "^") {
+							var charPauseEnd = curString.substr(curStrPos + 1).indexOf(" ");
+							var charPause = curString.substr(curStrPos + 1, charPauseEnd);
 							// strip out the escape character and pause value so they're not printed
-							curString = curString.replace("^"+charPause,"");
-						} else {
+							curString = curString.replace("^" + charPause, "");
+						}
+						else {
 							var charPause = 0;
 						}
 						
