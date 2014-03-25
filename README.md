@@ -83,19 +83,34 @@ Customization
 <script>
 	$(function(){
       	$(".element").typed({
-		strings: ["First sentence.", "Second sentence."],
-		typeSpeed: 30, // typing speed
-		backDelay: 500, // pause before backspacing
-		loop: false, // loop on or off (true or false)
-		loopCount: false, // number of loops, false = infinite
-		callback: function(){ } // call function after typing is done
+			strings: ["First sentence.", "Second sentence."],
+			typeSpeed: 30, // typing speed
+			backDelay: 500, // pause before backspacing
+			loop: false, // loop on or off (true or false)
+			loopCount: false, // number of loops, false = infinite
+			callback: function(){ } // call function after typing is done
+      	});
+ 	});
+</script>
+~~~
+
+### Type Pausing
+
+You can pause in the middle of a string for a given amount of time by including an escape character.
+
+~~~ javascript
+<script>
+	$(function(){
+      	$(".element").typed({
+      		// Waits 1000ms after typing "First"
+			strings: ["First ^1000 sentence.", "Second sentence."]
       	});
  	});
 </script>
 ~~~
 
 
-**Get Super Custom**
+### Get Super Custom
 
 Want to get really custom? On my site and in the Typed.js demo I have the code type out two words, and then backspace only those two, then continue where it left off. This is done in an `if` statement in the `backspace()` function. Here's what it looks like.
 
