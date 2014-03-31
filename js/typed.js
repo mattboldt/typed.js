@@ -35,11 +35,11 @@
 		this.options = $.extend({}, $.fn.typed.defaults, options);
 
 		// text content of element
-		this.text = this.el.text();
+		this.text = this.el.html();
 
 		// typing speed
 		this.typeSpeed = this.options.typeSpeed;
-		
+
 		// add a delay before typing starts
 		this.startDelay = this.options.startDelay;
 
@@ -124,7 +124,7 @@
 
 					// make sure array position is less than array length
 					if (self.arrayPos < self.strings.length){
-					
+
 						// check for an escape character before a pause value
 						if (curString.substr(curStrPos, 1) === "^") {
 							var charPauseEnd = curString.substr(curStrPos + 1).indexOf(" ");
@@ -135,13 +135,19 @@
 						else {
 							var charPause = 0;
 						}
-						
+						if (curString.substr(curStrPos, 1) === "\n") {
+							var charPauseEnd = curString.substr(curStrPos + 1).indexOf(" ");
+							var charPause = curString.substr(curStrPos + 1, charPauseEnd);
+							// strip out the escape character and pause value so they're not printed
+							curString = curString.replace("\n" + charPause, "\n");
+						}
+
 						// timeout for any pause after a character
 						setTimeout(function() {
 
 							// start typing each new char into existing string
 							// curString is function arg
-							self.el.text(self.text + curString.substr(0, curStrPos));
+							self.el.append("<span>" + curString[curStrPos] + "</span>");
 
 							// check if current character number is the string's length
 							// and if the current array position is less than the stopping point
@@ -170,7 +176,7 @@
 									}
 								}
 							}
-							
+
 						// end of character pause
 						},charPause);
 					}
@@ -215,7 +221,8 @@
 
 					// ----- continue important stuff ----- //
 					// replace text with current text + typed characters
-					self.el.text(self.text + curString.substr(0, curStrPos));
+					// self.el.text(self.text + curString.substr(0, curStrPos));
+					self.el.find("span").last().html("");
 
 					// if the number (id of character in current string) is
 					// less than the stop number, keep going
