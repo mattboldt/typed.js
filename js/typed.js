@@ -148,6 +148,7 @@
 							// if so, backspace after backDelay setting
 							if (curStrPos > curString.length && self.arrayPos < self.stopArray){
 								clearTimeout(clear);
+                                self.options.onStringTyped();
 								var clear = setTimeout(function(){
 									self.backspace(curString, curStrPos);
 								}, self.backDelay);
@@ -267,7 +268,9 @@
 		// false = infinite
 		loopCount: false,
 		// ending callback function
-		callback: function(){ null }
+		callback: function(){ null },
+        //callback for every typed string
+        onStringTyped: function(){ null }
 	}
 
 
