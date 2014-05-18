@@ -16,10 +16,12 @@
 			loop: false,
 			// defaults to false for infinite loop
 			loopCount: false,
-			callback: function(){ foo(); }
+			callback: foo,
+            onStringTyped: bar
 		});
 
 		function foo(){ console.log("Callback"); }
+		function bar(){ console.log("String typed"); }
 
 	});
 	</script>
