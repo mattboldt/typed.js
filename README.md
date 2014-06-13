@@ -131,12 +131,19 @@ This checks if the `arrayPos` is `1`, which would be the second string you enter
 Wonderfull sites using Typed.js
 ---
 https://commando.io/
+
 http://testdouble.com/agency.html
+
 http://www.stephanemartinw.com/
+
 http://www.trelab.fi/en/
+
 http://jessejohnson.github.io/
+
 http://friendlydesign.co/testbuild/index.html
+
 http://patrickelhage.com/
+
 http://tairemadailey.com/
 
 
