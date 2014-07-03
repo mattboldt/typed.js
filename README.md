@@ -80,6 +80,21 @@ $(".typed").typed({ strings: ["Sentence with a\nline break."] });
 
 ~~~
 
+### Type Pausing
+
+You can pause in the middle of a string for a given amount of time by including an escape character.
+
+~~~ javascript
+<script>
+	$(function(){
+      	$(".element").typed({
+      		// Waits 1000ms after typing "First"
+			strings: ["First ^1000 sentence.", "Second sentence."]
+      	});
+ 	});
+</script>
+~~~
+
 
 Customization
 ----
@@ -94,21 +109,6 @@ Customization
 			loop: false, // loop on or off (true or false)
 			loopCount: false, // number of loops, false = infinite
 			callback: function(){ } // call function after typing is done
-      	});
- 	});
-</script>
-~~~
-
-### Type Pausing
-
-You can pause in the middle of a string for a given amount of time by including an escape character.
-
-~~~ javascript
-<script>
-	$(function(){
-      	$(".element").typed({
-      		// Waits 1000ms after typing "First"
-			strings: ["First ^1000 sentence.", "Second sentence."]
       	});
  	});
 </script>
