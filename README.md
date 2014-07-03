@@ -66,6 +66,21 @@ Want the animated blinking cursor? Add this CSS.
 }
 ~~~
 
+### Line Breaks
+
+Use `white-space: pre` in your typed text element, and then `\n` when typing out the strings. Example:
+
+~~~ html
+
+<span id="typed" style="white-space:pre"></span>
+
+...
+
+$(".typed").typed({ strings: ["Sentence with a\nline break."] });
+
+~~~
+
+
 Customization
 ----
 
