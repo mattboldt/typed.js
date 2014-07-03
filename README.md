@@ -42,11 +42,8 @@ Want the animated blinking cursor? Add this CSS.
 ~~~ scss
 #typed-cursor{
 	opacity: 1;
-	font-weight: 100;
 	-webkit-animation: blink 0.7s infinite;
 	-moz-animation: blink 0.7s infinite;
-	-ms-animation: blink 0.7s infinite;
-	-o-animation: blink 0.7s infinite;
 	animation: blink 0.7s infinite;
 }
 @keyframes blink{
