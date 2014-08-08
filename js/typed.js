@@ -82,7 +82,7 @@
             , init: function(){
                 // begin the loop w/ first current string (global self.string)
                 // current string will be passed as an argument each time after this
-                var self  = this;
+                var self = this;
                 self.timeout = setTimeout(function() {
                     // Start typing
                     self.typewrite(self.strings[self.arrayPos], self.strPos);
@@ -115,10 +115,10 @@
                 // }
                 // else{ self.backDelay = 500; }
 
-                // contain typing function in a timeout .. humanize'd delay
+                // contain typing function in a timeout humanize'd delay
                 self.timeout = setTimeout(function() {
                     // check for an escape character before a pause value
-                    // format: \^\d+ .. eg: ^1000 .. should be able to print the ^ too using ^^
+                    // format: \^\d+ eg: ^1000 should be able to print the ^ too using ^^
                     // single ^ are removed from string
                     var charPause = 0;
                     var substr = curString.substr(curStrPos);
@@ -180,8 +180,9 @@
 
             , backspace: function(curString, curStrPos){
                 // exit when stopped
-                if(this.stop === true)
+                if (this.stop === true) {
                    return;
+                }
                
                 // varying values for setTimeout during typing
                 // can't be global since number changes each time loop is executed
@@ -230,20 +231,36 @@
                 // humanized value for typing
                 }, humanize);
 
-            },
-            stop: function() {
-                var self = this;
+            }
+
+            // Start & Stop currently not working
+
+            // , stop: function() {
+            //     var self = this;
                 
-                self.stop = true;
-                clearInterval(self.timeout);
-            },
-            start: function() {
-                var self = this;
-                if(self.stop === false)
-                   return;
+            //     self.stop = true;
+            //     clearInterval(self.timeout);
+            // }
+
+            // , start: function() {
+            //     var self = this;
+            //     if(self.stop === false)
+            //        return;
                
-                this.stop = false;
-                this.init();
+            //     this.stop = false;
+            //     this.init();
+            // }
+
+            // Reset and rebuild the element
+            , reset: function(){
+                var self = this;
+                clearInterval(self.timeout);
+                var id = this.el.attr('id');
+                this.el.after('<span id="' + id + '"/>')
+                this.el.remove();
+                this.cursor.remove();
+                // Send the callback
+                self.options.resetCallback();
             }
 
         };
@@ -277,7 +294,9 @@
         // starting callback function before each string
         preStringTyped: function() {},
         //callback for every typed string
-        onStringTyped: function() {}
+        onStringTyped: function() {},
+        // callback for reset
+        resetCallback: function() {}
     };
 
 
