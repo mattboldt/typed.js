@@ -142,6 +142,8 @@ This checks if the `arrayPos` is `1`, which would be the second string you enter
 
 Wonderfull sites using Typed.js
 ---
+http://www.maxcdn.com/
+
 https://commando.io/
 
 http://testdouble.com/agency.html
