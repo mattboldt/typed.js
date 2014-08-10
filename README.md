@@ -40,7 +40,7 @@ This is really all you need to get going.
 Want the animated blinking cursor? Add this CSS.
 
 ~~~ scss
-#typed-cursor{
+.typed-cursor{
 	opacity: 1;
 	-webkit-animation: blink 0.7s infinite;
 	-moz-animation: blink 0.7s infinite;
