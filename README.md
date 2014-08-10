@@ -154,8 +154,6 @@ http://www.trelab.fi/en/
 
 http://jessejohnson.github.io/
 
-http://friendlydesign.co/testbuild/index.html
-
 http://patrickelhage.com/
 
 http://tairemadailey.com/
