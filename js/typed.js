@@ -40,6 +40,9 @@
         // typing speed
         this.typeSpeed = this.options.typeSpeed;
 
+        // custom cursor
+        this.customCursor = this.options.customCursor;
+        
         // add a delay before typing starts
         this.startDelay = this.options.startDelay;
 
@@ -91,7 +94,7 @@
 
             , build: function(){
                 // Insert cursor
-                this.cursor = $("<span class=\"typed-cursor\">|</span>");
+                this.cursor = $("<span class=\"typed-cursor\">" + this.customCursor + "</span>");
                 this.el.after(this.cursor);
                 this.init();
             }
@@ -279,6 +282,8 @@
         strings: ["These are the default values...", "You know what you should do?", "Use your own!", "Have a great day!"],
         // typing speed
         typeSpeed: 0,
+        // the cursor shown
+        customCursor: '|',
         // time before typing starts
         startDelay: 0,
         // backspacing speed
