@@ -118,20 +118,11 @@
                 // contain typing function in a timeout humanize'd delay
                 self.timeout = setTimeout(function() {
                     // check for an escape character before a pause value
-                    // format: \^\d+ eg: ^1000 should be able to print the ^ too using ^^
-                    // single ^ are removed from string
-                    var charPause = 0;
-                    var substr = curString.substr(curStrPos);
-                    if (substr.charAt(0) === '^') {
-                        var e = 1;
-                        if(substr.match(/^\^\d+/)) {
-                           substr = substr.replace(/^\^(\d+).*/, "$1");
-                           e += substr.length;
-                           charPause = parseInt(substr);
-                        }
-
+                    if (curString.substr(curStrPos, 1) === "^") {
+                        var charPauseEnd = curString.substr(curStrPos + 1).indexOf(" ");
+                        var charPause = curString.substr(curStrPos + 1, charPauseEnd);
                         // strip out the escape character and pause value so they're not printed
-                        curString = curString.substring(0,curStrPos)+curString.substring(curStrPos+e);
+                        curString = curString.replace("^" + charPause, "");
                     }
 
                     // timeout for any pause after a character
