@@ -69,7 +69,7 @@
         this.curLoop = 0;
         
         // for stopping
-        this.stop = false;
+        this.stopped = false;
 
         // All systems go!
         this.build();
@@ -89,7 +89,7 @@
                 }, self.startDelay);
             }
 
-            , build: function(){
+            , build: function() {
                 // Insert cursor
                 this.cursor = $("<span class=\"typed-cursor\">|</span>");
                 this.el.after(this.cursor);
@@ -99,7 +99,7 @@
             // pass current string state to each function, types 1 char per call
             , typewrite: function(curString, curStrPos){
                 // exit when stopped
-                if(this.stop === true)
+                if(this.stopped === true)
                    return;
                
                 // varying values for setTimeout during typing
@@ -123,17 +123,17 @@
                     var charPause = 0;
                     var substr = curString.substr(curStrPos);
                     if (substr.charAt(0) === '^') {
-                        var e = 1;
-                        if(substr.match(/^\^\d+/)) {
-                           substr = substr.replace(/^\^(\d+).*/, "$1");
-                           e += substr.length;
+                        var skip = 1;  // skip atleast 1
+                        if(/^\^\d+/.test(substr)) {
+                           substr = /\d+/.exec(substr)[0];
+                           skip += substr.length;
                            charPause = parseInt(substr);
                         }
 
                         // strip out the escape character and pause value so they're not printed
-                        curString = curString.substring(0,curStrPos)+curString.substring(curStrPos+e);
+                        curString = curString.substring(0,curStrPos)+curString.substring(curStrPos+skip);
                     }
-
+                    
                     // timeout for any pause after a character
                     self.timeout = setTimeout(function() {
                         if(curStrPos === curString.length) {
@@ -153,6 +153,7 @@
                            }
                            
                            self.timeout = setTimeout(function(){
+                              self.options.preBackspace(self.arrayPos);
                               self.backspace(curString, curStrPos);
                            }, self.backDelay);
                         } else {
@@ -180,7 +181,7 @@
 
             , backspace: function(curString, curStrPos){
                 // exit when stopped
-                if(this.stop === true)
+                if(this.stopped === true)
                    return;
                
                 // varying values for setTimeout during typing
@@ -234,15 +235,15 @@
             stop: function() {
                 var self = this;
                 
-                self.stop = true;
+                self.stopped = true;
                 clearInterval(self.timeout);
             },
             start: function() {
                 var self = this;
-                if(self.stop === false)
+                if(self.stopped === false)
                    return;
                
-                this.stop = false;
+                this.stopped = false;
                 this.init();
             }
 
@@ -277,7 +278,9 @@
         // starting callback function before each string
         preStringTyped: function() {},
         //callback for every typed string
-        onStringTyped: function() {}
+        onStringTyped: function() {},
+        // callback before backspace
+        preBackspace: function() {}
     };
 
 
