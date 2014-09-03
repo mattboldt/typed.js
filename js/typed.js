@@ -57,7 +57,7 @@
 
         // current array position
         this.arrayPos = 0;
-        
+
         // number to stop backspacing on.
         // default 0, can change depending on how many chars
         // you want to remove at the time
@@ -67,9 +67,12 @@
         this.loop = this.options.loop;
         this.loopCount = this.options.loopCount;
         this.curLoop = 0;
-        
+
         // for stopping
         this.stop = false;
+
+        // show cursor
+        this.showCursor = this.options.showCursor;
 
         // All systems go!
         this.build();
@@ -91,8 +94,10 @@
 
             , build: function(){
                 // Insert cursor
-                this.cursor = $("<span class=\"typed-cursor\">|</span>");
-                this.el.after(this.cursor);
+                if (this.showCursor === true){
+                  this.cursor = $("<span class=\"typed-cursor\">|</span>");
+                  this.el.after(this.cursor);
+                }
                 this.init();
             }
 
@@ -101,7 +106,7 @@
                 // exit when stopped
                 if(this.stop === true)
                    return;
-               
+
                 // varying values for setTimeout during typing
                 // can't be global since number changes each time loop is executed
                 var humanize = Math.round(Math.random() * (100 - 30)) + this.typeSpeed;
@@ -130,19 +135,19 @@
                         if(curStrPos === curString.length) {
                            // fires callback function
                            self.options.onStringTyped(self.arrayPos);
-                           
+
                             // is this the final string
                            if(self.arrayPos === self.strings.length-1) {
                               // animation that occurs on the last typed string
                               self.options.callback();
-                              
+
                               self.curLoop++;
-                              
+
                               // quit if we wont loop back
                               if(self.loop === false || self.curLoop === self.loopCount)
-                                 return;                           
+                                 return;
                            }
-                           
+
                            self.timeout = setTimeout(function(){
                               self.backspace(curString, curStrPos);
                            }, self.backDelay);
@@ -174,7 +179,7 @@
                 if (this.stop === true) {
                    return;
                 }
-               
+
                 // varying values for setTimeout during typing
                 // can't be global since number changes each time loop is executed
                 var humanize = Math.round(Math.random() * (100 - 30)) + this.backSpeed;
@@ -211,7 +216,7 @@
                     // array position to next string
                     else if (curStrPos <= self.stopNum) {
                         self.arrayPos++;
-                        
+
                         if(self.arrayPos === self.strings.length) {
                            self.arrayPos = 0;
                            self.init();
@@ -228,7 +233,7 @@
 
             // , stop: function() {
             //     var self = this;
-                
+
             //     self.stop = true;
             //     clearInterval(self.timeout);
             // }
@@ -237,7 +242,7 @@
             //     var self = this;
             //     if(self.stop === false)
             //        return;
-               
+
             //     this.stop = false;
             //     this.init();
             // }
@@ -280,6 +285,8 @@
         loop: false,
         // false = infinite
         loopCount: false,
+        // show cursor
+        showCursor: true,
         // call when done callback function
         callback: function() {},
         // starting callback function before each string
@@ -292,3 +299,4 @@
 
 
 }(window.jQuery);
+
