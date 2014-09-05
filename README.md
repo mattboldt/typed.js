@@ -101,10 +101,13 @@ Customization
 	$(function(){
       	$(".element").typed({
 			strings: ["First sentence.", "Second sentence."],
-			typeSpeed: 30, // typing speed
+			typeSpeed: 0, // typing speed
+			backSpeed: 0, // backspacing speed
+			startDelay: 0, // time before typing starts
 			backDelay: 500, // pause before backspacing
 			loop: false, // loop on or off (true or false)
 			loopCount: false, // number of loops, false = infinite
+			showCursor: true,
 			attr: null, // attribute to type, null = text for everything except inputs, which default to placeholder
 			callback: function(){ } // call function after typing is done
       	});
