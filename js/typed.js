@@ -31,11 +31,12 @@
 
         // chosen element to manipulate text
         this.el = $(el);
+
         // options
         this.options = $.extend({}, $.fn.typed.defaults, options);
 
         // text content of element
-        this.text = this.el.text();
+        this.baseText = this.el.text() || this.el.attr('placeholder') || '';
 
         // typing speed
         this.typeSpeed = this.options.typeSpeed;
@@ -71,8 +72,13 @@
         // for stopping
         this.stop = false;
 
+        var isInput = this.el.is('input'); 
+
         // show cursor
-        this.showCursor = this.options.showCursor;
+        this.showCursor = isInput ? false : this.options.showCursor;
+
+        // attribute to type
+        this.attr = this.options.attr || (isInput ? 'placeholder' : null);
 
         // All systems go!
         this.build();
@@ -158,8 +164,13 @@
                               self.options.preStringTyped(self.arrayPos);
 
                            // start typing each new char into existing string
-                           // curString: arg, self.text: original text inside element
-                           self.el.text(self.text + curString.substr(0, curStrPos+1));
+                           // curString: arg, self.baseText: original text inside element
+                           var nextString = self.baseText + curString.substr(0, curStrPos+1);
+                           if (self.attr) {
+                            self.el.attr(self.attr, nextString);
+                           } else {
+                            self.el.text(nextString);
+                           }
 
                            // add characters one by one
                            curStrPos++;
@@ -201,8 +212,13 @@
                     // }
 
                     // ----- continue important stuff ----- //
-                    // replace text with current text + typed characters
-                    self.el.text(self.text + curString.substr(0, curStrPos));
+                    // replace text with base text + typed characters
+                    var nextString = self.baseText + curString.substr(0, curStrPos);
+                    if (self.attr) {
+                     self.el.attr(self.attr, nextString);
+                    } else {
+                     self.el.text(nextString);
+                    }
 
                     // if the number (id of character in current string) is
                     // less than the stop number, keep going
@@ -287,6 +303,8 @@
         loopCount: false,
         // show cursor
         showCursor: true,
+        // attribute to type (null == text)
+        attr: null,
         // call when done callback function
         callback: function() {},
         // starting callback function before each string
