@@ -39,7 +39,9 @@ This is really all you need to get going.
 
 ### Install with Bower
 
-`bower install typed.js`
+~~~
+bower install typed.js
+~~~
 
 
 Want the animated blinking cursor? Add this CSS.
