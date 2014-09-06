@@ -72,13 +72,15 @@
         // for stopping
         this.stop = false;
 
-        var isInput = this.el.is('input'); 
-
         // show cursor
-        this.showCursor = isInput ? false : this.options.showCursor;
+        this.showCursor = this.isInput ? false : this.options.showCursor;
+
+        // custom cursor
+        this.cursorChar = this.options.cursorChar;
 
         // attribute to type
-        this.attr = this.options.attr || (isInput ? 'placeholder' : null);
+        this.isInput = this.el.is('input');
+        this.attr = this.options.attr || (this.isInput ? 'placeholder' : null);
 
         // All systems go!
         this.build();
@@ -101,7 +103,7 @@
             , build: function(){
                 // Insert cursor
                 if (this.showCursor === true){
-                  this.cursor = $("<span class=\"typed-cursor\">|</span>");
+                  this.cursor = $("<span class=\"typed-cursor\">" + this.cursorChar + "</span>");
                   this.el.after(this.cursor);
                 }
                 this.init();
@@ -129,11 +131,20 @@
                 // contain typing function in a timeout humanize'd delay
                 self.timeout = setTimeout(function() {
                     // check for an escape character before a pause value
-                    if (curString.substr(curStrPos, 1) === "^") {
-                        var charPauseEnd = curString.substr(curStrPos + 1).indexOf(" ");
-                        var charPause = curString.substr(curStrPos + 1, charPauseEnd);
+                    // format: \^\d+ .. eg: ^1000 .. should be able to print the ^ too using ^^
+                    // single ^ are removed from string
+                    var charPause = 0;
+                    var substr = curString.substr(curStrPos);
+                    if (substr.charAt(0) === '^') {
+                        var skip = 1;  // skip atleast 1
+                        if(/^\^\d+/.test(substr)) {
+                           substr = /\d+/.exec(substr)[0];
+                           skip += substr.length;
+                           charPause = parseInt(substr);
+                        }
+
                         // strip out the escape character and pause value so they're not printed
-                        curString = curString.replace("^" + charPause, "");
+                        curString = curString.substring(0,curStrPos)+curString.substring(curStrPos+skip);
                     }
 
                     // timeout for any pause after a character
@@ -303,6 +314,8 @@
         loopCount: false,
         // show cursor
         showCursor: true,
+        // character for cursor
+        cursorChar: "|",
         // attribute to type (null == text)
         attr: null,
         // call when done callback function
