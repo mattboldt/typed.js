@@ -37,6 +37,11 @@ This is really all you need to get going.
 <span class="element"></span>
 ~~~
 
+### Install with Bower
+
+`bower install typed.js`
+
+
 Want the animated blinking cursor? Add this CSS.
 
 ~~~ scss
