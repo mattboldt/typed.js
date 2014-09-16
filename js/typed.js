@@ -53,6 +53,9 @@
         // input strings of text
         this.strings = this.options.strings;
 
+        // backspace until needed
+        this.smartBack = this.options.smartBack;
+
         // character number position of current string
         this.strPos = 0;
 
@@ -231,6 +234,12 @@
                      self.el.text(nextString);
                     }
 
+                    if (self.smartBack) {
+                      if (curString.substr(0, curStrPos) == self.strings[self.arrayPos+1].substr(0, curStrPos)) {
+                        self.stopNum = curStrPos;
+                      }
+                    }
+
                     // if the number (id of character in current string) is
                     // less than the stop number, keep going
                     if (curStrPos > self.stopNum){
@@ -314,6 +323,8 @@
         loopCount: false,
         // show cursor
         showCursor: true,
+        // backspace until needed
+        smartBack: false,
         // character for cursor
         cursorChar: "|",
         // attribute to type (null == text)
