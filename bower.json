@@ -11,6 +11,6 @@
     "typed",
     "animation"
   ],
-  "ignore": "",
+  "ignore": [],
   "license": "MIT"
 }
