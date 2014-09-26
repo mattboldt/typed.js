@@ -97,6 +97,10 @@
                 // begin the loop w/ first current string (global self.string)
                 // current string will be passed as an argument each time after this
                 var self = this;
+                // Adds base text to strings array if user replace setting enabled
+                if(this.replaceBaseText) {
+                    this.strings.unshift(self.baseText);
+                }
                 self.timeout = setTimeout(function() {
                     var currentWord = (self.arrayPos === 0 && self.replaceBaseText) ? (self.baseText) : self.strings[self.arrayPos];
                     // Start typing
@@ -308,7 +312,7 @@
     $.fn.typed.defaults = {
 
         // Typewrite away original text on start
-        replaceBaseText: true,
+        replaceBaseText: false,
 
         strings: ["These are the default values...", "You know what you should do?", "Use your own!", "Have a great day!"],
         // typing speed
