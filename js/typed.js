@@ -36,7 +36,10 @@
         this.options = $.extend({}, $.fn.typed.defaults, options);
 
         // text content of element
-        this.baseText = this.el.text() || this.el.attr('placeholder') || '';
+        this.baseText = (this.options.baseText !== undefined) ? this.options.baseText : this.el.text() || this.el.attr('placeholder') || '';
+
+        // replace base text on first word
+        this.replaceBaseText = this.options.replaceBaseText;
 
         // typing speed
         this.typeSpeed = this.options.typeSpeed;
@@ -54,7 +57,7 @@
         this.strings = this.options.strings;
 
         // character number position of current string
-        this.strPos = 0;
+        this.strPos = (this.replaceBaseText) ? this.baseText.length : 0;
 
         // current array position
         this.arrayPos = 0;
@@ -95,8 +98,9 @@
                 // current string will be passed as an argument each time after this
                 var self = this;
                 self.timeout = setTimeout(function() {
+                    var currentWord = (self.arrayPos === 0 && self.replaceBaseText) ? (self.baseText) : self.strings[self.arrayPos];
                     // Start typing
-                    self.typewrite(self.strings[self.arrayPos], self.strPos);
+                    self.typewrite(currentWord, self.strPos);
                 }, self.startDelay);
             }
 
@@ -135,6 +139,7 @@
                     // single ^ are removed from string
                     var charPause = 0;
                     var substr = curString.substr(curStrPos);
+                    // console.log(curString, substr, curStrPos);
                     if (substr.charAt(0) === '^') {
                         var skip = 1;  // skip atleast 1
                         if(/^\^\d+/.test(substr)) {
@@ -176,7 +181,8 @@
 
                            // start typing each new char into existing string
                            // curString: arg, self.baseText: original text inside element
-                           var nextString = self.baseText + curString.substr(0, curStrPos+1);
+                           var nextSubString = curString.substr(0, curStrPos+1);
+                           var nextString = (self.replaceBaseText) ? nextSubString : (self.baseText + nextSubString);
                            if (self.attr) {
                             self.el.attr(self.attr, nextString);
                            } else {
@@ -224,7 +230,8 @@
 
                     // ----- continue important stuff ----- //
                     // replace text with base text + typed characters
-                    var nextString = self.baseText + curString.substr(0, curStrPos);
+                    var curSubString = curString.substr(0, curStrPos+1);
+                    var nextString = (self.replaceBaseText) ? curSubString : (self.baseText + curSubString);
                     if (self.attr) {
                      self.el.attr(self.attr, nextString);
                     } else {
@@ -299,6 +306,10 @@
     };
 
     $.fn.typed.defaults = {
+
+        // Typewrite away original text on start
+        replaceBaseText: true,
+
         strings: ["These are the default values...", "You know what you should do?", "Use your own!", "Have a great day!"],
         // typing speed
         typeSpeed: 0,
@@ -330,4 +341,3 @@
 
 
 }(window.jQuery);
-
