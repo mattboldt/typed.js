@@ -3,17 +3,11 @@ Typed.js
 
 [View the live demo](http://www.mattboldt.com/demos/typed-js/) | [Go to my site, mattboldt.com](http://www.mattboldt.com)
 
-Prefer Coffeescript? Check out [Typed.coffee](https://github.com/mattboldt/typed.coffee)
-
 Typed.js is a jQuery plugin that types. Enter in any string, and watch it type at the speed you've set, backspace what it's typed, and begin a new sentence for however many strings you've set.
-
-It can be used as a subtle animation on your website, a visual demo of a note taking application, or anything else you can think of.
-
-Weighing in at only 6kb uncompressed, it's got a small footprint and doesn't slow down the rest of your site.
 
 ---
 
-Looking for some custom use cases for Typed.js? [Check out the wiki ](https://github.com/mattboldt/typed.js/wiki)
+Looking for some custom use cases for Typed.js? [Check out the wiki](https://github.com/mattboldt/typed.js/wiki)
 
 ---
 
