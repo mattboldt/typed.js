@@ -106,6 +106,7 @@ Customization
 			backSpeed: 0, // backspacing speed
 			startDelay: 0, // time before typing starts
 			backDelay: 500, // pause before backspacing
+			smartBack: false, // backspacing until needed
 			loop: false, // loop on or off (true or false)
 			loopCount: false, // number of loops, false = infinite
 			showCursor: true,
