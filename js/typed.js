@@ -278,8 +278,15 @@
             , reset: function(){
                 var self = this;
                 clearInterval(self.timeout);
-                var id = this.el.attr('id');
-                this.el.after('<span id="' + id + '"/>')
+
+                if(this.isInput) {
+                    var name = this.el.attr('name');
+                    this.el.after('<input name="' + name + '" type="text">');
+                } else {
+                    var id = this.el.attr('id');
+                    this.el.after('<span id="' + id + '"/>');
+                }
+
                 this.el.remove();
                 this.cursor.remove();
                 // Send the callback
