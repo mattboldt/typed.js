@@ -77,6 +77,14 @@ $(".element").typed({
 
 ### Line Breaks
 
+#### `contentType: 'html'`
+
+~~~ html
+$(".typed").typed({ strings: ["Sentence with <br>line break."] });
+~~~
+
+#### `contentType: 'text'`
+
 Use `white-space: pre` in your typed text element, and then `\n` when typing out the strings. Example:
 
 ~~~ html
