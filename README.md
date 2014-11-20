@@ -21,8 +21,8 @@ This is really all you need to get going.
 <script>
   	$(function(){
       	$(".element").typed({
-		strings: ["First sentence.", "Second sentence."],
-		typeSpeed: 0
+			strings: ["First sentence.", "Second sentence."],
+			typeSpeed: 0
       	});
   	});
 </script>
@@ -62,6 +62,17 @@ Want the animated blinking cursor? Add this CSS.
 	50% { opacity:0; }
 	100% { opacity:1; }
 }
+~~~
+
+### HTML tags
+
+By default the content type is set to `html`, so you're good to go. Want to type out the html regularly? Set it to `text`.
+
+~~~ javascript
+$(".element").typed({
+	strings: ["Typed.js is a <strong>jQuery</strong> plugin."],
+	contentType: 'html' // or 'text'
+});
 ~~~
 
 ### Line Breaks
