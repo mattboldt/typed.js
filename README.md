@@ -19,12 +19,12 @@ This is really all you need to get going.
 <script src="jquery.js"></script>
 <script src="typed.js"></script>
 <script>
-  	$(function(){
-      	$(".element").typed({
+	$(function(){
+		$(".element").typed({
 			strings: ["First sentence.", "Second sentence."],
 			typeSpeed: 0
-      	});
-  	});
+		});
+	});
 </script>
 ...
 
@@ -104,11 +104,11 @@ You can pause in the middle of a string for a given amount of time by including 
 ~~~ javascript
 <script>
 	$(function(){
-      	$(".element").typed({
-      		// Waits 1000ms after typing "First"
+		$(".element").typed({
+			// Waits 1000ms after typing "First"
 			strings: ["First ^1000 sentence.", "Second sentence."]
-      	});
- 	});
+		});
+	});
 </script>
 ~~~
 
@@ -119,19 +119,38 @@ Customization
 ~~~ javascript
 <script>
 	$(function(){
-      	$(".element").typed({
+		$(".element").typed({
 			strings: ["First sentence.", "Second sentence."],
-			typeSpeed: 0, // typing speed
-			backSpeed: 0, // backspacing speed
-			startDelay: 0, // time before typing starts
-			backDelay: 500, // pause before backspacing
-			loop: false, // loop on or off (true or false)
-			loopCount: false, // number of loops, false = infinite
+			// typing speed
+			typeSpeed: 0,
+			// time before typing starts
+			startDelay: 0,
+			// backspacing speed
+			backSpeed: 0,
+			// time before backspacing
+			backDelay: 500,
+			// loop
+			loop: false,
+			// false = infinite
+			loopCount: false,
+			// show cursor
 			showCursor: true,
-			attr: null, // attribute to type, null = text for everything except inputs, which default to placeholder
-			callback: function(){ } // call function after typing is done
-      	});
- 	});
+			// character for cursor
+			cursorChar: "|",
+			// attribute to type (null == text)
+			attr: null,
+			// either html or text
+			contentType: 'html',
+			// call when done callback function
+			callback: function() {},
+			// starting callback function before each string
+			preStringTyped: function() {},
+			//callback for every typed string
+			onStringTyped: function() {},
+			// callback for reset
+			resetCallback: function() {}
+		});
+	});
 </script>
 ~~~
 
