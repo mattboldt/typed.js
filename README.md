@@ -79,7 +79,7 @@ $(".element").typed({
 
 #### `contentType: 'html'`
 
-~~~ html
+~~~ javascript
 $(".typed").typed({ strings: ["Sentence with <br>line break."] });
 ~~~
 
