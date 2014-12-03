@@ -200,7 +200,9 @@
                         if (self.attr) {
                             self.el.attr(self.attr, nextString);
                         } else {
-                            if (self.contentType === 'html') {
+                            if (self.el.attr('type')) {
+                                self.el.val(nextString);
+                            } else if (self.contentType === 'html') {
                                 self.el.html(nextString);
                             } else {
                                 self.el.text(nextString);
@@ -266,7 +268,9 @@
                 if (self.attr) {
                     self.el.attr(self.attr, nextString);
                 } else {
-                    if (self.contentType === 'html') {
+                    if (self.el.attr('type')) {
+                        self.el.val(nextString);
+                    } else if (self.contentType === 'html') {
                         self.el.html(nextString);
                     } else {
                         self.el.text(nextString);
