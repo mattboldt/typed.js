@@ -82,6 +82,9 @@
         // for stopping
         this.stop = false;
 
+        // for pausing and continuing
+        this.backspacing = false;
+
         // custom cursor
         this.cursorChar = this.options.cursorChar;
 
@@ -100,7 +103,11 @@
             var self = this;
             self.timeout = setTimeout(function() {
                 // Start typing
-                self.typewrite(self.strings[self.arrayPos], self.strPos);
+                if (self.backspacing) {
+                    self.backspace(self.strings[self.arrayPos], self.strPos);
+                } else {
+                    self.typewrite(self.strings[self.arrayPos], self.strPos);
+                }
             }, self.startDelay);
         }
 
@@ -126,6 +133,10 @@
             // can't be global since number changes each time loop is executed
             var humanize = Math.round(Math.random() * (100 - 30)) + this.typeSpeed;
             var self = this;
+
+            // Needed for pausing
+            self.strPos = curStrPos;
+            self.backspacing = false;
 
             // ------------- optional ------------- //
             // backpaces a certain string faster
@@ -232,6 +243,10 @@
             var humanize = Math.round(Math.random() * (100 - 30)) + this.backSpeed;
             var self = this;
 
+            // Needed for pausing
+            self.strPos = curStrPos;
+            self.backspacing = true;
+
             self.timeout = setTimeout(function() {
 
                 // ----- this part is optional ----- //
@@ -289,8 +304,9 @@
                     if (self.arrayPos === self.strings.length) {
                         self.arrayPos = 0;
                         self.init();
-                    } else
+                    } else {
                         self.typewrite(self.strings[self.arrayPos], curStrPos);
+                    }
                 }
 
                 // humanized value for typing
@@ -298,23 +314,23 @@
 
         }
 
-        // Start & Stop currently not working
+        ,
+        pauseTyping: function() {
+            var self = this;
 
-        // , stop: function() {
-        //     var self = this;
+            self.stop = true;
+            clearInterval(self.timeout);
+        }
 
-        //     self.stop = true;
-        //     clearInterval(self.timeout);
-        // }
+        ,
+        continueTyping: function() {
+            var self = this;
+            if(self.stop === false)
+               return;
 
-        // , start: function() {
-        //     var self = this;
-        //     if(self.stop === false)
-        //        return;
-
-        //     this.stop = false;
-        //     this.init();
-        // }
+            this.stop = false;
+            this.init();
+        }
 
         // Reset and rebuild the element
         ,
