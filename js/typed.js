@@ -324,7 +324,9 @@
             var id = this.el.attr('id');
             this.el.after('<span id="' + id + '"/>')
             this.el.remove();
-            this.cursor.remove();
+            if (typeof this.cursor !== 'undefined') {
+                this.cursor.remove();
+            }
             // Send the callback
             self.options.resetCallback();
         }
