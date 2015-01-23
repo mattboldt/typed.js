@@ -64,6 +64,17 @@ Want the animated blinking cursor? Add this CSS.
 }
 ~~~
 
+
+or with jquery. You may need to adjust timing for your liking.
+
+~~~ javascript
+function blink() {
+	$('.typed-cursor').fadeOut(350);
+ 	$('.typed-cursor').fadeIn(350);
+}
+	setInterval(blink, 700);
+~~~
+
 ### HTML tags
 
 By default the content type is set to `html`, so you're good to go. Want to type out the html regularly? Set it to `text`.
