@@ -156,14 +156,21 @@
 
                 if (self.contentType === 'html') {
                     // skip over html tags while typing
-                    if (curString.substr(curStrPos).charAt(0) === '<') {
+                    var curChar = curString.substr(curStrPos).charAt(0)
+                    if (curChar === '<' || curChar === '&') {
                         var tag = '';
-                        while (curString.substr(curStrPos).charAt(0) !== '>') {
+                        var endTag = '';
+                        if (curChar === '<') {
+                            endTag = '>'
+                        } else {
+                            endTag = ';'
+                        }
+                        while (curString.substr(curStrPos).charAt(0) !== endTag) {
                             tag += curString.substr(curStrPos).charAt(0);
                             curStrPos++;
                         }
                         curStrPos++;
-                        tag += '>';
+                        tag += endTag;
                     }
                 }
 
