@@ -204,6 +204,17 @@ http://patrickelhage.com/
 http://tairemadailey.com/
 
 
+## Development
+
+`npm install`
+
+Then, once you've made your edits:
+
+`gulp`
+
+This will create a minified version in `/dist`
+
+
 end
 ---
 
