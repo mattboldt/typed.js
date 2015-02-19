@@ -219,6 +219,10 @@
                             }
                         }
                         
+                        if(typeof self.options.onCharTyped === 'function') {
+                            self.options.onCharTyped(curString, nextString);
+                        }
+                        
                         // add characters one by one
                         curStrPos++;
                         // loop the function
@@ -290,6 +294,10 @@
                     } else {
                         self.el.text(nextString);
                     }
+                }
+                
+                if(typeof self.options.onCharTyped === 'function') {
+                    self.options.onCharTyped(curString, nextString);
                 }
 
                 // if the number (id of character in current string) is
@@ -394,7 +402,8 @@
         resetCallback: function() {},
         
         // callback for per-character type
-        preCharTyped: function() { }
+        preCharTyped: function() { },
+        onCharTyped: function() { }
     };
 
 
