@@ -204,6 +204,9 @@
                         // start typing each new char into existing string
                         // curString: arg, self.el.html: original text inside element
                         var nextString = curString.substr(0, curStrPos + 1);
+                        if(typeof self.options.preCharTyped === 'function') {
+                            self.options.preCharTyped(curString, nextString);
+                        }
                         if (self.attr) {
                             self.el.attr(self.attr, nextString);
                         } else {
@@ -215,7 +218,7 @@
                                 self.el.text(nextString);
                             }
                         }
-
+                        
                         // add characters one by one
                         curStrPos++;
                         // loop the function
@@ -272,6 +275,11 @@
                 // ----- continue important stuff ----- //
                 // replace text with base text + typed characters
                 var nextString = curString.substr(0, curStrPos);
+                
+                if(typeof self.options.preCharTyped === 'function') {
+                    self.options.preCharTyped(curString, nextString);
+                }
+                
                 if (self.attr) {
                     self.el.attr(self.attr, nextString);
                 } else {
@@ -383,7 +391,10 @@
         //callback for every typed string
         onStringTyped: function() {},
         // callback for reset
-        resetCallback: function() {}
+        resetCallback: function() {},
+        
+        // callback for per-character type
+        preCharTyped: function() { }
     };
 
 
