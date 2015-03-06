@@ -60,6 +60,9 @@
         // amount of time to wait before backspacing
         this.backDelay = this.options.backDelay;
 
+        // remove all written content at once and start typing from the beginning
+        this.backFull = this.options.backFull;
+
         // input strings of text
         this.strings = this.options.strings;
 
@@ -267,6 +270,11 @@
                         curStrPos--;
                         tag += '<';
                     }
+                }
+
+                //if self.backFull is true, then the curStrPos is 0
+                if (self.backFull === 1) {
+                    curStrPos = 0;
                 }
 
                 // ----- continue important stuff ----- //
