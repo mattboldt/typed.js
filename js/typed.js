@@ -273,7 +273,7 @@
                 }
 
                 //if self.backFull is true, then the curStrPos is 0
-                if (self.backFull === 1) {
+                if (self.backFull === true) {
                     curStrPos = 0;
                 }
 
@@ -373,7 +373,7 @@
         // time before backspacing
         backDelay: 500,
         // default dont delete all content at once
-        backFull: 0,
+        backFull: false,
         // loop
         loop: false,
         // false = infinite
