@@ -60,6 +60,9 @@
         // amount of time to wait before backspacing
         this.backDelay = this.options.backDelay;
 
+        // remove all written content at once and start typing from the beginning
+        this.backFull = this.options.backFull;
+
         // input strings of text
         this.strings = this.options.strings;
 
@@ -269,6 +272,11 @@
                     }
                 }
 
+                //if self.backFull is true, then the curStrPos is 0
+                if (self.backFull === true) {
+                    curStrPos = 0;
+                }
+
                 // ----- continue important stuff ----- //
                 // replace text with base text + typed characters
                 var nextString = curString.substr(0, curStrPos);
@@ -364,6 +372,8 @@
         backSpeed: 0,
         // time before backspacing
         backDelay: 500,
+        // default dont delete all content at once
+        backFull: false,
         // loop
         loop: false,
         // false = infinite
