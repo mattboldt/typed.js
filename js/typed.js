@@ -236,11 +236,13 @@
 
                     // if smartBack is enabled
                     if (self.smartBack) {
-                      // and the remaining part of the current string is equal of the same part of the new string
-                      if (curString.substr(0, curStrPos) == self.strings[self.arrayPos+1].substr(0, curStrPos)) {
-                        // stop backspacing
-                        self.stopNum = curStrPos;
-                      }
+                        // and the remaining part of the current string is equal of the same part of the new string
+                        if (curString.substr(0, curStrPos) == self.strings[self.arrayPos+1].substr(0, curStrPos)) {
+                            // stop backspacing
+                            self.stopNum = curStrPos;
+                        } else {
+                            self.stopNum = 0;
+                        }
                     }
 
                     // if the number (id of character in current string) is
