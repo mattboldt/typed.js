@@ -29,8 +29,20 @@
 
     var Typed = function(el, options) {
 
+        function getContent(els){
+            var t = [];
+            els.each(function(index, value){
+              t.push(value.innerHTML);                
+            });
+
+            return(t);
+
+        }
+
         // chosen element to manipulate text
         this.el = $(el);
+
+        this.textTotype = getContent(this.el.find($( ".text-to-type")));
 
         // options
         this.options = $.extend({}, $.fn.typed.defaults, options);
@@ -61,7 +73,8 @@
         this.backDelay = this.options.backDelay;
 
         // input strings of text
-        this.strings = this.options.strings;
+        this.strings = this.textTotype;
+
 
         // character number position of current string
         this.strPos = 0;
