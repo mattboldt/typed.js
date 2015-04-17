@@ -347,7 +347,7 @@
             var self = this;            
             clearInterval(self.timeout);			
             self.typewrite(self.strings[self.arrayPos], self.strings[self.arrayPos].length - 1);
-		}
+        }
 
     };
 
