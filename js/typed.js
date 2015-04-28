@@ -309,6 +309,10 @@
 
                     if (self.arrayPos === self.strings.length) {
                         self.arrayPos = 0;
+
+                        // Shuffle sequence again
+                        self.sequence = self.shuffleArray(self.sequence);
+
                         self.init();
                     } else
                         self.typewrite(self.strings[self.sequence[self.arrayPos]], curStrPos);
