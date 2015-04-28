@@ -85,6 +85,11 @@
         // custom cursor
         this.cursorChar = this.options.cursorChar;
 
+        // shuffle the strings
+        this.shuffle = this.options.shuffle;
+        // the order of strings
+        this.sequence = [];
+
         // All systems go!
         this.build();
     };
@@ -99,8 +104,13 @@
             // current string will be passed as an argument each time after this
             var self = this;
             self.timeout = setTimeout(function() {
+                for (var i=0;i<self.strings.length;++i) self.sequence[i]=i;
+
+                // shuffle the array if true
+                if(self.shuffle) self.sequence = self.shuffleArray(self.sequence);
+
                 // Start typing
-                self.typewrite(self.strings[self.arrayPos], self.strPos);
+                self.typewrite(self.strings[self.sequence[self.arrayPos]], self.strPos);
             }, self.startDelay);
         }
 
@@ -301,12 +311,23 @@
                         self.arrayPos = 0;
                         self.init();
                     } else
-                        self.typewrite(self.strings[self.arrayPos], curStrPos);
+                        self.typewrite(self.strings[self.sequence[self.arrayPos]], curStrPos);
                 }
 
                 // humanized value for typing
             }, humanize);
 
+        }
+
+        ,shuffleArray: function(array) {
+            var tmp, current, top = array.length;
+            if(top) while(--top) {
+                current = Math.floor(Math.random() * (top + 1));
+                tmp = array[current];
+                array[current] = array[top];
+                array[top] = tmp;
+            }
+            return array;
         }
 
         // Start & Stop currently not working
@@ -362,6 +383,8 @@
         startDelay: 0,
         // backspacing speed
         backSpeed: 0,
+        // shuffle the strings
+        shuffle: false,
         // time before backspacing
         backDelay: 500,
         // loop
