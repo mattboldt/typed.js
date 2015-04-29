@@ -311,7 +311,7 @@
                         self.arrayPos = 0;
 
                         // Shuffle sequence again
-                        self.sequence = self.shuffleArray(self.sequence);
+                        if(self.shuffle) self.sequence = self.shuffleArray(self.sequence);
 
                         self.init();
                     } else
@@ -322,7 +322,11 @@
             }, humanize);
 
         }
-
+        /**
+         * Shuffles the numbers in the given array.
+         * @param {Array} array
+         * @returns {Array}
+         */
         ,shuffleArray: function(array) {
             var tmp, current, top = array.length;
             if(top) while(--top) {
