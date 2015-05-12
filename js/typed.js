@@ -214,6 +214,9 @@
                         // start typing each new char into existing string
                         // curString: arg, self.el.html: original text inside element
                         var nextString = curString.substr(0, curStrPos + 1);
+                        if(typeof self.options.preCharTyped === 'function') {
+                            self.options.preCharTyped(curString, nextString);
+                        }
                         if (self.attr) {
                             self.el.attr(self.attr, nextString);
                         } else {
@@ -225,7 +228,11 @@
                                 self.el.text(nextString);
                             }
                         }
-
+                        
+                        if(typeof self.options.onCharTyped === 'function') {
+                            self.options.onCharTyped(curString, nextString);
+                        }
+                        
                         // add characters one by one
                         curStrPos++;
                         // loop the function
@@ -282,6 +289,11 @@
                 // ----- continue important stuff ----- //
                 // replace text with base text + typed characters
                 var nextString = curString.substr(0, curStrPos);
+                
+                if(typeof self.options.preCharTyped === 'function') {
+                    self.options.preCharTyped(curString, nextString);
+                }
+                
                 if (self.attr) {
                     self.el.attr(self.attr, nextString);
                 } else {
@@ -292,6 +304,10 @@
                     } else {
                         self.el.text(nextString);
                     }
+                }
+                
+                if(typeof self.options.onCharTyped === 'function') {
+                    self.options.onCharTyped(curString, nextString);
                 }
 
                 // if the number (id of character in current string) is
@@ -414,7 +430,11 @@
         //callback for every typed string
         onStringTyped: function() {},
         // callback for reset
-        resetCallback: function() {}
+        resetCallback: function() {},
+        
+        // callback for per-character type
+        preCharTyped: function() { },
+        onCharTyped: function() { }
     };
 
 
