@@ -1,4 +1,16 @@
 {
+  "name": "typed.js",
+  "version": "1.1.0",
+  "homepage": "https://github.com/mattboldt/typed.js",
+  "authors": [
+    "Matt Boldt <me@mattboldt.com>"
+  ],
+  "description": "A jQuery typing animation script",
+  "main": "js/typed.js",
+  "keywords": [
+    "typed",
+    "animation"
+  ],
   "devDependencies": {
     "gulp": "^3.8.10",
     "gulp-rename": "^1.2.0",
