@@ -1,12 +1,12 @@
 {
   "name": "typed.js",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "homepage": "https://github.com/mattboldt/typed.js",
   "authors": [
     "Matt Boldt <me@mattboldt.com>"
   ],
   "description": "A jQuery typing animation script",
-  "main": "js/typed.js",
+  "main": "dist/typed.min.js",
   "keywords": [
     "typed",
     "animation"
