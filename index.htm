@@ -9,8 +9,7 @@
     <script>
     $(function(){
 
-        $("#typed").typed({
-            strings: ["Typed.js is a <strong>jQuery</strong> plugin.", "It <em>types</em> out sentences.", "And then deletes them.", "Try it out!"],
+        $(".typed").typed({
             typeSpeed: 30,
             backDelay: 500,
             loop: false,
@@ -77,7 +76,9 @@
         <h1 class="h1">Typed.js</h1>
 
         <div class="type-wrap">
-            <span id="typed" style="white-space:pre;"></span>
+            <span class="typed"><span class="text-to-type">some text</span><span class="text-to-type">some more text</span></span>
+            <br>
+            <span class="typed"><span class="text-to-type">second line some text</span><span class="text-to-type">secondline and here we are some more text</span></span>
         </div>
 
         <div class="links">
