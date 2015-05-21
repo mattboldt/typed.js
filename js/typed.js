@@ -72,7 +72,10 @@
         // number to stop backspacing on.
         // default 0, can change depending on how many chars
         // you want to remove at the time
-        this.stopNum = 0;
+        this.stopNum = this.options.stopNum;
+
+        // get stopNum dynamically
+        this.getStopNum = this.options.getStopNum;
 
         // Looping logic
         this.loop = this.options.loop;
@@ -266,6 +269,11 @@
                 //  self.stopNum = 0;
                 // }
 
+                // verify getStopNum is a valid function
+                if (typeof self.getStopNum !== 'undefined' && $.isFunction(self.getStopNum)) {
+                    self.stopNum = self.getStopNum(self.arrayPos);
+                }
+
                 if (self.contentType === 'html') {
                     // skip over html tags while backspacing
                     if (curString.substr(curStrPos).charAt(0) === '>') {
@@ -407,6 +415,11 @@
         attr: null,
         // either html or text
         contentType: 'html',
+        // where to stop when backspacing
+        stopNum: 0,
+        // expose a function to get stopNum according to each arrayPos dynamically flexible
+        // by default should be 0, meaning delete entire word
+        getStopNum: function(arrayPos) { return 0; },
         // call when done callback function
         callback: function() {},
         // starting callback function before each string
