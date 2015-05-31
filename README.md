@@ -62,6 +62,14 @@ Want the animated blinking cursor? Add this CSS.
 	50% { opacity:0; }
 	100% { opacity:1; }
 }
+/* 
+ * Highlight Feature
+ * (Optional)
+ */
+.hChar {
+    background-color: #000;
+    color: #fff;
+}
 ~~~
 
 ### HTML tags
