@@ -20,6 +20,19 @@
             callback: function(){ foo(); },
             resetCallback: function() { newTyped(); }
         });
+        
+        $('#typedHighlight').typed({
+            strings: ["Typed.js is a <strong>jQuery</strong> plugin.", "It <em>types</em> out sentences.", "And then deletes them.", "Try it out!"],
+            typeSpeed: 30,
+            backDelay: 500,
+            loop: false,
+            contentType: 'html', // or text
+            highlight: true,
+            // defaults to false for infinite loop
+            loopCount: false,
+            callback: function(){ foo(); },
+            resetCallback: function() { newTyped(); }
+        });
 
         $(".reset").click(function(){
             $("#typed").typed('reset');
@@ -69,6 +82,10 @@
             50% { opacity:0; }
             100% { opacity:1; }
         }
+        .hChar {
+            background-color: #000;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -80,6 +97,11 @@
             <span id="typed" style="white-space:pre;"></span>
         </div>
 
+        <p>Highlighting with backspace</p>
+        <div class="type-wrap">
+            <span id="typedHighlight" style="white-space:pre;"></span>
+        </div>
+        
         <div class="links">
             <a href="http://www.mattboldt.com/demos/typed-js">View original demo</a> | <a href="http://www.mattboldt.com">View mattboldt.com</a> | <a href="http://www.twitter.com/atmattb">Complain to Matt about how awful this is</a>
         </div>

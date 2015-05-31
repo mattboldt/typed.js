@@ -59,6 +59,9 @@
 
         // amount of time to wait before backspacing
         this.backDelay = this.options.backDelay;
+        
+        // whether the highlight setting is on
+        this.highlight = this.options.highlight;
 
         // input strings of text
         this.strings = this.options.strings;
@@ -203,7 +206,11 @@
                         }
 
                         self.timeout = setTimeout(function() {
-                            self.backspace(curString, curStrPos);
+                            if(self.highlight == true) {
+                                self.backspaceHighlight(curString, curStrPos);
+                            } else {
+                                self.backspace(curString, curStrPos);
+                            }
                         }, self.backDelay);
                     } else {
 
@@ -238,7 +245,100 @@
             }, humanize);
 
         }
+        ,
+        backspaceHighlight: function(curString, curStrPos) {
+            // exit when stopped
+            if (this.stop === true) {
+                return;
+            }
 
+            // varying values for setTimeout during typing
+            // can't be global since number changes each time loop is executed
+            var humanize = Math.round(Math.random() * (100 - 30)) + this.backSpeed;
+            var self = this;
+
+            // hides the cursor effect while higlighting
+            if(curStrPos === curString.length) {
+                this.cursor.hide();
+            }
+
+            self.timeout = setTimeout(function() {
+
+                if(self.customBack === true) {
+                    if (self.arrayPos == 0){
+                        self.stopNum = 4;
+                    } else if (self.arrayPos == 2){
+                        self.stopNum = 6;
+                    }
+                    //every other time, delete the whole typed string
+                    else {
+                        self.stopNum = 0;
+                    }
+                }
+
+                if (self.contentType === 'html') {
+                    // skip over html tags while backspacing
+                    if (curString.substr(curStrPos).charAt(0) === '>') {
+                        console.log(curString);
+                        var tag = '', tagTemp = '';
+                        while (curString.substr(curStrPos).charAt(0) !== '<') {
+                            //tag -= curString.substr(curStrPos).charAt(0);
+                            tagTemp = "<span class='hChar'>" + curString.substr(curStrPos).charAt(0) + "</span>";
+                            tag -= curString.substr(curStrPos).charAt(0);
+                            tag += curString + tagTemp;
+                            curStrPos--;
+                        }
+                        curStrPos--;
+                        tag += '<';
+                    }
+                }
+
+                // ----- continue important stuff ----- //
+                // highling effect for every letter
+                // covers one letter at a time with the class 'hChar' from the end until the whole word is covered
+                var nextString = curString.substr(0, curStrPos) + "<span class='hChar'>" + curString.substr(curStrPos, curString.length) + "</span>";
+                
+                if (self.attr) {
+                    self.el.attr(self.attr, nextString);
+                } else {
+                    if (self.isInput) {
+                        self.el.val(nextString);
+                    } else if (self.contentType === 'html') {
+                        self.el.html(nextString);
+                    } else {
+                        self.el.text(nextString);
+                    }
+                }
+
+                // if the number (id of character in current string) is
+                // less than the stop number, keep going
+                if (curStrPos > self.stopNum) {
+                    // subtract characters one by one
+                    curStrPos--;
+                    // loop the function
+                    self.backspaceHighlight(curString, curStrPos);
+                } 
+                // if the stop number has been reached, increase
+                // array position to next string
+                else if (curStrPos <= self.stopNum) {
+                    self.arrayPos++;
+
+                    self.cursor.show();
+
+                    if (self.arrayPos === self.strings.length) {
+                        self.arrayPos = 0;
+
+                        // Shuffle sequence again
+                        if(self.shuffle) self.sequence = self.shuffleArray(self.sequence);
+
+                        self.init();
+                    } else
+                        self.typewrite(self.strings[self.sequence[self.arrayPos]], curStrPos);
+                }
+
+                // humanized value for typing
+            }, humanize);
+        }
         ,
         backspace: function(curString, curStrPos) {
             // exit when stopped
@@ -282,6 +382,7 @@
                 // ----- continue important stuff ----- //
                 // replace text with base text + typed characters
                 var nextString = curString.substr(0, curStrPos);
+                
                 if (self.attr) {
                     self.el.attr(self.attr, nextString);
                 } else {
@@ -407,6 +508,8 @@
         attr: null,
         // either html or text
         contentType: 'html',
+        // highlight the text and remove it before typing another string
+        highlight: false,
         // call when done callback function
         callback: function() {},
         // starting callback function before each string

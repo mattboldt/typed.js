@@ -97,6 +97,28 @@ $(".typed").typed({ strings: ["Sentence with a\nline break."] });
 
 ~~~
 
+### Highlight, remove and type
+
+You can make the plugin select all of the text then remove it before typing the second word. An example can be seen on https://safi.me.uk
+
+It works best with text content instead of html as I have not figured a good way to select html tags.
+
+(Credits: Tameem Safi)
+
+~~~ javascript
+<script>
+    $(function(){
+        $(".element").typed({
+            // Enable highlight feature
+            // Works best with contentType: 'text'
+            strings: ["First sentence.", "Second sentence."],
+            contentType: 'text',
+            highlight: true,
+        });
+    });
+</script>
+~~~
+
 ### Type Pausing
 
 You can pause in the middle of a string for a given amount of time by including an escape character.
@@ -129,6 +151,8 @@ Customization
 			backSpeed: 0,
 			// time before backspacing
 			backDelay: 500,
+			// highlight instead of erasing each character (backspace effect)
+			highlight: false,
 			// loop
 			loop: false,
 			// false = infinite
@@ -202,6 +226,8 @@ http://jessejohnson.github.io/
 http://patrickelhage.com/
 
 http://tairemadailey.com/
+
+https://safi.me.uk
 
 
 ## Development
