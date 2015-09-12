@@ -82,7 +82,7 @@ This allows bots and search engines, as well as users with JavaScript disabled, 
 ~~~ javascript
 <script>
 	$(function(){
-		$(".element").typed({
+		$("#typed").typed({
 			stringsElement: $('#typed-strings')
 		});
 	});
@@ -94,6 +94,7 @@ You must wrap each string in the `typed-strings` div with a `<p>`
     <p>Typed.js is a <strong>jQuery</strong> plugin.</p>
     <p>It <em>types</em> out sentences.</p>
 </div>
+<span id="typed"></span>
 ~~~
 
 ### Line Breaks
