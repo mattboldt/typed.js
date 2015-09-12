@@ -75,6 +75,25 @@ $(".element").typed({
 });
 ~~~
 
+### Using strings from static HTML rather than the `strings` array (SEO Friendly)
+
+~~~ javascript
+<script>
+	$(function(){
+		$(".element").typed({
+			stringsElement: $('#typed-strings')
+		});
+	});
+</script>
+~~~
+You must wrap each string in the `typed-strings` div with a `<p>`
+~~~ html
+<div id="typed-strings">
+    <p>Typed.js is a <strong>jQuery</strong> plugin.</p>
+    <p>It <em>types</em> out sentences.</p>
+</div>
+~~~
+
 ### Line Breaks
 
 #### `contentType: 'html'`
@@ -121,6 +140,8 @@ Customization
 	$(function(){
 		$(".element").typed({
 			strings: ["First sentence.", "Second sentence."],
+			// Optionally use an HTML element to grab strings from (must wrap each string in a <p>)
+			stringsElement: null,
 			// typing speed
 			typeSpeed: 0,
 			// time before typing starts

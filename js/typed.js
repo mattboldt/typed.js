@@ -60,6 +60,9 @@
         // amount of time to wait before backspacing
         this.backDelay = this.options.backDelay;
 
+        // div containing strings
+        this.stringsElement = this.options.stringsElement;
+
         // input strings of text
         this.strings = this.options.strings;
 
@@ -100,7 +103,7 @@
 
         ,
         init: function() {
-            // begin the loop w/ first current string (global self.string)
+            // begin the loop w/ first current string (global self.strings)
             // current string will be passed as an argument each time after this
             var self = this;
             self.timeout = setTimeout(function() {
@@ -116,10 +119,19 @@
 
         ,
         build: function() {
+            var self = this;
             // Insert cursor
             if (this.showCursor === true) {
                 this.cursor = $("<span class=\"typed-cursor\">" + this.cursorChar + "</span>");
                 this.el.after(this.cursor);
+            }
+            if (this.stringsElement) {
+                self.strings = [];
+                this.stringsElement.hide();
+                var strings = this.stringsElement.find('p');
+                $.each(strings, function(key, value){
+                    self.strings.push($(value).html());
+                });
             }
             this.init();
         }
@@ -385,6 +397,7 @@
 
     $.fn.typed.defaults = {
         strings: ["These are the default values...", "You know what you should do?", "Use your own!", "Have a great day!"],
+        stringsElement: null,
         // typing speed
         typeSpeed: 0,
         // time before typing starts

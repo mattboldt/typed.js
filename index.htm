@@ -10,7 +10,8 @@
     $(function(){
 
         $("#typed").typed({
-            strings: ["Typed.js is a <strong>jQuery</strong> plugin.", "It <em>types</em> out sentences.", "And then deletes them.", "Try it out!"],
+            // strings: ["Typed.js is a <strong>jQuery</strong> plugin.", "It <em>types</em> out sentences.", "And then deletes them.", "Try it out!"],
+            stringsElement: $('#typed-strings'),
             typeSpeed: 30,
             backDelay: 500,
             loop: false,
@@ -77,6 +78,12 @@
         <h1 class="h1">Typed.js</h1>
 
         <div class="type-wrap">
+            <div id="typed-strings">
+                <p>Typed.js is a <strong>jQuery</strong> plugin.</p>
+                <p>It <em>types</em> out sentences.</p>
+                <p>And then deletes them.</p>
+                <p>Try it out!</p>
+            </div>
             <span id="typed" style="white-space:pre;"></span>
         </div>
 
