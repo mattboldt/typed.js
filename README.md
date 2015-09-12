@@ -75,7 +75,9 @@ $(".element").typed({
 });
 ~~~
 
-### Using strings from static HTML rather than the `strings` array (SEO Friendly)
+### Strings from static HTML (SEO Friendly)
+Rather than using the `strings` array to insert strings, you can place an HTML `div` on the page and read from it.
+This allows bots and search engines, as well as users with JavaScript disabled, to see your text on the page.
 
 ~~~ javascript
 <script>
