@@ -66,6 +66,9 @@
         // input strings of text
         this.strings = this.options.strings;
 
+        // automatically find stopNum
+        this.findStopNum = this.options.findStopNum;
+
         // character number position of current string
         this.strPos = 0;
 
@@ -294,6 +297,23 @@
                 // ----- continue important stuff ----- //
                 // replace text with base text + typed characters
                 var nextString = curString.substr(0, curStrPos);
+                
+                // Find self.stopNum automatically if the current string matches the first characters of the next string
+                if ( self.findStopNum ) {
+                    var nextArrayPos = self.arrayPos + 1;
+                    if ( nextArrayPos >= self.strings.length ) {
+                        nextArrayPos = 0;
+                    }
+
+                    if ( nextString == self.strings[ nextArrayPos ].substr(0, curStrPos) ) {
+                        self.stopNum = curStrPos;
+                        self.strPos = curStrPos;
+                    } else {
+                        self.stopNum = 0;
+                    }
+                }
+
+
                 if (self.attr) {
                     self.el.attr(self.attr, nextString);
                 } else {
@@ -420,6 +440,8 @@
         attr: null,
         // either html or text
         contentType: 'html',
+        // automatically find stopNum
+        findStopNum: true,
         // call when done callback function
         callback: function() {},
         // starting callback function before each string
