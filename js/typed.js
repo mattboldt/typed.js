@@ -383,6 +383,19 @@
             self.options.resetCallback();
         }
 
+        // Stop animation and remove DOM elements
+        ,
+        destroy: function() {
+            var self = this;
+
+            self.stop = true;
+            clearInterval(self.timeout);
+
+            if (typeof this.cursor !== 'undefined') {
+                this.cursor.remove();
+            }
+        }
+
     };
 
     $.fn.typed = function(option) {
