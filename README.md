@@ -207,7 +207,7 @@ Want to get really custom? On my site and in the Typed.js demo I have the code t
 This checks if the `arrayPos` is `1`, which would be the second string you entered. If so, it sets `stopNum` to `3` instead of `0`, which tells it to stop when there are 3 characters left. For now you'll have to create custom `if` statements for each specific case you want. I may automate this somehow in the future.
 
 
-Wonderfull sites using Typed.js
+Wonderful sites using Typed.js
 ---
 http://allison.house/404
 
