@@ -122,7 +122,7 @@
             var self = this;
             // Insert cursor
             if (this.showCursor === true) {
-                this.cursor = $("<span class=\"typed-cursor\">" + this.cursorChar + "</span>");
+                this.cursor = $("<span id=\"cursor\" class=\"typed-cursor\">" + this.cursorChar + "</span>");
                 this.el.after(this.cursor);
             }
             if (this.stringsElement) {
@@ -159,11 +159,33 @@
 
             // contain typing function in a timeout humanize'd delay
             self.timeout = setTimeout(function() {
+                var charPause = 0;
+                var substr = curString.substr(curStrPos);
+
+                // check escape char for calling function
+                // define a funtion in the object
+                // format [functionName] in the string
+                if (substr.charAt(0) === '[') {
+                    var skip = 1; // skip atleast 1
+                    if (substr.charAt(1) != '[') {
+                        if (/(\[[\w]+\])/.test(substr)) {
+                            substr = /\w+/.exec(substr)[0];
+                            skip += substr.length + 1;
+                            var functionCall = "self.options."+substr;
+                            if(typeof(eval(functionCall)) == "function"){
+                                eval(functionCall+"()");
+                            }
+                        }
+                        curString = curString.substring(0, curStrPos) + curString.substring(curStrPos + skip);
+                    } else {
+                        skip += 1;
+                        curString = curString.substring(0, curStrPos) + '[' + curString.substring(curStrPos + skip);
+                    }
+                };
+
                 // check for an escape character before a pause value
                 // format: \^\d+ .. eg: ^1000 .. should be able to print the ^ too using ^^
                 // single ^ are removed from string
-                var charPause = 0;
-                var substr = curString.substr(curStrPos);
                 if (substr.charAt(0) === '^') {
                     var skip = 1; // skip atleast 1
                     if (/^\^\d+/.test(substr)) {
