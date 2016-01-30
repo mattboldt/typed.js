@@ -128,9 +128,9 @@
             if (this.stringsElement) {
                 self.strings = [];
                 this.stringsElement.hide();
-                var strings = this.stringsElement.find('p');
+                var strings = this.stringsElement.children();
                 $.each(strings, function(key, value){
-                    self.strings.push($(value).html());
+                    self.strings.push(value.outerHTML);
                 });
             }
             this.init();
