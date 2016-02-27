@@ -18,8 +18,10 @@
             contentType: 'html', // or text
             // defaults to false for infinite loop
             loopCount: false,
-            callback: function(){ foo(); },
-            resetCallback: function() { newTyped(); }
+            callback: foo,
+            resetCallback: function() { newTyped(); },
+            onTypingPaused: typingPaused,
+            onTypingResumed: typingResumed
         });
 
         $(".reset").click(function(){
@@ -31,6 +33,9 @@
     function newTyped(){ /* A new typed object */ }
 
     function foo(){ console.log("Callback"); }
+
+    function typingPaused(pos) { console.log("Paused at position:" + pos)};
+    function typingResumed(pos) { console.log("Resumed")};
 
     </script>
     <link href="main.css" rel="stylesheet"/>
@@ -79,9 +84,9 @@
 
         <div class="type-wrap">
             <div id="typed-strings">
-                <p>Typed.js is a <strong>jQuery</strong> plugin.</p>
+                <p>Typed.js is a ^500<strong>jQuery</strong> plugin.</p>
                 <p>It <em>types</em> out sentences.</p>
-                <p>And then deletes them.</p>
+                <p>And then ^1000deletes them.</p>
                 <p>Try it out!</p>
             </div>
             <span id="typed" style="white-space:pre;"></span>
