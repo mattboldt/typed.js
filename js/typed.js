@@ -370,9 +370,8 @@
         reset: function() {
             var self = this;
             clearInterval(self.timeout);
-            var id = this.el.attr('id');
-            this.el.after('<span id="' + id + '"/>');
-            this.el.remove();
+            // Clear the element from previous text
+            this.el.empty();
             if (typeof this.cursor !== 'undefined') {
                 this.cursor.remove();
             }
@@ -387,7 +386,13 @@
             var $this = $(this),
                 data = $this.data('typed'),
                 options = typeof option == 'object' && option;
-            if (!data) $this.data('typed', (data = new Typed(this, options)));
+            if (!data) {
+                $this.data('typed', (data = new Typed(this, options)));
+            } else {
+                data.reset();
+                data.strings = options.strings;
+                data.build();
+            }
             if (typeof option == 'string') data[option]();
         });
     };
