@@ -375,6 +375,9 @@
             if (typeof this.cursor !== 'undefined') {
                 this.cursor.remove();
             }
+            self.strPos = 0;
+            self.arrayPos = 0;
+            self.curLoop = 0;
             // Send the callback
             self.options.resetCallback();
         }
