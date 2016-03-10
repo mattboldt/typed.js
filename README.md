@@ -227,6 +227,8 @@ http://patrickelhage.com/
 
 http://tairemadailey.com/
 
+http://slack.com
+
 
 ## Development
 
