@@ -88,6 +88,10 @@ a {
     background-color: #AFAFAF;
 }
 
+.underline-link {
+    text-decoration: underline;
+}
+
 .code {
     font-size: 17px;
     font-family: monospace;
