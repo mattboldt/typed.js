@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Typed.js Comaprison</title>
+	<link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Oxygen:300' rel='stylesheet' type='text/css'>
+	<link href="css/style.css" rel="stylesheet"/>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="js/typed.js" type="text/javascript"></script>
+	<script src="js/old-typed.js" type="text/javascript"></script>
+	<script src="js/snippet.js" type="text/javascript"></script>
+</head>
+<body>
+	<div class="consoleContainer">
+    	<div class="titleBar">Typed.js -- bash</div>
+    	<div class="gameConsole">> <span id="oldTyped"></span></div>
+    </div>
+
+    <div class="consoleContainer">
+    	<div class="titleBar">Typed.js Upgrade -- bash</div>
+    	<div class="gameConsole">> <span id="newTyped"></span></div>
+    </div>
+
+    <button id="stopBtn" class="btn">Start New Typing</button>
+
+    <article>
+    	<h2>What is changing ?</h2>
+    	<p>I have been using <strong>Typed.js</strong> for some personal projects like <em>Lands of Fragar</em>. The goal was to display a console-like feedback for the player where one could read about the storyline and gather additional info about the game mechanics. The specific issue that I faced with the current implementation was that, whenever an event would trigger a new typing animation, the animation would either not start or behave oddly displaying one letter at a time. The first workaround was to just remove the element to which the animation was attached to and add it again starting a new animation. That felt clunky and not very intuitive. What I really wanted was to simply overwrite the current animation.</p>
+    	<p>The old script would simply start the animation if no <em>typed</em> data was defined. Furthermore the built-in <span class="code">reset</span> function would create a <span class="code">span</span> element with the same <span class="code">id</span> of the existing one (not taking into account the use of a <span class="code">class</span> which is also fixed with my solution) and remove the old html element. In the new version there is no creation or removal of any html element, using jQuery I simply clear the element from its content and reset some vars to their default value, thus in fact resetting the script to its default state. The <span class="code">reset</span> function is only called if the element under analysis has already been used for a typing animation, otherwise everything proceeds as intended from the old version.</p>
+    	<p>If you click on <em>Start New Typing</em> you will notice right away how with the old script nothing happens while the revised version will display a new message!</p>
+    </article>
+
+	<button class="btn"><a href="https://twitter.com/SuperG4bry" target="_blank"><span class="brandico-twitter-bird"></span>Follow @SuperG4bry</a></button>
+	<button class="btn"><a href="https://github.com/Gabri3l" target="_blank"><span class="brandico-github"></span>Follow @Gabri3l</a></button>
+    <button class="btn"><a href="https://github.com/Gabri3l/typed.js" target="_blank"><span class="brandico-github"></span>View on Github</a></button>
+</body>
+</html>
