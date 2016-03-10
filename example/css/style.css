@@ -34,7 +34,7 @@ a {
 
 .characterContainer,
 .consoleContainer {
-	margin: auto;
+    margin: auto;
 }
 
 .titleBar {
@@ -54,15 +54,15 @@ a {
 }
 
 .consoleContainer {
-	min-width: 300px;
+    min-width: 300px;
     width: 35%;
     color: green;
     margin-top: 50px;
 }
 
 .gameConsole {
-	height: 50px;
-	margin-top: 0;
+    height: 50px;
+    margin-top: 0;
     padding: 25px 20px;
     text-align: left;
     background-color: black;
@@ -131,4 +131,10 @@ a {
     0% { opacity:1; }
     50% { opacity:0; }
     100% { opacity:1; }
+}
+
+@media screen and (max-width: 700px){
+    article {
+        width: 90%;
+    }
 }
