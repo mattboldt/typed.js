@@ -227,6 +227,8 @@ http://patrickelhage.com/
 
 http://tairemadailey.com/
 
+http://gabri3l.github.io/typed.js/example/
+
 
 ## Development
 

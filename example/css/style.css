@@ -1,0 +1,144 @@
+@import url(http://weloveiconfonts.com/api/?family=brandico);
+
+/* brandico */
+[class*="brandico-"]:before {
+  font-family: 'brandico', sans-serif;
+  margin-right: 10px;
+}
+
+body {
+    text-align: center;
+    font-family: "Source Code Pro";
+    background:#f1f1f1;
+    margin-bottom: 100px;
+}
+
+article {
+    font-family: 'Oxygen', sans-serif;
+    font-size: 20px;
+    width: 70%;
+    margin: auto;
+    text-align: justify;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 70px;
+    margin-bottom: 35px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.characterContainer,
+.consoleContainer {
+    margin: auto;
+}
+
+.titleBar {
+    padding: 5px 0;
+    font-size: 1em;
+    text-align: center;
+    text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0;
+    background-color: rgb(226,226,226);
+    background-image: -webkit-linear-gradient(top, #e8e8e8, #bcbbbc);
+    background-image: -moz-linear-gradient(top, #e8e8e8, #bcbbbc);
+    background-image: linear-gradient(top, #e8e8e8, #bcbbbc);
+    box-shadow: inset rgba(255, 255, 255, 0.7) 0 1px 1px;
+    border-bottom: #6a6a6a 1px solid;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    color: black;
+}
+
+.consoleContainer {
+    min-width: 300px;
+    width: 35%;
+    color: green;
+    margin-top: 50px;
+}
+
+.gameConsole {
+    height: 50px;
+    margin-top: 0;
+    padding: 25px 20px;
+    text-align: left;
+    background-color: black;
+    border-bottom-right-radius: 1em;
+    border-bottom-left-radius: 1em;
+}
+
+.btn {
+    margin-top: 50px;
+    padding: 0 10px;
+    height: 40px;
+    border-radius: 8px;
+    border-style: none;
+    cursor: pointer;
+    font-family: "Source Code Pro";
+}
+
+.btn:focus {
+    outline: none;
+}
+
+.btn:hover {
+    background-color: #AFAFAF;
+}
+
+.underline-link {
+    text-decoration: underline;
+}
+
+.code {
+    font-size: 17px;
+    font-family: monospace;
+    background: #E8E8E8;
+    padding: 1px 8px;
+    border: 1px;
+    border-style: solid;
+    border-color: grey;
+}
+/* code for animated blinking cursor */
+.typed-cursor{
+    opacity: 1;
+    font-weight: 100;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    -ms-animation: blink 0.7s infinite;
+    -o-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
+}
+@-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-ms-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-o-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+
+@media screen and (max-width: 700px){
+    article {
+        width: 90%;
+    }
+}
