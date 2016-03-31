@@ -66,6 +66,9 @@
         // input strings of text
         this.strings = this.options.strings;
 
+        // whether we should strip whitespace around the strings
+        this.trimStrings = this.options.trimStrings;
+
         // character number position of current string
         this.strPos = 0;
 
@@ -132,6 +135,9 @@
                 $.each(strings, function(key, value){
                     self.strings.push($(value).html());
                 });
+            }
+            if (this.trimStrings) {
+                self.strings = self.strings.map(function(s){return s.trim()});
             }
             this.init();
         }
