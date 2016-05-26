@@ -163,17 +163,29 @@
                 // format: \^\d+ .. eg: ^1000 .. should be able to print the ^ too using ^^
                 // single ^ are removed from string
                 var charPause = 0;
+                var backLength = 0;
                 var substr = curString.substr(curStrPos);
                 if (substr.charAt(0) === '^') {
-                    var skip = 1; // skip atleast 1
-                    if (/^\^\d+/.test(substr)) {
-                        substr = /\d+/.exec(substr)[0];
-                        skip += substr.length;
-                        charPause = parseInt(substr);
-                    }
+                    /* Escape character for customized backspace */
+                    if (substr.charAt(1) === 'b') {
+                        if (/^\^b\d+/.test(substr)) {
+                            substr = /\d+/.exec(substr)[0];
+                            /* Amount of characters to backspace */
+                            backLength = parseInt(substr);
+                            /* Start backspacing and stop typing */
+                            self.backspace(curString, curStrPos, backLength);
+                        }
+                    } else {
+                        var skip = 1; // skip atleast 1
+                        if (/^\^\d+/.test(substr)) {
+                            substr = /\d+/.exec(substr)[0];
+                            skip += substr.length;
+                            charPause = parseInt(substr);
+                        }
 
-                    // strip out the escape character and pause value so they're not printed
-                    curString = curString.substring(0, curStrPos) + curString.substring(curStrPos + skip);
+                        // strip out the escape character and pause value so they're not printed
+                        curString = curString.substring(0, curStrPos) + curString.substring(curStrPos + skip);
+                    }
                 }
 
                 if (self.contentType === 'html') {
@@ -198,7 +210,8 @@
 
                 // timeout for any pause after a character
                 self.timeout = setTimeout(function() {
-                    if (curStrPos === curString.length) {
+                    /* If we have finished typing, or did a partial backspace */
+                    if (curStrPos === curString.length || backLength > 0) {
                         // fires callback function
                         self.options.onStringTyped(self.arrayPos);
 
@@ -214,9 +227,12 @@
                                 return;
                         }
 
-                        self.timeout = setTimeout(function() {
-                            self.backspace(curString, curStrPos);
-                        }, self.backDelay);
+                        /* If we did not do a partial backspace */
+                        if (backLength == 0) {
+                            self.timeout = setTimeout(function() {
+                                self.backspace(curString, curStrPos, curString.length);
+                            }, self.backDelay);
+                        }
                     } else {
 
                         /* call before functions if applicable */
@@ -252,7 +268,7 @@
         }
 
         ,
-        backspace: function(curString, curStrPos) {
+        backspace: function(curString, curStrPos, backLength) {
             // exit when stopped
             if (this.stop === true) {
                 return;
@@ -264,19 +280,6 @@
             var self = this;
 
             self.timeout = setTimeout(function() {
-
-                // ----- this part is optional ----- //
-                // check string array position
-                // on the first string, only delete one word
-                // the stopNum actually represents the amount of chars to
-                // keep in the current string. In my case it's 14.
-                // if (self.arrayPos == 1){
-                //  self.stopNum = 14;
-                // }
-                //every other time, delete the whole typed string
-                // else{
-                //  self.stopNum = 0;
-                // }
 
                 if (self.contentType === 'html') {
                     // skip over html tags while backspacing
@@ -308,18 +311,18 @@
 
                 // if the number (id of character in current string) is
                 // less than the stop number, keep going
-                if (curStrPos > self.stopNum) {
+                if (backLength > 0) {
                     // subtract characters one by one
                     curStrPos--;
-                    // loop the function
-                    self.backspace(curString, curStrPos);
+                    // Recursively call backspace on remainder of string
+                    self.backspace(curString, curStrPos, backLength - 1);   // One less character to backspace
                 }
                 // if the stop number has been reached, increase
                 // array position to next string
-                else if (curStrPos <= self.stopNum) {
+                else {
                     self.arrayPos++;
-
-                    if (self.arrayPos === self.strings.length) {
+                    /* Start from first string if looping is enabled */
+                    if (self.arrayPos === self.strings.length && self.loop == true) {
                         self.arrayPos = 0;
 
                         // Shuffle sequence again
