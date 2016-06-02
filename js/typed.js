@@ -84,6 +84,7 @@
 
         // for stopping
         this.stop = false;
+        this.isbackspacing = false;
 
         // custom cursor
         this.cursorChar = this.options.cursorChar;
@@ -92,6 +93,11 @@
         this.shuffle = this.options.shuffle;
         // the order of strings
         this.sequence = [];
+        
+        // store paused position
+        this.curStringPause = null;
+        this.curStrPosPause = null;
+
 
         // All systems go!
         this.build();
@@ -111,9 +117,9 @@
 
                 // shuffle the array if true
                 if(self.shuffle) self.sequence = self.shuffleArray(self.sequence);
+               
+                  self.typewrite(self.strings[self.sequence[self.arrayPos]], self.strPos);
 
-                // Start typing
-                self.typewrite(self.strings[self.sequence[self.arrayPos]], self.strPos);
             }, self.startDelay);
         }
 
@@ -139,16 +145,21 @@
         // pass current string state to each function, types 1 char per call
         ,
         typewrite: function(curString, curStrPos) {
+            var self = this;
+            self.isbackspacing = false;
+            // store string positions in memory
+            self.curStringPause = curStrPos;
+            self.curStrPosPause = curStrPos;
             // exit when stopped
-            if (this.stop === true) {
+            if (self.stop === true) {
+                // store the current string and position when stopped
+                self.curStringPause = curString;
+                self.curStrPosPause = curStrPos;
                 return;
             }
-
             // varying values for setTimeout during typing
             // can't be global since number changes each time loop is executed
             var humanize = Math.round(Math.random() * (100 - 30)) + this.typeSpeed;
-            var self = this;
-
             // ------------- optional ------------- //
             // backpaces a certain string faster
             // ------------------------------------ //
@@ -156,14 +167,21 @@
             //  self.backDelay = 50;
             // }
             // else{ self.backDelay = 500; }
+            
+            
 
             // contain typing function in a timeout humanize'd delay
             self.timeout = setTimeout(function() {
+                
                 // check for an escape character before a pause value
                 // format: \^\d+ .. eg: ^1000 .. should be able to print the ^ too using ^^
                 // single ^ are removed from string
+                
                 var charPause = 0;
+               
+                // if substr not set, JS will fail silently
                 var substr = curString.substr(curStrPos);
+                 // minor TODO catch the error if user clicks too many times
                 if (substr.charAt(0) === '^') {
                     var skip = 1; // skip atleast 1
                     if (/^\^\d+/.test(substr)) {
@@ -237,10 +255,12 @@
                                 self.el.text(nextString);
                             }
                         }
+                        
 
                         // add characters one by one
                         curStrPos++;
                         // loop the function
+                        
                         self.typewrite(curString, curStrPos);
                     }
                     // end of character pause
@@ -253,15 +273,13 @@
 
         ,
         backspace: function(curString, curStrPos) {
-            // exit when stopped
-            if (this.stop === true) {
-                return;
-            }
 
             // varying values for setTimeout during typing
             // can't be global since number changes each time loop is executed
             var humanize = Math.round(Math.random() * (100 - 30)) + this.backSpeed;
             var self = this;
+            self.isbackspacing = true;
+            
 
             self.timeout = setTimeout(function() {
 
@@ -277,6 +295,8 @@
                 // else{
                 //  self.stopNum = 0;
                 // }
+                
+                // whereileftoff where do i place .isbackspacing???
 
                 if (self.contentType === 'html') {
                     // skip over html tags while backspacing
@@ -317,6 +337,7 @@
                 // if the stop number has been reached, increase
                 // array position to next string
                 else if (curStrPos <= self.stopNum) {
+        
                     self.arrayPos++;
 
                     if (self.arrayPos === self.strings.length) {
@@ -326,10 +347,10 @@
                         if(self.shuffle) self.sequence = self.shuffleArray(self.sequence);
 
                         self.init();
-                    } else
+                    } else {
                         self.typewrite(self.strings[self.sequence[self.arrayPos]], curStrPos);
+                    }
                 }
-
                 // humanized value for typing
             }, humanize);
 
@@ -339,7 +360,8 @@
          * @param {Array} array
          * @returns {Array}
          */
-        ,shuffleArray: function(array) {
+        ,
+        shuffleArray: function(array) {
             var tmp, current, top = array.length;
             if(top) while(--top) {
                 current = Math.floor(Math.random() * (top + 1));
@@ -349,24 +371,32 @@
             }
             return array;
         }
+        
+        ,
+        toggle: function() {
+            var self = this;
+            if (self.stop) {
+                self.unpause();
+            } else if (self.stop === false && self.isbackspacing === false) {
+                self.pause()
+            }
+            return;
+        }
 
-        // Start & Stop currently not working
+        , 
+        pause: function() {
+            var self = this;           
+            if (self.stop === true) return;
+            self.stop = true;
+        }
 
-        // , stop: function() {
-        //     var self = this;
-
-        //     self.stop = true;
-        //     clearInterval(self.timeout);
-        // }
-
-        // , start: function() {
-        //     var self = this;
-        //     if(self.stop === false)
-        //        return;
-
-        //     this.stop = false;
-        //     this.init();
-        // }
+        , 
+        unpause: function() {
+            var self = this;
+            if (self.stop === false) return;
+            self.stop = false;
+            self.typewrite(self.curStringPause, self.curStrPosPause);
+        }
 
         // Reset and rebuild the element
         ,
