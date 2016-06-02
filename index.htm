@@ -25,6 +25,17 @@
         $(".reset").click(function(){
             $("#typed").typed('reset');
         });
+        
+        // optionally add a toggle, pause, unpause event
+        $('.toggle').click(function(){
+            $('#typed').typed('toggle');
+        });
+        $('.pause').click(function(){
+            $('#typed').typed('unpause');
+        });
+        $('.unpause').click(function(){
+            $('#typed').typed('pause');
+        });
 
     });
 
@@ -77,7 +88,7 @@
     <div class="wrap">
         <h1 class="h1">Typed.js</h1>
 
-        <div class="type-wrap">
+        <div class="type-wrap toggle">
             <div id="typed-strings">
                 <p>Typed.js is a <strong>jQuery</strong> plugin.</p>
                 <p>It <em>types</em> out sentences.</p>
@@ -86,7 +97,6 @@
             </div>
             <span id="typed" style="white-space:pre;"></span>
         </div>
-
         <div class="links">
             <a href="http://www.mattboldt.com/demos/typed-js">View original demo</a> | <a href="http://www.mattboldt.com">View mattboldt.com</a> | <a href="http://www.twitter.com/atmattb">Complain to Matt about how awful this is</a>
         </div>
