@@ -63,6 +63,9 @@
         // div containing strings
         this.stringsElement = this.options.stringsElement;
 
+        // tags containing strings
+        this.stringsTag = this.options.stringsTag;
+
         // input strings of text
         this.strings = this.options.strings;
 
@@ -128,14 +131,17 @@
                 this.cursor = $("<span class=\"typed-cursor\">" + this.cursorChar + "</span>");
                 this.el.after(this.cursor);
             }
+
             if (this.stringsElement) {
                 self.strings = [];
                 this.stringsElement.hide();
-                var strings = this.stringsElement.find('p');
+                var tag = this.stringsTag ? this.stringsTag : 'p';
+                var strings = this.stringsElement.find(tag);
                 $.each(strings, function(key, value){
                     self.strings.push($(value).html());
                 });
             }
+
             this.init();
         }
 
