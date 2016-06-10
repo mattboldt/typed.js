@@ -63,6 +63,9 @@
         // div containing strings
         this.stringsElement = this.options.stringsElement;
 
+        // tags containing strings
+        this.stringsTag = this.options.stringsTag;
+
         // input strings of text
         this.strings = this.options.strings;
 
@@ -84,6 +87,9 @@
 
         // for stopping
         this.stop = false;
+
+        // variable to check whether typing is currently paused
+        this.paused = false;
 
         // custom cursor
         this.cursorChar = this.options.cursorChar;
@@ -125,14 +131,17 @@
                 this.cursor = $("<span class=\"typed-cursor\">" + this.cursorChar + "</span>");
                 this.el.after(this.cursor);
             }
+
             if (this.stringsElement) {
                 self.strings = [];
                 this.stringsElement.hide();
-                var strings = this.stringsElement.find('p');
+                var tag = this.stringsTag ? this.stringsTag : 'p';
+                var strings = this.stringsElement.find(tag);
                 $.each(strings, function(key, value){
                     self.strings.push($(value).html());
                 });
             }
+
             this.init();
         }
 
@@ -170,6 +179,10 @@
                         substr = /\d+/.exec(substr)[0];
                         skip += substr.length;
                         charPause = parseInt(substr);
+
+                        // set paused to true and call callback function
+                        self.paused = true;
+                        self.options.onTypingPaused(self.arrayPos);
                     }
 
                     // strip out the escape character and pause value so they're not printed
@@ -244,6 +257,11 @@
                         self.typewrite(curString, curStrPos);
                     }
                     // end of character pause
+                    // call pause completed callback function if typing was paused
+                    if(self.paused){
+                        self.paused = false;
+                        self.options.onTypingResumed(self.arrayPos);
+                    }
                 }, charPause);
 
                 // humanized value for typing
@@ -427,7 +445,11 @@
         //callback for every typed string
         onStringTyped: function() {},
         // callback for reset
-        resetCallback: function() {}
+        resetCallback: function() {},
+        // callback for when a pause begins
+        onTypingPaused: function() {},
+        // callback for when a pause is completed
+        onTypingResumed: function() {}
     };
 
 
