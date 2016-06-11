@@ -191,7 +191,8 @@
                             tag += curString.substr(curStrPos).charAt(0);
                             curStrPos++;
                         }
-                        curStrPos++;
+                        var nextChar = curString.substr(curStrPos + 1).charAt(0);
+                        if (nextChar !== '<' && nextChar !== '&') curStrPos++;
                         tag += endTag;
                     }
                 }
