@@ -37,7 +37,6 @@ This is really all you need to get going.
 bower install typed.js
 ~~~
 
-
 Want the animated blinking cursor? Add this CSS.
 
 ~~~ scss
@@ -63,6 +62,37 @@ Want the animated blinking cursor? Add this CSS.
 	100% { opacity:1; }
 }
 ~~~
+
+Wonderfull sites using Typed.js
+---
+https://slack.com/
+
+https://envato.com/
+
+https://productmap.co/
+
+https://www.typed.com/
+
+https://git.market/
+
+http://allison.house/404
+
+http://www.maxcdn.com/
+
+https://commando.io/
+
+http://testdouble.com/agency.html
+
+http://www.stephanemartinw.com/
+
+http://www.trelab.fi/en/
+
+http://jessejohnson.github.io/
+
+http://patrickelhage.com/
+
+http://tairemadailey.com/
+
 
 ### HTML tags
 
@@ -205,27 +235,6 @@ Want to get really custom? On my site and in the Typed.js demo I have the code t
 ~~~
 
 This checks if the `arrayPos` is `1`, which would be the second string you entered. If so, it sets `stopNum` to `3` instead of `0`, which tells it to stop when there are 3 characters left. For now you'll have to create custom `if` statements for each specific case you want. I may automate this somehow in the future.
-
-
-Wonderfull sites using Typed.js
----
-http://allison.house/404
-
-http://www.maxcdn.com/
-
-https://commando.io/
-
-http://testdouble.com/agency.html
-
-http://www.stephanemartinw.com/
-
-http://www.trelab.fi/en/
-
-http://jessejohnson.github.io/
-
-http://patrickelhage.com/
-
-http://tairemadailey.com/
 
 
 ## Development
