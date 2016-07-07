@@ -5,8 +5,6 @@ Typed.js
 
 Typed.js is a jQuery plugin that types. Enter in any string, and watch it type at the speed you've set, backspace what it's typed, and begin a new sentence for however many strings you've set.
 
----
-
 Looking for some custom use cases for Typed.js? [Check out the wiki](https://github.com/mattboldt/typed.js/wiki)
 
 ---
@@ -93,6 +91,7 @@ http://patrickelhage.com/
 
 http://tairemadailey.com/
 
+---
 
 ### HTML tags
 
