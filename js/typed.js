@@ -189,6 +189,7 @@
 						while (curString.substr(curStrPos + 1).charAt(0) !== endTag) {
 							tag += curString.substr(curStrPos).charAt(0);
 							curStrPos++;
+							if (curStrPos + 1 > curString.length) { break; }
 						}
 						curStrPos++;
 						tag += endTag;
@@ -285,6 +286,7 @@
 						while (curString.substr(curStrPos - 1).charAt(0) !== '<') {
 							tag -= curString.substr(curStrPos).charAt(0);
 							curStrPos--;
+							if (curStrPos < 0) { break; }
 						}
 						curStrPos--;
 						tag += '<';
