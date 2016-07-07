@@ -63,7 +63,7 @@ Want the animated blinking cursor? Add this CSS.
 }
 ~~~
 
-Wonderfull sites using Typed.js
+Wonderful sites using Typed.js
 ---
 https://slack.com/
 
