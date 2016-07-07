@@ -1,6 +1,6 @@
 
 // Grab node packages
-var gulp = require('gulp'),
+var gulp = require('gulp')
     rename = require('gulp-rename')
     uglify = require('gulp-uglify');
 

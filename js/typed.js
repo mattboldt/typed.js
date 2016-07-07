@@ -43,7 +43,7 @@
 		this.showCursor = this.isInput ? false : this.options.showCursor;
 
 		// text content of element
-		this.elContent = this.attr ? this.el.attr(this.attr) : this.el.text()
+		this.elContent = this.attr ? this.el.attr(this.attr) : this.el.text();
 
 		// html or plain text
 		this.contentType = this.options.contentType;
