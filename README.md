@@ -87,9 +87,6 @@ http://www.trelab.fi/en/
 
 http://jessejohnson.github.io/
 
-http://patrickelhage.com/
-
-http://tairemadailey.com/
 
 ---
 
