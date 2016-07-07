@@ -145,6 +145,7 @@
         typewrite: function(curString, curStrPos) {
             
             var self = this;
+            // cache character and string position 
             self.curStringPause = curString;
             self.curStrPosPause = curStrPos;
             // exit when stopped
