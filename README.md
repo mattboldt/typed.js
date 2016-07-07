@@ -181,6 +181,8 @@ Customization
 			startDelay: 0,
 			// backspacing speed
 			backSpeed: 0,
+			// shuffle the strings
+ +        		shuffle: false,
 			// time before backspacing
 			backDelay: 500,
 			// loop
