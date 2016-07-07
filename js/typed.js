@@ -145,6 +145,8 @@
         typewrite: function(curString, curStrPos) {
             
             var self = this;
+            self.curStringPause = curString;
+            self.curStrPosPause = curStrPos;
             // exit when stopped
             if (this.stop === true) {
                 return;
@@ -356,7 +358,7 @@
             return array;
         }
 
-        ,toggle: function() {
+        ,toggleTyped: function() {
             var self = this;
             if (self.stop) {
                 self.unpause();
