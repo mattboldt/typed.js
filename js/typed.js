@@ -181,10 +181,11 @@
 						var endTag = '';
 						if (curChar === '<') {
 							endTag = '>'
-						} else {
+						}
+						else {
 							endTag = ';'
 						}
-						while (curString.substr(curStrPos).charAt(0) !== endTag) {
+						while (curString.substr(curStrPos + 1).charAt(0) !== endTag) {
 							tag += curString.substr(curStrPos).charAt(0);
 							curStrPos++;
 						}
@@ -214,11 +215,13 @@
 						self.timeout = setTimeout(function() {
 							self.backspace(curString, curStrPos);
 						}, self.backDelay);
+
 					} else {
 
 						/* call before functions if applicable */
-						if (curStrPos === 0)
+						if (curStrPos === 0) {
 							self.options.preStringTyped(self.arrayPos);
+						}
 
 						// start typing each new char into existing string
 						// curString: arg, self.el.html: original text inside element
@@ -278,7 +281,7 @@
 					// skip over html tags while backspacing
 					if (curString.substr(curStrPos).charAt(0) === '>') {
 						var tag = '';
-						while (curString.substr(curStrPos).charAt(0) !== '<') {
+						while (curString.substr(curStrPos - 1).charAt(0) !== '<') {
 							tag -= curString.substr(curStrPos).charAt(0);
 							curStrPos--;
 						}
