@@ -84,7 +84,7 @@
 
         // for stopping
         this.stop = false;
-
+        this.isbackspacing = false;
         // custom cursor
         this.cursorChar = this.options.cursorChar;
 
@@ -93,6 +93,10 @@
         // the order of strings
         this.sequence = [];
 
+        // store paused position
+        this.curStringPause = null;
+        this.curStrPosPause = null;
+        
         // All systems go!
         this.build();
     };
@@ -139,6 +143,8 @@
         // pass current string state to each function, types 1 char per call
         ,
         typewrite: function(curString, curStrPos) {
+            
+            var self = this;
             // exit when stopped
             if (this.stop === true) {
                 return;
@@ -147,7 +153,7 @@
             // varying values for setTimeout during typing
             // can't be global since number changes each time loop is executed
             var humanize = Math.round(Math.random() * (100 - 30)) + this.typeSpeed;
-            var self = this;
+            self.isbackspacing = false;
 
             // ------------- optional ------------- //
             // backpaces a certain string faster
@@ -262,7 +268,7 @@
             // can't be global since number changes each time loop is executed
             var humanize = Math.round(Math.random() * (100 - 30)) + this.backSpeed;
             var self = this;
-
+            self.isbackspacing = true;
             self.timeout = setTimeout(function() {
 
                 // ----- this part is optional ----- //
@@ -348,6 +354,29 @@
                 array[top] = tmp;
             }
             return array;
+        }
+
+        ,toggle: function() {
+            var self = this;
+            if (self.stop) {
+                self.unpause();
+            } else if (self.stop === false && self.isbackspacing === false) {
+                self.pause();
+            }
+            return;
+        }
+
+        ,pause: function() {
+            var self = this;
+            if (self.stop === true) return;
+            self.stop = true;
+        }
+
+        ,unpause: function() {
+            var self = this;
+            if (self.stop === false) return;
+            self.stop = false;
+            self.typewrite(self.curStringPause, self.curStrPosPause);
         }
 
         // Start & Stop currently not working
