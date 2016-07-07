@@ -373,13 +373,15 @@
 			var self = this;
 			clearInterval(self.timeout);
 			var id = this.el.attr('id');
-			this.el.after('<span id="' + id + '"/>')
-			this.el.remove();
+			this.el.empty();
 			if (typeof this.cursor !== 'undefined') {
-				this.cursor.remove();
-			}
+        this.cursor.remove();
+      }
+			this.strPos = 0;
+			this.arrayPos = 0;
+			this.curLoop = 0;
 			// Send the callback
-			self.options.resetCallback();
+			this.options.resetCallback();
 		}
 
 	};
@@ -389,7 +391,8 @@
 			var $this = $(this),
 				data = $this.data('typed'),
 				options = typeof option == 'object' && option;
-			if (!data) $this.data('typed', (data = new Typed(this, options)));
+			if (data) { data.reset(); }
+			$this.data('typed', (data = new Typed(this, options)));
 			if (typeof option == 'string') data[option]();
 		});
 	};
