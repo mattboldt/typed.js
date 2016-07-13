@@ -71,6 +71,9 @@
 
 		// current array position
 		this.arrayPos = 0;
+        
+        // number to stop backspacing for every string
+        this.arrayStopNum = [];
 
 		// number to stop backspacing on.
 		// default 0, can change depending on how many chars
@@ -110,6 +113,9 @@
 
 				// shuffle the array if true
 				if(self.shuffle) self.sequence = self.shuffleArray(self.sequence);
+                
+                // figure out backspace stop position of every string
+                self.backspaceStopArrayPos();
 
 				// Start typing
 				self.typewrite(self.strings[self.sequence[self.arrayPos]], self.strPos);
@@ -278,6 +284,8 @@
 				// else{
 				//  self.stopNum = 0;
 				// }
+                
+                self.stopNum = self.arrayStopNum[self.arrayPos];
 
 				if (self.contentType === 'html') {
 					// skip over html tags while backspacing
@@ -377,14 +385,30 @@
 			var id = this.el.attr('id');
 			this.el.empty();
 			if (typeof this.cursor !== 'undefined') {
-        this.cursor.remove();
-      }
+                this.cursor.remove();
+            }
 			this.strPos = 0;
 			this.arrayPos = 0;
 			this.curLoop = 0;
 			// Send the callback
 			this.options.resetCallback();
-		}
+		},
+        
+        backspaceStopArrayPos: function() {
+            var self = this;
+            
+            for (var i=1; i<self.sequence.length; ++i){
+                var curString = self.strings[self.sequence[i-1]];
+                var nextString = self.strings[self.sequence[i]];
+                
+                for(var x=0; x<Math.max(curString.length, nextString.length); ++x){
+                    if(curString[x] !== nextString[x]){
+                        self.arrayStopNum[i-1] = x;
+                        break;
+                    }
+                }
+            }
+        }
 
 	};
 
