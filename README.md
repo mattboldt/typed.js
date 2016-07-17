@@ -178,12 +178,12 @@ Customization
 			// backspacing speed
 			backSpeed: 0,
 			// shuffle the strings
- +        		shuffle: false,
+			shuffle: false,
 			// time before backspacing
 			backDelay: 500,
 			// loop
 			loop: false,
-			// false = infinite
+			// true = infinite
 			loopCount: false,
 			// show cursor
 			showCursor: true,
