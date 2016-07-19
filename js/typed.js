@@ -53,6 +53,9 @@
 
 		// add a delay before typing starts
 		this.startDelay = this.options.startDelay;
+        
+        // add a delay after backspacing ends
+		this.restartDelay = this.options.restartDelay;
 
 		// backspacing speed
 		this.backSpeed = this.options.backSpeed;
@@ -366,10 +369,19 @@
 
 						// Shuffle sequence again
 						if(self.shuffle) self.sequence = self.shuffleArray(self.sequence);
+                        
+                        // Remember where cursor stops at last string before next loop
                         self.strPos = curStrPos;
+                        
+                        // Overwrite startDelay with restartDelay for next loop
+                        self.startDelay = self.restartDelay;
+                        
 						self.init();
-					} else
-						self.typewrite(self.strings[self.sequence[self.arrayPos]], curStrPos);
+					} else {
+                        self.timeout = setTimeout(function() {
+						  self.typewrite(self.strings[self.sequence[self.arrayPos]], curStrPos);
+                        }, self.restartDelay);
+                    }
 				}
 
 				// humanized value for typing
@@ -471,6 +483,8 @@
 		typeSpeed: 0,
 		// time before typing starts
 		startDelay: 0,
+        // time after backspacing ends
+		restartDelay: 0,
 		// backspacing speed
 		backSpeed: 0,
 		// shuffle the strings
