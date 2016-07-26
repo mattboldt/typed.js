@@ -114,11 +114,13 @@ This allows bots and search engines, as well as users with JavaScript disabled, 
 	});
 </script>
 ~~~
-You must wrap each string in the `typed-strings` div with a `<p>`
+You can wrap each string in the `typed-strings` div with any element(`<p>`, `<span>`...etc).
 ~~~ html
 <div id="typed-strings">
     <p>Typed.js is a <strong>jQuery</strong> plugin.</p>
     <p>It <em>types</em> out sentences.</p>
+    <h1>Now we can wrap more element type.</h1>
+    <span>Typed.js is really awesome!</span>
 </div>
 <span id="typed"></span>
 ~~~
