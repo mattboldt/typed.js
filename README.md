@@ -171,15 +171,15 @@ Customization
 			strings: ["First sentence.", "Second sentence."],
 			// Optionally use an HTML element to grab strings from (must wrap each string in a <p>)
 			stringsElement: null,
-			// typing speed
+			// typing speed (milliseconds)
 			typeSpeed: 0,
-			// time before typing starts
+			// time before typing starts (milliseconds)
 			startDelay: 0,
-			// backspacing speed
+			// backspacing speed (milliseconds)
 			backSpeed: 0,
 			// shuffle the strings
- +        		shuffle: false,
-			// time before backspacing
+			shuffle: false,
+			// time before backspacing (milliseconds)
 			backDelay: 500,
 			// loop
 			loop: false,
