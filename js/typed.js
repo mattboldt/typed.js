@@ -65,6 +65,9 @@
 
 		// input strings of text
 		this.strings = this.options.strings;
+		
+	        // Should the current string be backspaced first?
+	        this.backspaceFirst = this.options.backspaceFirst;
 
 		// character number position of current string
 		this.strPos = 0;
@@ -112,7 +115,10 @@
 				if(self.shuffle) self.sequence = self.shuffleArray(self.sequence);
 
 				// Start typing
-				self.typewrite(self.strings[self.sequence[self.arrayPos]], self.strPos);
+        			if(self.backspaceFirst)
+                    			self.backspace(self.strings[self.sequence[self.arrayPos]], self.strings[self.sequence[self.arrayPos]].length);
+                		else
+                    			self.typewrite(self.strings[self.sequence[self.arrayPos]], self.strPos);
 			}, self.startDelay);
 		},
 
