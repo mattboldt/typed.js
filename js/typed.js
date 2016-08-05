@@ -146,6 +146,7 @@
 			// can't be global since number changes each time loop is executed
 			var humanize = Math.round(Math.random() * (100 - 30)) + this.typeSpeed;
 			var self = this;
+			var numChars = 1;
 
 			// ------------- optional ------------- //
 			// backpaces a certain string faster
@@ -168,10 +169,16 @@
 						substr = /\d+/.exec(substr)[0];
 						skip += substr.length;
 						charPause = parseInt(substr);
+						// strip out the escape character and pause value so they're not printed
+						curString = curString.substring(0, curStrPos) + curString.substring(curStrPos + skip);
+					} else {
+						var matches = /^\^((?:.|\n)*?)\^(?!\d+)((?:.|\n)*)/.exec(substr);
+						if (matches) {
+							// strip out the escape characters and append all the string in between
+							numChars = matches[1].length;
+							curString = curString.substring(0, curStrPos) + matches[1] + matches[2];
+						}
 					}
-
-					// strip out the escape character and pause value so they're not printed
-					curString = curString.substring(0, curStrPos) + curString.substring(curStrPos + skip);
 				}
 
 				if (self.contentType === 'html') {
@@ -227,7 +234,8 @@
 
 						// start typing each new char into existing string
 						// curString: arg, self.el.html: original text inside element
-						var nextString = curString.substr(0, curStrPos + 1);
+						curStrPos += numChars;
+						var nextString = curString.substr(0, curStrPos);
 						if (self.attr) {
 							self.el.attr(self.attr, nextString);
 						} else {
@@ -239,9 +247,7 @@
 								self.el.text(nextString);
 							}
 						}
-
-						// add characters one by one
-						curStrPos++;
+						self.options.onType(curStrPos);
 						// loop the function
 						self.typewrite(curString, curStrPos);
 					}
@@ -428,6 +434,8 @@
 		callback: function() {},
 		// starting callback function before each string
 		preStringTyped: function() {},
+		// callback for each time the string is updated
+		onType: function() {},
 		//callback for every typed string
 		onStringTyped: function() {},
 		// callback for reset

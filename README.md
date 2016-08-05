@@ -160,6 +160,21 @@ You can pause in the middle of a string for a given amount of time by including 
 </script>
 ~~~
 
+### Bulk Typing
+
+You can type a part of the string immediately instead of one character at a time.
+
+~~~ javascript
+<script>
+	$(function(){
+		$(".element").typed({
+			// Waits 1000ms after typing "First"
+			strings: ["We want ^this part^ to appear immediately"]
+		});
+	});
+</script>
+~~~
+
 
 Customization
 ----
@@ -197,6 +212,8 @@ Customization
 			callback: function() {},
 			// starting callback function before each string
 			preStringTyped: function() {},
+			// callback for each time the string is updated
+			onType: function() {},
 			//callback for every typed string
 			onStringTyped: function() {},
 			// callback for reset
@@ -254,5 +271,3 @@ Thanks for checking this out. If you have any questions, I'll be on [Twitter](ht
 If you're using this, let me know! I'd love to see it.
 
 It would also be great if you mentioned me or my website somewhere. [www.mattboldt.com](http://www.mattboldt.com)
-
-
