@@ -51,6 +51,9 @@
 		// typing speed
 		this.typeSpeed = this.options.typeSpeed;
 
+		// typing speed dispersion
+		this.dispersion = this.options.dispersion;
+
 		// add a delay before typing starts
 		this.startDelay = this.options.startDelay;
 
@@ -144,7 +147,7 @@
 
 			// varying values for setTimeout during typing
 			// can't be global since number changes each time loop is executed
-			var humanize = Math.round(Math.random() * (100 - 30)) + this.typeSpeed;
+			var humanize = Math.round(Math.random() * this.dispersion) + this.typeSpeed;
 			var self = this;
 
 			// ------------- optional ------------- //
@@ -404,6 +407,8 @@
 		stringsElement: null,
 		// typing speed
 		typeSpeed: 0,
+		// typing speed dispersion
+		dispersion: 70,
 		// time before typing starts
 		startDelay: 0,
 		// backspacing speed
