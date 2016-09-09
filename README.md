@@ -1,4 +1,4 @@
-<img src="/logo.png" width="450px" title="Typed.js" />
+<img src="/logo-cropped.png" width="450px" title="Typed.js" />
 ========
 
 [View the live demo](http://www.mattboldt.com/demos/typed-js/) | [Go to my site, mattboldt.com](http://www.mattboldt.com)
