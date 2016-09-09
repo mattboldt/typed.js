@@ -1,4 +1,4 @@
-Typed.js
+![typed.js](/logo-512.png)
 ========
 
 [View the live demo](http://www.mattboldt.com/demos/typed-js/) | [Go to my site, mattboldt.com](http://www.mattboldt.com)
