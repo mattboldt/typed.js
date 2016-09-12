@@ -17,12 +17,12 @@ This is really all you need to get going.
 <script src="jquery.js"></script>
 <script src="typed.js"></script>
 <script>
-	$(function(){
-		$(".element").typed({
-			strings: ["First sentence.", "Second sentence."],
-			typeSpeed: 0
-		});
-	});
+  $(function() {
+    $(".element").typed({
+      strings: ["First sentence.", "Second sentence."],
+      typeSpeed: 0
+    });
+  });
 </script>
 ...
 
@@ -38,26 +38,26 @@ bower install typed.js
 Want the animated blinking cursor? Add this CSS.
 
 ~~~ scss
-.typed-cursor{
-	opacity: 1;
-	-webkit-animation: blink 0.7s infinite;
-	-moz-animation: blink 0.7s infinite;
-	animation: blink 0.7s infinite;
+.typed-cursor {
+  opacity: 1;
+  -webkit-animation: blink 0.7s infinite;
+  -moz-animation: blink 0.7s infinite;
+  animation: blink 0.7s infinite;
 }
-@keyframes blink{
-	0% { opacity:1; }
-	50% { opacity:0; }
-	100% { opacity:1; }
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
 }
-@-webkit-keyframes blink{
-	0% { opacity:1; }
-	50% { opacity:0; }
-	100% { opacity:1; }
+@-webkit-keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
 }
-@-moz-keyframes blink{
-	0% { opacity:1; }
-	50% { opacity:0; }
-	100% { opacity:1; }
+@-moz-keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
 }
 ~~~
 
@@ -96,8 +96,8 @@ By default the content type is set to `html`, so you're good to go. Want to type
 
 ~~~ javascript
 $(".element").typed({
-	strings: ["Typed.js is a <strong>jQuery</strong> plugin."],
-	contentType: 'html' // or 'text'
+  strings: ["Typed.js is a <strong>jQuery</strong> plugin."],
+  contentType: "html" // or "text"
 });
 ~~~
 
@@ -107,11 +107,11 @@ This allows bots and search engines, as well as users with JavaScript disabled, 
 
 ~~~ javascript
 <script>
-	$(function(){
-		$("#typed").typed({
-			stringsElement: $('#typed-strings')
-		});
-	});
+  $(function() {
+    $("#typed").typed({
+      stringsElement: $("#typed-strings")
+    });
+  });
 </script>
 ~~~
 You must wrap each string in the `typed-strings` div with a `<p>`
@@ -125,13 +125,13 @@ You must wrap each string in the `typed-strings` div with a `<p>`
 
 ### Line Breaks
 
-#### `contentType: 'html'`
+#### `contentType: "html"`
 
 ~~~ javascript
 $(".typed").typed({ strings: ["Sentence with <br>line break."] });
 ~~~
 
-#### `contentType: 'text'`
+#### `contentType: "text"`
 
 Use `white-space: pre` in your typed text element, and then `\n` when typing out the strings. Example:
 
@@ -151,12 +151,12 @@ You can pause in the middle of a string for a given amount of time by including 
 
 ~~~ javascript
 <script>
-	$(function(){
-		$(".element").typed({
-			// Waits 1000ms after typing "First"
-			strings: ["First ^1000 sentence.", "Second sentence."]
-		});
-	});
+  $(function() {
+    $(".element").typed({
+      // Waits 1000ms after typing "First"
+      strings: ["First ^1000 sentence.", "Second sentence."]
+    });
+  });
 </script>
 ~~~
 
@@ -166,43 +166,43 @@ Customization
 
 ~~~ javascript
 <script>
-	$(function(){
-		$(".element").typed({
-			strings: ["First sentence.", "Second sentence."],
-			// Optionally use an HTML element to grab strings from (must wrap each string in a <p>)
-			stringsElement: null,
-			// typing speed
-			typeSpeed: 0,
-			// time before typing starts
-			startDelay: 0,
-			// backspacing speed
-			backSpeed: 0,
-			// shuffle the strings
- +        		shuffle: false,
-			// time before backspacing
-			backDelay: 500,
-			// loop
-			loop: false,
-			// false = infinite
-			loopCount: false,
-			// show cursor
-			showCursor: true,
-			// character for cursor
-			cursorChar: "|",
-			// attribute to type (null == text)
-			attr: null,
-			// either html or text
-			contentType: 'html',
-			// call when done callback function
-			callback: function() {},
-			// starting callback function before each string
-			preStringTyped: function() {},
-			//callback for every typed string
-			onStringTyped: function() {},
-			// callback for reset
-			resetCallback: function() {}
-		});
-	});
+  $(function() {
+    $(".element").typed({
+      strings: ["First sentence.", "Second sentence."],
+      // Optionally use an HTML element to grab strings from (must wrap each string in a <p>)
+      stringsElement: null,
+      // typing speed
+      typeSpeed: 0,
+      // time before typing starts
+      startDelay: 0,
+      // backspacing speed
+      backSpeed: 0,
+      // shuffle the strings
+      shuffle: false,
+      // time before backspacing
+      backDelay: 500,
+      // loop
+      loop: false,
+      // false = infinite
+      loopCount: false,
+      // show cursor
+      showCursor: true,
+      // character for cursor
+      cursorChar: "|",
+      // attribute to type (null == text)
+      attr: null,
+      // either html or text
+      contentType: "html",
+      // call when done callback function
+      callback: function() {},
+      // starting callback function before each string
+      preStringTyped: function() {},
+      //callback for every typed string
+      onStringTyped: function() {},
+      // callback for reset
+      resetCallback: function() {}
+    });
+  });
 </script>
 ~~~
 
@@ -213,22 +213,22 @@ Want to get really custom? On my site and in the Typed.js demo I have the code t
 
 ~~~ javascript
 ...
-, backspace: function(curString, curStrPos){
-	...
+, backspace: function(curString, curStrPos) {
+  ...
 
-	setTimeout(function() {
+  setTimeout(function() {
 
-			// check string array position
-			// on the first string, only delete one word
-			// the stopNum actually represents the amount of chars to
-			// keep in the current string. In my case it's 3.
-			if (self.arrayPos == 1){
-				self.stopNum = 3;
-			}
-			//every other time, delete the whole typed string
-			else{
-				self.stopNum = 0;
-			}
+      // check string array position
+      // on the first string, only delete one word
+      // the stopNum actually represents the amount of chars to
+      // keep in the current string. In my case it's 3.
+      if (self.arrayPos == 1) {
+        self.stopNum = 3;
+      }
+      // every other time, delete the whole typed string
+      else {
+        self.stopNum = 0;
+      }
 ...
 ~~~
 
@@ -254,5 +254,3 @@ Thanks for checking this out. If you have any questions, I'll be on [Twitter](ht
 If you're using this, let me know! I'd love to see it.
 
 It would also be great if you mentioned me or my website somewhere. [www.mattboldt.com](http://www.mattboldt.com)
-
-
