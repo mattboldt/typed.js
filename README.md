@@ -189,6 +189,8 @@ Customization
 			showCursor: true,
 			// character for cursor
 			cursorChar: "|",
+			// erase at once the whole string
+			eraseAtOnce: false,
 			// attribute to type (null == text)
 			attr: null,
 			// either html or text
