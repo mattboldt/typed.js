@@ -281,7 +281,7 @@
 
 				if (self.contentType === 'html') {
 					// skip over html tags while backspacing
-					var re = /(<(?=[^<]*$).*>$)|(\&\S+;$)/gi;
+					var re = /(<(?=[^<]+$).+>$)|(&[^;&]+;$)/gi;
 					if (re.test(curString.substr(0, (curStrPos + 1 )))) {
 						curStrPos -= (curString.substr(0, (curStrPos + 1 )).match(re)[0].length)
 					}
