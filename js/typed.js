@@ -325,7 +325,7 @@
 						self.arrayPos = 0;
 
 						// when looping, fires a callback function for each final iteration, after backspacing the string
-                        self.options.onLastStringBackspaced();
+						self.options.onLastStringBackspaced();
 
 						// Shuffle sequence again
 						if(self.shuffle) self.sequence = self.shuffleArray(self.sequence);
@@ -434,7 +434,7 @@
 		// callback for every typed string
 		onStringTyped: function() {},
 		// callback for the last backspaced string after each loop iteration
-        onLastStringBackspaced: function() {}
+		onLastStringBackspaced: function() {}
 		// callback for reset
 		resetCallback: function() {}
 	};
