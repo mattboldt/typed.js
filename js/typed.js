@@ -434,7 +434,7 @@
 		// callback for every typed string
 		onStringTyped: function() {},
 		// callback for the last backspaced string after each loop iteration
-		onLastStringBackspaced: function() {}
+		onLastStringBackspaced: function() {},
 		// callback for reset
 		resetCallback: function() {}
 	};
