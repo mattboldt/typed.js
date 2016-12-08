@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <title>Typed.js - Type your heart out</title>
     <!-- Get jQuery -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="js/typed.js" type="text/javascript"></script>
     <script>
-    $(function(){
+    document.addEventListener('DOMContentLoaded', function(){
 
-        $("#typed").typed({
-            // strings: ["Typed.js is a <strong>jQuery</strong> plugin.", "It <em>types</em> out sentences.", "And then deletes them.", "Try it out!"],
-            stringsElement: $('#typed-strings'),
+        Typed.select("#typed", {
+            // strings: ["Typed.js is an <strong>Awesome</strong> library.", "It <em>types</em> out sentences.", "And then deletes them.", "Try it out!"],
+            stringsElement: document.getElementById('typed-strings'),
             typeSpeed: 30,
             backDelay: 500,
             loop: false,
@@ -22,9 +21,12 @@
             resetCallback: function() { newTyped(); }
         });
 
-        $(".reset").click(function(){
-            $("#typed").typed('reset');
-        });
+        var resetElement = document.querySelector('.reset');
+        if(resetElement) {
+            resetElement.addEventListener('click', function() {
+                document.getElementById('typed')._typed.reset();
+            });
+        }
 
     });
 
@@ -79,7 +81,7 @@
 
         <div class="type-wrap">
             <div id="typed-strings">
-                <span>Typed.js is a <strong>jQuery</strong> plugin.</span>
+                <span>Typed.js is a <strong>Awesome</strong> library.</span>
                 <p>It <em>types</em> out sentences.</p>
                 <p>And then deletes them.</p>
                 <p>Try it out!</p>
