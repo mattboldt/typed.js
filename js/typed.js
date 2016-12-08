@@ -112,7 +112,12 @@
 				if(self.shuffle) self.sequence = self.shuffleArray(self.sequence);
 
 				// Start typing
-				self.typewrite(self.strings[self.sequence[self.arrayPos]], self.strPos);
+				// Check if there is some text in the element, if yes start by backspacing the default message
+				if (self.el.html().length == 0) {
+					self.typewrite(self.strings[self.sequence[self.arrayPos]], self.strPos);
+				} else {
+					self.backspace(self.el.html(), self.el.html().length);
+				}
 			}, self.startDelay);
 		},
 
