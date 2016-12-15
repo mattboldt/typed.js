@@ -139,7 +139,7 @@
 		typewrite: function(curString, curStrPos) {
 			// Stops blinking while typing
 			var tmpcursor = document.getElementsByClassName("typed-cursor")[0];
-			tmpcursor.className = tmpcursor.className.replace(new RegExp('(?:^|\\s)'+ 'is-animated' + '(?:\\s|$)'), '');
+			tmpcursor.className = tmpcursor.className.replace(new RegExp('(?:^|\\s)'+ 'is-paused' + '(?:\\s|$)'), '');
 
 			// exit when stopped
 			if (this.stop === true) {
@@ -205,7 +205,7 @@
 					if (curStrPos === curString.length) {
 						// Resume blinking when typing stops
 						var tmpcursor = document.getElementsByClassName("typed-cursor")[0];
-						tmpcursor.className += " is-animated";
+						tmpcursor.className += " is-paused";
 						
 						// fires callback function
 						self.options.onStringTyped(self.arrayPos);
@@ -264,7 +264,7 @@
 		backspace: function(curString, curStrPos) {
 			// Stops blinking when backspacing
 			var tmpcursor = document.getElementsByClassName("typed-cursor")[0];
-			tmpcursor.className = tmpcursor.className.replace(new RegExp('(?:^|\\s)'+ 'is-animated' + '(?:\\s|$)'), '');
+			tmpcursor.className = tmpcursor.className.replace(new RegExp('(?:^|\\s)'+ 'is-paused' + '(?:\\s|$)'), '');
 
 			// exit when stopped
 			if (this.stop === true) {
