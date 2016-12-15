@@ -38,22 +38,28 @@ bower install typed.js
 Want the animated blinking cursor? Add this CSS.
 
 ~~~ scss
-.typed-cursor{
+.typed-cursor {
 	opacity: 1;
-	-webkit-animation: blink 0.7s infinite;
-	-moz-animation: blink 0.7s infinite;
-	animation: blink 0.7s infinite;
+	
+	&.is-paused {
+		-webkit-animation: blink 0.7s infinite;
+		-moz-animation: blink 0.7s infinite;
+		animation: blink 0.7s infinite;
+	}
 }
+
 @keyframes blink{
 	0% { opacity:1; }
 	50% { opacity:0; }
 	100% { opacity:1; }
 }
+
 @-webkit-keyframes blink{
 	0% { opacity:1; }
 	50% { opacity:0; }
 	100% { opacity:1; }
 }
+
 @-moz-keyframes blink{
 	0% { opacity:1; }
 	50% { opacity:0; }
