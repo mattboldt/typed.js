@@ -139,6 +139,10 @@
 		typewrite: function(curString, curStrPos) {
 			// Stops blinking while typing
 			var tmpcursor = document.getElementsByClassName("typed-cursor")[0];
+                        tmpcursor.preventdefault;
+                        tmpcursor.classList.remove("typed-cursor");
+                        void tmpcursor.offsetWidth;
+                        tmpcursor.classList.add("typed-cursor");
 			tmpcursor.style.animationPlayState = "paused";
 
 			// exit when stopped
@@ -262,6 +266,10 @@
 		backspace: function(curString, curStrPos) {
 			// Stops blinking when backspacing
 			var tmpcursor = document.getElementsByClassName("typed-cursor")[0];
+			tmpcursor.preventdefault;
+                        tmpcursor.classList.remove("typed-cursor");
+			void tmpcursor.offsetWidth;
+			tmpcursor.classList.add("typed-cursor");
 			tmpcursor.style.animationPlayState = "paused";
 			// exit when stopped
 			if (this.stop === true) {
