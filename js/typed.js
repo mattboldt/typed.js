@@ -375,7 +375,7 @@
 			var self = this;
 			clearInterval(self.timeout);
 			var id = this.el.attr('id');
-			this.el.empty();
+			this.el.html('&nbsp;');
 			if (typeof this.cursor !== 'undefined') {
         this.cursor.remove();
       }
