@@ -181,6 +181,8 @@ Customization
         	shuffle: false,
 			// time before backspacing
 			backDelay: 500,
+			// number to stop backspacing on
+			stopNum: 0,
 			// loop
 			loop: false,
 			// false = infinite

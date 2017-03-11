@@ -75,7 +75,7 @@
 		// number to stop backspacing on.
 		// default 0, can change depending on how many chars
 		// you want to remove at the time
-		this.stopNum = 0;
+		this.stopNum = this.options.stopNum || 0;
 
 		// Looping logic
 		this.loop = this.options.loop;
