@@ -149,6 +149,10 @@
 
 		// pass current string state to each function, types 1 char per call
 		typewrite: function(curString, curStrPos) {
+			// Stops blinking while typing
+			var tmpcursor = document.getElementsByClassName("typed-cursor")[0];
+			tmpcursor.className = tmpcursor.className.replace(new RegExp('(?:^|\\s)'+ 'is-paused' + '(?:\\s|$)'), '');
+
 			// exit when stopped
 			if (this.stop === true) {
 				return;
@@ -211,6 +215,10 @@
 				// timeout for any pause after a character
 				self.timeout = setTimeout(function() {
 					if (curStrPos === curString.length) {
+						// Resume blinking when typing stops
+						var tmpcursor = document.getElementsByClassName("typed-cursor")[0];
+						tmpcursor.className += " is-paused";
+						
 						// fires callback function
 						self.options.onStringTyped(self.arrayPos);
 
@@ -266,6 +274,10 @@
 		},
 
 		backspace: function(curString, curStrPos) {
+			// Stops blinking when backspacing
+			var tmpcursor = document.getElementsByClassName("typed-cursor")[0];
+			tmpcursor.className = tmpcursor.className.replace(new RegExp('(?:^|\\s)'+ 'is-paused' + '(?:\\s|$)'), '');
+
 			// exit when stopped
 			if (this.stop === true) {
 				return;
