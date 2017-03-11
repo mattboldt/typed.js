@@ -17,14 +17,7 @@ This is really all you need to get going.
 <script src="typed.js"></script>
 <script>
 	document.addEventListener("DOMContentLoaded", function(){
-		Typed.select(".elements", {
-			strings: ["First sentence.", "Second sentence."],
-			typeSpeed: 0
-		});
-		
-		// or
-        		
-		new Typed(document.querySelector(".element"), {
+		Typed.select(".element", {
 			strings: ["First sentence.", "Second sentence."],
 			typeSpeed: 0
 		});

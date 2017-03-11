@@ -140,7 +140,6 @@
 				this.strings = [];
 				this.stringsElement.style.display = 'none';
 				var strings = Array.prototype.slice.apply(this.stringsElement.children);
-				console.log(strings);
 				strings.forEach(function(stringElement){
 					self.strings.push(stringElement.innerHTML);
 				});
