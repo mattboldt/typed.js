@@ -194,8 +194,8 @@ Typed.new(".element", {
 	backDelay: 500,
 	// loop
 	loop: false,
-	// false = infinite
-	loopCount: false,
+	// null = infinite
+	loopCount: null,
 	// show cursor
 	showCursor: true,
 	// character for cursor
