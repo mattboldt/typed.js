@@ -400,7 +400,7 @@
 
 	};
 
-	Typed.select = function(selector, option) {
+	Typed.new = function(selector, option) {
 		var elements = Array.prototype.slice.apply(document.querySelectorAll(selector));
 		elements.forEach(function(element) {
 			var instance = element._typed,

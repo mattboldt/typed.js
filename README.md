@@ -17,7 +17,7 @@ This is really all you need to get going.
 <script src="typed.js"></script>
 <script>
 	document.addEventListener("DOMContentLoaded", function(){
-		Typed.select(".element", {
+		Typed.new(".element", {
 			strings: ["First sentence.", "Second sentence."],
 			typeSpeed: 0
 		});
@@ -112,7 +112,7 @@ http://jessejohnson.github.io/
 By default the content type is set to `html`, so you're good to go. Want to type out the html regularly? Set it to `text`.
 
 ~~~ javascript
-Typed.select(".element", {
+Typed.new(".element", {
 	strings: ["Typed.js is an <strong>Awesome</strong> library."],
 	contentType: 'html' // or 'text'
 });
@@ -125,7 +125,7 @@ This allows bots and search engines, as well as users with JavaScript disabled, 
 ~~~ javascript
 <script>
 	document.addEventListener('DOMContentLoaded', function(){
-		Typed.select('#typed', {
+		Typed.new('#typed', {
 			stringsElement: document.getElementById('typed-strings')
 		});
 	});
@@ -145,7 +145,7 @@ You must wrap each string in the `typed-strings` div with a `<p>`
 #### `contentType: 'html'`
 
 ~~~ javascript
-Typed.select(".typed", { strings: ["Sentence with <br>line break."] });
+Typed.new(".typed", { strings: ["Sentence with <br>line break."] });
 ~~~
 
 #### `contentType: 'text'`
@@ -158,7 +158,7 @@ Use `white-space: pre` in your typed text element, and then `\n` when typing out
 
 ...
 
-Typed.select(".element", { strings: ["Sentence with a\nline break."] });
+Typed.new(".element", { strings: ["Sentence with a\nline break."] });
 
 ~~~
 
@@ -167,7 +167,7 @@ Typed.select(".element", { strings: ["Sentence with a\nline break."] });
 You can pause in the middle of a string for a given amount of time by including an escape character.
 
 ~~~ javascript
-Typed.select(".element", {
+Typed.new(".element", {
 	// Waits 1000ms after typing "First"
 	strings: ["First ^1000 sentence.", "Second sentence."]
 });
@@ -178,7 +178,7 @@ Customization
 ----
 
 ~~~ javascript
-Typed.select(".element", {
+Typed.new(".element", {
 	strings: ["First sentence.", "Second sentence."],
 	// Optionally use an HTML element to grab strings from (must wrap each string in a <p>)
 	stringsElement: null,
