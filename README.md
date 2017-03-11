@@ -124,14 +124,6 @@ This allows bots and search engines, as well as users with JavaScript disabled, 
 
 ~~~ javascript
 <script>
-	$(function(){
-		$("#typed").typed({
-			stringsElement: $('#typed-strings')
-		});
-	});
-	
-	// or
-	
 	document.addEventListener('DOMContentLoaded', function(){
 		Typed.select('#typed', {
 			stringsElement: document.getElementById('typed-strings')
@@ -166,7 +158,7 @@ Use `white-space: pre` in your typed text element, and then `\n` when typing out
 
 ...
 
-$(".typed").typed({ strings: ["Sentence with a\nline break."] });
+Typed.select(".element", { strings: ["Sentence with a\nline break."] });
 
 ~~~
 
@@ -175,7 +167,7 @@ $(".typed").typed({ strings: ["Sentence with a\nline break."] });
 You can pause in the middle of a string for a given amount of time by including an escape character.
 
 ~~~ javascript
-$(".element").typed({
+Typed.select(".element", {
 	// Waits 1000ms after typing "First"
 	strings: ["First ^1000 sentence.", "Second sentence."]
 });
