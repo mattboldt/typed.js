@@ -60,6 +60,9 @@
 
 		// add a delay before typing starts
 		this.startDelay = this.options.startDelay;
+		
+		// toggle backspacing on/off (= true/false)
+		this.backspacing = this.options.backspacing;
 
 		// backspacing speed
 		this.backSpeed = this.options.backSpeed;
@@ -266,6 +269,11 @@
 		},
 
 		backspace: function(curString, curStrPos) {
+			// jump to next string if backspacing is off
+			if (!this.backspacing) {
+				curStrPos = 0;
+			}
+			
 			// exit when stopped
 			if (this.stop === true) {
 				return;
@@ -433,6 +441,8 @@
 		typeSpeed: 0,
 		// time before typing starts
 		startDelay: 0,
+		// toggle backspacing on/off (= true/false)
+		backspacing: true,
 		// backspacing speed
 		backSpeed: 0,
 		// shuffle the strings
