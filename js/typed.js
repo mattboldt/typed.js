@@ -53,6 +53,9 @@
 
 		// add a delay before typing starts
 		this.startDelay = this.options.startDelay;
+        
+        // add a delay after backspacing ends
+		this.restartDelay = this.options.restartDelay;
 
 		// backspacing speed
 		this.backSpeed = this.options.backSpeed;
@@ -71,6 +74,9 @@
 
 		// current array position
 		this.arrayPos = 0;
+        
+        // number to stop backspacing for every string
+        this.arrayStopNum = [];
 
 		// number to stop backspacing on.
 		// default 0, can change depending on how many chars
@@ -81,6 +87,7 @@
 		this.loop = this.options.loop;
 		this.loopCount = this.options.loopCount;
 		this.curLoop = 0;
+        this.loopStarted = false;
 
 		// for stopping
 		this.stop = false;
@@ -110,6 +117,9 @@
 
 				// shuffle the array if true
 				if(self.shuffle) self.sequence = self.shuffleArray(self.sequence);
+                
+                // figure out backspace stop position of every string
+                self.backspaceStopArrayPos();
 
 				// Start typing
 				self.typewrite(self.strings[self.sequence[self.arrayPos]], self.strPos);
@@ -126,7 +136,6 @@
 			if (this.stringsElement) {
 				this.strings = [];
 				this.stringsElement.hide();
-				console.log(this.stringsElement.children());
 				var strings = this.stringsElement.children();
 				$.each(strings, function(key, value){
 					self.strings.push($(value).html());
@@ -137,6 +146,7 @@
 
 		// pass current string state to each function, types 1 char per call
 		typewrite: function(curString, curStrPos) {
+            
 			// exit when stopped
 			if (this.stop === true) {
 				return;
@@ -146,7 +156,37 @@
 			// can't be global since number changes each time loop is executed
 			var humanize = Math.round(Math.random() * (100 - 30)) + this.typeSpeed;
 			var self = this;
-
+            
+            
+            //prepend un-erased text into curString and its delay is ignored
+            //will handle the case when stopNum is in between delay elements (^1000)
+            if(self.loopStarted && self.arrayPos == 0){
+                var lastStringStopNum = self.arrayStopNum[self.sequence.length - 1];
+            }
+            else{
+                var lastStringStopNum = self.arrayStopNum[self.arrayPos - 1] || 0;
+            }
+            var i = 0;
+            while(i < curString.length){
+                var substr = curString.substr(i);
+                if (substr.charAt(0) === '^') {
+                    var skip = i;
+					if (/^\^\d+/.test(substr)) {
+						substr = /\d+/.exec(substr)[0];
+						skip += substr.length;
+                        
+                        if(lastStringStopNum >= i && lastStringStopNum <= skip){
+                            lastStringStopNum = skip + 1;
+                            break;
+                        }
+					}
+				}        
+                i++;
+            }
+            var preString = self.getPrintableTextInString(curString.substr(0, lastStringStopNum));
+            curString = preString + curString.substr(lastStringStopNum);
+            
+            
 			// ------------- optional ------------- //
 			// backpaces a certain string faster
 			// ------------------------------------ //
@@ -215,6 +255,7 @@
 						}
 
 						self.timeout = setTimeout(function() {
+                            self.loopStarted = true;
 							self.backspace(curString, curStrPos);
 						}, self.backDelay);
 
@@ -278,6 +319,8 @@
 				// else{
 				//  self.stopNum = 0;
 				// }
+                
+                self.stopNum = self.arrayStopNum[self.arrayPos] || 0;
 
 				if (self.contentType === 'html') {
 					// skip over html tags while backspacing
@@ -326,10 +369,19 @@
 
 						// Shuffle sequence again
 						if(self.shuffle) self.sequence = self.shuffleArray(self.sequence);
-
+                        
+                        // Remember where cursor stops at last string before next loop
+                        self.strPos = curStrPos;
+                        
+                        // Overwrite startDelay with restartDelay for next loop
+                        self.startDelay = self.restartDelay;
+                        
 						self.init();
-					} else
-						self.typewrite(self.strings[self.sequence[self.arrayPos]], curStrPos);
+					} else {
+                        self.timeout = setTimeout(function() {
+						  self.typewrite(self.strings[self.sequence[self.arrayPos]], curStrPos);
+                        }, self.restartDelay);
+                    }
 				}
 
 				// humanized value for typing
@@ -377,14 +429,39 @@
 			var id = this.el.attr('id');
 			this.el.empty();
 			if (typeof this.cursor !== 'undefined') {
-        this.cursor.remove();
-      }
+                this.cursor.remove();
+            }
 			this.strPos = 0;
 			this.arrayPos = 0;
 			this.curLoop = 0;
 			// Send the callback
 			this.options.resetCallback();
-		}
+		},
+        
+        backspaceStopArrayPos: function() {
+            var self = this;
+            var length = self.sequence.length;
+            if(self.loop === true){
+                length++;
+            }
+            
+            for (var i=1; i<length; ++i){
+                var curString = self.getPrintableTextInString(self.strings[self.sequence[i-1]]);
+                var nextString = self.getPrintableTextInString(self.strings[self.sequence[(i % self.sequence.length)]]);
+                
+                for(var x=0; x<Math.max(curString.length, nextString.length); ++x){
+                    if(curString[x] !== nextString[x]){
+                        self.arrayStopNum[i-1] = x;
+                        break;
+                    }
+                }
+            }
+        },
+        
+        getPrintableTextInString: function(str){
+            str = str.replace(/\^\d+/g, "");
+            return str;
+        }
 
 	};
 
@@ -406,6 +483,8 @@
 		typeSpeed: 0,
 		// time before typing starts
 		startDelay: 0,
+        // time after backspacing ends
+		restartDelay: 0,
 		// backspacing speed
 		backSpeed: 0,
 		// shuffle the strings
