@@ -78,6 +78,16 @@ Want the animated blinking cursor? Add this CSS.
 }
 ~~~
 
+CSS when using the `fadeOut` option
+
+~~~ scss
+.typed-fade-out{
+    opacity: 0;
+    animation: 0;
+    transition: opacity .25s;
+}
+~~~
+
 Wonderful sites using Typed.js
 ---
 https://slack.com/
@@ -192,6 +202,10 @@ Typed.new(".element", {
 	shuffle: false,
 	// time before backspacing
 	backDelay: 500,
+	// Fade out instead of backspace (must use CSS class)
+	fadeOut: false,
+	fadeOutClass: 'typed-fade-out',
+	fadeOutSpeed: 500, // milliseconds
 	// loop
 	loop: false,
 	// null = infinite

@@ -67,6 +67,11 @@
 		// amount of time to wait before backspacing
 		this.backDelay = this.options.backDelay;
 
+		// Fade out instead of backspace
+		this.fadeOut = this.options.fadeOut;
+		this.fadeOutClass = this.options.fadeOutClass;
+		this.fadeOutDelay = this.options.fadeOutDelay;
+
 		// div containing strings
 		if($ && this.options.stringsElement instanceof $) {
 			this.stringsElement = this.options.stringsElement[0]
@@ -152,6 +157,11 @@
 			// exit when stopped
 			if (this.stop === true) {
 				return;
+			}
+
+			if (this.fadeOut && this.el.classList.contains(this.fadeOutClass)) {
+				this.el.classList.remove(this.fadeOutClass);
+				this.cursor.classList.remove(this.fadeOutClass);
 			}
 
 			// varying values for setTimeout during typing
@@ -266,15 +276,20 @@
 		},
 
 		backspace: function(curString, curStrPos) {
+			var self = this;
 			// exit when stopped
 			if (this.stop === true) {
+				return;
+			}
+
+			if (this.fadeOut){
+				this.initFadeOut();
 				return;
 			}
 
 			// varying values for setTimeout during typing
 			// can't be global since number changes each time loop is executed
 			var humanize = Math.round(Math.random() * (100 - 30)) + this.backSpeed;
-			var self = this;
 
 			self.timeout = setTimeout(function() {
 
@@ -308,17 +323,7 @@
 				// ----- continue important stuff ----- //
 				// replace text with base text + typed characters
 				var nextString = curString.substr(0, curStrPos);
-				if (self.attr) {
-					self.el.setAttribute(self.attr, nextString);
-				} else {
-					if (self.isInput) {
-						self.el.value = nextString;
-					} else if (self.contentType === 'html') {
-						self.el.innerHTML = nextString;
-					} else {
-						self.el.textContent = nextString;
-					}
-				}
+				self.replaceText(nextString);
 
 				// if the number (id of character in current string) is
 				// less than the stop number, keep going
@@ -348,11 +353,35 @@
 			}, humanize);
 
 		},
-		/**
-		 * Shuffles the numbers in the given array.
-		 * @param {Array} array
-		 * @returns {Array}
-		 */
+
+		// Adds a CSS class to fade out current string
+		initFadeOut: function(){
+			self = this;
+			this.el.className += ' ' + this.fadeOutClass;
+			this.cursor.className += ' ' + this.fadeOutClass;
+			return setTimeout(function() {
+				self.arrayPos++;
+				self.replaceText('')
+				self.typewrite(self.strings[self.sequence[self.arrayPos]], 0);
+			}, self.fadeOutDelay);
+		},
+
+		// Replaces current text in the HTML element
+		replaceText: function(str) {
+			if (this.attr) {
+				this.el.setAttribute(this.attr, str);
+			} else {
+				if (this.isInput) {
+					this.el.value = str;
+				} else if (this.contentType === 'html') {
+					this.el.innerHTML = str;
+				} else {
+					this.el.textContent = str;
+				}
+			}
+		},
+
+		// Shuffles the numbers in the given array.
 		shuffleArray: function(array) {
 			var tmp, current, top = array.length;
 			if(top) while(--top) {
@@ -439,6 +468,10 @@
 		shuffle: false,
 		// time before backspacing
 		backDelay: 500,
+		// Fade out instead of backspace
+		fadeOut: false,
+		fadeOutClass: 'typed-fade-out',
+		fadeOutDelay: 500, // milliseconds
 		// loop
 		loop: false,
 		// false = infinite
