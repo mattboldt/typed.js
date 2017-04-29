@@ -205,7 +205,7 @@ Typed.new(".element", {
 	// Fade out instead of backspace (must use CSS class)
 	fadeOut: false,
 	fadeOutClass: 'typed-fade-out',
-	fadeOutSpeed: 500, // milliseconds
+	fadeOutDelay: 500, // milliseconds
 	// loop
 	loop: false,
 	// null = infinite
