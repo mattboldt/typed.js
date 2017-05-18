@@ -13,3 +13,8 @@ gulp.task('compress', function() {
 
 // Default Task
 gulp.task('default', ['compress']);
+
+// Watch Task
+gulp.task( 'watch', function() {
+  gulp.watch( 'js/*.js', ['compress']);
+});
