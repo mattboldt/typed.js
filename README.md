@@ -268,6 +268,7 @@ Then, once you've made your edits:
 
 This will create a minified version in `/dist`
 
+or simply use `gulp watch` for automatic change detection
 
 end
 ---
