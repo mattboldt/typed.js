@@ -99,7 +99,9 @@
 		this.curLoop = 0;
 
 		// for stopping
-		this.stop = false;
+		this.pause = {
+			status: false
+		};
 
 		// custom cursor
 		this.cursorChar = this.options.cursorChar;
@@ -154,10 +156,6 @@
 
 		// pass current string state to each function, types 1 char per call
 		typewrite: function(curString, curStrPos) {
-			// exit when stopped
-			if (this.stop === true) {
-				return;
-			}
 
 			if (this.fadeOut && this.el.classList.contains(this.fadeOutClass)) {
 				this.el.classList.remove(this.fadeOutClass);
@@ -264,12 +262,20 @@
 
 						// add characters one by one
 						curStrPos++;
-						// loop the function
+
+						// exit when stopped
+						if (self.pause.status === true) {
+							if(self.pause.removeText) {
+								self.el.innerHTML = "";
+							}
+
+							return;
+						}
+						
 						self.typewrite(curString, curStrPos);
 					}
 					// end of character pause
 				}, charPause);
-
 				// humanized value for typing
 			}, humanize);
 
@@ -425,11 +431,18 @@
 			this.curLoop = 0;
 			// Send the callback
 			this.options.resetCallback();
-		}
+		},
 
+		stop: function(removeText) {
+			this.pause = {
+				status: true, 
+				removeText: removeText
+			};
+		}
 	};
 
 	Typed.new = function(selector, option) {
+		var instances = [];
 		var elements = Array.prototype.slice.apply(document.querySelectorAll(selector));
 		elements.forEach(function(element) {
 			var instance = element._typed,
@@ -437,7 +450,12 @@
 			if (instance) { instance.reset(); }
 			element._typed = instance = new Typed(element, options);
 			if (typeof option == 'string') instance[option]();
+
+			//add new instance to instances array
+			instances.push(instance);
 		});
+
+		return instances;
 	};
 
 	if ($) {
