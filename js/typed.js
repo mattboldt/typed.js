@@ -167,6 +167,22 @@
 			var humanize = Math.round(Math.random() * (100 - 30)) + this.typeSpeed;
 			var self = this;
 
+			// exit when stopped
+			if (self.pause.status === true) {
+
+				//remove text from DOM if true
+				if(self.pause.removeText) {
+					self.el.innerHTML = "";
+				}
+
+				//set properties for start function
+				self.pause.typewrite = true;
+				self.pause.curString = curString;
+				self.pause.curStrPos = curStrPos;
+
+				return;
+			}
+
 			// ------------- optional ------------- //
 			// backpaces a certain string faster
 			// ------------------------------------ //
@@ -262,15 +278,6 @@
 
 						// add characters one by one
 						curStrPos++;
-
-						// exit when stopped
-						if (self.pause.status === true) {
-							if(self.pause.removeText) {
-								self.el.innerHTML = "";
-							}
-
-							return;
-						}
 						
 						self.typewrite(curString, curStrPos);
 					}
@@ -283,11 +290,22 @@
 
 		backspace: function(curString, curStrPos) {
 			var self = this;
-			// exit when stopped
-			if (this.stop === true) {
+
+			if (self.pause.status === true) {
+
+				//remove text from DOM if true
+				if(self.pause.removeText) {
+					self.el.innerHTML = "";
+				}
+
+				//set properties for start function
+				self.pause.typewrite = false;
+				self.pause.curString = curString;
+				self.pause.curStrPos = curStrPos;
+
 				return;
 			}
-
+			
 			if (this.fadeOut){
 				this.initFadeOut();
 				return;
@@ -434,9 +452,24 @@
 		},
 
 		stop: function(removeText) {
-			this.pause = {
-				status: true, 
-				removeText: removeText
+			if(!this.pause.status) {
+				this.pause = {
+					status: true, 
+					removeText: removeText
+				};
+			};
+		},
+
+		start: function() {
+			if(this.pause.status) {
+				this.pause.status = false;
+				this.pause.removeText = false;
+
+				if(this.pause.typewrite) {
+					this.typewrite(this.pause.curString, this.pause.curStrPos);
+				} else {
+					this.backspace(this.pause.curString, this.pause.curStrPos);
+				};
 			};
 		}
 	};
