@@ -99,7 +99,9 @@
 		this.curLoop = 0;
 
 		// for stopping
-		this.stop = false;
+		this.pause = {
+			status: false
+		};
 
 		// custom cursor
 		this.cursorChar = this.options.cursorChar;
@@ -154,10 +156,6 @@
 
 		// pass current string state to each function, types 1 char per call
 		typewrite: function(curString, curStrPos) {
-			// exit when stopped
-			if (this.stop === true) {
-				return;
-			}
 
 			if (this.fadeOut && this.el.classList.contains(this.fadeOutClass)) {
 				this.el.classList.remove(this.fadeOutClass);
@@ -168,6 +166,22 @@
 			// can't be global since number changes each time loop is executed
 			var humanize = Math.round(Math.random() * (100 - 30)) + this.typeSpeed;
 			var self = this;
+
+			// exit when stopped
+			if (self.pause.status === true) {
+
+				//remove text from DOM if true
+				if(self.pause.removeText) {
+					self.el.innerHTML = "";
+				}
+
+				//set properties for start function
+				self.pause.typewrite = true;
+				self.pause.curString = curString;
+				self.pause.curStrPos = curStrPos;
+
+				return;
+			}
 
 			// ------------- optional ------------- //
 			// backpaces a certain string faster
@@ -264,12 +278,11 @@
 
 						// add characters one by one
 						curStrPos++;
-						// loop the function
+						
 						self.typewrite(curString, curStrPos);
 					}
 					// end of character pause
 				}, charPause);
-
 				// humanized value for typing
 			}, humanize);
 
@@ -277,11 +290,22 @@
 
 		backspace: function(curString, curStrPos) {
 			var self = this;
-			// exit when stopped
-			if (this.stop === true) {
+
+			if (self.pause.status === true) {
+
+				//remove text from DOM if true
+				if(self.pause.removeText) {
+					self.el.innerHTML = "";
+				}
+
+				//set properties for start function
+				self.pause.typewrite = false;
+				self.pause.curString = curString;
+				self.pause.curStrPos = curStrPos;
+
 				return;
 			}
-
+			
 			if (this.fadeOut){
 				this.initFadeOut();
 				return;
@@ -425,11 +449,33 @@
 			this.curLoop = 0;
 			// Send the callback
 			this.options.resetCallback();
-		}
+		},
 
+		stop: function(removeText) {
+			if(!this.pause.status) {
+				this.pause = {
+					status: true, 
+					removeText: removeText
+				};
+			};
+		},
+
+		start: function() {
+			if(this.pause.status) {
+				this.pause.status = false;
+				this.pause.removeText = false;
+
+				if(this.pause.typewrite) {
+					this.typewrite(this.pause.curString, this.pause.curStrPos);
+				} else {
+					this.backspace(this.pause.curString, this.pause.curStrPos);
+				};
+			};
+		}
 	};
 
 	Typed.new = function(selector, option) {
+		var instances = [];
 		var elements = Array.prototype.slice.apply(document.querySelectorAll(selector));
 		elements.forEach(function(element) {
 			var instance = element._typed,
@@ -437,7 +483,12 @@
 			if (instance) { instance.reset(); }
 			element._typed = instance = new Typed(element, options);
 			if (typeof option == 'string') instance[option]();
+
+			//add new instance to instances array
+			instances.push(instance);
 		});
+
+		return instances;
 	};
 
 	if ($) {
