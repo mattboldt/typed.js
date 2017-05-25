@@ -361,8 +361,15 @@
 			this.cursor.className += ' ' + this.fadeOutClass;
 			return setTimeout(function() {
 				self.arrayPos++;
-				self.replaceText('')
-				self.typewrite(self.strings[self.sequence[self.arrayPos]], 0);
+				self.replaceText('');
+
+				// Resets current string if end of loop reached
+				if(self.strings.length > self.arrayPos) {
+					self.typewrite(self.strings[self.sequence[self.arrayPos]], 0);
+				} else {
+					self.typewrite(self.strings[0], 0);
+					self.arrayPos = 0;
+				}
 			}, self.fadeOutDelay);
 		},
 
