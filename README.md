@@ -183,6 +183,49 @@ Typed.new(".element", {
 });
 ~~~
 
+### Stop/Start Execution
+
+You're able to stop and start the typing execution. Before you do that, make sure that you initilialized `typed` the following way.
+
+~~~ javascript
+var typed = Typed.new(".element", {/* config */});
+
+// or like this for the jQuery way
+var typed = $(".element").typed({/* config */});
+~~~
+
+The `typed` variable now holds an array of instances. Remember there can be multiple instances if you're using a class selector like `.element`.
+
+#### `stop(removeText: boolean)`
+
+This function stops the typing execution of you're instance. There's the `removeText` parameter it takes. By setting it to `true` the text will be removed from the DOM.
+
+~~~ javascript
+// stops the typing of the first instance
+typed[0].stop(false);
+
+// stops the typing of the first instance and removes the Text from the DOM
+typed[0].stop(true);
+
+// or simply stop all the instances
+typed.forEach(function(instance) {
+	instance.stop(false);
+});
+~~~
+
+#### `start()`
+
+This function starts the typing execution of you're instance.
+
+~~~ javascript
+// starts the typing of the first instance
+typed[0].start();
+
+// or simply start all the instances
+typed.forEach(function(instance) {
+	instance.start();
+});
+~~~
 
 Customization
 ----
