@@ -493,14 +493,21 @@
 
 	if ($) {
 		$.fn.typed = function(option) {
-			return this.each(function() {
+			var instances = [];
+
+			this.each(function() {
 				var $this = $(this),
 				    data = $this.data('typed'),
 				    options = typeof option == 'object' && option;
 				if (data) { data.reset(); }
 				$this.data('typed', (data = new Typed(this, options)));
 				if (typeof option == 'string') data[option]();
+
+				//add new instance to instances array
+				instances.push(data);
 			});
+
+			return instances;
 		};
 	}
 
