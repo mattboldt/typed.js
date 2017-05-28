@@ -232,6 +232,14 @@ Typed.new(".element", {
 
 ### Get Super Custom
 
+
+This doesn't go into enough detail, I'm unable to get this to work with the below instructions.
+
+Here's what I have: http://codepen.io/jaygidwitz/pen/VYJXxj
+
+But the described features in this section aren't working. Please advise.
+
+
 Want to get really custom? On my site and in the Typed.js demo I have the code type out two words, and then backspace only those two, then continue where it left off. This is done in an `if` statement in the `backspace()` function. Here's what it looks like.
 
 ~~~ javascript
