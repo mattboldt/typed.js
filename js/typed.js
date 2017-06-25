@@ -321,15 +321,9 @@
 
 				if (self.contentType === 'html') {
 					// skip over html tags while backspacing
-					if (curString.substr(curStrPos).charAt(0) === '>') {
-						var tag = '';
-						while (curString.substr(curStrPos - 1).charAt(0) !== '<') {
-							tag -= curString.substr(curStrPos).charAt(0);
-							curStrPos--;
-							if (curStrPos < 0) { break; }
-						}
-						curStrPos--;
-						tag += '<';
+					var re = /(<(?=[^<]+$).+>$)|(&[^;&]+;$)/gi;
+					if (re.test(curString.substr(0, (curStrPos + 1 )))) {
+						curStrPos -= (curString.substr(0, (curStrPos + 1 )).match(re)[0].length)
 					}
 				}
 
