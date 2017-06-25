@@ -11,19 +11,37 @@ export default class Typed {
     this.stringsElement = document.getElementById(options.stringsElement);
     // Set remaining options
     new Optionals(this, options);
-    // All systems go!
-    this.build();
+    // Insert cursor
+    if (this.showCursor === true) {
+      this.cursor = document.createElement('span');
+      this.cursor.className = 'typed-cursor';
+      this.cursor.innerHTML = this.cursorChar;
+      this.el.parentNode && this.el.parentNode.insertBefore(this.cursor, this.el.nextSibling);
+    }
+    if (this.stringsElement) {
+      this.strings = [];
+      this.stringsElement.style.display = 'none';
+      var strings = Array.prototype.slice.apply(this.stringsElement.children);
+      for (let s of strings) {
+        self.strings.push(s.innerHTML);
+      }
+    }
+    this.begin();
   }
 
-  init() {
+  begin() {
     // begin the loop w/ first current string (global self.strings)
     // current string will be passed as an argument each time after this
     var self = this;
     self.timeout = setTimeout(function() {
-      for (var i=0;i<self.strings.length;++i) self.sequence[i]=i;
+      for (let i in self.strings) {
+        self.sequence[i] = i;
+      }
 
       // shuffle the array if true
-      if(self.shuffle) self.sequence = self.shuffleArray(self.sequence);
+      if (self.shuffle) {
+        self.sequence = self.shuffleArray(self.sequence);
+      }
 
       var elContent;
       if (self.isInput) {
@@ -41,26 +59,6 @@ export default class Typed {
         self.backspace(elContent, elContent.length);
       }
     }, self.startDelay);
-  }
-
-  build() {
-    var self = this;
-    // Insert cursor
-    if (this.showCursor === true) {
-      this.cursor = document.createElement('span');
-      this.cursor.className = 'typed-cursor';
-      this.cursor.innerHTML = this.cursorChar;
-      this.el.parentNode && this.el.parentNode.insertBefore(this.cursor, this.el.nextSibling);
-    }
-    if (this.stringsElement) {
-      this.strings = [];
-      this.stringsElement.style.display = 'none';
-      var strings = Array.prototype.slice.apply(this.stringsElement.children);
-      strings.forEach(function(stringElement){
-        self.strings.push(stringElement.innerHTML);
-      });
-    }
-    this.init();
   }
 
   // pass current string state to each function, types 1 char per call
@@ -107,27 +105,7 @@ export default class Typed {
         curString = curString.substring(0, curStrPos) + curString.substring(curStrPos + skip);
       }
 
-      if (self.contentType === 'html') {
-        // skip over html tags while typing
-        var curChar = curString.substr(curStrPos).charAt(0);
-        if (curChar === '<' || curChar === '&') {
-          var tag = '';
-          var endTag = '';
-          if (curChar === '<') {
-            endTag = '>'
-          }
-          else {
-            endTag = ';'
-          }
-          while (curString.substr(curStrPos + 1).charAt(0) !== endTag) {
-            tag += curString.substr(curStrPos).charAt(0);
-            curStrPos++;
-            if (curStrPos + 1 > curString.length) { break; }
-          }
-          curStrPos++;
-          tag += endTag;
-        }
-      }
+      curStrPos = self.typeHtmlChars(curString, curStrPos);
 
       // timeout for any pause after a character
       self.timeout = setTimeout(function() {
@@ -209,27 +187,22 @@ export default class Typed {
       // on the first string, only delete one word
       // the stopNum actually represents the amount of chars to
       // keep in the current string. In my case it's 14.
-      // if (self.arrayPos == 1){
+      // if (self.arrayPos === 0){
       //  self.stopNum = 14;
       // }
-      //every other time, delete the whole typed string
-      // else{
+      // else {
       //  self.stopNum = 0;
       // }
 
-      if (self.contentType === 'html') {
-        // skip over html tags while backspacing
-        if (curString.substr(curStrPos).charAt(0) === '>') {
-          var tag = '';
-          while (curString.substr(curStrPos - 1).charAt(0) !== '<') {
-            tag -= curString.substr(curStrPos).charAt(0);
-            curStrPos--;
-            if (curStrPos < 0) { break; }
-          }
-          curStrPos--;
-          tag += '<';
-        }
+      var newStopNum = curString.split('~')[1];
+      if (newStopNum) {
+        self.stopNum = parseInt(newStopNum);
       }
+      else {
+        self.stopNum = 0;
+      }
+
+      curStrPos = self.backSpaceHtmlChars(curString, curStrPos);
 
       // ----- continue important stuff ----- //
       // replace text with base text + typed characters
@@ -255,7 +228,7 @@ export default class Typed {
           // Shuffle sequence again
           if(self.shuffle) self.sequence = self.shuffleArray(self.sequence);
 
-          self.init();
+          self.begin();
         } else
           self.typewrite(self.strings[self.sequence[self.arrayPos]], curStrPos);
       }
@@ -263,6 +236,45 @@ export default class Typed {
       // humanized value for typing
     }, humanize);
 
+  }
+
+  typeHtmlChars(curString, curStrPos) {
+    if (this.contentType !== 'html') return;
+    // skip over html tags while typing
+    var curChar = curString.substr(curStrPos).charAt(0);
+    if (curChar === '<' || curChar === '&') {
+      var tag = '';
+      var endTag = '';
+      if (curChar === '<') {
+        endTag = '>'
+      }
+      else {
+        endTag = ';'
+      }
+      while (curString.substr(curStrPos + 1).charAt(0) !== endTag) {
+        tag += curString.substr(curStrPos).charAt(0);
+        curStrPos++;
+        if (curStrPos + 1 > curString.length) { break; }
+      }
+      curStrPos++;
+    }
+    return curStrPos;
+  }
+
+  backSpaceHtmlChars(curString, curStrPos) {
+    if (this.contentType !== 'html') return;
+    // skip over html tags while backspacing
+    if (curString.substr(curStrPos).charAt(0) === '>') {
+      var tag = '';
+      while (curString.substr(curStrPos - 1).charAt(0) !== '<') {
+        tag -= curString.substr(curStrPos).charAt(0);
+        curStrPos--;
+        if (curStrPos < 0) { break; }
+      }
+      curStrPos--;
+      tag += '<';
+    }
+    return curStrPos;
   }
 
   // Adds a CSS class to fade out current string

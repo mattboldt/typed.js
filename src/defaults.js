@@ -17,8 +17,7 @@ var defaults = {
   fadeOutDelay: 500, // milliseconds
   // loop
   loop: false,
-  // false = infinite
-  loopCount: false,
+  loopCount: Infinity,
   // show cursor
   showCursor: true,
   // character for cursor
