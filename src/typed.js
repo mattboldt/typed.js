@@ -51,10 +51,10 @@ export default class Typed {
       // check for an escape character before a pause value
       // format: \^\d+ .. eg: ^1000 .. should be able to print the ^ too using ^^
       // single ^ are removed from string
-      var charPause = 0;
-      var substr = curString.substr(curStrPos);
+      let charPause = 0;
+      let substr = curString.substr(curStrPos);
       if (substr.charAt(0) === '^') {
-        var skip = 1; // skip atleast 1
+        let skip = 1; // skip atleast 1
         if (/^\^\d+/.test(substr)) {
           substr = /\d+/.exec(substr)[0];
           skip += substr.length;
@@ -101,7 +101,7 @@ export default class Typed {
 
           // start typing each new char into existing string
           // curString: arg, self.el.html: original text inside element
-          var nextString = curString.substr(0, curStrPos + 1);
+          const nextString = curString.substr(0, curStrPos + 1);
           if (self.attr) {
             self.el.setAttribute(self.attr, nextString);
           } else {
@@ -151,7 +151,7 @@ export default class Typed {
 
       // ----- continue important stuff ----- //
       // replace text with base text + typed characters
-      var nextString = curString.substr(0, curStrPos);
+      const nextString = curString.substr(0, curStrPos);
       self.replaceText(nextString);
 
       // if the number (id of character in current string) is
@@ -185,10 +185,10 @@ export default class Typed {
   typeHtmlChars(curString, curStrPos) {
     if (this.contentType !== 'html') return;
     // skip over html tags while typing
-    var curChar = curString.substr(curStrPos).charAt(0);
+    const curChar = curString.substr(curStrPos).charAt(0);
     if (curChar === '<' || curChar === '&') {
-      var tag = '';
-      var endTag = '';
+      let tag = '';
+      let endTag = '';
       if (curChar === '<') {
         endTag = '>'
       }
@@ -209,7 +209,7 @@ export default class Typed {
     if (this.contentType !== 'html') return;
     // skip over html tags while backspacing
     if (curString.substr(curStrPos).charAt(0) === '>') {
-      var tag = '';
+      let tag = '';
       while (curString.substr(curStrPos - 1).charAt(0) !== '<') {
         tag -= curString.substr(curStrPos).charAt(0);
         curStrPos--;
@@ -305,7 +305,6 @@ export default class Typed {
   reset() {
     const self = this;
     clearInterval(self.timeout);
-    var id = this.el.getAttribute('id');
     this.el.textContent = '';
     if (typeof this.cursor !== 'undefined' && typeof this.cursor.parentNode !== 'undefined') {
       this.cursor.parentNode.removeChild(this.cursor);
