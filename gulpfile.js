@@ -7,21 +7,21 @@ var x = require("babel/register"),
     livereload = require('gulp-livereload')
 
 gulp.task("build", function() {
-	return gulp.src("src/typed.js")
-		.pipe(webpack(require("./webpack.config.js")))
-		.pipe(gulp.dest("./lib"))
-		.pipe(sourcemaps.init({ loadMaps: true }))
-		.pipe(uglify({
-			preserveComments: "license",
-			compress: {
-				/*eslint-disable */
-				negate_iife: false
-				/*eslint-enable */
-			}
-		}))
-		.pipe(rename("typed.min.js"))
-		.pipe(sourcemaps.write("./"))
-		.pipe(gulp.dest("lib/"));
+  return gulp.src("src/typed.js")
+    .pipe(webpack(require("./webpack.config.js")))
+    .pipe(gulp.dest("./lib"))
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(uglify({
+      preserveComments: "license",
+      compress: {
+        /*eslint-disable */
+        negate_iife: false
+        /*eslint-enable */
+      }
+    }))
+    .pipe(rename("typed.min.js"))
+    .pipe(sourcemaps.write("./"))
+    .pipe(gulp.dest("lib/"));
 });
 
 // Default Task
