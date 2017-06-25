@@ -54,7 +54,7 @@ export default class Optionals {
     // number to stop backspacing on.
     // default 0, can change depending on how many chars
     // you want to remove at the time
-    self.stopNum = 0;
+    self.stopNums = [];
 
     // Looping logic
     self.loop = self.options.loop;

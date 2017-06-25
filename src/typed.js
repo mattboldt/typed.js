@@ -26,6 +26,7 @@ export default class Typed {
         self.strings.push(s.innerHTML);
       }
     }
+    this.setStopNums();
     this.begin();
   }
 
@@ -182,25 +183,7 @@ export default class Typed {
 
     self.timeout = setTimeout(function() {
 
-      // ----- this part is optional ----- //
-      // check string array position
-      // on the first string, only delete one word
-      // the stopNum actually represents the amount of chars to
-      // keep in the current string. In my case it's 14.
-      // if (self.arrayPos === 0){
-      //  self.stopNum = 14;
-      // }
-      // else {
-      //  self.stopNum = 0;
-      // }
-
-      var newStopNum = curString.split('~')[1];
-      if (newStopNum) {
-        self.stopNum = parseInt(newStopNum);
-      }
-      else {
-        self.stopNum = 0;
-      }
+      const curStopNum = self.stopNums[self.arrayPos];
 
       curStrPos = self.backSpaceHtmlChars(curString, curStrPos);
 
@@ -211,7 +194,7 @@ export default class Typed {
 
       // if the number (id of character in current string) is
       // less than the stop number, keep going
-      if (curStrPos > self.stopNum) {
+      if (curStrPos > curStopNum) {
         // subtract characters one by one
         curStrPos--;
         // loop the function
@@ -219,7 +202,7 @@ export default class Typed {
       }
       // if the stop number has been reached, increase
       // array position to next string
-      else if (curStrPos <= self.stopNum) {
+      else if (curStrPos <= curStopNum) {
         self.arrayPos++;
 
         if (self.arrayPos === self.strings.length) {
@@ -275,6 +258,21 @@ export default class Typed {
       tag += '<';
     }
     return curStrPos;
+  }
+
+  setStopNums() {
+    for (let s in this.strings) {
+      const string = this.strings[s];
+      const newStopNum = string.split('~')[1];
+      if (newStopNum && newStopNum > 0) {
+        const regex = /~(\d+)/g;
+        this.strings[s] = string.replace(regex, '');
+        this.stopNums.push(parseInt(newStopNum));
+      }
+      else {
+        this.stopNums.push(0);
+      }
+    }
   }
 
   // Adds a CSS class to fade out current string
