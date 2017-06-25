@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Typed.js - Type your heart out</title>
-    <script src="js/typed.js" type="text/javascript"></script>
+    <script src="./lib/typed.js" type="text/javascript"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function(){
 
-        Typed.new("#typed", {
-            stringsElement: document.getElementById('typed-strings'),
+        new Typed("typed", {
+            stringsElement: 'typed-strings',
             typeSpeed: 30,
             backDelay: 500,
             loop: false,

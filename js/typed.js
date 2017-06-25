@@ -129,6 +129,15 @@
 
 				// Start typing
 				// Check if there is some text in the element, if yes start by backspacing the default message
+
+				if (self.isInput) {
+					self.el.value = nextString;
+				} else if (self.contentType === 'html') {
+					self.el.innerHTML = nextString;
+				} else {
+					self.el.textContent = nextString;
+				}
+
 				if (self.el.html().length == 0) {
 					self.typewrite(self.strings[self.sequence[self.arrayPos]], self.strPos);
 				} else {
