@@ -21,7 +21,8 @@ gulp.task("build", function() {
     }))
     .pipe(rename("typed.min.js"))
     .pipe(sourcemaps.write("./"))
-    .pipe(gulp.dest("lib/"));
+    .pipe(gulp.dest("lib/"))
+    .pipe(livereload());
 });
 
 // Default Task
@@ -29,6 +30,6 @@ gulp.task("default", ["build"]);
 
 // Watch Task
 gulp.task("watch", function() {
-  livereload.listen();
+  livereload({ start: true });
   gulp.watch("src/*.js", ["build"]);
 });

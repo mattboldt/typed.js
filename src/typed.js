@@ -398,14 +398,3 @@ export default class Typed {
   }
 
 }
-
-// Typed.new = function(selector, option) {
-//   var elements = Array.prototype.slice.apply(document.querySelectorAll(selector));
-//   elements.forEach(function(element) {
-//     var instance = element._typed,
-//         options = typeof option == 'object' && option;
-//     if (instance) { instance.reset(); }
-//     element._typed = instance = new Typed(element, options);
-//     if (typeof option == 'string') instance[option]();
-//   });
-// };
