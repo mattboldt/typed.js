@@ -1,63 +1,34 @@
 import _ from "lodash";
-import Optionals from './optionals.js'
+import Initializer from './initializer.js'
 
 export default class Typed {
 
   constructor(elementId, options){
-    var self = this;
     // chosen element to manipulate text
     this.el = document.getElementById(elementId);
-    // div containing strings
-    this.stringsElement = document.getElementById(options.stringsElement);
     // Set remaining options
-    new Optionals(this, options);
-    // Insert cursor
-    if (this.showCursor === true) {
-      this.cursor = document.createElement('span');
-      this.cursor.className = 'typed-cursor';
-      this.cursor.innerHTML = this.cursorChar;
-      this.el.parentNode && this.el.parentNode.insertBefore(this.cursor, this.el.nextSibling);
-    }
-    if (this.stringsElement) {
-      this.strings = [];
-      this.stringsElement.style.display = 'none';
-      var strings = Array.prototype.slice.apply(this.stringsElement.children);
-      for (let s of strings) {
-        self.strings.push(s.innerHTML);
-      }
-    }
-    this.setStopNums();
+    new Initializer(this, options);
     this.begin();
   }
 
   begin() {
     // begin the loop w/ first current string (global self.strings)
     // current string will be passed as an argument each time after this
-    var self = this;
+    const self = this;
     self.timeout = setTimeout(function() {
       for (let i in self.strings) {
         self.sequence[i] = i;
       }
+      self.shuffleStringsIfNeeded();
+      self.setStopNums();
 
-      // shuffle the array if true
-      if (self.shuffle) {
-        self.sequence = self.shuffleArray(self.sequence);
-      }
-
-      var elContent;
-      if (self.isInput) {
-        elContent = self.el.value;
-      } else if (self.contentType === 'html') {
-        elContent = self.el.innerHTML;
-      } else {
-        elContent = self.el.textContent;
-      }
       // Start typing
       // Check if there is some text in the element, if yes start by backspacing the default message
-      if (elContent.length == 0) {
+      const currentElContent = self.getCurrentElContent();
+      if (currentElContent.length == 0) {
         self.typewrite(self.strings[self.sequence[self.arrayPos]], self.strPos);
       } else {
-        self.backspace(elContent, elContent.length);
+        self.backspace(currentElContent, currentElContent.length);
       }
     }, self.startDelay);
   }
@@ -65,27 +36,15 @@ export default class Typed {
   // pass current string state to each function, types 1 char per call
   typewrite(curString, curStrPos) {
     // exit when stopped
-    if (this.stop === true) {
-      return;
-    }
+    if (this.stop === true) return;
 
     if (this.fadeOut && this.el.classList.contains(this.fadeOutClass)) {
       this.el.classList.remove(this.fadeOutClass);
       this.cursor.classList.remove(this.fadeOutClass);
     }
 
-    // varying values for setTimeout during typing
-    // can't be global since number changes each time loop is executed
-    var humanize = Math.round(Math.random() * (100 - 30)) + this.typeSpeed;
-    var self = this;
-
-    // ------------- optional ------------- //
-    // backpaces a certain string faster
-    // ------------------------------------ //
-    // if (self.arrayPos == 1){
-    //  self.backDelay = 50;
-    // }
-    // else{ self.backDelay = 500; }
+    const humanize = this.humanizer(this.typeSpeed);
+    const self = this;
 
     // contain typing function in a timeout humanize'd delay
     self.timeout = setTimeout(function() {
@@ -114,6 +73,8 @@ export default class Typed {
           // fires callback function
           self.options.onStringTyped(self.arrayPos);
 
+          self.toggleBlinking(true);
+
           // is this the final string
           if (self.arrayPos === self.strings.length - 1) {
             // animation that occurs on the last typed string
@@ -134,6 +95,7 @@ export default class Typed {
 
           /* call before functions if applicable */
           if (curStrPos === 0) {
+            self.toggleBlinking(false);
             self.options.preStringTyped(self.arrayPos);
           }
 
@@ -166,7 +128,7 @@ export default class Typed {
   }
 
   backspace(curString, curStrPos) {
-    var self = this;
+    const self = this;
     // exit when stopped
     if (this.stop === true) {
       return;
@@ -177,9 +139,9 @@ export default class Typed {
       return;
     }
 
-    // varying values for setTimeout during typing
-    // can't be global since number changes each time loop is executed
-    var humanize = Math.round(Math.random() * (100 - 30)) + this.backSpeed;
+    this.toggleBlinking(false);
+
+    const humanize = this.humanizer(this.backSpeed);
 
     self.timeout = setTimeout(function() {
 
@@ -208,8 +170,7 @@ export default class Typed {
         if (self.arrayPos === self.strings.length) {
           self.arrayPos = 0;
 
-          // Shuffle sequence again
-          if(self.shuffle) self.sequence = self.shuffleArray(self.sequence);
+          self.shuffleStringsIfNeeded()
 
           self.begin();
         } else
@@ -275,6 +236,31 @@ export default class Typed {
     }
   }
 
+  getCurrentElContent() {
+    let elContent = '';
+    if (this.attr) {
+      elContent = this.el.getAttribute(this.attr);
+    }
+    else if (this.isInput) {
+      elContent = this.el.value;
+    } else if (this.contentType === 'html') {
+      elContent = this.el.innerHTML;
+    } else {
+      elContent = this.el.textContent;
+    }
+    return elContent;
+  }
+
+  toggleBlinking(blinking) {
+    const status = blinking ? 'infinite' : 0;
+    this.cursor.style.animationIterationCount = status;
+  }
+
+  humanizer(speed) {
+    // varying values for setTimeout during typing
+    return Math.round(Math.random() * (100 - 30)) + speed;
+  }
+
   // Adds a CSS class to fade out current string
   initFadeOut(){
     self = this;
@@ -310,20 +296,14 @@ export default class Typed {
   }
 
   // Shuffles the numbers in the given array.
-  shuffleArray(array) {
-    var tmp, current, top = array.length;
-    if(top) while(--top) {
-      current = Math.floor(Math.random() * (top + 1));
-      tmp = array[current];
-      array[current] = array[top];
-      array[top] = tmp;
-    }
-    return array;
+  shuffleStringsIfNeeded(array) {
+    if (!this.shuffle) return;
+    this.sequence = this.sequence.sort(() => Math.random() - 0.5);
   }
 
   // Reset and rebuild the element
   reset() {
-    var self = this;
+    const self = this;
     clearInterval(self.timeout);
     var id = this.el.getAttribute('id');
     this.el.textContent = '';

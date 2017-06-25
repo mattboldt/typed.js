@@ -1,6 +1,6 @@
 import defaults from './defaults.js';
 
-export default class Optionals {
+export default class Initializer {
   constructor(self, options) {
 
     // options
@@ -71,5 +71,24 @@ export default class Optionals {
     self.shuffle = self.options.shuffle;
     // the order of strings
     self.sequence = [];
+
+    // div containing strings
+    self.stringsElement = document.getElementById(self.options.stringsElement);
+
+    // Insert cursor
+    if (self.showCursor) {
+      self.cursor = document.createElement('span');
+      self.cursor.className = 'typed-cursor';
+      self.cursor.innerHTML = self.cursorChar;
+      self.el.parentNode && self.el.parentNode.insertBefore(self.cursor, self.el.nextSibling);
+    }
+    if (self.stringsElement) {
+      self.strings = [];
+      self.stringsElement.style.display = 'none';
+      var strings = Array.prototype.slice.apply(self.stringsElement.children);
+      for (let s of strings) {
+        self.strings.push(s.innerHTML);
+      }
+    }
   }
 }
