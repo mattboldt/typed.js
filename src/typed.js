@@ -1,86 +1,16 @@
 import _ from "lodash";
-import defaults from './defaults.js';
+import Optionals from './optionals.js'
 
 export default class Typed {
 
   constructor(elementId, options){
     var self = this;
-
     // chosen element to manipulate text
     this.el = document.getElementById(elementId);
-
-    // options
-    this.options = {};
-    Object.keys(defaults).forEach(function(key) {
-      self.options[key] = defaults[key];
-    });
-    Object.keys(options).forEach(function(key) {
-      self.options[key] = options[key];
-    });
-
-    // attribute to type into
-    this.isInput = this.el.tagName.toLowerCase() === 'input';
-    this.attr = this.options.attr;
-
-    // show cursor
-    this.showCursor = this.isInput ? false : this.options.showCursor;
-
-    // text content of element
-    this.elContent = this.attr ? this.el.getAttribute(this.attr) : this.el.textContent;
-
-    // html or plain text
-    this.contentType = this.options.contentType;
-
-    // typing speed
-    this.typeSpeed = this.options.typeSpeed;
-
-    // add a delay before typing starts
-    this.startDelay = this.options.startDelay;
-
-    // backspacing speed
-    this.backSpeed = this.options.backSpeed;
-
-    // amount of time to wait before backspacing
-    this.backDelay = this.options.backDelay;
-
-    // Fade out instead of backspace
-    this.fadeOut = this.options.fadeOut;
-    this.fadeOutClass = this.options.fadeOutClass;
-    this.fadeOutDelay = this.options.fadeOutDelay;
-
     // div containing strings
-    this.stringsElement = document.getElementById(this.options.stringsElement);
-
-    // input strings of text
-    this.strings = this.options.strings;
-
-    // character number position of current string
-    this.strPos = 0;
-
-    // current array position
-    this.arrayPos = 0;
-
-    // number to stop backspacing on.
-    // default 0, can change depending on how many chars
-    // you want to remove at the time
-    this.stopNum = 0;
-
-    // Looping logic
-    this.loop = this.options.loop;
-    this.loopCount = this.options.loopCount;
-    this.curLoop = 0;
-
-    // for stopping
-    this.stop = false;
-
-    // custom cursor
-    this.cursorChar = this.options.cursorChar;
-
-    // shuffle the strings
-    this.shuffle = this.options.shuffle;
-    // the order of strings
-    this.sequence = [];
-
+    this.stringsElement = document.getElementById(options.stringsElement);
+    // Set remaining options
+    new Optionals(this, options);
     // All systems go!
     this.build();
   }
