@@ -17,9 +17,10 @@ export default class Typed {
     this.typingComplete = false;
     this.shuffleStringsIfNeeded(self);
     this.insertCursor();
+    this.bindFocusEvents();
     self.timeout = setTimeout(() => {
       // Check if there is some text in the element, if yes start by backspacing the default message
-      if (self.currentElContent.length == 0) {
+      if (!self.currentElContent || self.currentElContent.length == 0) {
         self.typewrite(self.strings[self.sequence[self.arrayPos]], self.strPos);
       } else {
         // Start typing
@@ -177,6 +178,7 @@ export default class Typed {
 
   toggleBlinking(blinking) {
     // if already paused, don't toggle blinking a 2nd time
+    if (!this.cusror) return;
     if (this.pause.status) return;
     if (this.cursorBlinking === blinking) return;
     this.cursorBlinking = blinking;
@@ -287,6 +289,17 @@ export default class Typed {
       this.options.onReset(this);
       this.begin();
     }
+  }
+
+  bindFocusEvents() {
+    if (!this.isInput) return;
+    const self = this;
+    this.el.addEventListener('focus', (e) => {
+      self.stop();
+    });
+    this.el.addEventListener('blur', (e) => {
+      self.start();
+    });
   }
 
 }
