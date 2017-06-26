@@ -13,6 +13,7 @@ export default class Typed {
     // begin the loop w/ first current string (global self.strings)
     // current string will be passed as an argument each time after this
     const self = this;
+    this.shuffleStringsIfNeeded(self);
     self.timeout = setTimeout(() => {
       // Check if there is some text in the element, if yes start by backspacing the default message
       if (self.currentElContent.length == 0) {
@@ -144,7 +145,7 @@ export default class Typed {
         self.arrayPos++;
         if (self.arrayPos === self.strings.length) {
           self.arrayPos = 0;
-          self.shuffleStringsIfNeeded()
+          self.shuffleStringsIfNeeded();
           self.begin();
         }
         else {
@@ -203,6 +204,12 @@ export default class Typed {
   humanizer(speed) {
     // varying values for setTimeout during typing
     return Math.round(Math.random() * (100 - 30)) + speed;
+  }
+
+  // Shuffles the numbers in the given array.
+  shuffleStringsIfNeeded() {
+    if (!this.shuffle) return;
+    this.sequence = this.sequence.sort(() => Math.random() - 0.5);
   }
 
   // Adds a CSS class to fade out current string

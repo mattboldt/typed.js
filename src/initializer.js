@@ -96,7 +96,7 @@ export default class Initializer {
     for (let i in self.strings) {
       self.sequence[i] = i;
     }
-    this.shuffleStringsIfNeeded(self);
+
     // Using the `~12` syntax, set each string's stop number
     // (stops backspacing at a certain digit)
     this.setStopNums(self);
@@ -118,12 +118,6 @@ export default class Initializer {
         self.stopNums.push(0);
       }
     }
-  }
-
-  // Shuffles the numbers in the given array.
-  shuffleStringsIfNeeded(self) {
-    if (!self.shuffle) return;
-    self.sequence = self.sequence.sort(() => Math.random() - 0.5);
   }
 
   getCurrentElContent(self) {
