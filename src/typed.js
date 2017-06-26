@@ -1,13 +1,11 @@
-import _ from "lodash";
-import Initializer from './initializer.js'
+import Initializer from './initializer.js';
 
 export default class Typed {
 
   constructor(elementId, options){
-    // chosen element to manipulate text
-    this.el = document.getElementById(elementId);
-    // Set remaining options
-    new Initializer(this, options);
+    // Initialize it up
+    new Initializer(this, options, elementId);
+    // All systems go!
     this.begin();
   }
 
@@ -15,20 +13,13 @@ export default class Typed {
     // begin the loop w/ first current string (global self.strings)
     // current string will be passed as an argument each time after this
     const self = this;
-    self.timeout = setTimeout(function() {
-      for (let i in self.strings) {
-        self.sequence[i] = i;
-      }
-      self.shuffleStringsIfNeeded();
-      self.setStopNums();
-
-      // Start typing
+    self.timeout = setTimeout(() => {
       // Check if there is some text in the element, if yes start by backspacing the default message
-      const currentElContent = self.getCurrentElContent();
-      if (currentElContent.length == 0) {
+      if (self.currentElContent.length == 0) {
         self.typewrite(self.strings[self.sequence[self.arrayPos]], self.strPos);
       } else {
-        self.backspace(currentElContent, currentElContent.length);
+        // Start typing
+        self.backspace(self.currentElContent, self.currentElContent.length);
       }
     }, self.startDelay);
   }
@@ -47,19 +38,20 @@ export default class Typed {
     const self = this;
 
     // contain typing function in a timeout humanize'd delay
-    self.timeout = setTimeout(function() {
+    self.timeout = setTimeout(() => {
       // check for an escape character before a pause value
       // format: \^\d+ .. eg: ^1000 .. should be able to print the ^ too using ^^
       // single ^ are removed from string
-      let charPause = 0;
+      let pauseTime = 0;
       let substr = curString.substr(curStrPos);
       if (substr.charAt(0) === '^') {
         let skip = 1; // skip atleast 1
         if (/^\^\d+/.test(substr)) {
           substr = /\d+/.exec(substr)[0];
           skip += substr.length;
-          charPause = parseInt(substr);
+          pauseTime = parseInt(substr);
         }
+        self.toggleBlinking(true);
 
         // strip out the escape character and pause value so they're not printed
         curString = curString.substring(0, curStrPos) + curString.substring(curStrPos + skip);
@@ -68,92 +60,76 @@ export default class Typed {
       curStrPos = self.typeHtmlChars(curString, curStrPos);
 
       // timeout for any pause after a character
-      self.timeout = setTimeout(function() {
+      self.timeout = setTimeout(() => {
+        // Accounts for blinking while paused
+        self.toggleBlinking(false);
+
+        // We're done with this sentence!
         if (curStrPos === curString.length) {
-          // fires callback function
-          self.options.onStringTyped(self.arrayPos);
-
-          self.toggleBlinking(true);
-
-          // is this the final string
-          if (self.arrayPos === self.strings.length - 1) {
-            // animation that occurs on the last typed string
-            self.options.callback();
-
-            self.curLoop++;
-
-            // quit if we wont loop back
-            if (self.loop === false || self.curLoop === self.loopCount)
-              return;
-          }
-
-          self.timeout = setTimeout(function() {
-            self.backspace(curString, curStrPos);
-          }, self.backDelay);
-
-        } else {
-
-          /* call before functions if applicable */
-          if (curStrPos === 0) {
-            self.toggleBlinking(false);
-            self.options.preStringTyped(self.arrayPos);
-          }
-
-          // start typing each new char into existing string
-          // curString: arg, self.el.html: original text inside element
-          const nextString = curString.substr(0, curStrPos + 1);
-          if (self.attr) {
-            self.el.setAttribute(self.attr, nextString);
-          } else {
-            if (self.isInput) {
-              self.el.value = nextString;
-            } else if (self.contentType === 'html') {
-              self.el.innerHTML = nextString;
-            } else {
-              self.el.textContent = nextString;
-            }
-          }
-
-          // add characters one by one
-          curStrPos++;
-          // loop the function
-          self.typewrite(curString, curStrPos);
+          self.doneTyping(curString, curStrPos);
+        }
+        else {
+          self.keepTyping(curString, curStrPos);
         }
         // end of character pause
-      }, charPause);
+      }, pauseTime);
 
       // humanized value for typing
     }, humanize);
 
   }
 
+  keepTyping(curString, curStrPos) {
+    // call before functions if applicable
+    if (curStrPos === 0) {
+      this.toggleBlinking(false);
+      this.options.preStringTyped(this.arrayPos);
+    }
+    // start typing each new char into existing string
+    // curString: arg, this.el.html: original text inside element
+    const nextString = curString.substr(0, curStrPos + 1);
+    this.replaceText(nextString);
+    // add characters one by one
+    curStrPos++;
+    // loop the function
+    this.typewrite(curString, curStrPos);
+  }
+
+  doneTyping(curString, curStrPos) {
+    const self = this;
+    // fires callback function
+    self.options.onStringTyped(self.arrayPos);
+    self.toggleBlinking(true);
+    // is this the final string
+    if (self.arrayPos === self.strings.length - 1) {
+      // callback that occurs on the last typed string
+      self.options.onComplete();
+      self.curLoop++;
+      // quit if we wont loop back
+      if (self.loop === false || self.curLoop === self.loopCount) {
+        return;
+      }
+    }
+    self.timeout = setTimeout(() => {
+      self.backspace(curString, curStrPos);
+    }, self.backDelay);
+  }
+
   backspace(curString, curStrPos) {
     const self = this;
     // exit when stopped
-    if (this.stop === true) {
-      return;
-    }
-
-    if (this.fadeOut){
-      this.initFadeOut();
-      return;
-    }
+    if (this.stop) return;
+    if (this.fadeOut) return this.initFadeOut();
 
     this.toggleBlinking(false);
-
     const humanize = this.humanizer(this.backSpeed);
 
-    self.timeout = setTimeout(function() {
-
+    self.timeout = setTimeout(() => {
       const curStopNum = self.stopNums[self.arrayPos];
-
       curStrPos = self.backSpaceHtmlChars(curString, curStrPos);
-
-      // ----- continue important stuff ----- //
       // replace text with base text + typed characters
       const nextString = curString.substr(0, curStrPos);
       self.replaceText(nextString);
-
       // if the number (id of character in current string) is
       // less than the stop number, keep going
       if (curStrPos > curStopNum) {
@@ -166,17 +142,15 @@ export default class Typed {
       // array position to next string
       else if (curStrPos <= curStopNum) {
         self.arrayPos++;
-
         if (self.arrayPos === self.strings.length) {
           self.arrayPos = 0;
-
           self.shuffleStringsIfNeeded()
-
           self.begin();
-        } else
+        }
+        else {
           self.typewrite(self.strings[self.sequence[self.arrayPos]], curStrPos);
+        }
       }
-
       // humanized value for typing
     }, humanize);
 
@@ -221,36 +195,6 @@ export default class Typed {
     return curStrPos;
   }
 
-  setStopNums() {
-    for (let s in this.strings) {
-      const string = this.strings[s];
-      const newStopNum = string.split('~')[1];
-      if (newStopNum && newStopNum > 0) {
-        const regex = /~(\d+)/g;
-        this.strings[s] = string.replace(regex, '');
-        this.stopNums.push(parseInt(newStopNum));
-      }
-      else {
-        this.stopNums.push(0);
-      }
-    }
-  }
-
-  getCurrentElContent() {
-    let elContent = '';
-    if (this.attr) {
-      elContent = this.el.getAttribute(this.attr);
-    }
-    else if (this.isInput) {
-      elContent = this.el.value;
-    } else if (this.contentType === 'html') {
-      elContent = this.el.innerHTML;
-    } else {
-      elContent = this.el.textContent;
-    }
-    return elContent;
-  }
-
   toggleBlinking(blinking) {
     const status = blinking ? 'infinite' : 0;
     this.cursor.style.animationIterationCount = status;
@@ -266,7 +210,7 @@ export default class Typed {
     self = this;
     this.el.className += ' ' + this.fadeOutClass;
     this.cursor.className += ' ' + this.fadeOutClass;
-    return setTimeout(function() {
+    return setTimeout(() => {
       self.arrayPos++;
       self.replaceText('');
 
@@ -295,12 +239,6 @@ export default class Typed {
     }
   }
 
-  // Shuffles the numbers in the given array.
-  shuffleStringsIfNeeded(array) {
-    if (!this.shuffle) return;
-    this.sequence = this.sequence.sort(() => Math.random() - 0.5);
-  }
-
   // Reset and rebuild the element
   reset() {
     const self = this;
@@ -313,7 +251,7 @@ export default class Typed {
     this.arrayPos = 0;
     this.curLoop = 0;
     // Send the callback
-    this.options.resetCallback();
+    this.options.onReset();
   }
 
 }

@@ -27,13 +27,13 @@ var defaults = {
   // either html or text
   contentType: 'html',
   // call when done callback function
-  callback: function() {},
+  onComplete: function() {},
   // starting callback function before each string
   preStringTyped: function() {},
   //callback for every typed string
   onStringTyped: function() {},
   // callback for reset
-  resetCallback: function() {}
+  onReset: function() {}
 };
 
 export default defaults;

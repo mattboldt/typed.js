@@ -1,9 +1,10 @@
 import defaults from './defaults.js';
 
 export default class Initializer {
-  constructor(self, options) {
+  constructor(self, options, elementId) {
+    // chosen element to manipulate text
+    self.el = document.getElementById(elementId);
 
-    // options
     self.options = {};
     Object.keys(defaults).forEach(function(key) {
       self.options[key] = defaults[key];
@@ -90,5 +91,53 @@ export default class Initializer {
         self.strings.push(s.innerHTML);
       }
     }
+
+    // Set the order in which the strings are typed
+    for (let i in self.strings) {
+      self.sequence[i] = i;
+    }
+    this.shuffleStringsIfNeeded(self);
+    // Using the `~12` syntax, set each string's stop number
+    // (stops backspacing at a certain digit)
+    this.setStopNums(self);
+
+    // If there is some text in the element
+    self.currentElContent = this.getCurrentElContent(self);
+  }
+
+  setStopNums(self) {
+    for (let s in self.strings) {
+      const string = self.strings[s];
+      const newStopNum = string.split('~')[1];
+      if (newStopNum && newStopNum > 0) {
+        const regex = /~(\d+)/g;
+        self.strings[s] = string.replace(regex, '');
+        self.stopNums.push(parseInt(newStopNum));
+      }
+      else {
+        self.stopNums.push(0);
+      }
+    }
+  }
+
+  // Shuffles the numbers in the given array.
+  shuffleStringsIfNeeded(self) {
+    if (!self.shuffle) return;
+    self.sequence = self.sequence.sort(() => Math.random() - 0.5);
+  }
+
+  getCurrentElContent(self) {
+    let elContent = '';
+    if (self.attr) {
+      elContent = self.el.getAttribute(self.attr);
+    }
+    else if (self.isInput) {
+      elContent = self.el.value;
+    } else if (self.contentType === 'html') {
+      elContent = self.el.innerHTML;
+    } else {
+      elContent = self.el.textContent;
+    }
+    return elContent;
   }
 }
