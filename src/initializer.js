@@ -76,13 +76,6 @@ export default class Initializer {
     // div containing strings
     self.stringsElement = document.getElementById(self.options.stringsElement);
 
-    // Insert cursor
-    if (self.showCursor) {
-      self.cursor = document.createElement('span');
-      self.cursor.className = 'typed-cursor';
-      self.cursor.innerHTML = self.cursorChar;
-      self.el.parentNode && self.el.parentNode.insertBefore(self.cursor, self.el.nextSibling);
-    }
     if (self.stringsElement) {
       self.strings = [];
       self.stringsElement.style.display = 'none';

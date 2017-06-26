@@ -1,4 +1,5 @@
 import Initializer from './initializer.js';
+import { htmlParser } from './html-parser.js';
 
 export default class Typed {
 
@@ -14,6 +15,7 @@ export default class Typed {
     // current string will be passed as an argument each time after this
     const self = this;
     this.shuffleStringsIfNeeded(self);
+    this.insertCursor();
     self.timeout = setTimeout(() => {
       // Check if there is some text in the element, if yes start by backspacing the default message
       if (self.currentElContent.length == 0) {
@@ -58,7 +60,7 @@ export default class Typed {
         curString = curString.substring(0, curStrPos) + curString.substring(curStrPos + skip);
       }
 
-      curStrPos = self.typeHtmlChars(curString, curStrPos);
+      curStrPos = htmlParser.typeHtmlChars(curString, curStrPos, self);
 
       // timeout for any pause after a character
       self.timeout = setTimeout(() => {
@@ -127,7 +129,7 @@ export default class Typed {
 
     self.timeout = setTimeout(() => {
       const curStopNum = self.stopNums[self.arrayPos];
-      curStrPos = self.backSpaceHtmlChars(curString, curStrPos);
+      curStrPos = htmlParser.backSpaceHtmlChars(curString, curStrPos, self);
       // replace text with base text + typed characters
       const nextString = curString.substr(0, curStrPos);
       self.replaceText(nextString);
@@ -157,45 +159,6 @@ export default class Typed {
 
   }
 
-  typeHtmlChars(curString, curStrPos) {
-    if (this.contentType !== 'html') return;
-    // skip over html tags while typing
-    const curChar = curString.substr(curStrPos).charAt(0);
-    if (curChar === '<' || curChar === '&') {
-      let tag = '';
-      let endTag = '';
-      if (curChar === '<') {
-        endTag = '>'
-      }
-      else {
-        endTag = ';'
-      }
-      while (curString.substr(curStrPos + 1).charAt(0) !== endTag) {
-        tag += curString.substr(curStrPos).charAt(0);
-        curStrPos++;
-        if (curStrPos + 1 > curString.length) { break; }
-      }
-      curStrPos++;
-    }
-    return curStrPos;
-  }
-
-  backSpaceHtmlChars(curString, curStrPos) {
-    if (this.contentType !== 'html') return;
-    // skip over html tags while backspacing
-    if (curString.substr(curStrPos).charAt(0) === '>') {
-      let tag = '';
-      while (curString.substr(curStrPos - 1).charAt(0) !== '<') {
-        tag -= curString.substr(curStrPos).charAt(0);
-        curStrPos--;
-        if (curStrPos < 0) { break; }
-      }
-      curStrPos--;
-      tag += '<';
-    }
-    return curStrPos;
-  }
-
   toggleBlinking(blinking) {
     const status = blinking ? 'infinite' : 0;
     this.cursor.style.animationIterationCount = status;
@@ -214,7 +177,7 @@ export default class Typed {
 
   // Adds a CSS class to fade out current string
   initFadeOut(){
-    self = this;
+    const self = this;
     this.el.className += ' ' + this.fadeOutClass;
     this.cursor.className += ' ' + this.fadeOutClass;
     return setTimeout(() => {
@@ -246,6 +209,27 @@ export default class Typed {
     }
   }
 
+  insertCursor() {
+    // Insert cursor
+    if (!this.showCursor) return;
+    this.cursor = document.createElement('span');
+    this.cursor.className = 'typed-cursor';
+    this.cursor.innerHTML = this.cursorChar;
+    this.el.parentNode && this.el.parentNode.insertBefore(this.cursor, this.el.nextSibling);
+  }
+
+  pause() {
+
+  }
+
+  play() {
+
+  }
+
+  stop() {
+
+  }
+
   // Reset and rebuild the element
   reset() {
     const self = this;
@@ -259,6 +243,7 @@ export default class Typed {
     this.curLoop = 0;
     // Send the callback
     this.options.onReset();
+    this.begin();
   }
 
 }
