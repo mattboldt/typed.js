@@ -28,12 +28,6 @@ export default class Typed {
     }, self.startDelay);
   }
 
-  setPauseStatus(curString, curStrPos, isTyping) {
-    this.pause.typewrite = isTyping;
-    this.pause.curString = curString;
-    this.pause.curStrPos = curStrPos;
-  }
-
   // pass current string state to each function, types 1 char per call
   typewrite(curString, curStrPos) {
     const self = this;
@@ -95,7 +89,7 @@ export default class Typed {
     // call before functions if applicable
     if (curStrPos === 0) {
       this.toggleBlinking(false);
-      this.options.preStringTyped(this.arrayPos);
+      this.options.preStringTyped(this.arrayPos, this);
     }
     // start typing each new char into existing string
     // curString: arg, this.el.html: original text inside element
@@ -110,7 +104,7 @@ export default class Typed {
   doneTyping(curString, curStrPos) {
     const self = this;
     // fires callback function
-    self.options.onStringTyped(self.arrayPos);
+    self.options.onStringTyped(self.arrayPos, self);
     self.toggleBlinking(true);
     // is this the final string
     if (self.arrayPos === self.strings.length - 1) {
@@ -170,9 +164,15 @@ export default class Typed {
   }
 
   complete() {
-    this.options.onComplete();
+    this.options.onComplete(this);
     this.curLoop++;
     this.typingComplete = true;
+  }
+
+  setPauseStatus(curString, curStrPos, isTyping) {
+    this.pause.typewrite = isTyping;
+    this.pause.curString = curString;
+    this.pause.curStrPos = curStrPos;
   }
 
   toggleBlinking(blinking) {
@@ -198,8 +198,8 @@ export default class Typed {
   // Adds a CSS class to fade out current string
   initFadeOut(){
     const self = this;
-    this.el.className += ' ' + this.fadeOutClass;
-    this.cursor.className += ' ' + this.fadeOutClass;
+    this.el.className += ` ${this.fadeOutClass}`;
+    this.cursor.className += ` ${this.fadeOutClass}`;
     return setTimeout(() => {
       self.arrayPos++;
       self.replaceText('');
@@ -252,7 +252,7 @@ export default class Typed {
     if (this.pause.status) return;
     this.toggleBlinking(true);
     this.pause.status = true;
-    this.options.onStop();
+    this.options.onStop(this);
   }
 
   start() {
@@ -265,12 +265,12 @@ export default class Typed {
     else {
       this.backspace(this.pause.curString, this.pause.curStrPos);
     }
-    this.options.onStart();
+    this.options.onStart(this);
   }
 
   destroy() {
     this.reset(false);
-    this.options.onDestroy();
+    this.options.onDestroy(this);
   }
 
   // Reset and rebuild the element
@@ -284,7 +284,7 @@ export default class Typed {
     this.arrayPos = 0;
     this.curLoop = 0;
     if (restart) {
-      this.options.onReset();
+      this.options.onReset(this);
       this.begin();
     }
   }

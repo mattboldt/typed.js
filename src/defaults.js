@@ -27,16 +27,16 @@ var defaults = {
   // either html or text
   contentType: 'html',
   // call when done callback function
-  onComplete: () => {},
+  onComplete: (self) => {},
   // starting callback function before each string
-  preStringTyped: () => {},
+  preStringTyped: (arrayPos, self) => {},
   //callback for every typed string
-  onStringTyped: () => {},
+  onStringTyped: (arrayPos, self) => {},
   // callbacks for pause / play / reset / destroy
-  onReset: () => {},
-  onStop: () => {},
-  onStart: () => {},
-  onDestroy: () => {}
+  onReset: (self) => {},
+  onStop: (self) => {},
+  onStart: (self) => {},
+  onDestroy: (self) => {}
 };
 
 export default defaults;
