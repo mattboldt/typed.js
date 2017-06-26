@@ -20,6 +20,12 @@ export default class Initializer {
     // show cursor
     self.showCursor = self.isInput ? false : self.options.showCursor;
 
+    // custom cursor
+    self.cursorChar = self.options.cursorChar;
+
+    // Is the cursor blinking
+    self.cursorBlinking = true;
+
     // text content of element
     self.elContent = self.attr ? self.el.getAttribute(self.attr) : self.el.textContent;
 
@@ -62,16 +68,20 @@ export default class Initializer {
     self.loopCount = self.options.loopCount;
     self.curLoop = 0;
 
-    // for stopping
-    self.stop = false;
-
-    // custom cursor
-    self.cursorChar = self.options.cursorChar;
-
     // shuffle the strings
     self.shuffle = self.options.shuffle;
     // the order of strings
     self.sequence = [];
+
+    self.pause = {
+      status: false,
+      typewrite: true,
+      curString: '',
+      curStrPos: 0
+    }
+
+    // When the typing is complete (when not looped)
+    self.typingComplete = false;
 
     // div containing strings
     self.stringsElement = document.getElementById(self.options.stringsElement);

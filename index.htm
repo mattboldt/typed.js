@@ -22,30 +22,22 @@
       resetCallback: function() { newTyped(); }
     });
 
-    var resetElement = document.querySelector('.reset');
-    resetElement.addEventListener('click', function() {
+    document.querySelector('.toggle').addEventListener('click', function() {
+      typed.toggle();
+    });
+    document.querySelector('.stop').addEventListener('click', function() {
+      typed.stop();
+    });
+    document.querySelector('.start').addEventListener('click', function() {
+      typed.start();
+    });
+    document.querySelector('.reset').addEventListener('click', function() {
       typed.reset();
     });
-
-    var typed2 = new Typed("typed2", {
-      stringsElement: 'typed-strings',
-      typeSpeed: -20,
-      backSpeed: -20,
-      backDelay: 500,
-      startDelay: 250,
-      loop: false,
-      shuffle: false,
-      contentType: 'html', // or text
-      // defaults to null for infinite loop
-      loopCount: Infinity,
-      onComplete: function(){ foo(); },
-      resetCallback: function() { newTyped(); }
+    document.querySelector('.destroy').addEventListener('click', function() {
+      typed.destroy();
     });
 
-    var resetElement = document.querySelector('.reset2');
-    resetElement.addEventListener('click', function() {
-      typed2.reset();
-    });
 
   });
 
@@ -71,7 +63,6 @@
       50% { opacity:0; }
       100% { opacity:1; }
     }
-
     .typed-fade-out{
       opacity: 0;
       animation: 0;
@@ -93,10 +84,12 @@
         <p>Try it out!</p>
       </div>
       <span id="typed" style="white-space:pre;"></span><br />
-      <span id="typed2" style="white-space:pre;"></span>
     </div>
+    <button class="toggle">Toggle</button>
+    <button class="start">Start</button>
+    <button class="stop">Stop</button>
     <button class="reset">Reset</button>
-    <button class="reset2">Reset2</button>
+    <button class="destroy">Destroy</button>
 
     <div class="links">
       <a href="http://www.mattboldt.com/demos/typed-js">View original demo</a> | <a href="http://www.mattboldt.com">View mattboldt.com</a> | <a href="http://www.twitter.com/atmattb">Complain to Matt about how awful this is</a>
