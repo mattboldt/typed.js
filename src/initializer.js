@@ -16,6 +16,7 @@ export default class Initializer {
     // attribute to type into
     self.isInput = self.el.tagName.toLowerCase() === 'input';
     self.attr = self.options.attr;
+    self.bindInputFocusEvents = self.options.bindInputFocusEvents;
 
     // show cursor
     self.showCursor = self.isInput ? false : self.options.showCursor;

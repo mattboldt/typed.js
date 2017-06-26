@@ -11,13 +11,11 @@ export default class Typed {
   }
 
   begin() {
-    // begin the loop w/ first current string (global self.strings)
-    // current string will be passed as an argument each time after this
     const self = this;
     this.typingComplete = false;
     this.shuffleStringsIfNeeded(self);
     this.insertCursor();
-    this.bindFocusEvents();
+    if (this.bindInputFocusEvents) this.bindFocusEvents();
     self.timeout = setTimeout(() => {
       // Check if there is some text in the element, if yes start by backspacing the default message
       if (!self.currentElContent || self.currentElContent.length == 0) {
@@ -150,8 +148,10 @@ export default class Typed {
       // array position to next string
       else if (curStrPos <= curStopNum) {
         self.arrayPos++;
+        // When looping, begin at the beginning after backspace complete
         if (self.arrayPos === self.strings.length) {
           self.arrayPos = 0;
+					self.options.onLastStringBackspaced();
           self.shuffleStringsIfNeeded();
           self.begin();
         }

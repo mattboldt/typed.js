@@ -24,14 +24,18 @@ var defaults = {
   cursorChar: "|",
   // attribute to type (null == text)
   attr: null,
+  // Bind to focus and blur if el is text input
+  bindInputFocusEvents: false,
   // either html or text
   contentType: 'html',
   // call when done callback function
   onComplete: (self) => {},
   // starting callback function before each string
   preStringTyped: (arrayPos, self) => {},
-  //callback for every typed string
+  // callback for every typed string
   onStringTyped: (arrayPos, self) => {},
+  // During looping, this is when the last string is backspaced
+  onLastStringBackspaced: (self) => {},
   // callbacks for pause / play / reset / destroy
   onReset: (self) => {},
   onStop: (self) => {},
