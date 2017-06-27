@@ -1,3 +1,4 @@
+// TODO: These methods can probably be combined somehow
 export default class HTMLParser {
   typeHtmlChars(curString, curStrPos, self) {
     if (self.contentType !== 'html') return curStrPos;

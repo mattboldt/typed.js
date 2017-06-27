@@ -203,7 +203,7 @@ export default class Typed {
 
   humanizer(speed) {
     // varying values for setTimeout during typing
-    return Math.round(Math.random() * (100 - 30)) + speed;
+    return Math.round(Math.random() * speed / 1.5) + speed;
   }
 
   // Shuffles the numbers in the given array.
