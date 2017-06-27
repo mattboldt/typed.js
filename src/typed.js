@@ -1,11 +1,10 @@
-import Initializer from './initializer.js';
+import { initializer } from './initializer.js';
 import { htmlParser } from './html-parser.js';
 
 export default class Typed {
-
-  constructor(elementId, options){
+  constructor(elementId, options) {
     // Initialize it up
-    new Initializer(this, options, elementId);
+    initializer.load(this, options, elementId);
     // All systems go!
     this.begin();
   }
@@ -20,7 +19,8 @@ export default class Typed {
       // Check if there is some text in the element, if yes start by backspacing the default message
       if (!self.currentElContent || self.currentElContent.length == 0) {
         self.typewrite(self.strings[self.sequence[self.arrayPos]], self.strPos);
-      } else {
+      }
+      else {
         // Start typing
         self.backspace(self.currentElContent, self.currentElContent.length);
       }
@@ -81,7 +81,6 @@ export default class Typed {
 
       // humanized value for typing
     }, humanize);
-
   }
 
   keepTyping(curString, curStrPos) {
@@ -151,7 +150,7 @@ export default class Typed {
         // When looping, begin at the beginning after backspace complete
         if (self.arrayPos === self.strings.length) {
           self.arrayPos = 0;
-					self.options.onLastStringBackspaced();
+          self.options.onLastStringBackspaced();
           self.shuffleStringsIfNeeded();
           self.begin();
         }
@@ -161,7 +160,6 @@ export default class Typed {
       }
       // humanized value for typing
     }, humanize);
-
   }
 
   complete() {
@@ -198,7 +196,7 @@ export default class Typed {
   }
 
   // Adds a CSS class to fade out current string
-  initFadeOut(){
+  initFadeOut() {
     const self = this;
     this.el.className += ` ${this.fadeOutClass}`;
     this.cursor.className += ` ${this.fadeOutClass}`;
@@ -207,9 +205,10 @@ export default class Typed {
       self.replaceText('');
 
       // Resets current string if end of loop reached
-      if(self.strings.length > self.arrayPos) {
+      if (self.strings.length > self.arrayPos) {
         self.typewrite(self.strings[self.sequence[self.arrayPos]], 0);
-      } else {
+      }
+      else {
         self.typewrite(self.strings[0], 0);
         self.arrayPos = 0;
       }
@@ -220,12 +219,15 @@ export default class Typed {
   replaceText(str) {
     if (this.attr) {
       this.el.setAttribute(this.attr, str);
-    } else {
+    }
+    else {
       if (this.isInput) {
         this.el.value = str;
-      } else if (this.contentType === 'html') {
+      }
+      else if (this.contentType === 'html') {
         this.el.innerHTML = str;
-      } else {
+      }
+      else {
         this.el.textContent = str;
       }
     }
@@ -241,12 +243,7 @@ export default class Typed {
   }
 
   toggle() {
-    if (this.pause.status) {
-      this.start();
-    }
-    else {
-      this.stop();
-    }
+    this.pause.status ? this.start() : this.stop();
   }
 
   stop() {
@@ -301,5 +298,4 @@ export default class Typed {
       self.start();
     });
   }
-
 }

@@ -1,15 +1,15 @@
 import defaults from './defaults.js';
 
 export default class Initializer {
-  constructor(self, options, elementId) {
+  load(self, options, elementId) {
     // chosen element to manipulate text
     self.el = document.getElementById(elementId);
 
     self.options = {};
-    Object.keys(defaults).forEach(function(key) {
+    Object.keys(defaults).forEach((key) => {
       self.options[key] = defaults[key];
     });
-    Object.keys(options).forEach(function(key) {
+    Object.keys(options).forEach((key) => {
       self.options[key] = options[key];
     });
 
@@ -131,12 +131,15 @@ export default class Initializer {
     }
     else if (self.isInput) {
       elContent = self.el.value;
-    } else if (self.contentType === 'html') {
+    }
+    else if (self.contentType === 'html') {
       elContent = self.el.innerHTML;
-    } else {
+    }
+    else {
       elContent = self.el.textContent;
     }
     return elContent;
   }
-
 }
+
+export let initializer = new Initializer();

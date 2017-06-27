@@ -1,5 +1,5 @@
 var defaults = {
-  strings: ["These are the default values...", "You know what you should do?", "Use your own!", "Have a great day!"],
+  strings: ['These are the default values...', 'You know what you should do?', 'Use your own!', 'Have a great day!'],
   stringsElement: null,
   // typing speed
   typeSpeed: 0,
@@ -21,7 +21,7 @@ var defaults = {
   // show cursor
   showCursor: true,
   // character for cursor
-  cursorChar: "|",
+  cursorChar: '|',
   // attribute to type (null == text)
   attr: null,
   // Bind to focus and blur if el is text input
