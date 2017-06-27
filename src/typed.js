@@ -55,6 +55,8 @@ export default class Typed {
           substr = /\d+/.exec(substr)[0];
           skip += substr.length;
           pauseTime = parseInt(substr);
+          self.temporaryPause = true;
+          self.options.onTypingPaused(self.arrayPos, self);
         }
         self.toggleBlinking(true);
 
@@ -77,6 +79,10 @@ export default class Typed {
           self.keepTyping(curString, curStrPos);
         }
         // end of character pause
+        if (self.temporaryPause) {
+          self.temporaryPause = false;
+          self.options.onTypingResumed(self.arrayPos, self);
+        }
       }, pauseTime);
 
       // humanized value for typing
@@ -130,14 +136,25 @@ export default class Typed {
     const humanize = this.humanizer(this.backSpeed);
 
     self.timeout = setTimeout(() => {
-      const curStopNum = self.stopNums[self.arrayPos];
       curStrPos = htmlParser.backSpaceHtmlChars(curString, curStrPos, self);
       // replace text with base text + typed characters
       const nextString = curString.substr(0, curStrPos);
       self.replaceText(nextString);
+
+      // if smartBack is enabled
+      if (self.smartBackspace) {
+        // the remaining part of the current string is equal of the same part of the new string
+        if (nextString === self.strings[self.arrayPos + 1].substr(0, curStrPos)) {
+          self.stopNum = curStrPos;
+        }
+        else {
+          self.stopNum = 0;
+        }
+      }
+
       // if the number (id of character in current string) is
       // less than the stop number, keep going
-      if (curStrPos > curStopNum) {
+      if (curStrPos > self.stopNum) {
         // subtract characters one by one
         curStrPos--;
         // loop the function
@@ -145,7 +162,7 @@ export default class Typed {
       }
       // if the stop number has been reached, increase
       // array position to next string
-      else if (curStrPos <= curStopNum) {
+      else if (curStrPos <= self.stopNum) {
         self.arrayPos++;
         // When looping, begin at the beginning after backspace complete
         if (self.arrayPos === self.strings.length) {
@@ -251,7 +268,7 @@ export default class Typed {
     if (this.pause.status) return;
     this.toggleBlinking(true);
     this.pause.status = true;
-    this.options.onStop(this);
+    this.options.onStop(this.arrayPos, this);
   }
 
   start() {
@@ -264,7 +281,7 @@ export default class Typed {
     else {
       this.backspace(this.pause.curString, this.pause.curStrPos);
     }
-    this.options.onStart(this);
+    this.options.onStart(this.arrayPos, this);
   }
 
   destroy() {
@@ -276,7 +293,7 @@ export default class Typed {
   reset(restart = true) {
     clearInterval(this.timeout);
     this.replaceText('');
-    if (typeof this.cursor !== 'undefined' && typeof this.cursor.parentNode !== 'undefined') {
+    if (this.cursor && this.cursor.parentNode) {
       this.cursor.parentNode.removeChild(this.cursor);
     }
     this.strPos = 0;

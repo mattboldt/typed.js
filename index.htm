@@ -9,8 +9,8 @@
 
     var typed = new Typed("typed", {
       stringsElement: 'typed-strings',
-      typeSpeed: -20,
-      backSpeed: -20,
+      typeSpeed: 20,
+      backSpeed: 20,
       backDelay: 500,
       startDelay: 250,
       loop: false,
@@ -20,7 +20,9 @@
       // defaults to null for infinite loop
       loopCount: Infinity,
       onComplete: function(){ foo(); },
-      resetCallback: function() { newTyped(); }
+      resetCallback: function() { newTyped(); },
+      onTypingPaused: function() { },
+      onTypingResumed: function() { }
     });
 
     document.querySelector('.toggle').addEventListener('click', function() {
@@ -85,7 +87,7 @@
 
     <div class="type-wrap">
       <div id="typed-strings">
-        <span>Typed.js^1000 is a <strong>JavaScript</strong> library.~13</span>
+        <span>Typed.js^10 is a <strong>JavaScript</strong> library.</span>
         <span>Typed.js is a <strong>ES6</strong> library.</span>
         <p>It <em>types</em> out sentences.</p>
         <p>And then deletes them.</p>

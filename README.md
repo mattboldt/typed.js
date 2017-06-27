@@ -1,10 +1,8 @@
-[![npm](https://img.shields.io/npm/dt/typed.js.svg)](https://img.shields.io/npm/dt/typed.js.svg)
-[![Code Climate](https://codeclimate.com/github/mattboldt/typed.js/badges/gpa.svg)](https://codeclimate.com/github/mattboldt/typed.js)
-[![Issue Count](https://codeclimate.com/github/mattboldt/typed.js/badges/issue_count.svg)](https://codeclimate.com/github/mattboldt/typed.js)
 [![Build Status](https://travis-ci.org/mattboldt/typed.js.svg?branch=typed-2.0)](https://travis-ci.org/mattboldt/typed.js)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
-[![CDNJS](https://img.shields.io/cdnjs/v/typed.js.svg)](https://cdnjs.com/libraries/typed.js)
+[![Code Climate](https://codeclimate.com/github/mattboldt/typed.js/badges/gpa.svg)](https://codeclimate.com/github/mattboldt/typed.js)
 [![GitHub release](https://img.shields.io/github/release/mattboldt/typed.js.svg)]()
+[![npm](https://img.shields.io/npm/dt/typed.js.svg)](https://img.shields.io/npm/dt/typed.js.svg)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 [![Gratipay User](https://img.shields.io/gratipay/user/mattboldt.svg)]()
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/mattboldt/typed.js/master/LICENSE.txt)
 
@@ -65,23 +63,12 @@ bower install typed.js
 Want the animated blinking cursor? Add this CSS.
 
 ~~~ scss
+/* be sure to add your prefixes! */
 .typed-cursor{
 	opacity: 1;
 	-webkit-animation: blink 0.7s infinite;
-	-moz-animation: blink 0.7s infinite;
-	animation: blink 0.7s infinite;
-}
-@keyframes blink{
-	0% { opacity:1; }
-	50% { opacity:0; }
-	100% { opacity:1; }
 }
 @-webkit-keyframes blink{
-	0% { opacity:1; }
-	50% { opacity:0; }
-	100% { opacity:1; }
-}
-@-moz-keyframes blink{
 	0% { opacity:1; }
 	50% { opacity:0; }
 	100% { opacity:1; }
@@ -92,9 +79,9 @@ CSS when using the `fadeOut` option
 
 ~~~ scss
 .typed-fade-out{
-    opacity: 0;
-    animation: 0;
-    transition: opacity .25s;
+	opacity: 0;
+	animation: 0;
+	transition: opacity .25s;
 }
 ~~~
 
@@ -214,6 +201,8 @@ Typed.new(".element", {
 	shuffle: false,
 	// time before backspacing
 	backDelay: 500,
+	// only backspace what doesn't match previous string
+	smartBack: false,
 	// Fade out instead of backspace (must use CSS class)
 	fadeOut: false,
 	fadeOutClass: 'typed-fade-out',
