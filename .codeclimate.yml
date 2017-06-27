@@ -13,7 +13,7 @@ engines:
   eslint:
     enabled: true
   fixme:
-    enabled: true
+    enabled: false
 ratings:
   paths:
     - "**.css"
