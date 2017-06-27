@@ -25,6 +25,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "gulp": "^3.9.0",
     "gulp-documentation": "^3.2.0",
+    "gulp-eslint": "^4.0.0",
     "gulp-livereload": "^3.8.1",
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.5.2",

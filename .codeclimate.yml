@@ -27,3 +27,4 @@ ratings:
 exclude_paths:
   - dist/
   - lib/
+  - docs/
