@@ -1,5 +1,5 @@
-[![npm](https://img.shields.io/npm/dt/typed.js.svg)]()
-![Code Climate](https://codeclimate.com/github/mattboldt/typed.js/badges/gpa.svg)](https://codeclimate.com/github/mattboldt/typed.js)
+[![npm](https://img.shields.io/npm/dt/typed.js.svg)](https://img.shields.io/npm/dt/typed.js.svg)
+[![Code Climate](https://codeclimate.com/github/mattboldt/typed.js/badges/gpa.svg)](https://codeclimate.com/github/mattboldt/typed.js)
 [![Issue Count](https://codeclimate.com/github/mattboldt/typed.js/badges/issue_count.svg)](https://codeclimate.com/github/mattboldt/typed.js)
 [![Build Status](https://travis-ci.org/mattboldt/typed.js.svg?branch=typed-2.0)](https://travis-ci.org/mattboldt/typed.js)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
