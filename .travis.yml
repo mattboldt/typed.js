@@ -1,4 +1,8 @@
 language: node_js
+notifications:
+  email:
+    on_success: never
+    on_failure: never
 node_js:
 - '6'
 addons:
