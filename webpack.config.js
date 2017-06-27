@@ -1,5 +1,5 @@
-import webpack from "webpack";
-import pkg from "./package.json";
+import webpack from 'webpack';
+import pkg from './package.json';
 var banner = `
   ${pkg.name} - ${pkg.description}
   Author: ${pkg.author}
@@ -10,22 +10,22 @@ var banner = `
 
 export default {
   entry: {
-    Typed: "./src/typed.js"
+    Typed: './src/typed.js'
   },
   output: {
     path: __dirname,
     library: 'Typed',
-    libraryTarget: "umd",
+    libraryTarget: 'umd',
     filename: `typed.js`
   },
-  devtool: "#inline-source-map",
+  devtool: '#inline-source-map',
   externals: [
     {
       lodash: {
-        root: "_",
-        commonjs: "lodash",
-        commonjs2: "lodash",
-        amd: "lodash"
+        root: '_',
+        commonjs: 'lodash',
+        commonjs2: 'lodash',
+        amd: 'lodash'
       }
     }
   ],
@@ -34,7 +34,7 @@ export default {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel",
+        loader: 'babel',
         query: {
           compact: false
         }
@@ -42,6 +42,6 @@ export default {
     ]
   },
   plugins: [
-   new webpack.BannerPlugin( banner )
+    new webpack.BannerPlugin(banner)
   ]
 };

@@ -17,7 +17,7 @@ export default class Typed {
     if (this.bindInputFocusEvents) this.bindFocusEvents();
     self.timeout = setTimeout(() => {
       // Check if there is some text in the element, if yes start by backspacing the default message
-      if (!self.currentElContent || self.currentElContent.length == 0) {
+      if (!self.currentElContent || self.currentElContent.length === 0) {
         self.typewrite(self.strings[self.sequence[self.arrayPos]], self.strPos);
       }
       else {

@@ -1,11 +1,9 @@
 export default class HTMLParser {
-
   typeHtmlChars(curString, curStrPos, self) {
     if (self.contentType !== 'html') return curStrPos;
     // skip over html tags while typing
     const curChar = curString.substr(curStrPos).charAt(0);
     if (curChar === '<' || curChar === '&') {
-      let tag = '';
       let endTag = '';
       if (curChar === '<') {
         endTag = '>'
@@ -14,9 +12,10 @@ export default class HTMLParser {
         endTag = ';'
       }
       while (curString.substr(curStrPos + 1).charAt(0) !== endTag) {
-        tag += curChar;
         curStrPos++;
-        if (curStrPos + 1 > curString.length) { break; }
+        if (curStrPos + 1 > curString.length) {
+          break;
+        }
       }
       curStrPos++;
     }
@@ -28,7 +27,6 @@ export default class HTMLParser {
     const curChar = curString.substr(curStrPos).charAt(0);
     // skip over html tags while backspacing
     if (curChar === '>' || curChar === ';') {
-      let tag = '';
       let endTag = '';
       if (curChar === '>') {
         endTag = '<'
@@ -37,15 +35,15 @@ export default class HTMLParser {
         endTag = '&'
       }
       while (curString.substr(curStrPos - 1).charAt(0) !== endTag) {
-        tag -= curChar;
         curStrPos--;
-        if (curStrPos < 0) { break; }
+        if (curStrPos < 0) {
+          break;
+        }
       }
       curStrPos--;
     }
     return curStrPos;
   }
-
 }
 
 export let htmlParser = new HTMLParser();
