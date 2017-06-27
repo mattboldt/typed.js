@@ -1,3 +1,4 @@
+require('babel/register');
 const gulp = require('gulp');
 const webpack = require('webpack-stream');
 const sourcemaps = require('gulp-sourcemaps');
