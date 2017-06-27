@@ -3,6 +3,9 @@
 [![Issue Count](https://codeclimate.com/github/mattboldt/typed.js/badges/issue_count.svg)](https://codeclimate.com/github/mattboldt/typed.js)
 [![Build Status](https://travis-ci.org/mattboldt/typed.js.svg?branch=typed-2.0)](https://travis-ci.org/mattboldt/typed.js)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
+[![CDNJS](https://img.shields.io/cdnjs/v/typed.js.svg)](https://cdnjs.com/libraries/typed.js)
+[![GitHub release](https://img.shields.io/github/release/mattboldt/typed.js.svg)]()
+[![Gratipay User](https://img.shields.io/gratipay/user/mattboldt.svg)]()
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/mattboldt/typed.js/master/LICENSE.txt)
 
 <img src="/logo-cropped.png" width="450px" title="Typed.js" />

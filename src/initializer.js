@@ -6,12 +6,7 @@ export default class Initializer {
     self.el = document.getElementById(elementId);
 
     self.options = {};
-    Object.keys(defaults).forEach((key) => {
-      self.options[key] = defaults[key];
-    });
-    Object.keys(options).forEach((key) => {
-      self.options[key] = options[key];
-    });
+    Object.assign(self.options, defaults, options);
 
     // attribute to type into
     self.isInput = self.el.tagName.toLowerCase() === 'input';
