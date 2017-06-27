@@ -13,5 +13,3 @@ before_script:
   - npm install
   - bower install
   - gulp build
-# script:
-# - npm test
