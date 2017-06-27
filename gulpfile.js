@@ -5,6 +5,7 @@ const sourcemaps = require('gulp-sourcemaps');
 const rename = require('gulp-rename');
 const uglify = require('gulp-uglify');
 const livereload = require('gulp-livereload');
+const gulpDocumentation = require('gulp-documentation');
 
 gulp.task('build', function() {
   return gulp.src('src/typed.js')
@@ -25,8 +26,22 @@ gulp.task('build', function() {
     .pipe(livereload());
 });
 
+gulp.task('documentation-readme-example1', () => {
+  // Generating README documentation
+  return gulp.src('./index.js')
+    .pipe(gulpDocumentation('md'))
+    .pipe(gulp.dest('docs'));
+});
+
+gulp.task('documentation-readme-example2', () => {
+  // Generating README documentation
+  return gulp.src('./index.js')
+    .pipe(gulpDocumentation('html'))
+    .pipe(gulp.dest('docs'));
+});
+
 // Default Task
-gulp.task('default', ['build']);
+gulp.task('default', ['documentation-readme-example1', 'documentation-readme-example2', 'build']);
 
 // Watch Task
 gulp.task('watch', function() {

@@ -1,6 +1,13 @@
 import { initializer } from './initializer.js';
 import { htmlParser } from './html-parser.js';
 
+/**
+ * Welcome to Typed.js!
+ * let typed = new Typed({ ... });
+ *
+ * @return a new Typed object
+ * @access public
+ */
 export default class Typed {
   constructor(elementId, options) {
     // Initialize it up
@@ -192,8 +199,8 @@ export default class Typed {
   }
 
   toggleBlinking(blinking) {
-    // if already paused, don't toggle blinking a 2nd time
     if (!this.cusror) return;
+    // if in paused state, don't toggle blinking a 2nd time
     if (this.pause.status) return;
     if (this.cursorBlinking === blinking) return;
     this.cursorBlinking = blinking;
@@ -201,8 +208,8 @@ export default class Typed {
     this.cursor.style.animationIterationCount = status;
   }
 
+  // varying values for setTimeout during typing
   humanizer(speed) {
-    // varying values for setTimeout during typing
     return Math.round(Math.random() * speed / 1.5) + speed;
   }
 
@@ -251,7 +258,6 @@ export default class Typed {
   }
 
   insertCursor() {
-    // Insert cursor
     if (!this.showCursor) return;
     this.cursor = document.createElement('span');
     this.cursor.className = 'typed-cursor';
@@ -289,7 +295,6 @@ export default class Typed {
     this.options.onDestroy(this);
   }
 
-  // Reset and rebuild the element
   reset(restart = true) {
     clearInterval(this.timeout);
     this.replaceText('');
