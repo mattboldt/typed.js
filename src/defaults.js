@@ -1,51 +1,150 @@
-var defaults = {
+/**
+ * Defaults & options
+ * @returns {object} Typed defaults & options
+ * @public
+ */
+
+const defaults = {
+  /**
+   * @property {array} strings strings to be typed
+   * @property {string} stringsElement ID of element containing string children
+   */
   strings: ['These are the default values...', 'You know what you should do?', 'Use your own!', 'Have a great day!'],
   stringsElement: null,
-  // typing speed
+
+  /**
+   * @property {number} typeSpeed type speed in milliseconds
+   */
   typeSpeed: 0,
-  // time before typing starts
+
+  /**
+   * @property {number} startDelay time before typing starts in milliseconds
+   */
   startDelay: 0,
-  // backspacing speed
+
+  /**
+   * @property {number} backSpeed backspacing speed in milliseconds
+   */
   backSpeed: 0,
-  // only backspace what doesn't match the previous string
+
+  /**
+   * @property {boolean} smartBackspace only backspace what doesn't match the previous string
+   */
   smartBackspace: true,
-  // shuffle the strings
+
+  /**
+   * @property {boolean} shuffle shuffle the strings
+   */
   shuffle: false,
-  // time before backspacing
+
+  /**
+   * @property {number} backDelay time before backspacing in milliseconds
+   */
   backDelay: 500,
-  // Fade out instead of backspace
+
+  /**
+   * @property {boolean} fadeOut Fade out instead of backspace
+   * @property {string} fadeOutClass css class for fade animation
+   * @property {boolean} fadeOutDelay Fade out delay in milliseconds
+   */
   fadeOut: false,
   fadeOutClass: 'typed-fade-out',
-  fadeOutDelay: 500, // milliseconds
-  // loop
+  fadeOutDelay: 500,
+
+  /**
+   * @property {boolean} loop loop strings
+   * @property {number} loopCount amount of loops
+   */
   loop: false,
   loopCount: Infinity,
-  // show cursor
+
+  /**
+   * @property {boolean} showCursor show cursor
+   * @property {string} cursorChar character for cursor
+   */
   showCursor: true,
-  // character for cursor
   cursorChar: '|',
-  // attribute to type (null == text)
+
+  /**
+   * @property {string} attr attribute for typing
+   * Ex: input placeholder, value, or just HTML text
+   */
   attr: null,
-  // Bind to focus and blur if el is text input
+
+  /**
+   * @property {boolean} bindInputFocusEvents bind to focus and blur if el is text input
+   */
   bindInputFocusEvents: false,
-  // either html or text
+
+  /**
+   * @property {string} contentType 'html' or 'null' for plaintext
+   */
   contentType: 'html',
-  // call when done callback function
+
+  /**
+   * All typing is complete
+   * @param {Typed} self
+   */
   onComplete: (self) => {},
-  // starting callback function before each string
+
+  /**
+   * Before each string is typed
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
   preStringTyped: (arrayPos, self) => {},
-  // callback for every typed string
+
+  /**
+   * After each string is typed
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
   onStringTyped: (arrayPos, self) => {},
-  // During looping, this is when the last string is backspaced
+
+  /**
+   * During looping, after last string is typed
+   * @param {Typed} self
+   */
   onLastStringBackspaced: (self) => {},
-  // callback for when a pause begins
+
+  /**
+   * Typing has been stopped
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
   onTypingPaused: (arrayPos, self) => {},
-  // callback for when a pause is completed
+
+  /**
+   * Typing has been started after being stopped
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
   onTypingResumed: (arrayPos, self) => {},
-  // callbacks for pause / play / reset / destroy
+
+  /**
+   * After reset
+   * @param {Typed} self
+   */
   onReset: (self) => {},
+
+  /**
+   * After stop
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
   onStop: (arrayPos, self) => {},
+
+  /**
+   * After start
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
   onStart: (arrayPos, self) => {},
+
+  /**
+   * After destroy
+   * @param {Typed} self
+   */
   onDestroy: (self) => {}
 };
 

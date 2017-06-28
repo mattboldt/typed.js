@@ -1,15 +1,27 @@
-// TODO: These methods can probably be combined somehow
+
+/**
+ * TODO: These methods can probably be combined somehow
+ * Parse HTML tags & HTML Characters
+ */
+
 export default class HTMLParser {
+  /**
+   * Type HTML tags & HTML Characters
+   * @param {string} curString Current string
+   * @param {number} curStrPos Position in current string
+   * @param {Typed} self instance of Typed
+   * @returns {number} a new string position
+   * @private
+   */
+
   typeHtmlChars(curString, curStrPos, self) {
     if (self.contentType !== 'html') return curStrPos;
-    // skip over html tags while typing
     const curChar = curString.substr(curStrPos).charAt(0);
     if (curChar === '<' || curChar === '&') {
       let endTag = '';
       if (curChar === '<') {
         endTag = '>'
-      }
-      else {
+      } else {
         endTag = ';'
       }
       while (curString.substr(curStrPos + 1).charAt(0) !== endTag) {
@@ -23,16 +35,22 @@ export default class HTMLParser {
     return curStrPos;
   }
 
+  /**
+   * Backspace HTML tags and HTML Characters
+   * @param {string} curString Current string
+   * @param {number} curStrPos Position in current string
+   * @param {Typed} self instance of Typed
+   * @returns {number} a new string position
+   * @private
+   */
   backSpaceHtmlChars(curString, curStrPos, self) {
     if (self.contentType !== 'html') return curStrPos;
     const curChar = curString.substr(curStrPos).charAt(0);
-    // skip over html tags while backspacing
     if (curChar === '>' || curChar === ';') {
       let endTag = '';
       if (curChar === '>') {
         endTag = '<'
-      }
-      else {
+      } else {
         endTag = '&'
       }
       while (curString.substr(curStrPos - 1).charAt(0) !== endTag) {

@@ -1,6 +1,17 @@
 import defaults from './defaults.js';
+/**
+ * Initialize the Typed object
+ */
 
 export default class Initializer {
+  /**
+   * Load up defaults & options on the Typed instance
+   * @param {Typed} self instance of Typed
+   * @param {object} options options object
+   * @param {string} elementId HTML element ID
+   * @private
+   */
+
   load(self, options, elementId) {
     // chosen element to manipulate text
     self.el = document.getElementById(elementId);
@@ -108,14 +119,11 @@ export default class Initializer {
     let elContent = '';
     if (self.attr) {
       elContent = self.el.getAttribute(self.attr);
-    }
-    else if (self.isInput) {
+    } else if (self.isInput) {
       elContent = self.el.value;
-    }
-    else if (self.contentType === 'html') {
+    } else if (self.contentType === 'html') {
       elContent = self.el.innerHTML;
-    }
-    else {
+    } else {
       elContent = self.el.textContent;
     }
     return elContent;

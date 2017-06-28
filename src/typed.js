@@ -3,10 +3,9 @@ import { htmlParser } from './html-parser.js';
 
 /**
  * Welcome to Typed.js!
- * let typed = new Typed({ ... });
- *
- * @return a new Typed object
- * @access public
+ * @param {string} elementId HTML element ID
+ * @param {object} options options object
+ * @returns {object} a new Typed object
  */
 export default class Typed {
   constructor(elementId, options) {
@@ -16,6 +15,74 @@ export default class Typed {
     this.begin();
   }
 
+  /**
+   * Toggle start() and stop() of the Typed instance
+   * @public
+   */
+  toggle() {
+    this.pause.status ? this.start() : this.stop();
+  }
+
+  /**
+   * Stop typing / backspacing and enable cursor blinking
+   * @public
+   */
+  stop() {
+    if (this.typingComplete) return;
+    if (this.pause.status) return;
+    this.toggleBlinking(true);
+    this.pause.status = true;
+    this.options.onStop(this.arrayPos, this);
+  }
+
+  /**
+   * Start typing / backspacing after being stopped
+   * @public
+   */
+  start() {
+    if (this.typingComplete) return;
+    if (!this.pause.status) return;
+    this.pause.status = false;
+    if (this.pause.typewrite) {
+      this.typewrite(this.pause.curString, this.pause.curStrPos);
+    } else {
+      this.backspace(this.pause.curString, this.pause.curStrPos);
+    }
+    this.options.onStart(this.arrayPos, this);
+  }
+
+  /**
+   * Destroy this instance of Typed
+   * @public
+   */
+  destroy() {
+    this.reset(false);
+    this.options.onDestroy(this);
+  }
+
+  /**
+   * Reset & begin Typed from the start
+   * @public
+   */
+  reset(restart = true) {
+    clearInterval(this.timeout);
+    this.replaceText('');
+    if (this.cursor && this.cursor.parentNode) {
+      this.cursor.parentNode.removeChild(this.cursor);
+    }
+    this.strPos = 0;
+    this.arrayPos = 0;
+    this.curLoop = 0;
+    if (restart) {
+      this.options.onReset(this);
+      this.begin();
+    }
+  }
+
+  /**
+   * Begins the typing animation
+   * @private
+   */
   begin() {
     const self = this;
     this.typingComplete = false;
@@ -26,15 +93,19 @@ export default class Typed {
       // Check if there is some text in the element, if yes start by backspacing the default message
       if (!self.currentElContent || self.currentElContent.length === 0) {
         self.typewrite(self.strings[self.sequence[self.arrayPos]], self.strPos);
-      }
-      else {
+      } else {
         // Start typing
         self.backspace(self.currentElContent, self.currentElContent.length);
       }
     }, self.startDelay);
   }
 
-  // pass current string state to each function, types 1 char per call
+  /**
+   * Called for each character typed
+   * @param {string} curString the current string in the strings array
+   * @param {number} curStrPos the current position in the curString
+   * @private
+   */
   typewrite(curString, curStrPos) {
     const self = this;
     if (this.fadeOut && this.el.classList.contains(this.fadeOutClass)) {
@@ -81,8 +152,7 @@ export default class Typed {
         // We're done with this sentence!
         if (curStrPos === curString.length) {
           self.doneTyping(curString, curStrPos);
-        }
-        else {
+        } else {
           self.keepTyping(curString, curStrPos);
         }
         // end of character pause
@@ -96,6 +166,12 @@ export default class Typed {
     }, humanize);
   }
 
+  /**
+   * Continue to the next string & begin typing
+   * @param {string} curString the current string in the strings array
+   * @param {number} curStrPos the current position in the curString
+   * @private
+   */
   keepTyping(curString, curStrPos) {
     // call before functions if applicable
     if (curStrPos === 0) {
@@ -112,6 +188,12 @@ export default class Typed {
     this.typewrite(curString, curStrPos);
   }
 
+  /**
+   * We're done typing all strings
+   * @param {string} curString the current string in the strings array
+   * @param {number} curStrPos the current position in the curString
+   * @private
+   */
   doneTyping(curString, curStrPos) {
     const self = this;
     // fires callback function
@@ -131,6 +213,12 @@ export default class Typed {
     }, self.backDelay);
   }
 
+  /**
+   * Backspaces 1 character at a time
+   * @param {string} curString the current string in the strings array
+   * @param {number} curStrPos the current position in the curString
+   * @private
+   */
   backspace(curString, curStrPos) {
     const self = this;
     if (self.pause.status === true) {
@@ -153,8 +241,7 @@ export default class Typed {
         // the remaining part of the current string is equal of the same part of the new string
         if (nextString === self.strings[self.arrayPos + 1].substr(0, curStrPos)) {
           self.stopNum = curStrPos;
-        }
-        else {
+        } else {
           self.stopNum = 0;
         }
       }
@@ -166,10 +253,9 @@ export default class Typed {
         curStrPos--;
         // loop the function
         self.backspace(curString, curStrPos);
-      }
-      // if the stop number has been reached, increase
-      // array position to next string
-      else if (curStrPos <= self.stopNum) {
+      } else if (curStrPos <= self.stopNum) {
+        // if the stop number has been reached, increase
+        // array position to next string
         self.arrayPos++;
         // When looping, begin at the beginning after backspace complete
         if (self.arrayPos === self.strings.length) {
@@ -177,8 +263,7 @@ export default class Typed {
           self.options.onLastStringBackspaced();
           self.shuffleStringsIfNeeded();
           self.begin();
-        }
-        else {
+        } else {
           self.typewrite(self.strings[self.sequence[self.arrayPos]], curStrPos);
         }
       }
@@ -186,40 +271,69 @@ export default class Typed {
     }, humanize);
   }
 
+  /**
+   * Full animation is complete
+   * @private
+   */
   complete() {
     this.options.onComplete(this);
-    this.curLoop++;
-    this.typingComplete = true;
+    if (this.loop) {
+      this.curLoop++;
+    } else {
+      this.typingComplete = true;
+    }
   }
 
+  /**
+   * Has the typing been stopped
+   * @param {string} curString the current string in the strings array
+   * @param {number} curStrPos the current position in the curString
+   * @param {boolean} isTyping
+   * @private
+   */
   setPauseStatus(curString, curStrPos, isTyping) {
     this.pause.typewrite = isTyping;
     this.pause.curString = curString;
     this.pause.curStrPos = curStrPos;
   }
 
-  toggleBlinking(blinking) {
+  /**
+   * Toggle the blinking cursor
+   * @param {boolean} isBlinking
+   * @private
+   */
+  toggleBlinking(isBlinking) {
     if (!this.cusror) return;
     // if in paused state, don't toggle blinking a 2nd time
     if (this.pause.status) return;
-    if (this.cursorBlinking === blinking) return;
-    this.cursorBlinking = blinking;
-    const status = blinking ? 'infinite' : 0;
+    if (this.cursorBlinking === isBlinking) return;
+    this.cursorBlinking = isBlinking;
+    const status = isBlinking ? 'infinite' : 0;
     this.cursor.style.animationIterationCount = status;
   }
 
-  // varying values for setTimeout during typing
+  /**
+   * Speed in MS to type
+   * @param {number} speed
+   * @private
+   */
   humanizer(speed) {
     return Math.round(Math.random() * speed / 1.5) + speed;
   }
 
-  // Shuffles the numbers in the given array.
+  /**
+   * Shuffle the sequence of the strings array
+   * @private
+   */
   shuffleStringsIfNeeded() {
     if (!this.shuffle) return;
     this.sequence = this.sequence.sort(() => Math.random() - 0.5);
   }
 
-  // Adds a CSS class to fade out current string
+  /**
+   * Adds a CSS class to fade out current string
+   * @private
+   */
   initFadeOut() {
     const self = this;
     this.el.className += ` ${this.fadeOutClass}`;
@@ -231,85 +345,38 @@ export default class Typed {
       // Resets current string if end of loop reached
       if (self.strings.length > self.arrayPos) {
         self.typewrite(self.strings[self.sequence[self.arrayPos]], 0);
-      }
-      else {
+      } else {
         self.typewrite(self.strings[0], 0);
         self.arrayPos = 0;
       }
     }, self.fadeOutDelay);
   }
 
-  // Replaces current text in the HTML element
+  /**
+   * Replaces current text in the HTML element
+   * depending on element type
+   * @param {string} str
+   * @private
+   */
   replaceText(str) {
     if (this.attr) {
       this.el.setAttribute(this.attr, str);
-    }
-    else {
+    } else {
       if (this.isInput) {
         this.el.value = str;
-      }
-      else if (this.contentType === 'html') {
+      } else if (this.contentType === 'html') {
         this.el.innerHTML = str;
-      }
-      else {
+      } else {
         this.el.textContent = str;
       }
     }
   }
 
-  insertCursor() {
-    if (!this.showCursor) return;
-    this.cursor = document.createElement('span');
-    this.cursor.className = 'typed-cursor';
-    this.cursor.innerHTML = this.cursorChar;
-    this.el.parentNode && this.el.parentNode.insertBefore(this.cursor, this.el.nextSibling);
-  }
-
-  toggle() {
-    this.pause.status ? this.start() : this.stop();
-  }
-
-  stop() {
-    if (this.typingComplete) return;
-    if (this.pause.status) return;
-    this.toggleBlinking(true);
-    this.pause.status = true;
-    this.options.onStop(this.arrayPos, this);
-  }
-
-  start() {
-    if (this.typingComplete) return;
-    if (!this.pause.status) return;
-    this.pause.status = false;
-    if (this.pause.typewrite) {
-      this.typewrite(this.pause.curString, this.pause.curStrPos);
-    }
-    else {
-      this.backspace(this.pause.curString, this.pause.curStrPos);
-    }
-    this.options.onStart(this.arrayPos, this);
-  }
-
-  destroy() {
-    this.reset(false);
-    this.options.onDestroy(this);
-  }
-
-  reset(restart = true) {
-    clearInterval(this.timeout);
-    this.replaceText('');
-    if (this.cursor && this.cursor.parentNode) {
-      this.cursor.parentNode.removeChild(this.cursor);
-    }
-    this.strPos = 0;
-    this.arrayPos = 0;
-    this.curLoop = 0;
-    if (restart) {
-      this.options.onReset(this);
-      this.begin();
-    }
-  }
-
+  /**
+   * If using input elements, bind focus in order to
+   * start and stop the animation
+   * @private
+   */
   bindFocusEvents() {
     if (!this.isInput) return;
     const self = this;
@@ -319,5 +386,17 @@ export default class Typed {
     this.el.addEventListener('blur', (e) => {
       self.start();
     });
+  }
+
+  /**
+   * On init, insert the cursor element
+   * @private
+   */
+  insertCursor() {
+    if (!this.showCursor) return;
+    this.cursor = document.createElement('span');
+    this.cursor.className = 'typed-cursor';
+    this.cursor.innerHTML = this.cursorChar;
+    this.el.parentNode && this.el.parentNode.insertBefore(this.cursor, this.el.nextSibling);
   }
 }

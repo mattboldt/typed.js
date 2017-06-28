@@ -6,9 +6,19 @@ const rename = require('gulp-rename');
 const uglify = require('gulp-uglify');
 const livereload = require('gulp-livereload');
 const gulpDocumentation = require('gulp-documentation');
+const eslint = require('gulp-eslint');
 
-gulp.task('build', function() {
-  return gulp.src('src/typed.js')
+gulp.task('lint', () => {
+	return gulp.src('src/*.js')
+		// default: use local linting config
+		.pipe(eslint())
+		// format ESLint results and print them to the console
+		.pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+});
+
+gulp.task('build', () => {
+  return gulp.src('src/*.js')
     .pipe(webpack(require('./webpack.config.js')))
     .pipe(gulp.dest('./lib'))
     .pipe(sourcemaps.init({ loadMaps: true }))
@@ -26,25 +36,26 @@ gulp.task('build', function() {
     .pipe(livereload());
 });
 
-gulp.task('documentation-readme-example1', () => {
-  // Generating README documentation
-  return gulp.src('./index.js')
+gulp.task('md-docs', () => {
+  return gulp.src('./src/*.js')
     .pipe(gulpDocumentation('md'))
     .pipe(gulp.dest('docs'));
 });
 
-gulp.task('documentation-readme-example2', () => {
-  // Generating README documentation
-  return gulp.src('./index.js')
-    .pipe(gulpDocumentation('html'))
+gulp.task('html-docs', () => {
+  return gulp.src('./src/*.js')
+    .pipe(gulpDocumentation('html'), {}, {
+      name: 'Typed.js Docs',
+      version: '2.0.0'
+    })
     .pipe(gulp.dest('docs'));
 });
 
 // Default Task
-gulp.task('default', ['documentation-readme-example1', 'documentation-readme-example2', 'build']);
+gulp.task('default', ['lint', 'md-docs', 'html-docs', 'build']);
 
 // Watch Task
-gulp.task('watch', function() {
+gulp.task('watch', () => {
   livereload({ start: true });
-  gulp.watch('src/*.js', ['build']);
+  gulp.watch('src/*.js', ['default']);
 });

@@ -3,7 +3,6 @@ extends: standard
 rules:
   semi: 0
   no-extra-semi: 0
-  brace-style: [2, stroustrup]
   space-before-function-paren: [error, never]
 
 plugins:
