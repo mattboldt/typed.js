@@ -229,13 +229,14 @@ export default class Typed {
     this.timeout = setTimeout(() => {
       curStrPos = htmlParser.backSpaceHtmlChars(curString, curStrPos, this);
       // replace text with base text + typed characters
-      const nextString = curString.substr(0, curStrPos);
-      this.replaceText(nextString);
+      const curStringAtPosition = curString.substr(0, curStrPos);
+      this.replaceText(curStringAtPosition);
 
       // if smartBack is enabled
       if (this.smartBackspace) {
         // the remaining part of the current string is equal of the same part of the new string
-        if (nextString === this.strings[this.arrayPos + 1].substr(0, curStrPos)) {
+        let nextString = this.strings[this.arrayPos + 1];
+        if (nextString && curStringAtPosition === nextString.substr(0, curStrPos)) {
           this.stopNum = curStrPos;
         } else {
           this.stopNum = 0;
@@ -388,6 +389,7 @@ export default class Typed {
    */
   insertCursor() {
     if (!this.showCursor) return;
+    if (this.cursor) return;
     this.cursor = document.createElement('span');
     this.cursor.className = 'typed-cursor';
     this.cursor.innerHTML = this.cursorChar;
