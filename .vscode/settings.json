@@ -1,0 +1,11 @@
+{
+  "eslint.enable": true,
+  "eslint.options": { "configFile": "./.eslintrc.yml" },
+  "search.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/tmp": true,
+    "**/lib": true
+  }
+}

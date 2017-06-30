@@ -1,0 +1,18 @@
+language: node_js
+notifications:
+  email:
+    on_success: never
+    on_failure: never
+node_js:
+- '6'
+addons:
+  sauce_connect: true
+env:
+  global:
+before_install:
+  - npm install
+before_script:
+  - npm install -g bower
+  - npm install -g gulp
+  - bower install
+  - gulp
