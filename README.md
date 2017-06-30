@@ -34,11 +34,15 @@ bower install typed.js
 This is really all you need to get going.
 
 ~~~ javascript
+// Can also be included with a regular script tag
+import Typed from 'typed.js';
+
 var options = {
   strings: ["<i>First</i> sentence.", "Second sentence."],
   typeSpeed: 40,
   loop: true
 }
+
 var typed = new Typed(".element", options);
 ~~~
 
