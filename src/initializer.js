@@ -66,7 +66,7 @@ export default class Initializer {
     self.strings = self.options.strings.map((s) => s.trim());
 
     // div containing strings
-    self.stringsElement = document.getElementById(self.options.stringsElement);
+    self.stringsElement = document.querySelector(self.options.stringsElement);
 
     if (self.stringsElement) {
       self.strings = [];

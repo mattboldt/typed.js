@@ -32,8 +32,5 @@
     "gulp-uglify": "^1.4.1",
     "webpack": "^1.12.1",
     "webpack-stream": "^2.1.0"
-  },
-  "dependencies": {
-    "lodash": "^3.10.1"
   }
 }
