@@ -14,7 +14,7 @@ export default class Initializer {
 
   load(self, options, elementId) {
     // chosen element to manipulate text
-    self.el = document.getElementById(elementId);
+    self.el = document.querySelector(elementId);
 
     self.options = {};
     Object.assign(self.options, defaults, options);

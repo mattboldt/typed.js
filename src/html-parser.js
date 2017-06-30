@@ -20,9 +20,9 @@ export default class HTMLParser {
     if (curChar === '<' || curChar === '&') {
       let endTag = '';
       if (curChar === '<') {
-        endTag = '>'
+        endTag = '>';
       } else {
-        endTag = ';'
+        endTag = ';';
       }
       while (curString.substr(curStrPos + 1).charAt(0) !== endTag) {
         curStrPos++;
@@ -49,9 +49,9 @@ export default class HTMLParser {
     if (curChar === '>' || curChar === ';') {
       let endTag = '';
       if (curChar === '>') {
-        endTag = '<'
+        endTag = '<';
       } else {
-        endTag = '&'
+        endTag = '&';
       }
       while (curString.substr(curStrPos - 1).charAt(0) !== endTag) {
         curStrPos--;
