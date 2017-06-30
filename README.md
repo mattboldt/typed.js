@@ -39,8 +39,7 @@ import Typed from 'typed.js';
 
 var options = {
   strings: ["<i>First</i> sentence.", "Second sentence."],
-  typeSpeed: 40,
-  loop: true
+  typeSpeed: 40
 }
 
 var typed = new Typed(".element", options);
