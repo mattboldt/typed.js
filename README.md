@@ -3,7 +3,7 @@
 [![GitHub release](https://img.shields.io/github/release/mattboldt/typed.js.svg)]()
 [![npm](https://img.shields.io/npm/dt/typed.js.svg)](https://img.shields.io/npm/dt/typed.js.svg)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
-[![Gratipay User](https://img.shields.io/gratipay/user/mattboldt.svg)]()
+[![Gratipay User](https://img.shields.io/gratipay/user/mattboldt.svg)](https://gratipay.com/Typed.js/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/mattboldt/typed.js/master/LICENSE.txt)
 
 <img src="https://raw.githubusercontent.com/mattboldt/typed.js/master/logo-cropped.png" width="450px" title="Typed.js" />
