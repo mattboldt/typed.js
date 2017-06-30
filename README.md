@@ -8,7 +8,7 @@
 
 <img src="https://raw.githubusercontent.com/mattboldt/typed.js/master/logo-cropped.png" width="450px" title="Typed.js" />
 
-## [View the Live Demo](http://www.mattboldt.com/demos/typed-js/) | [View Full Docs](http://github.io/mattboldt/typed.js) | [mattboldt.com](http://www.mattboldt.com)
+## [View the Live Demo](http://www.mattboldt.com/demos/typed-js/) | [View Full Docs](http://www.mattboldt.com/typed.js/) | [mattboldt.com](http://www.mattboldt.com)
 
 Typed.js is a library that types. Enter in any string, and watch it type at the speed you've set, backspace what it's typed, and begin a new sentence for however many strings you've set.
 
