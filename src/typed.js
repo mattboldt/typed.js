@@ -84,20 +84,19 @@ export default class Typed {
    * @private
    */
   begin() {
-    const self = this;
     this.typingComplete = false;
-    this.shuffleStringsIfNeeded(self);
+    this.shuffleStringsIfNeeded(this);
     this.insertCursor();
     if (this.bindInputFocusEvents) this.bindFocusEvents();
-    self.timeout = setTimeout(() => {
+    this.timeout = setTimeout(() => {
       // Check if there is some text in the element, if yes start by backspacing the default message
-      if (!self.currentElContent || self.currentElContent.length === 0) {
-        self.typewrite(self.strings[self.sequence[self.arrayPos]], self.strPos);
+      if (!this.currentElContent || this.currentElContent.length === 0) {
+        this.typewrite(this.strings[this.sequence[this.arrayPos]], this.strPos);
       } else {
         // Start typing
-        self.backspace(self.currentElContent, self.currentElContent.length);
+        this.backspace(this.currentElContent, this.currentElContent.length);
       }
-    }, self.startDelay);
+    }, this.startDelay);
   }
 
   /**
@@ -107,7 +106,6 @@ export default class Typed {
    * @private
    */
   typewrite(curString, curStrPos) {
-    const self = this;
     if (this.fadeOut && this.el.classList.contains(this.fadeOutClass)) {
       this.el.classList.remove(this.fadeOutClass);
       this.cursor.classList.remove(this.fadeOutClass);
@@ -115,13 +113,13 @@ export default class Typed {
 
     const humanize = this.humanizer(this.typeSpeed);
 
-    if (self.pause.status === true) {
-      self.setPauseStatus(curString, curStrPos, true);
+    if (this.pause.status === true) {
+      this.setPauseStatus(curString, curStrPos, true);
       return;
     }
 
     // contain typing function in a timeout humanize'd delay
-    self.timeout = setTimeout(() => {
+    this.timeout = setTimeout(() => {
       // check for an escape character before a pause value
       // format: \^\d+ .. eg: ^1000 .. should be able to print the ^ too using ^^
       // single ^ are removed from string
@@ -133,32 +131,32 @@ export default class Typed {
           substr = /\d+/.exec(substr)[0];
           skip += substr.length;
           pauseTime = parseInt(substr);
-          self.temporaryPause = true;
-          self.options.onTypingPaused(self.arrayPos, self);
+          this.temporaryPause = true;
+          this.options.onTypingPaused(this.arrayPos, this);
         }
-        self.toggleBlinking(true);
+        this.toggleBlinking(true);
 
         // strip out the escape character and pause value so they're not printed
         curString = curString.substring(0, curStrPos) + curString.substring(curStrPos + skip);
       }
 
-      curStrPos = htmlParser.typeHtmlChars(curString, curStrPos, self);
+      curStrPos = htmlParser.typeHtmlChars(curString, curStrPos, this);
 
       // timeout for any pause after a character
-      self.timeout = setTimeout(() => {
+      this.timeout = setTimeout(() => {
         // Accounts for blinking while paused
-        self.toggleBlinking(false);
+        this.toggleBlinking(false);
 
         // We're done with this sentence!
         if (curStrPos === curString.length) {
-          self.doneTyping(curString, curStrPos);
+          this.doneTyping(curString, curStrPos);
         } else {
-          self.keepTyping(curString, curStrPos);
+          this.keepTyping(curString, curStrPos);
         }
         // end of character pause
-        if (self.temporaryPause) {
-          self.temporaryPause = false;
-          self.options.onTypingResumed(self.arrayPos, self);
+        if (this.temporaryPause) {
+          this.temporaryPause = false;
+          this.options.onTypingResumed(this.arrayPos, this);
         }
       }, pauseTime);
 
@@ -195,22 +193,21 @@ export default class Typed {
    * @private
    */
   doneTyping(curString, curStrPos) {
-    const self = this;
     // fires callback function
-    self.options.onStringTyped(self.arrayPos, self);
-    self.toggleBlinking(true);
+    this.options.onStringTyped(this.arrayPos, this);
+    this.toggleBlinking(true);
     // is this the final string
-    if (self.arrayPos === self.strings.length - 1) {
+    if (this.arrayPos === this.strings.length - 1) {
       // callback that occurs on the last typed string
-      self.complete();
+      this.complete();
       // quit if we wont loop back
-      if (self.loop === false || self.curLoop === self.loopCount) {
+      if (this.loop === false || this.curLoop === this.loopCount) {
         return;
       }
     }
-    self.timeout = setTimeout(() => {
-      self.backspace(curString, curStrPos);
-    }, self.backDelay);
+    this.timeout = setTimeout(() => {
+      this.backspace(curString, curStrPos);
+    }, this.backDelay);
   }
 
   /**
@@ -220,9 +217,8 @@ export default class Typed {
    * @private
    */
   backspace(curString, curStrPos) {
-    const self = this;
-    if (self.pause.status === true) {
-      self.setPauseStatus(curString, curStrPos, true);
+    if (this.pause.status === true) {
+      this.setPauseStatus(curString, curStrPos, true);
       return;
     }
     if (this.fadeOut) return this.initFadeOut();
@@ -230,41 +226,41 @@ export default class Typed {
     this.toggleBlinking(false);
     const humanize = this.humanizer(this.backSpeed);
 
-    self.timeout = setTimeout(() => {
-      curStrPos = htmlParser.backSpaceHtmlChars(curString, curStrPos, self);
+    this.timeout = setTimeout(() => {
+      curStrPos = htmlParser.backSpaceHtmlChars(curString, curStrPos, this);
       // replace text with base text + typed characters
       const nextString = curString.substr(0, curStrPos);
-      self.replaceText(nextString);
+      this.replaceText(nextString);
 
       // if smartBack is enabled
-      if (self.smartBackspace) {
+      if (this.smartBackspace) {
         // the remaining part of the current string is equal of the same part of the new string
-        if (nextString === self.strings[self.arrayPos + 1].substr(0, curStrPos)) {
-          self.stopNum = curStrPos;
+        if (nextString === this.strings[this.arrayPos + 1].substr(0, curStrPos)) {
+          this.stopNum = curStrPos;
         } else {
-          self.stopNum = 0;
+          this.stopNum = 0;
         }
       }
 
       // if the number (id of character in current string) is
       // less than the stop number, keep going
-      if (curStrPos > self.stopNum) {
+      if (curStrPos > this.stopNum) {
         // subtract characters one by one
         curStrPos--;
         // loop the function
-        self.backspace(curString, curStrPos);
-      } else if (curStrPos <= self.stopNum) {
+        this.backspace(curString, curStrPos);
+      } else if (curStrPos <= this.stopNum) {
         // if the stop number has been reached, increase
         // array position to next string
-        self.arrayPos++;
+        this.arrayPos++;
         // When looping, begin at the beginning after backspace complete
-        if (self.arrayPos === self.strings.length) {
-          self.arrayPos = 0;
-          self.options.onLastStringBackspaced();
-          self.shuffleStringsIfNeeded();
-          self.begin();
+        if (this.arrayPos === this.strings.length) {
+          this.arrayPos = 0;
+          this.options.onLastStringBackspaced();
+          this.shuffleStringsIfNeeded();
+          this.begin();
         } else {
-          self.typewrite(self.strings[self.sequence[self.arrayPos]], curStrPos);
+          this.typewrite(this.strings[this.sequence[this.arrayPos]], curStrPos);
         }
       }
       // humanized value for typing
@@ -335,21 +331,20 @@ export default class Typed {
    * @private
    */
   initFadeOut() {
-    const self = this;
     this.el.className += ` ${this.fadeOutClass}`;
     this.cursor.className += ` ${this.fadeOutClass}`;
     return setTimeout(() => {
-      self.arrayPos++;
-      self.replaceText('');
+      this.arrayPos++;
+      this.replaceText('');
 
       // Resets current string if end of loop reached
-      if (self.strings.length > self.arrayPos) {
-        self.typewrite(self.strings[self.sequence[self.arrayPos]], 0);
+      if (this.strings.length > this.arrayPos) {
+        this.typewrite(this.strings[this.sequence[this.arrayPos]], 0);
       } else {
-        self.typewrite(self.strings[0], 0);
-        self.arrayPos = 0;
+        this.typewrite(this.strings[0], 0);
+        this.arrayPos = 0;
       }
-    }, self.fadeOutDelay);
+    }, this.fadeOutDelay);
   }
 
   /**
@@ -379,12 +374,11 @@ export default class Typed {
    */
   bindFocusEvents() {
     if (!this.isInput) return;
-    const self = this;
     this.el.addEventListener('focus', (e) => {
-      self.stop();
+      this.stop();
     });
     this.el.addEventListener('blur', (e) => {
-      self.start();
+      this.start();
     });
   }
 
