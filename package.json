@@ -6,7 +6,7 @@
   "license": "MIT",
   "author": "Matt Boldt <me@mattboldt.com>",
   "description": "A jQuery typing animation script",
-  "main": "dist/typed.min.js",
+  "main": "lib/typed.js",
   "keywords": [
     "typed",
     "animation"
