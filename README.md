@@ -7,7 +7,9 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/mattboldt/typed.js/master/LICENSE.txt)
 
 <img src="/logo-cropped.png" width="450px" title="Typed.js" />
-------
+
+### Notice: development on master is currently halted for the upcoming release of v2.0 on [#264](https://github.com/mattboldt/typed.js/pull/264)
+
 
 [View the live demo](http://www.mattboldt.com/demos/typed-js/) | [Go to my site, mattboldt.com](http://www.mattboldt.com)
 
