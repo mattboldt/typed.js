@@ -69,7 +69,9 @@ export default class Typed {
     this.replaceText('');
     if (this.cursor && this.cursor.parentNode) {
       this.cursor.parentNode.removeChild(this.cursor);
+      this.cursor = null;
     }
+    this.insertCursor();
     this.strPos = 0;
     this.arrayPos = 0;
     this.curLoop = 0;
@@ -379,6 +381,7 @@ export default class Typed {
       this.stop();
     });
     this.el.addEventListener('blur', (e) => {
+      if (this.el.value && this.el.value.length !== 0) { return; }
       this.start();
     });
   }

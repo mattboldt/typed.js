@@ -23,6 +23,7 @@
     "eslint-plugin-node": "^5.1.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
+    "express": "^4.15.3",
     "gulp": "^3.9.0",
     "gulp-documentation": "^3.2.0",
     "gulp-eslint": "^4.0.0",
@@ -30,6 +31,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.4.1",
+    "nodemon": "^1.11.0",
     "webpack": "^1.12.1",
     "webpack-stream": "^2.1.0"
   }

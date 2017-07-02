@@ -19,3 +19,7 @@ env:
   es6: true
   jquery: true
   node: true
+
+overrides:
+  - files: ["./demos*.js"]
+    excludedFiles: "./demos/*.js"
