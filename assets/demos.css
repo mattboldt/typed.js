@@ -19,6 +19,13 @@ a:hover{
 	color:#999;
 }
 
+button {
+	padding: 10px;
+	border-radius: 3px;
+	background: #E0E0E0;
+	border: #CCC 1px solid;
+}
+
 p{
 	line-height: 2em;
 	margin:0 0 20px;

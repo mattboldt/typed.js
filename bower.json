@@ -5,7 +5,7 @@
   "authors": [
     "Matt Boldt <me@mattboldt.com>"
   ],
-  "description": "A jQuery typing animation script",
+  "description": "A JavaScript Typing Animation Library",
   "main": "lib/typed.js",
   "keywords": [
     "typed",

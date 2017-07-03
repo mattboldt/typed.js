@@ -113,6 +113,10 @@ export default class Initializer {
 
     // If there is some text in the element
     self.currentElContent = this.getCurrentElContent(self);
+
+    self.autoInsertCss = self.options.autoInsertCss;
+
+    this.appendAnimationCss(self);
   }
 
   getCurrentElContent(self) {
@@ -127,6 +131,46 @@ export default class Initializer {
       elContent = self.el.textContent;
     }
     return elContent;
+  }
+
+  appendAnimationCss(self) {
+    if (!self.autoInsertCss) { return; }
+    if (!self.showCursor || !self.fadeOut) { return; }
+
+    let css = document.createElement('style');
+    css.type = 'text/css';
+    let innerCss = '';
+    if (self.showCursor) {
+      innerCss += `
+        .typed-cursor{
+          opacity: 1;
+          animation: typedjsBlink 0.7s infinite;
+          -webkit-animation: typedjsBlink 0.7s infinite;
+                  animation: typedjsBlink 0.7s infinite;
+        }
+        @keyframes typedjsBlink{
+          50% { opacity: 0.0; }
+        }
+        @-webkit-keyframes typedjsBlink{
+          0% { opacity: 1; }
+          50% { opacity: 0.0; }
+          100% { opacity: 1; }
+        }
+      `;
+    }
+    if (self.fadeOut) {
+      innerCss += `
+        .typed-fade-out{
+          opacity: 0;
+          transition: opacity .25s;
+          -webkit-animation: 0;
+                  animation: 0;
+        }
+      `;
+    }
+    if (css.length === 0) { return; }
+    css.innerHTML = innerCss;
+    document.head.appendChild(css);
   }
 }
 

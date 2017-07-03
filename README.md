@@ -45,31 +45,6 @@ var options = {
 var typed = new Typed(".element", options);
 ~~~
 
-
-Animated blinking cursor CSS
-
-~~~ scss
-.typed-cursor{
-  opacity: 1;
-  -webkit-animation: blink 0.7s infinite;
-}
-@-webkit-keyframes blink{
-  0% { opacity:1; }
-  50% { opacity:0; }
-  100% { opacity:1; }
-}
-~~~
-
-CSS when using the `fadeOut` option
-
-~~~ scss
-.typed-fade-out{
-  opacity: 0;
-  animation: 0;
-  transition: opacity .25s;
-}
-~~~
-
 Wonderful sites using Typed.js
 ---
 https://slack.com/
@@ -144,6 +119,17 @@ var typed = new Typed(".element", {
 });
 ~~~
 
+### CSS
+
+CSS animations are build upon initialzation in JavaScript. But, you can customize them at your will! These classes are:
+```css
+/* Cursor */
+.typed-cursor {}
+
+/* If fade out option is set */
+.typed-fade-out {}
+```
+
 
 Customization
 ----
@@ -185,7 +171,7 @@ var typed = new Typed(".element", {
   /**
    * @property {number} backDelay time before backspacing in milliseconds
    */
-  backDelay: 500,
+  backDelay: 700,
 
   /**
    * @property {boolean} fadeOut Fade out instead of backspace
@@ -206,9 +192,11 @@ var typed = new Typed(".element", {
   /**
    * @property {boolean} showCursor show cursor
    * @property {string} cursorChar character for cursor
+   * @property {boolean} autoInsertCss insert CSS for cursor and fadeOut into HTML <head>
    */
   showCursor: true,
   cursorChar: '|',
+  autoInsertCss: true,
 
   /**
    * @property {string} attr attribute for typing
@@ -294,13 +282,9 @@ var typed = new Typed(".element", {
 });
 ~~~
 
-## Development
+## Contributing
 
-`npm install`
-
-Then, once you've made your edits:
-
-`gulp` or `gulp watch`
+### [View Contribution Guidelines](./docs/CONTRIBUTING.md)
 
 end
 ---

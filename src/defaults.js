@@ -40,7 +40,7 @@ const defaults = {
   /**
    * @property {number} backDelay time before backspacing in milliseconds
    */
-  backDelay: 500,
+  backDelay: 700,
 
   /**
    * @property {boolean} fadeOut Fade out instead of backspace
@@ -61,9 +61,11 @@ const defaults = {
   /**
    * @property {boolean} showCursor show cursor
    * @property {string} cursorChar character for cursor
+   * @property {boolean} autoInsertCss insert CSS for cursor and fadeOut into HTML <head>
    */
   showCursor: true,
   cursorChar: '|',
+  autoInsertCss: true,
 
   /**
    * @property {string} attr attribute for typing

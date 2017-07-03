@@ -9,35 +9,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
-  <style>
-    button {
-      padding: 10px;
-      border-radius: 3px;
-      background: #E0E0E0;
-      border: #CCC 1px solid;
-    }
-
-    /* code for animated blinking cursor */
-    .typed-cursor{
-      opacity: 1;
-      font-weight: 100;
-      -webkit-animation: blink 0.7s infinite;
-      -moz-animation: blink 0.7s infinite;
-      -ms-animation: blink 0.7s infinite;
-      -o-animation: blink 0.7s infinite;
-      animation: blink 0.7s infinite;
-    }
-    @-webkit-keyframes blink{
-      0% { opacity:1; }
-      50% { opacity:0; }
-      100% { opacity:1; }
-    }
-    .typed-fade-out{
-      opacity: 0;
-      animation: 0;
-      transition: opacity .25s;
-    }
-  </style>
 </head>
 <body>
 
@@ -80,7 +51,6 @@
     backDelay: 500,
     startDelay: 1000,
     loop: false,
-    loopCount: Infinity,
     onComplete: function(self) { prettyLog('onCmplete ' + self) },
     preStringTyped: function(pos, self) { prettyLog('preStringTyped ' + pos + ' ' + self); },
     onStringTyped: function(pos, self) { prettyLog('onStringTyped ' + pos + ' ' + self) },
