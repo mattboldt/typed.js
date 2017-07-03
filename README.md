@@ -284,7 +284,7 @@ var typed = new Typed(".element", {
 
 ## Contributing
 
-### [View Contribution Guidelines](./docs/CONTRIBUTING.md)
+### [View Contribution Guidelines](./.github/CONTRIBUTING.md)
 
 end
 ---
