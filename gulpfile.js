@@ -78,14 +78,16 @@ gulp.task('watch', () => {
   gulp.watch('src/*.js', ['default']);
 });
 
-// Default Task
-gulp.task('default', [
-  'lint',
+gulp.task('serve', [
+  'default',
   'md-docs',
   'html-docs',
-  'build',
   'server',
   'watch'
 ]);
 
+gulp.task('default', [
+  'lint',
+  'build',
+]);
 
