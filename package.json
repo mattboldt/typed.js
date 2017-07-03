@@ -5,7 +5,7 @@
   "repository": "https://github.com/mattboldt/typed.js",
   "license": "MIT",
   "author": "Matt Boldt <me@mattboldt.com>",
-  "description": "A jQuery typing animation script",
+  "description": "A JavaScript Typing Animation Library",
   "main": "lib/typed.js",
   "keywords": [
     "typed",
