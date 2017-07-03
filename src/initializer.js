@@ -114,6 +114,8 @@ export default class Initializer {
     // If there is some text in the element
     self.currentElContent = this.getCurrentElContent(self);
 
+    self.autoInsertCss = self.options.autoInsertCss;
+
     this.appendAnimationCss(self);
   }
 
@@ -132,6 +134,7 @@ export default class Initializer {
   }
 
   appendAnimationCss(self) {
+    if (!self.autoInsertCss) { return; }
     if (!self.showCursor || !self.fadeOut) { return; }
 
     let css = document.createElement('style');

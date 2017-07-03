@@ -61,9 +61,11 @@ const defaults = {
   /**
    * @property {boolean} showCursor show cursor
    * @property {string} cursorChar character for cursor
+   * @property {boolean} autoInsertCss insert CSS for cursor and fadeOut into HTML <head>
    */
   showCursor: true,
   cursorChar: '|',
+  autoInsertCss: true,
 
   /**
    * @property {string} attr attribute for typing
