@@ -8,13 +8,17 @@ export default class Initializer {
    * Load up defaults & options on the Typed instance
    * @param {Typed} self instance of Typed
    * @param {object} options options object
-   * @param {string} elementId HTML element ID
+   * @param {string} elementId HTML element ID _OR_ instance of HTML element
    * @private
    */
 
   load(self, options, elementId) {
     // chosen element to manipulate text
-    self.el = document.querySelector(elementId);
+    if (typeof elementId === 'string') {
+      self.el = document.querySelector(elementId);
+    } else {
+      self.el = elementId;
+    }
 
     self.options = {};
     Object.assign(self.options, defaults, options);
@@ -66,7 +70,11 @@ export default class Initializer {
     self.strings = self.options.strings.map((s) => s.trim());
 
     // div containing strings
-    self.stringsElement = document.querySelector(self.options.stringsElement);
+    if (typeof self.options.stringsElement === 'string') {
+      self.stringsElement = document.querySelector(self.options.stringsElement);
+    } else {
+      self.stringsElement = self.options.stringsElement;
+    }
 
     if (self.stringsElement) {
       self.strings = [];
