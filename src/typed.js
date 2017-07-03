@@ -3,7 +3,7 @@ import { htmlParser } from './html-parser.js';
 
 /**
  * Welcome to Typed.js!
- * @param {string} elementId HTML element ID
+ * @param {string} elementId HTML element ID _OR_ HTML element
  * @param {object} options options object
  * @returns {object} a new Typed object
  */

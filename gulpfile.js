@@ -72,19 +72,16 @@ gulp.task('server', function () {
   gulp.watch(['docs/images/**/*'], server.notify);
 });
 
+gulp.task('serve', [
+  'watch',
+  'server'
+]);
+
 // Watch Task
 gulp.task('watch', () => {
   livereload({ start: true });
-  gulp.watch('src/*.js', ['default']);
+  gulp.watch('src/*.js', ['md-docs', 'html-docs', 'default']);
 });
-
-gulp.task('serve', [
-  'default',
-  'md-docs',
-  'html-docs',
-  'server',
-  'watch'
-]);
 
 gulp.task('default', [
   'lint',

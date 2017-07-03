@@ -192,7 +192,7 @@ Welcome to Typed.js!
 
 **Parameters**
 
--   `elementId` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** HTML element ID
+-   `elementId` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** HTML element ID _OR_ HTML element
 -   `options` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** options object
 
 Returns **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** a new Typed object
@@ -219,4 +219,4 @@ Reset Typed and optionally restarts
 
 **Parameters**
 
--   `restart` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?= rt) ** 
+-   `restart` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?= nser** 
