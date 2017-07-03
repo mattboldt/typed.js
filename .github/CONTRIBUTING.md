@@ -29,7 +29,7 @@ There you will see a list of pre-made demos showing each feature of Typed.js in 
 
 ## Pull Request Etiquette
 
-If this it is purely a README update, you can skip everything below.
+If this is purely a README update, you can skip everything below.
 
 You need to include a demo of your changes (new features, a bug fix, etc) in a fork of this JSFiddle: https://jsfiddle.net/mattboldt/1xs3LLmL/
 
