@@ -61,7 +61,8 @@ export default class Typed {
   }
 
   /**
-   * Reset & begin Typed from the start
+   * Reset Typed and optionally restarts
+   * @param {boolean} restart
    * @public
    */
   reset(restart = true) {

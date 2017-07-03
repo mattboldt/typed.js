@@ -40,7 +40,7 @@ const defaults = {
   /**
    * @property {number} backDelay time before backspacing in milliseconds
    */
-  backDelay: 500,
+  backDelay: 700,
 
   /**
    * @property {boolean} fadeOut Fade out instead of backspace

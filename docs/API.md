@@ -214,8 +214,8 @@ Destroy this instance of Typed
 
 ### reset
 
-Reset & begin Typed from the start
+Reset Typed and optionally restarts
 
 **Parameters**
 
--   `restart`   (optional, default `rt) `)
+-   `restart` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?= rt) ** 
