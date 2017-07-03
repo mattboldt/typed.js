@@ -10,9 +10,7 @@ addons:
 env:
   global:
 before_install:
-  - npm install
+  - yarn install
 before_script:
-  - npm install -g bower
-  - npm install -g gulp
-  - bower install
+  - yarn global add gulp
   - gulp

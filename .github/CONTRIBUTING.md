@@ -14,9 +14,9 @@ cd typed.js
 
 Then, make sure you have all the development dependencies installed.
 ```
-npm install
+yarn install
 ```
-(note: you will need Node.js, `npm`, and `gulp` installed globally on your system)
+(note: you will need Node.js, `yarn`, and `gulp` installed globally on your system)
 
 To get things going:
 ```

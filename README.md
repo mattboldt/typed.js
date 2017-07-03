@@ -23,6 +23,12 @@ Installation
 npm install typed.js
 ~~~
 
+### NPM
+
+~~~
+yarn add typed.js
+~~~
+
 ### Bower
 
 ~~~
