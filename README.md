@@ -17,25 +17,25 @@ Typed.js is a library that types. Enter in any string, and watch it type at the 
 Installation
 ------------
 
-### NPM
+#### NPM
 
 ~~~
 npm install typed.js
 ~~~
 
-### NPM
+#### Yarn
 
 ~~~
 yarn add typed.js
 ~~~
 
-### Bower
+#### Bower
 
 ~~~
 bower install typed.js
 ~~~
 
-### Setup
+#### Setup
 
 This is really all you need to get going.
 
