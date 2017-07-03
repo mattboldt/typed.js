@@ -28,3 +28,4 @@ exclude_paths:
   - dist/
   - lib/
   - docs/
+  - assets/
