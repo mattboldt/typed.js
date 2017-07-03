@@ -218,4 +218,4 @@ Reset & begin Typed from the start
 
 **Parameters**
 
--   `restart`   (optional, default `urLo`)
+-   `restart`   (optional, default `rt) `)

@@ -45,31 +45,6 @@ var options = {
 var typed = new Typed(".element", options);
 ~~~
 
-
-Animated blinking cursor CSS
-
-~~~ scss
-.typed-cursor{
-  opacity: 1;
-  -webkit-animation: blink 0.7s infinite;
-}
-@-webkit-keyframes blink{
-  0% { opacity:1; }
-  50% { opacity:0; }
-  100% { opacity:1; }
-}
-~~~
-
-CSS when using the `fadeOut` option
-
-~~~ scss
-.typed-fade-out{
-  opacity: 0;
-  animation: 0;
-  transition: opacity .25s;
-}
-~~~
-
 Wonderful sites using Typed.js
 ---
 https://slack.com/
@@ -143,6 +118,17 @@ var typed = new Typed(".element", {
   smartBackspace: true // Default value
 });
 ~~~
+
+### CSS
+
+CSS animations are build upon initialzation in JavaScript. But, you can customize them at your will! These classes are:
+```css
+/* Cursor */
+.typed-cursor {}
+
+/* If fade out option is set */
+.typed-fade-out {}
+```
 
 
 Customization

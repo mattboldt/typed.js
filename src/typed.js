@@ -71,11 +71,11 @@ export default class Typed {
       this.cursor.parentNode.removeChild(this.cursor);
       this.cursor = null;
     }
-    this.insertCursor();
     this.strPos = 0;
     this.arrayPos = 0;
     this.curLoop = 0;
     if (restart) {
+      this.insertCursor();
       this.options.onReset(this);
       this.begin();
     }
@@ -302,7 +302,7 @@ export default class Typed {
    * @private
    */
   toggleBlinking(isBlinking) {
-    if (!this.cusror) return;
+    if (!this.cursor) return;
     // if in paused state, don't toggle blinking a 2nd time
     if (this.pause.status) return;
     if (this.cursorBlinking === isBlinking) return;
