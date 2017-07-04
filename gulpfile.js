@@ -47,7 +47,7 @@ gulp.task('html-docs', () => {
   return gulp.src('./src/*.js')
     .pipe(gulpDocumentation('html'), {}, {
       name: 'Typed.js Docs',
-      version: '2.0.1'
+      version: '2.0.2'
     })
     .pipe(gulp.dest('docs'));
 });
