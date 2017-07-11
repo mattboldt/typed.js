@@ -136,6 +136,10 @@ CSS animations are build upon initialzation in JavaScript. But, you can customiz
 .typed-fade-out {}
 ```
 
+### Use with ReactJS
+
+Check out this example React app using Typed.js in a component: https://jsfiddle.net/mattboldt/ovat9jmp/
+
 
 Customization
 ----
@@ -287,6 +291,7 @@ var typed = new Typed(".element", {
   onDestroy: (self) => {}
 });
 ~~~
+
 
 ## Contributing
 
