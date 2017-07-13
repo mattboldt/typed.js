@@ -1,6 +1,6 @@
 <!--
-IMPORTANT: Please use the following format to create a new issue.
-If your issue was not created using the format below, it will be closed immediately.
+IMPORTANT: If applicable, please use the following format to create a new issue.
+If your issue is not created using the format below, it will be closed.
 -->
 
 ### Description
