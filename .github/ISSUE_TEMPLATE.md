@@ -2,6 +2,9 @@
 
 [Description of the issue]
 
+### Demo
+[If possible, include a demo of your issue in a fork of this JSFiddle: https://jsfiddle.net/mattboldt/1xs3LLmL/]
+
 ### Steps to Reproduce
 
 1. [First Step]
@@ -13,6 +16,7 @@
 **Actual behavior:** [What actually happens]
 
 **Reproduces how often:** [What percentage of the time does it reproduce?]
+
 ### Additional Information
 
 Any additional information, configuration or data that might be necessary to reproduce the issue.
