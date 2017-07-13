@@ -1,3 +1,8 @@
+<!--
+IMPORTANT: Please use the following format to create a new issue.
+If your issue was not created using the format below, it will be closed immediately.
+-->
+
 ### Description
 
 [Description of the issue]
