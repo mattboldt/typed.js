@@ -115,6 +115,7 @@ export default class Typed {
     }
 
     const humanize = this.humanizer(this.typeSpeed);
+    let numChars = 1;
 
     if (this.pause.status === true) {
       this.setPauseStatus(curString, curStrPos, true);
@@ -123,27 +124,42 @@ export default class Typed {
 
     // contain typing function in a timeout humanize'd delay
     this.timeout = setTimeout(() => {
+      // skip over any HTML chars
+      curStrPos = htmlParser.typeHtmlChars(curString, curStrPos, this);
+
+      let pauseTime = 0;
+      let substr = curString.substr(curStrPos);
       // check for an escape character before a pause value
       // format: \^\d+ .. eg: ^1000 .. should be able to print the ^ too using ^^
       // single ^ are removed from string
-      let pauseTime = 0;
-      let substr = curString.substr(curStrPos);
       if (substr.charAt(0) === '^') {
-        let skip = 1; // skip atleast 1
         if (/^\^\d+/.test(substr)) {
+          let skip = 1; // skip at least 1
           substr = /\d+/.exec(substr)[0];
           skip += substr.length;
           pauseTime = parseInt(substr);
           this.temporaryPause = true;
           this.options.onTypingPaused(this.arrayPos, this);
+          // strip out the escape character and pause value so they're not printed
+          curString = curString.substring(0, curStrPos) + curString.substring(curStrPos + skip);
+          this.toggleBlinking(true);
         }
-        this.toggleBlinking(true);
-
-        // strip out the escape character and pause value so they're not printed
-        curString = curString.substring(0, curStrPos) + curString.substring(curStrPos + skip);
       }
 
-      curStrPos = htmlParser.typeHtmlChars(curString, curStrPos, this);
+      // check for skip characters formatted as
+      // "this is a `string to print NOW` ..."
+      if (substr.charAt(0) === '`') {
+        while (curString.substr(curStrPos + numChars).charAt(0) !== '`') {
+          numChars++;
+          if (curStrPos + numChars > curString.length) break;
+        }
+        // strip out the escape characters and append all the string in between
+        const stringBeforeSkip = curString.substring(0, curStrPos);
+        const stringSkipped = curString.substring(stringBeforeSkip.length + 1, curStrPos + numChars);
+        const stringAfterSkip = curString.substring(curStrPos + numChars + 1);
+        curString = stringBeforeSkip + stringSkipped + stringAfterSkip;
+        numChars--;
+      }
 
       // timeout for any pause after a character
       this.timeout = setTimeout(() => {
@@ -154,7 +170,7 @@ export default class Typed {
         if (curStrPos === curString.length) {
           this.doneTyping(curString, curStrPos);
         } else {
-          this.keepTyping(curString, curStrPos);
+          this.keepTyping(curString, curStrPos, numChars);
         }
         // end of character pause
         if (this.temporaryPause) {
@@ -173,7 +189,7 @@ export default class Typed {
    * @param {number} curStrPos the current position in the curString
    * @private
    */
-  keepTyping(curString, curStrPos) {
+  keepTyping(curString, curStrPos, numChars) {
     // call before functions if applicable
     if (curStrPos === 0) {
       this.toggleBlinking(false);
@@ -181,10 +197,9 @@ export default class Typed {
     }
     // start typing each new char into existing string
     // curString: arg, this.el.html: original text inside element
-    const nextString = curString.substr(0, curStrPos + 1);
+    curStrPos += numChars;
+    const nextString = curString.substr(0, curStrPos);
     this.replaceText(nextString);
-    // add characters one by one
-    curStrPos++;
     // loop the function
     this.typewrite(curString, curStrPos);
   }

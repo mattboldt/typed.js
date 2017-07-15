@@ -125,6 +125,18 @@ var typed = new Typed(".element", {
 });
 ~~~
 
+### Bulk Typing
+
+The following example would emulate how a terminal acts when typing a command and seeing its result. 
+
+~~~ javascript
+var typed = new Typed(".element", {
+  strings: [
+    "git push --force ^1000\n `pushed to origin with option force`"
+  ]
+});
+~~~
+
 ### CSS
 
 CSS animations are build upon initialzation in JavaScript. But, you can customize them at your will! These classes are:
