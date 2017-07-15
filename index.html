@@ -25,7 +25,7 @@
 
   <hr>
 
-  <h2>Basic Demo</h2>
+  <h2 id="basic">Basic Demo</h2>
   <div class="type-wrap">
     <div id="typed-strings">
       <span>Typed.js^10 is a <strong>JavaScript</strong> library.</span>
@@ -68,7 +68,7 @@
 
   <hr>
 
-  <h2>Fade Out</h2>
+  <h2 id="fade">Fade Out</h2>
   <div class="type-wrap">
     <span id="typed2" style="white-space:pre;"></span>
   </div>
@@ -88,7 +88,7 @@
 
   <hr>
 
-  <h2>Smart Backspace</h2>
+  <h2 id="smartBack">Smart Backspace</h2>
   <div class="type-wrap">
     <span id="typed3"></span>
   </div>
@@ -107,7 +107,7 @@
 
   <hr>
 
-  <h2>In an input</h2>
+  <h2 id="input">In an input</h2>
   <div class="type-wrap">
     <input id="typed4" type="text" style="padding: 10px;">
   </div>
@@ -127,7 +127,7 @@
 
   <hr>
 
-  <h2>Shuffled</h2>
+  <h2 id="shuffle">Shuffled</h2>
   <div class="type-wrap">
     <span id="typed5" style="white-space:pre;"></span>
   </div>
@@ -141,6 +141,24 @@
     cursorChar: '_',
     shuffle: true,
     smartBackspace: false,
+    loop: true
+  });
+    </code>
+  </pre>
+
+  <hr>
+
+  <h2 id="bulk">Bulk Typing</h2>
+  <div class="type-wrap" style="height: 50px;">
+    <span id="typed6" style="white-space:pre;"></span>
+  </div>
+
+  <pre>
+    <code class="javascript">
+  var typed6 = new Typed('#typed6', {
+    strings: ['npm install^1000\n `installing components...` ^1000\n `Fetching from source...`'],
+    typeSpeed: 40,
+    backSpeed: 0,
     loop: true
   });
     </code>
