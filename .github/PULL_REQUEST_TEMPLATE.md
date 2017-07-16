@@ -1,6 +1,8 @@
 ### Requirements
 
+<!--
 Filling out this template is required.
+-->
 
  - [ ] Have you viewed your changes locally on the demos page, located on https://github.com/mattboldt/typed.js/blob/master/index.html?
 
