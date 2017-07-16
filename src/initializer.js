@@ -20,8 +20,7 @@ export default class Initializer {
       self.el = elementId;
     }
 
-    self.options = {};
-    Object.assign(self.options, defaults, options);
+    self.options = {...defaults, ...options};
 
     // attribute to type into
     self.isInput = self.el.tagName.toLowerCase() === 'input';
