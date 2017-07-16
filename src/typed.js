@@ -111,7 +111,7 @@ export default class Typed {
   typewrite(curString, curStrPos) {
     if (this.fadeOut && this.el.classList.contains(this.fadeOutClass)) {
       this.el.classList.remove(this.fadeOutClass);
-      this.cursor.classList.remove(this.fadeOutClass);
+      if (this.cursor) this.cursor.classList.remove(this.fadeOutClass);
     }
 
     const humanize = this.humanizer(this.typeSpeed);
@@ -351,7 +351,7 @@ export default class Typed {
    */
   initFadeOut() {
     this.el.className += ` ${this.fadeOutClass}`;
-    this.cursor.className += ` ${this.fadeOutClass}`;
+    if (this.cursor) this.cursor.className += ` ${this.fadeOutClass}`;
     return setTimeout(() => {
       this.arrayPos++;
       this.replaceText('');
