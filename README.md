@@ -44,7 +44,7 @@ This is really all you need to get going.
 import Typed from 'typed.js';
 
 var options = {
-  strings: ["<i>First</i> sentence.", "Second sentence."],
+  strings: ["<i>First</i> sentence.", "&amp; a second sentence."],
   typeSpeed: 40
 }
 
