@@ -78,9 +78,14 @@ export default class Initializer {
     if (self.stringsElement) {
       self.strings = [];
       self.stringsElement.style.display = 'none';
-      var strings = Array.prototype.slice.apply(self.stringsElement.children);
-      for (let s of strings) {
-        self.strings.push(s.innerHTML.trim());
+      const strings = Array.prototype.slice.apply(self.stringsElement.children);
+      const stringsLength = strings.length;
+
+      if (stringsLength) {
+        for (let i = 0; i < stringsLength; i += 1) {
+          const stringEl = strings[i];
+          self.strings.push(stringEl.innerHTML.trim());
+        }
       }
     }
 
