@@ -324,9 +324,9 @@ export default class Typed {
     if (this.cursorBlinking === isBlinking) return;
     this.cursorBlinking = isBlinking;
     if (isBlinking) {
-      this.cursor.classList.add('blink');
+      this.cursor.classList.add('typed-cursor--blink');
     } else {
-      this.cursor.classList.remove('blink');
+      this.cursor.classList.remove('typed-cursor--blink');
     }
   }
 
