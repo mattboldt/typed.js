@@ -157,7 +157,7 @@ export default class Initializer {
         .typed-cursor{
           opacity: 1;
         }
-        .typed-cursor.blink{
+        .typed-cursor.typed-cursor--blink{
           animation: typedjsBlink 0.7s infinite;
           -webkit-animation: typedjsBlink 0.7s infinite;
                   animation: typedjsBlink 0.7s infinite;
@@ -178,7 +178,7 @@ export default class Initializer {
           opacity: 0;
           transition: opacity .25s;
         }
-        .typed-cursor.blink.typed-fade-out{
+        .typed-cursor.typed-cursor--blink.typed-fade-out{
           -webkit-animation: 0;
           animation: 0;
         }
