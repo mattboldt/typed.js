@@ -119,7 +119,6 @@ In the following example, this would only backspace the words after "This is a"
 
 ~~~ javascript
 var typed = new Typed(".element", {
-  // Waits 1000ms after typing "First"
   strings: ["This is a JavaScript library", "This is an ES6 module"],
   smartBackspace: true // Default value
 });
