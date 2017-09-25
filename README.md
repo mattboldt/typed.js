@@ -35,6 +35,12 @@ yarn add typed.js
 bower install typed.js
 ~~~
 
+#### CDN
+
+~~~
+<script href=" https://cdn.jsdelivr.net/npm/typed.js@2"></script>
+~~~
+
 #### Setup
 
 This is really all you need to get going.
