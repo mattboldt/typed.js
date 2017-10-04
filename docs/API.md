@@ -91,6 +91,12 @@ Returns **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 -   `contentType` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 'html' or 'null' for plaintext
 
+### stopAfterStringTyped
+
+**Properties**
+
+-   `stopAfterStringTyped` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** call `stop()` method on `onStringTyped` event
+
 ### onComplete
 
 All typing is complete
@@ -219,4 +225,4 @@ Reset Typed and optionally restarts
 
 **Parameters**
 
--   `restart` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?= nser** 
+-   `restart` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?= .ins** 

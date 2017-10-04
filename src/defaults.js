@@ -84,6 +84,11 @@ const defaults = {
   contentType: 'html',
 
   /**
+   * @property {boolean} stopAfterStringTyped call `stop()` method on `onStringTyped` event
+   */
+  stopAfterStringTyped: false,
+
+  /**
    * All typing is complete
    * @param {Typed} self
    */

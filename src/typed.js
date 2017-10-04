@@ -211,6 +211,14 @@ export default class Typed {
    * @private
    */
   doneTyping(curString, curStrPos) {
+    // stop
+    if (this.stopAfterStringTyped && curString !== this.pause.curString && curStrPos !== this.pause.curStrPos) {
+      this.setPauseStatus(curString, curStrPos, true);
+      this.options.onStringTyped(this.arrayPos, this);
+      this.stop();
+      return;
+    }
+
     // fires callback function
     this.options.onStringTyped(this.arrayPos, this);
     this.toggleBlinking(true);

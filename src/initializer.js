@@ -65,6 +65,9 @@ export default class Initializer {
     // variable to check whether typing is currently paused
     self.isPaused = false;
 
+    // call `stop()` method on `onStringTyped` event
+    self.stopAfterStringTyped = self.options.stopAfterStringTyped;
+
     // input strings of text
     self.strings = self.options.strings.map((s) => s.trim());
 
