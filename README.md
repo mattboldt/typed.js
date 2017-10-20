@@ -86,20 +86,24 @@ http://jessejohnson.github.io/
 Rather than using the `strings` array to insert strings, you can place an HTML `div` on the page and read from it.
 This allows bots and search engines, as well as users with JavaScript disabled, to see your text on the page.
 
-~~~ javascript
-<script>
-  var typed = new Typed('.element', {
-    stringsElement: '#typed-strings'
-  });
-</script>
-~~~
-
 ~~~ html
 <div id="typed-strings">
     <p>Typed.js is a <strong>JavaScript</strong> library.</p>
     <p>It <em>types</em> out sentences.</p>
 </div>
-<span id="typed"></span>
+<span class="element"></span>
+~~~
+
+~~~ html
+<script src="typed.js"></script>
+~~~
+
+~~~ html
+<script>
+  var typed = new Typed('.element', {
+    stringsElement: '#typed-strings'
+  });
+</script>
 ~~~
 
 ### Type Pausing
