@@ -88,7 +88,7 @@ This allows bots and search engines, as well as users with JavaScript disabled, 
 
 ~~~ javascript
 <script>
-  var typed = new Typed('.element', {
+  var typed = new Typed('#typed', {
     stringsElement: '#typed-strings'
   });
 </script>
