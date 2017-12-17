@@ -236,6 +236,12 @@ var typed = new Typed(".element", {
   contentType: 'html',
 
   /**
+   * Before it begins typing
+   * @param {Typed} self
+   */
+  onBegin: (self) => {},
+  
+  /**
    * All typing is complete
    * @param {Typed} self
    */
