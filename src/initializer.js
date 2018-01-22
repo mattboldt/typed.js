@@ -182,7 +182,7 @@ export default class Initializer {
     }
     if (css.length === 0) { return; }
     css.innerHTML = innerCss;
-    document.head.appendChild(css);
+    document.body.appendChild(css);
   }
 }
 
