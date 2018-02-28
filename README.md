@@ -138,7 +138,7 @@ var typed = new Typed(".element", {
 
 ### CSS
 
-CSS animations are build upon initialzation in JavaScript. But, you can customize them at your will! These classes are:
+CSS animations are built upon initialzation in JavaScript. But, you can customize them at your will! These classes are:
 ```css
 /* Cursor */
 .typed-cursor {}
