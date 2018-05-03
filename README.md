@@ -38,7 +38,7 @@ bower install typed.js
 #### Setup
 
 This is really all you need to get going.
-
+It's reccomended to move Typed.js to your projects Home Dir
 ~~~ javascript
 // Can also be included with a regular script tag
 import Typed from 'typed.js';
