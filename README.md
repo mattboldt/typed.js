@@ -151,6 +151,9 @@ CSS animations are build upon initialzation in JavaScript. But, you can customiz
 
 Check out this example React app using Typed.js in a component: https://jsfiddle.net/mattboldt/ovat9jmp/
 
+### Use with Vue.js
+
+Check out the Vue.js component: https://github.com/Orlandster1998/typed.js
 
 Customization
 ----
