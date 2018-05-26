@@ -323,8 +323,11 @@ export default class Typed {
     if (this.pause.status) return;
     if (this.cursorBlinking === isBlinking) return;
     this.cursorBlinking = isBlinking;
-    const status = isBlinking ? 'infinite' : 0;
-    this.cursor.style.animationIterationCount = status;
+    if (isBlinking) {
+      this.cursor.classList.add('typed-cursor--blink');
+    } else {
+      this.cursor.classList.remove('typed-cursor--blink');
+    }
   }
 
   /**
