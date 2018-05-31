@@ -1,5 +1,5 @@
-import { initializer } from './initializer.js';
-import { htmlParser } from './html-parser.js';
+import {initializer} from './initializer.js';
+import {htmlParser} from './html-parser.js';
 
 /**
  * Welcome to Typed.js!
@@ -49,6 +49,15 @@ export default class Typed {
       this.backspace(this.pause.curString, this.pause.curStrPos);
     }
     this.options.onStart(this.arrayPos, this);
+  }
+
+  /**
+   * Typing text
+   * @public
+   */
+  typing(curString, substr) {
+    if (this.typingComplete) return;
+    this.options.onTyping(curString, substr);
   }
 
   /**
@@ -129,6 +138,7 @@ export default class Typed {
 
       let pauseTime = 0;
       let substr = curString.substr(curStrPos);
+      this.typing(curString, substr);
       // check for an escape character before a pause value
       // format: \^\d+ .. eg: ^1000 .. should be able to print the ^ too using ^^
       // single ^ are removed from string
@@ -400,7 +410,9 @@ export default class Typed {
       this.stop();
     });
     this.el.addEventListener('blur', (e) => {
-      if (this.el.value && this.el.value.length !== 0) { return; }
+      if (this.el.value && this.el.value.length !== 0) {
+        return;
+      }
       this.start();
     });
   }

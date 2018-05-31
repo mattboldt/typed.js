@@ -144,6 +144,13 @@ const defaults = {
   onStart: (arrayPos, self) => {},
 
   /**
+   * When Typing
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
+  onTyping: (arrayPos, self) => {},
+
+  /**
    * After destroy
    * @param {Typed} self
    */

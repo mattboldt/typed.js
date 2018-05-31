@@ -4,92 +4,92 @@
 
 Defaults & options
 
-Returns **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Typed defaults & options
+Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Typed defaults & options
 
 ### strings
 
 **Properties**
 
--   `strings` **[array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** strings to be typed
--   `stringsElement` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** ID of element containing string children
+-   `strings` **[array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** strings to be typed
+-   `stringsElement` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** ID of element containing string children
 
 ### typeSpeed
 
 **Properties**
 
--   `typeSpeed` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** type speed in milliseconds
+-   `typeSpeed` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** type speed in milliseconds
 
 ### startDelay
 
 **Properties**
 
--   `startDelay` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** time before typing starts in milliseconds
+-   `startDelay` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** time before typing starts in milliseconds
 
 ### backSpeed
 
 **Properties**
 
--   `backSpeed` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** backspacing speed in milliseconds
+-   `backSpeed` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** backspacing speed in milliseconds
 
 ### smartBackspace
 
 **Properties**
 
--   `smartBackspace` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** only backspace what doesn't match the previous string
+-   `smartBackspace` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** only backspace what doesn't match the previous string
 
 ### shuffle
 
 **Properties**
 
--   `shuffle` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** shuffle the strings
+-   `shuffle` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** shuffle the strings
 
 ### backDelay
 
 **Properties**
 
--   `backDelay` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** time before backspacing in milliseconds
+-   `backDelay` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** time before backspacing in milliseconds
 
 ### fadeOut
 
 **Properties**
 
--   `fadeOut` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Fade out instead of backspace
--   `fadeOutClass` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** css class for fade animation
--   `fadeOutDelay` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Fade out delay in milliseconds
+-   `fadeOut` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Fade out instead of backspace
+-   `fadeOutClass` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** css class for fade animation
+-   `fadeOutDelay` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Fade out delay in milliseconds
 
 ### loop
 
 **Properties**
 
--   `loop` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** loop strings
--   `loopCount` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** amount of loops
+-   `loop` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** loop strings
+-   `loopCount` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** amount of loops
 
 ### showCursor
 
 **Properties**
 
--   `showCursor` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** show cursor
--   `cursorChar` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** character for cursor
--   `autoInsertCss` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** insert CSS for cursor and fadeOut into HTML <head>
+-   `showCursor` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** show cursor
+-   `cursorChar` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** character for cursor
+-   `autoInsertCss` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** insert CSS for cursor and fadeOut into HTML <head>
 
 ### attr
 
 **Properties**
 
--   `attr` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** attribute for typing
+-   `attr` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** attribute for typing
     Ex: input placeholder, value, or just HTML text
 
 ### bindInputFocusEvents
 
 **Properties**
 
--   `bindInputFocusEvents` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** bind to focus and blur if el is text input
+-   `bindInputFocusEvents` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** bind to focus and blur if el is text input
 
 ### contentType
 
 **Properties**
 
--   `contentType` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 'html' or 'null' for plaintext
+-   `contentType` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 'html' or 'null' for plaintext
 
 ### onComplete
 
@@ -105,7 +105,7 @@ Before each string is typed
 
 **Parameters**
 
--   `arrayPos` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `arrayPos` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 -   `self` **[Typed](#typed)** 
 
 ### onStringTyped
@@ -114,7 +114,7 @@ After each string is typed
 
 **Parameters**
 
--   `arrayPos` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `arrayPos` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 -   `self` **[Typed](#typed)** 
 
 ### onLastStringBackspaced
@@ -131,7 +131,7 @@ Typing has been stopped
 
 **Parameters**
 
--   `arrayPos` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `arrayPos` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 -   `self` **[Typed](#typed)** 
 
 ### onTypingResumed
@@ -140,7 +140,7 @@ Typing has been started after being stopped
 
 **Parameters**
 
--   `arrayPos` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `arrayPos` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 -   `self` **[Typed](#typed)** 
 
 ### onReset
@@ -157,7 +157,7 @@ After stop
 
 **Parameters**
 
--   `arrayPos` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `arrayPos` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 -   `self` **[Typed](#typed)** 
 
 ### onStart
@@ -166,7 +166,16 @@ After start
 
 **Parameters**
 
--   `arrayPos` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `arrayPos` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `self` **[Typed](#typed)** 
+
+### onTyping
+
+When Typing
+
+**Parameters**
+
+-   `arrayPos` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 -   `self` **[Typed](#typed)** 
 
 ### onDestroy
@@ -192,10 +201,10 @@ Welcome to Typed.js!
 
 **Parameters**
 
--   `elementId` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** HTML element ID _OR_ HTML element
--   `options` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** options object
+-   `elementId` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** HTML element ID _OR_ HTML element
+-   `options` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** options object
 
-Returns **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** a new Typed object
+Returns **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** a new Typed object
 
 ### toggle
 
@@ -209,6 +218,15 @@ Stop typing / backspacing and enable cursor blinking
 
 Start typing / backspacing after being stopped
 
+### typing
+
+Typing text
+
+**Parameters**
+
+-   `curString`  
+-   `substr`  
+
 ### destroy
 
 Destroy this instance of Typed
@@ -219,4 +237,4 @@ Reset Typed and optionally restarts
 
 **Parameters**
 
--   `restart` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?= nser** 
+-   `restart` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**  (optional, default `true`)

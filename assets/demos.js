@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     onReset: function(self) { prettyLog('onReset ' + self) },
     onStop: function(pos, self) { prettyLog('onStop ' + pos + ' ' + self) },
     onStart: function(pos, self) { prettyLog('onStart ' + pos + ' ' + self) },
+    onTyping: function(pos, substr) { prettyLog('on Typing ----------- ' + substr) },
     onDestroy: function(self) { prettyLog('onDestroy ' + self) }
   });
 
