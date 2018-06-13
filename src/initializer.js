@@ -146,11 +146,15 @@ export default class Initializer {
   }
 
   appendAnimationCss(self) {
+    const cssDataName = 'data-typed-js-css';
     if (!self.autoInsertCss) { return; }
-    if (!self.showCursor || !self.fadeOut) { return; }
+    if (!self.showCursor && !self.fadeOut) { return; }
+    if (document.querySelector(`[${cssDataName}]`)) { return; }
 
     let css = document.createElement('style');
     css.type = 'text/css';
+    css.setAttribute(cssDataName, true);
+
     let innerCss = '';
     if (self.showCursor) {
       innerCss += `
