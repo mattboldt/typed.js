@@ -79,6 +79,7 @@ http://www.trelab.fi/en/
 
 http://jessejohnson.github.io/
 
+https://sponsorhunt.io/
 
 ---
 
