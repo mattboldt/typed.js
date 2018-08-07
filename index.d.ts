@@ -1,6 +1,6 @@
 /**
  * Declaration for typed.js
- * Typed.js version: v2.0.8
+ * Typed.js version: v2.0.9
  */
 
 declare module 'typed.js' {
