@@ -69,6 +69,8 @@ https://www.capitalfactory.com/
 
 http://www.maxcdn.com/
 
+https://www.powerauth.com/
+
 ---
 
 ### Strings from static HTML (SEO Friendly)
