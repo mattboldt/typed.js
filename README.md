@@ -51,6 +51,8 @@ https://slack.com/
 
 https://envato.com/
 
+https://gorails.com/
+
 https://productmap.co/
 
 https://www.typed.com/
@@ -59,20 +61,13 @@ https://apeiron.io
 
 https://git.market/
 
-http://allison.house/404
-
-http://www.maxcdn.com/
-
 https://commando.io/
 
 http://testdouble.com/agency.html
 
-http://www.stephanemartinw.com/
+https://www.capitalfactory.com/
 
-http://www.trelab.fi/en/
-
-http://jessejohnson.github.io/
-
+http://www.maxcdn.com/
 
 ---
 
