@@ -2,13 +2,11 @@
 [![Code Climate](https://codeclimate.com/github/mattboldt/typed.js/badges/gpa.svg)](https://codeclimate.com/github/mattboldt/typed.js)
 [![GitHub release](https://img.shields.io/github/release/mattboldt/typed.js.svg)]()
 [![npm](https://img.shields.io/npm/dt/typed.js.svg)](https://img.shields.io/npm/dt/typed.js.svg)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
-[![Gratipay User](https://img.shields.io/gratipay/user/mattboldt.svg)](https://gratipay.com/Typed.js/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/mattboldt/typed.js/master/LICENSE.txt)
 
 <img src="https://raw.githubusercontent.com/mattboldt/typed.js/master/logo-cropped.png" width="450px" title="Typed.js" />
 
-### [View the Live Demo](http://www.mattboldt.com/demos/typed-js/) | [View All Demos](http://www.mattboldt.com/typed.js) | [View Full Docs](http://www.mattboldt.com/typed.js/docs) | [mattboldt.com](http://www.mattboldt.com)
+### [Live Demo](http://www.mattboldt.com/demos/typed-js/) | [View All Demos](http://www.mattboldt.com/typed.js) | [View Full Docs](http://www.mattboldt.com/typed.js/docs) | [mattboldt.com](http://www.mattboldt.com)
 
 Typed.js is a library that types. Enter in any string, and watch it type at the speed you've set, backspace what it's typed, and begin a new sentence for however many strings you've set.
 
@@ -17,28 +15,18 @@ Typed.js is a library that types. Enter in any string, and watch it type at the 
 Installation
 ------------
 
-#### NPM
+#### Choose One
 
 ~~~
 npm install typed.js
-~~~
-
-#### Yarn
-
-~~~
 yarn add typed.js
-~~~
-
-#### Bower
-
-~~~
 bower install typed.js
 ~~~
 
 #### CDN
 
 ~~~
-<script href=" https://cdn.jsdelivr.net/npm/typed.js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.9"></script>
 ~~~
 
 #### Setup
@@ -57,7 +45,7 @@ var options = {
 var typed = new Typed(".element", options);
 ~~~
 
-Wonderful sites using Typed.js
+Wonderful sites that have used (or are using) Typed.js
 ---
 https://slack.com/
 
