@@ -144,7 +144,11 @@ Check out this example React app using Typed.js in a component: https://jsfiddle
 
 ### Use with Vue.js
 
-Check out the Vue.js component: https://github.com/Orlandster1998/vue-typed-js
+Check out the Vue.js component: https://github.com/Orlandster/vue-typed-js
+
+### Use it as WebComponent
+
+Check out the WebComponent: https://github.com/Orlandster/wc-typed-js
 
 Customization
 ----
