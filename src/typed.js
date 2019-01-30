@@ -167,7 +167,7 @@ export default class Typed {
         this.toggleBlinking(false);
 
         // We're done with this sentence!
-        if (curStrPos === curString.length) {
+        if (curStrPos >= curString.length) {
           this.doneTyping(curString, curStrPos);
         } else {
           this.keepTyping(curString, curStrPos, numChars);
