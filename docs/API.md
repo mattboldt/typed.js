@@ -43,6 +43,30 @@ Returns **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 -   `shuffle` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** shuffle the strings
 
+### humanizeTyping
+
+**Properties**
+
+-   `humanizeTyping` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Whether the writing speed is fix or randomly modulized
+
+### humanizeBacking
+
+**Properties**
+
+-   `humanizeBacking` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Whether the backspacing is fix or randomly modulized
+
+### humanizerRandomizeFactor
+
+**Properties**
+
+-   `humanizerRandomizeFactor` **float** Factor of the speed humanizer function, the higher, the randomer
+
+### humanizerOnlySlower
+
+**Properties**
+
+-   `humanizerOnlySlower` **float** Whether the speed humanizer function can only slow speed or if it manages to randomize around the speed value
+
 ### backDelay
 
 **Properties**

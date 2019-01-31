@@ -103,6 +103,12 @@ export default class Initializer {
     self.loopCount = self.options.loopCount;
     self.curLoop = 0;
 
+    // humanizer
+    self.humanizeTyping = self.options.humanizeTyping
+    self.humanizeBacking = self.options.humanizeBacking
+    self.humanizerRandomizeFactor = self.options.humanizerRandomizeFactor
+    self.humanizerOnlySlower = self.options.humanizerOnlySlower
+
     // shuffle the strings
     self.shuffle = self.options.shuffle;
     // the order of strings

@@ -38,6 +38,26 @@ const defaults = {
   shuffle: false,
 
   /**
+   * @property {boolean} humanizeTyping Whether the writing speed is fix or randomly modulized
+   */
+  humanizeTyping: true,
+  
+  /**
+   * @property {boolean} humanizeBacking Whether the backspacing is fix or randomly modulized
+   */
+  humanizeBacking: true,
+
+  /**
+   * @property {float} humanizerRandomizeFactor Factor of the speed humanizer function, the higher, the randomer
+   */
+  humanizerRandomizeFactor: 0.5,
+
+  /**
+   * @property {float} humanizerOnlySlower Whether the speed humanizer function can only slow speed or if it manages to randomize around the speed value
+   */
+  humanizerOnlySlower: true,
+
+  /**
    * @property {number} backDelay time before backspacing in milliseconds
    */
   backDelay: 700,
