@@ -59,13 +59,13 @@ Returns **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 **Properties**
 
--   `humanizerRandomizeFactor` **float** Factor of the speed humanizer function, the higher, the randomer
+-   `humanizerRandomizeFactor` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Factor of the speed humanizer function, the higher, the randomer
 
 ### humanizerOnlySlower
 
 **Properties**
 
--   `humanizerOnlySlower` **float** Whether the speed humanizer function can only slow speed or if it manages to randomize around the speed value
+-   `humanizerOnlySlower` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Whether the speed humanizer function can only slow speed or if it manages to randomize around the speed value
 
 ### backDelay
 

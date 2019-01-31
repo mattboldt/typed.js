@@ -48,7 +48,7 @@ const defaults = {
   humanizeBacking: true,
 
   /**
-   * @property {float} humanizerRandomizeFactor Factor of the speed humanizer function, the higher, the randomer
+   * @property {number} humanizerRandomizeFactor Factor of the speed humanizer function, the higher, the randomer
    */
   humanizerRandomizeFactor: 0.5,
 
