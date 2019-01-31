@@ -41,7 +41,7 @@ const defaults = {
    * @property {boolean} humanizeTyping Whether the writing speed is fix or randomly modulized
    */
   humanizeTyping: true,
-  
+
   /**
    * @property {boolean} humanizeBacking Whether the backspacing is fix or randomly modulized
    */

@@ -345,7 +345,7 @@ export default class Typed {
       // make it possible to be a negative value
       // I.e. from [0..30] to [-15..15]
       modulation = modulation - (speed / 2)
-    } 
+    }
     let result = speed + modulation;
     return Math.max(0, result);
   }
