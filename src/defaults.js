@@ -53,7 +53,7 @@ const defaults = {
   humanizerRandomizeFactor: 0.5,
 
   /**
-   * @property {float} humanizerOnlySlower Whether the speed humanizer function can only slow speed or if it manages to randomize around the speed value
+   * @property {boolean} humanizerOnlySlower Whether the speed humanizer function can only slow speed or if it manages to randomize around the speed value
    */
   humanizerOnlySlower: true,
 
