@@ -25,11 +25,6 @@ export default class Humanizer {
    */
 
   humanizeTyping() {
-    console.log("==")
-    console.log(this.doHumanizeTyping)
-    console.log(this.typeSpeed)
-    console.log(this.humanize(this.typeSpeed));
-    console.log("==--==")
     if (!this.doHumanizeTyping) return this.typeSpeed;
     return this.humanize(this.typeSpeed);
   }
