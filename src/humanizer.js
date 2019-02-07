@@ -6,7 +6,7 @@
 export default class Humanizer {
   /**
    * Initialize humnanizer with its related options
-   * @param {object} options options of initializer
+   * @param {object} options options of Typed initializer
    */
   constructor({ humanizeTyping, humanizeBacking, humanizerRandomizeFactor, humanizeronlySlower, typeSpeed, backSpeed }) {
     // speeds
@@ -35,7 +35,7 @@ export default class Humanizer {
   }
 
   /**
-   * Humanize typing
+   * Humanize backing
    */
 
   humanizeBacking() {

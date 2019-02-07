@@ -216,7 +216,7 @@ Initialize humnanizer with its related options
 
 **Parameters**
 
--   `options` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** options of initializer
+-   `options` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** options of Typed initializer
 -   `$0` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `$0.humanizeTyping`  
     -   `$0.humanizeBacking`  
@@ -231,7 +231,7 @@ Humanize typing
 
 ### humanizeBacking
 
-Humanize typing
+Humanize backing
 
 ## Initializer
 
