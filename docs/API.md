@@ -206,6 +206,33 @@ After destroy
 TODO: These methods can probably be combined somehow
 Parse HTML tags & HTML Characters
 
+## Humanizer
+
+Humanize typing
+
+### constructor
+
+Initialize humnanizer with its related options
+
+**Parameters**
+
+-   `options` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** options of initializer
+-   `$0` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+    -   `$0.humanizeTyping`  
+    -   `$0.humanizeBacking`  
+    -   `$0.humanizerRandomizeFactor`  
+    -   `$0.humanizeronlySlower`  
+    -   `$0.typeSpeed`  
+    -   `$0.backSpeed`  
+
+### humanizeTyping
+
+Humanize typing
+
+### humanizeBacking
+
+Humanize typing
+
 ## Initializer
 
 Initialize the Typed object

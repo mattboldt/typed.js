@@ -114,7 +114,7 @@ export default class Typed {
       if (this.cursor) this.cursor.classList.remove(this.fadeOutClass);
     }
 
-    const humanize = this.humanizer(this.typeSpeed, this.humanizeTyping);
+    const humanize = this.humanizer.humanizeTyping();
     let numChars = 1;
 
     if (this.pause.status === true) {
@@ -242,7 +242,7 @@ export default class Typed {
     if (this.fadeOut) return this.initFadeOut();
 
     this.toggleBlinking(false);
-    const humanize = this.humanizer(this.backSpeed, this.humanizeBacking);
+    const humanize = this.humanizer.humanizeBacking();
 
     this.timeout = setTimeout(() => {
       curStrPos = htmlParser.backSpaceHtmlChars(curString, curStrPos, this);
@@ -328,26 +328,6 @@ export default class Typed {
     } else {
       this.cursor.classList.remove('typed-cursor--blink');
     }
-  }
-
-  /**
-   * Speed in MS to type
-   * @param {number} speed
-   * @param {boolean} humanize
-   * @private
-   */
-  humanizer(speed, humanize) {
-    if (!humanize) return speed;
-
-    let modulation = Math.random() * speed
-    modulation = modulation * this.humanizerRandomizeFactor;
-    if (!this.humanizerOnlySlower) {
-      // make it possible to be a negative value
-      // I.e. from [0..30] to [-15..15]
-      modulation = modulation - (speed / 2)
-    }
-    let result = speed + modulation;
-    return Math.max(0, result);
   }
 
   /**

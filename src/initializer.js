@@ -1,4 +1,5 @@
 import defaults from './defaults.js';
+import Humanizer from './humanizer.js';
 /**
  * Initialize the Typed object
  */
@@ -104,10 +105,7 @@ export default class Initializer {
     self.curLoop = 0;
 
     // humanizer
-    self.humanizeTyping = self.options.humanizeTyping
-    self.humanizeBacking = self.options.humanizeBacking
-    self.humanizerRandomizeFactor = self.options.humanizerRandomizeFactor
-    self.humanizerOnlySlower = self.options.humanizerOnlySlower
+    self.humanizer = new Humanizer(self.options)
 
     // shuffle the strings
     self.shuffle = self.options.shuffle;
