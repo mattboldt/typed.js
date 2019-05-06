@@ -48,7 +48,7 @@ declare module 'typed.js' {
     /**
      * Fade out delay in milliseconds
      */
-    fadeOutDelay?: boolean;
+    fadeOutDelay?: number;
     /**
      * loop strings
      */
