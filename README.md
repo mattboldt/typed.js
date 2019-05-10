@@ -47,6 +47,8 @@ var typed = new Typed(".element", options);
 
 Wonderful sites that have used (or are using) Typed.js
 ---
+https://github.com/features/package-registry
+
 https://slack.com/
 
 https://envato.com/
