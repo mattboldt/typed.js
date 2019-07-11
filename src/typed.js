@@ -141,7 +141,9 @@ export default class Typed {
           this.temporaryPause = true;
           this.options.onTypingPaused(this.arrayPos, this);
           // strip out the escape character and pause value so they're not printed
-          curString = curString.substring(0, curStrPos) + curString.substring(curStrPos + skip);
+          curString =
+            curString.substring(0, curStrPos) +
+            curString.substring(curStrPos + skip);
           this.toggleBlinking(true);
         }
       }
@@ -155,7 +157,10 @@ export default class Typed {
         }
         // strip out the escape characters and append all the string in between
         const stringBeforeSkip = curString.substring(0, curStrPos);
-        const stringSkipped = curString.substring(stringBeforeSkip.length + 1, curStrPos + numChars);
+        const stringSkipped = curString.substring(
+          stringBeforeSkip.length + 1,
+          curStrPos + numChars
+        );
         const stringAfterSkip = curString.substring(curStrPos + numChars + 1);
         curString = stringBeforeSkip + stringSkipped + stringAfterSkip;
         numChars--;
@@ -254,7 +259,10 @@ export default class Typed {
       if (this.smartBackspace) {
         // the remaining part of the current string is equal of the same part of the new string
         let nextString = this.strings[this.arrayPos + 1];
-        if (nextString && curStringAtPosition === nextString.substr(0, curStrPos)) {
+        if (
+          nextString &&
+          curStringAtPosition === nextString.substr(0, curStrPos)
+        ) {
           this.stopNum = curStrPos;
         } else {
           this.stopNum = 0;
@@ -336,7 +344,7 @@ export default class Typed {
    * @private
    */
   humanizer(speed) {
-    return Math.round(Math.random() * speed / 2) + speed;
+    return Math.round((Math.random() * speed) / 2) + speed;
   }
 
   /**
@@ -400,7 +408,9 @@ export default class Typed {
       this.stop();
     });
     this.el.addEventListener('blur', (e) => {
-      if (this.el.value && this.el.value.length !== 0) { return; }
+      if (this.el.value && this.el.value.length !== 0) {
+        return;
+      }
       this.start();
     });
   }
@@ -415,6 +425,7 @@ export default class Typed {
     this.cursor = document.createElement('span');
     this.cursor.className = 'typed-cursor';
     this.cursor.innerHTML = this.cursorChar;
-    this.el.parentNode && this.el.parentNode.insertBefore(this.cursor, this.el.nextSibling);
+    this.el.parentNode &&
+      this.el.parentNode.insertBefore(this.cursor, this.el.nextSibling);
   }
 }

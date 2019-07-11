@@ -9,7 +9,12 @@ const defaults = {
    * @property {array} strings strings to be typed
    * @property {string} stringsElement ID of element containing string children
    */
-  strings: ['These are the default values...', 'You know what you should do?', 'Use your own!', 'Have a great day!'],
+  strings: [
+    'These are the default values...',
+    'You know what you should do?',
+    'Use your own!',
+    'Have a great day!'
+  ],
   stringsElement: null,
 
   /**

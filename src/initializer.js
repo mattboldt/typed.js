@@ -20,7 +20,7 @@ export default class Initializer {
       self.el = elementId;
     }
 
-    self.options = {...defaults, ...options};
+    self.options = { ...defaults, ...options };
 
     // attribute to type into
     self.isInput = self.el.tagName.toLowerCase() === 'input';
@@ -37,7 +37,9 @@ export default class Initializer {
     self.cursorBlinking = true;
 
     // text content of element
-    self.elContent = self.attr ? self.el.getAttribute(self.attr) : self.el.textContent;
+    self.elContent = self.attr
+      ? self.el.getAttribute(self.attr)
+      : self.el.textContent;
 
     // html or plain text
     self.contentType = self.options.contentType;
@@ -113,7 +115,7 @@ export default class Initializer {
       typewrite: true,
       curString: '',
       curStrPos: 0
-    }
+    };
 
     // When the typing is complete (when not looped)
     self.typingComplete = false;
@@ -147,9 +149,15 @@ export default class Initializer {
 
   appendAnimationCss(self) {
     const cssDataName = 'data-typed-js-css';
-    if (!self.autoInsertCss) { return; }
-    if (!self.showCursor && !self.fadeOut) { return; }
-    if (document.querySelector(`[${cssDataName}]`)) { return; }
+    if (!self.autoInsertCss) {
+      return;
+    }
+    if (!self.showCursor && !self.fadeOut) {
+      return;
+    }
+    if (document.querySelector(`[${cssDataName}]`)) {
+      return;
+    }
 
     let css = document.createElement('style');
     css.type = 'text/css';
@@ -188,7 +196,9 @@ export default class Initializer {
         }
       `;
     }
-    if (css.length === 0) { return; }
+    if (css.length === 0) {
+      return;
+    }
     css.innerHTML = innerCss;
     document.body.appendChild(css);
   }
