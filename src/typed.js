@@ -210,7 +210,7 @@ export default class Typed {
   }
 
   /**
-   * We're done typing all strings
+   * We're done typing the current string
    * @param {string} curString the current string in the strings array
    * @param {number} curStrPos the current position in the curString
    * @private
