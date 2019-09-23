@@ -58,7 +58,7 @@ gulp.task('html-docs', () => {
       {},
       {
         name: 'Typed.js Docs',
-        version: '2.0.9'
+        version: '2.0.11'
       }
     )
     .pipe(gulp.dest('docs'));

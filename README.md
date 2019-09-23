@@ -12,41 +12,40 @@ Typed.js is a library that types. Enter in any string, and watch it type at the 
 
 ---
 
-Installation
-------------
+## Installation
 
 #### Choose One
 
-~~~
+```
 npm install typed.js
 yarn add typed.js
 bower install typed.js
-~~~
+```
 
 #### CDN
 
-~~~html
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.9"></script>
-~~~
+```html
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+```
 
 #### Setup
 
 This is really all you need to get going.
 
-~~~ javascript
+```javascript
 // Can also be included with a regular script tag
 import Typed from 'typed.js';
 
 var options = {
-  strings: ["<i>First</i> sentence.", "&amp; a second sentence."],
+  strings: ['<i>First</i> sentence.', '&amp; a second sentence.'],
   typeSpeed: 40
-}
+};
 
-var typed = new Typed(".element", options);
-~~~
+var typed = new Typed('.element', options);
+```
 
-Wonderful sites that have used (or are using) Typed.js
----
+## Wonderful sites that have used (or are using) Typed.js
+
 https://github.com/features/package-registry
 
 https://slack.com/
@@ -76,68 +75,70 @@ https://www.powerauth.com/
 ---
 
 ### Strings from static HTML (SEO Friendly)
+
 Rather than using the `strings` array to insert strings, you can place an HTML `div` on the page and read from it.
 This allows bots and search engines, as well as users with JavaScript disabled, to see your text on the page.
 
-~~~ javascript
+```javascript
 <script>
   var typed = new Typed('#typed', {
     stringsElement: '#typed-strings'
   });
 </script>
-~~~
+```
 
-~~~ html
+```html
 <div id="typed-strings">
-    <p>Typed.js is a <strong>JavaScript</strong> library.</p>
-    <p>It <em>types</em> out sentences.</p>
+  <p>Typed.js is a <strong>JavaScript</strong> library.</p>
+  <p>It <em>types</em> out sentences.</p>
 </div>
 <span id="typed"></span>
-~~~
+```
 
 ### Type Pausing
 
 You can pause in the middle of a string for a given amount of time by including an escape character.
 
-~~~ javascript
-var typed = new Typed(".element", {
+```javascript
+var typed = new Typed('.element', {
   // Waits 1000ms after typing "First"
-  strings: ["First ^1000 sentence.", "Second sentence."]
+  strings: ['First ^1000 sentence.', 'Second sentence.']
 });
-~~~
+```
 
 ### Smart Backspacing
 
 In the following example, this would only backspace the words after "This is a"
 
-~~~ javascript
-var typed = new Typed(".element", {
-  strings: ["This is a JavaScript library", "This is an ES6 module"],
+```javascript
+var typed = new Typed('.element', {
+  strings: ['This is a JavaScript library', 'This is an ES6 module'],
   smartBackspace: true // Default value
 });
-~~~
+```
 
 ### Bulk Typing
 
-The following example would emulate how a terminal acts when typing a command and seeing its result. 
+The following example would emulate how a terminal acts when typing a command and seeing its result.
 
-~~~ javascript
-var typed = new Typed(".element", {
-  strings: [
-    "git push --force ^1000\n `pushed to origin with option force`"
-  ]
+```javascript
+var typed = new Typed('.element', {
+  strings: ['git push --force ^1000\n `pushed to origin with option force`']
 });
-~~~
+```
 
 ### CSS
 
 CSS animations are built upon initialzation in JavaScript. But, you can customize them at your will! These classes are:
+
 ```css
 /* Cursor */
-.typed-cursor {}
+.typed-cursor {
+}
 
 /* If fade out option is set */
-.typed-fade-out {}
+.typed-fade-out {
+}
 ```
 
 ### Use with ReactJS
@@ -152,16 +153,20 @@ Check out the Vue.js component: https://github.com/Orlandster/vue-typed-js
 
 Check out the WebComponent: https://github.com/Orlandster/wc-typed-js
 
-Customization
-----
+## Customization
 
-~~~ javascript
-var typed = new Typed(".element", {
+```javascript
+var typed = new Typed('.element', {
   /**
    * @property {array} strings strings to be typed
    * @property {string} stringsElement ID of element containing string children
    */
-  strings: ['These are the default values...', 'You know what you should do?', 'Use your own!', 'Have a great day!'],
+  strings: [
+    'These are the default values...',
+    'You know what you should do?',
+    'Use your own!',
+    'Have a great day!'
+  ],
   stringsElement: null,
 
   /**
@@ -240,7 +245,7 @@ var typed = new Typed(".element", {
    * @param {Typed} self
    */
   onBegin: (self) => {},
-  
+
   /**
    * All typing is complete
    * @param {Typed} self
@@ -307,15 +312,13 @@ var typed = new Typed(".element", {
    */
   onDestroy: (self) => {}
 });
-~~~
-
+```
 
 ## Contributing
 
 ### [View Contribution Guidelines](./.github/CONTRIBUTING.md)
 
-end
----
+## end
 
 Thanks for checking this out. If you have any questions, I'll be on [Twitter](http://www.twitter.com/atmattb).
 
