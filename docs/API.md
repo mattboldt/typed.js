@@ -91,6 +91,15 @@ Returns **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 -   `contentType` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 'html' or 'null' for plaintext
 
+### onBegin
+
+Before it begins typing
+
+**Parameters**
+
+-   `self` **[Typed](#typed)** 
+
+
 ### onComplete
 
 All typing is complete

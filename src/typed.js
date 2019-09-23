@@ -87,6 +87,7 @@ export default class Typed {
    * @private
    */
   begin() {
+    this.options.onBegin(this);
     this.typingComplete = false;
     this.shuffleStringsIfNeeded(this);
     this.insertCursor();
