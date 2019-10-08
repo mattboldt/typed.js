@@ -115,7 +115,7 @@ export default class Typed {
       if (this.cursor) this.cursor.classList.remove(this.fadeOutClass);
     }
 
-    const humanize = this.humanizer(this.typeSpeed);
+    const humanize = this.useHumanizer ? this.humanizer(this.typeSpeed) : this.typeSpeed;
     let numChars = 1;
 
     if (this.pause.status === true) {
@@ -125,6 +125,8 @@ export default class Typed {
 
     // contain typing function in a timeout humanize'd delay
     this.timeout = setTimeout(() => {
+      // fire event char typing
+      this.options.onTypingChar(this);
       // skip over any HTML chars
       curStrPos = htmlParser.typeHtmlChars(curString, curStrPos, this);
 
@@ -248,9 +250,12 @@ export default class Typed {
     if (this.fadeOut) return this.initFadeOut();
 
     this.toggleBlinking(false);
-    const humanize = this.humanizer(this.backSpeed);
+    const humanize = this.useHumanizer ? this.humanizer(this.backSpeed) : this.backSpeed;
 
     this.timeout = setTimeout(() => {
+      // fire event char removing
+      this.options.onTypingBackspace(this);
+
       curStrPos = htmlParser.backSpaceHtmlChars(curString, curStrPos, this);
       // replace text with base text + typed characters
       const curStringAtPosition = curString.substr(0, curStrPos);

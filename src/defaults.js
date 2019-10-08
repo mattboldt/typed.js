@@ -23,6 +23,11 @@ const defaults = {
   typeSpeed: 0,
 
   /**
+   * @property {boolean} useHumanizer randomize type speed based on typeSpeed
+   */
+  useHumanizer: true,
+
+  /**
    * @property {number} startDelay time before typing starts in milliseconds
    */
   startDelay: 0,
@@ -93,6 +98,18 @@ const defaults = {
    * @param {Typed} self
    */
   onBegin: (self) => {},
+
+  /**
+   * Before char typing
+   * @param {Typed} self
+   */
+  onTypingChar: (self) => {},
+
+  /**
+   * Before remove a char
+   * @param {Typed} self
+   */
+  onTypingBackspace: (self) => {},
 
   /**
    * All typing is complete
