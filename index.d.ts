@@ -124,7 +124,7 @@ declare module 'typed.js' {
   }
 
   export default class Typed {
-    constructor(elementId: string, options: TypedOptions);
+    constructor(elementId: string | Element, options: TypedOptions);
     toggle(): void;
     stop(): void;
     start(): void;
