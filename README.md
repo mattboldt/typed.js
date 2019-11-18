@@ -320,7 +320,7 @@ var typed = new Typed('.element', {
 
 ## end
 
-Thanks for checking this out. If you have any questions, I'll be on [Twitter](http://www.twitter.com/atmattb).
+Thanks for checking this out. If you have any questions, I'll be on [Twitter](https://twitter.com/atmattb).
 
 If you're using this, let me know! I'd love to see it.
 
