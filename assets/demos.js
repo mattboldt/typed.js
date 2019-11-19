@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   new Typed('#typed7', {
       strings: [
-          'removing chars..~2-500: test, test~12-500.'
+          'removing chars..~2_500: test, test~12_500.'
       ],
       typeSpeed: 40,
       backSpeed: 40,

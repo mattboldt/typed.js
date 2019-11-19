@@ -152,12 +152,12 @@ export default class Typed {
       }
 
       // check for removing command
-      // format: ~\d+-\d+ .. eg: ~5-500 .. should remove 5 chars with 500ms backspace timeout.
+      // format: ~\d+_\d+ .. eg: ~5_500 .. should remove 5 chars with 500ms backspace timeout.
       if (substr.charAt(0) === '~') {
-        if (/^~\d+-\d+/.test(substr)) {
-          substr = /\d+-\d+/.exec(substr)[0];
+        if (/^~\d+_\d+/.test(substr)) {
+          substr = /\d+_\d+/.exec(substr)[0];
           let skip = 1 + substr.length;
-          let params = substr.split('-');
+          let params = substr.split('_');
           removeChars = parseInt(params[0]);
           removeTimeout = parseInt(params[1]);
           curString =
