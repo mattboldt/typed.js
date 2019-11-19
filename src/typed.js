@@ -129,6 +129,8 @@ export default class Typed {
       curStrPos = htmlParser.typeHtmlChars(curString, curStrPos, this);
 
       let pauseTime = 0;
+      let removeChars = 0;
+      let removeTimeout = 0;
       let substr = curString.substr(curStrPos);
       // check for an escape character before a pause value
       // format: \^\d+ .. eg: ^1000 .. should be able to print the ^ too using ^^
@@ -146,6 +148,21 @@ export default class Typed {
             curString.substring(0, curStrPos) +
             curString.substring(curStrPos + skip);
           this.toggleBlinking(true);
+        }
+      }
+
+      // check for removing command
+      // format: ~\d+-\d+ .. eg: ~5-500 .. should remove 5 chars with 500ms backspace timeout.
+      if (substr.charAt(0) === '~') {
+        if (/^~\d+-\d+/.test(substr)) {
+          substr = /\d+-\d+/.exec(substr)[0];
+          let skip = 1 + substr.length;
+          let params = substr.split('-');
+          removeChars = parseInt(params[0]);
+          removeTimeout = parseInt(params[1]);
+          curString =
+              curString.substring(0, curStrPos) +
+              curString.substring(curStrPos + skip);
         }
       }
 
@@ -172,23 +189,50 @@ export default class Typed {
         // Accounts for blinking while paused
         this.toggleBlinking(false);
 
-        // We're done with this sentence!
-        if (curStrPos >= curString.length) {
-          this.doneTyping(curString, curStrPos);
+        if (removeChars > 0) {
+          // remove chars
+          this.removeChars(curString, curStrPos, removeChars, removeTimeout);
         } else {
-          this.keepTyping(curString, curStrPos, numChars);
-        }
-        // fire event char typing
-        this.options.onTypingChar(this);
-        // end of character pause
-        if (this.temporaryPause) {
-          this.temporaryPause = false;
-          this.options.onTypingResumed(this.arrayPos, this);
+          // We're done with this sentence!
+          if (curStrPos >= curString.length) {
+            this.doneTyping(curString, curStrPos);
+          } else {
+            this.keepTyping(curString, curStrPos, numChars);
+          }
+          // fire event char typing
+          this.options.onTypingChar(this);
+          // end of character pause
+          if (this.temporaryPause) {
+            this.temporaryPause = false;
+            this.options.onTypingResumed(this.arrayPos, this);
+          }
         }
       }, pauseTime);
 
       // humanized value for typing
     }, humanize);
+  }
+
+  /**
+   * Removing chars from string with timeout and fire 'onTypingBackspace' event.
+   * @param curString
+   * @param curStrPos
+   * @param removeChars
+   * @param removeTimeout
+   */
+  removeChars(curString, curStrPos, removeChars, removeTimeout) {
+    if (removeChars === 0) {
+      setTimeout(() => {
+        this.typewrite(curString, curStrPos);
+      }, removeTimeout);
+    } else {
+      setTimeout(() => {
+        this.options.onTypingBackspace(this);
+        let newString = curString.substr(0, curStrPos - 1);
+        this.replaceText(newString);
+        this.removeChars(newString + curString.substr(curStrPos), --curStrPos, --removeChars, removeTimeout)
+      }, removeTimeout);
+    }
   }
 
   /**

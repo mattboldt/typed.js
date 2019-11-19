@@ -118,6 +118,15 @@ document.addEventListener('DOMContentLoaded', function() {
     backSpeed: 0,
     loop: true
   });
+
+  new Typed('#typed7', {
+      strings: [
+          'removing chars..~2-500: test, test~12-500.'
+      ],
+      typeSpeed: 40,
+      backSpeed: 40,
+      loop: true
+  });
 });
 
 function prettyLog(str) {
