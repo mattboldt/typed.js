@@ -1,4 +1,3 @@
-
 /**
  * TODO: These methods can probably be combined somehow
  * Parse HTML tags & HTML Characters

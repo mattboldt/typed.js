@@ -6,16 +6,39 @@ document.addEventListener('DOMContentLoaded', function() {
     startDelay: 1000,
     loop: false,
     loopCount: Infinity,
-    onComplete: function(self) { prettyLog('onComplete ' + self) },
-    preStringTyped: function(pos, self) { prettyLog('preStringTyped ' + pos + ' ' + self); },
-    onStringTyped: function(pos, self) { prettyLog('onStringTyped ' + pos + ' ' + self) },
-    onLastStringBackspaced: function(self) { prettyLog('onLastStringBackspaced ' + self) },
-    onTypingPaused: function(pos, self) { prettyLog('onTypingPaused ' + pos + ' ' + self) },
-    onTypingResumed: function(pos, self) { prettyLog('onTypingResumed ' + pos + ' ' + self) },
-    onReset: function(self) { prettyLog('onReset ' + self) },
-    onStop: function(pos, self) { prettyLog('onStop ' + pos + ' ' + self) },
-    onStart: function(pos, self) { prettyLog('onStart ' + pos + ' ' + self) },
-    onDestroy: function(self) { prettyLog('onDestroy ' + self) }
+    onBegin: function(self) {
+      prettyLog('onBegin ' + self);
+    },
+    onComplete: function(self) {
+      prettyLog('onComplete ' + self);
+    },
+    preStringTyped: function(pos, self) {
+      prettyLog('preStringTyped ' + pos + ' ' + self);
+    },
+    onStringTyped: function(pos, self) {
+      prettyLog('onStringTyped ' + pos + ' ' + self);
+    },
+    onLastStringBackspaced: function(self) {
+      prettyLog('onLastStringBackspaced ' + self);
+    },
+    onTypingPaused: function(pos, self) {
+      prettyLog('onTypingPaused ' + pos + ' ' + self);
+    },
+    onTypingResumed: function(pos, self) {
+      prettyLog('onTypingResumed ' + pos + ' ' + self);
+    },
+    onReset: function(self) {
+      prettyLog('onReset ' + self);
+    },
+    onStop: function(pos, self) {
+      prettyLog('onStop ' + pos + ' ' + self);
+    },
+    onStart: function(pos, self) {
+      prettyLog('onStart ' + pos + ' ' + self);
+    },
+    onDestroy: function(self) {
+      prettyLog('onDestroy ' + self);
+    }
   });
 
   document.querySelector('.toggle').addEventListener('click', function() {
@@ -38,7 +61,11 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   var typed2 = new Typed('#typed2', {
-    strings: ['Some <i>strings</i> with', 'Some <strong>HTML</strong>', 'Chars &times; &copy;'],
+    strings: [
+      'Some <i>strings</i> with',
+      'Some <strong>HTML</strong>',
+      'Chars &times; &copy;'
+    ],
     typeSpeed: 0,
     backSpeed: 0,
     fadeOut: true,
@@ -49,7 +76,11 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   new Typed('#typed3', {
-    strings: ['My strings are: <i>strings</i> with', 'My strings are: <strong>HTML</strong>', 'My strings are: Chars &times; &copy;'],
+    strings: [
+      'My strings are: <i>strings</i> with',
+      'My strings are: <strong>HTML</strong>',
+      'My strings are: Chars &times; &copy;'
+    ],
     typeSpeed: 0,
     backSpeed: 0,
     smartBackspace: true,
@@ -66,7 +97,11 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   new Typed('#typed5', {
-    strings: ['1 Some <i>strings</i> with', '2 Some <strong>HTML</strong>', '3 Chars &times; &copy;'],
+    strings: [
+      '1 Some <i>strings</i> with',
+      '2 Some <strong>HTML</strong>',
+      '3 Chars &times; &copy;'
+    ],
     typeSpeed: 0,
     backSpeed: 0,
     shuffle: true,
@@ -76,7 +111,9 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   new Typed('#typed6', {
-    strings: ['npm install^1000\n`installing components...` ^1000\n`Fetching from source...`'],
+    strings: [
+      'npm install^1000\n`installing components...` ^1000\n`Fetching from source...`'
+    ],
     typeSpeed: 40,
     backSpeed: 0,
     loop: true

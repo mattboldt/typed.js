@@ -1,6 +1,6 @@
 /**
  * Declaration for typed.js
- * Typed.js version: v2.0.9
+ * Typed.js version: v2.0.11
  */
 
 declare module 'typed.js' {
@@ -48,7 +48,7 @@ declare module 'typed.js' {
     /**
      * Fade out delay in milliseconds
      */
-    fadeOutDelay?: boolean;
+    fadeOutDelay?: number;
     /**
      * loop strings
      */
@@ -124,7 +124,7 @@ declare module 'typed.js' {
   }
 
   export default class Typed {
-    constructor(elementId: string, options: TypedOptions);
+    constructor(elementId: string | Element, options: TypedOptions);
     toggle(): void;
     stop(): void;
     start(): void;

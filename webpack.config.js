@@ -41,7 +41,5 @@ export default {
       }
     ]
   },
-  plugins: [
-    new webpack.BannerPlugin(banner)
-  ]
+  plugins: [new webpack.BannerPlugin(banner)]
 };
