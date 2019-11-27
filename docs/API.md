@@ -4,187 +4,186 @@
 
 Defaults & options
 
-Returns **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Typed defaults & options
+Returns **[object][1]** Typed defaults & options
 
 ### strings
 
-**Properties**
+#### Properties
 
--   `strings` **[array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** strings to be typed
--   `stringsElement` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** ID of element containing string children
+-   `strings` **[array][2]** strings to be typed
+-   `stringsElement` **[string][3]** ID of element containing string children
 
 ### typeSpeed
 
-**Properties**
+#### Properties
 
--   `typeSpeed` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** type speed in milliseconds
+-   `typeSpeed` **[number][4]** type speed in milliseconds
 
 ### startDelay
 
-**Properties**
+#### Properties
 
--   `startDelay` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** time before typing starts in milliseconds
+-   `startDelay` **[number][4]** time before typing starts in milliseconds
 
 ### backSpeed
 
-**Properties**
+#### Properties
 
--   `backSpeed` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** backspacing speed in milliseconds
+-   `backSpeed` **[number][4]** backspacing speed in milliseconds
 
 ### smartBackspace
 
-**Properties**
+#### Properties
 
--   `smartBackspace` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** only backspace what doesn't match the previous string
+-   `smartBackspace` **[boolean][5]** only backspace what doesn't match the previous string
 
 ### shuffle
 
-**Properties**
+#### Properties
 
--   `shuffle` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** shuffle the strings
+-   `shuffle` **[boolean][5]** shuffle the strings
 
 ### backDelay
 
-**Properties**
+#### Properties
 
--   `backDelay` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** time before backspacing in milliseconds
+-   `backDelay` **[number][4]** time before backspacing in milliseconds
 
 ### fadeOut
 
-**Properties**
+#### Properties
 
--   `fadeOut` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Fade out instead of backspace
--   `fadeOutClass` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** css class for fade animation
--   `fadeOutDelay` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Fade out delay in milliseconds
+-   `fadeOut` **[boolean][5]** Fade out instead of backspace
+-   `fadeOutClass` **[string][3]** css class for fade animation
+-   `fadeOutDelay` **[boolean][5]** Fade out delay in milliseconds
 
 ### loop
 
-**Properties**
+#### Properties
 
--   `loop` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** loop strings
--   `loopCount` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** amount of loops
+-   `loop` **[boolean][5]** loop strings
+-   `loopCount` **[number][4]** amount of loops
 
 ### showCursor
 
-**Properties**
+#### Properties
 
--   `showCursor` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** show cursor
--   `cursorChar` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** character for cursor
--   `autoInsertCss` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** insert CSS for cursor and fadeOut into HTML <head>
+-   `showCursor` **[boolean][5]** show cursor
+-   `cursorChar` **[string][3]** character for cursor
+-   `autoInsertCss` **[boolean][5]** insert CSS for cursor and fadeOut into HTML <head>
 
 ### attr
 
-**Properties**
+#### Properties
 
--   `attr` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** attribute for typing
+-   `attr` **[string][3]** attribute for typing
     Ex: input placeholder, value, or just HTML text
 
 ### bindInputFocusEvents
 
-**Properties**
+#### Properties
 
--   `bindInputFocusEvents` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** bind to focus and blur if el is text input
+-   `bindInputFocusEvents` **[boolean][5]** bind to focus and blur if el is text input
 
 ### contentType
 
-**Properties**
+#### Properties
 
--   `contentType` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 'html' or 'null' for plaintext
+-   `contentType` **[string][3]** 'html' or 'null' for plaintext
 
 ### onBegin
 
 Before it begins typing
 
-**Parameters**
+#### Parameters
 
--   `self` **[Typed](#typed)** 
-
+-   `self` **[Typed][6]** 
 
 ### onComplete
 
 All typing is complete
 
-**Parameters**
+#### Parameters
 
--   `self` **[Typed](#typed)** 
+-   `self` **[Typed][6]** 
 
 ### preStringTyped
 
 Before each string is typed
 
-**Parameters**
+#### Parameters
 
--   `arrayPos` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `self` **[Typed](#typed)** 
+-   `arrayPos` **[number][4]** 
+-   `self` **[Typed][6]** 
 
 ### onStringTyped
 
 After each string is typed
 
-**Parameters**
+#### Parameters
 
--   `arrayPos` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `self` **[Typed](#typed)** 
+-   `arrayPos` **[number][4]** 
+-   `self` **[Typed][6]** 
 
 ### onLastStringBackspaced
 
 During looping, after last string is typed
 
-**Parameters**
+#### Parameters
 
--   `self` **[Typed](#typed)** 
+-   `self` **[Typed][6]** 
 
 ### onTypingPaused
 
 Typing has been stopped
 
-**Parameters**
+#### Parameters
 
--   `arrayPos` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `self` **[Typed](#typed)** 
+-   `arrayPos` **[number][4]** 
+-   `self` **[Typed][6]** 
 
 ### onTypingResumed
 
 Typing has been started after being stopped
 
-**Parameters**
+#### Parameters
 
--   `arrayPos` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `self` **[Typed](#typed)** 
+-   `arrayPos` **[number][4]** 
+-   `self` **[Typed][6]** 
 
 ### onReset
 
 After reset
 
-**Parameters**
+#### Parameters
 
--   `self` **[Typed](#typed)** 
+-   `self` **[Typed][6]** 
 
 ### onStop
 
 After stop
 
-**Parameters**
+#### Parameters
 
--   `arrayPos` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `self` **[Typed](#typed)** 
+-   `arrayPos` **[number][4]** 
+-   `self` **[Typed][6]** 
 
 ### onStart
 
 After start
 
-**Parameters**
+#### Parameters
 
--   `arrayPos` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `self` **[Typed](#typed)** 
+-   `arrayPos` **[number][4]** 
+-   `self` **[Typed][6]** 
 
 ### onDestroy
 
 After destroy
 
-**Parameters**
+#### Parameters
 
--   `self` **[Typed](#typed)** 
+-   `self` **[Typed][6]** 
 
 ## HTMLParser
 
@@ -199,12 +198,20 @@ Initialize the Typed object
 
 Welcome to Typed.js!
 
-**Parameters**
+### Parameters
 
--   `elementId` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** HTML element ID _OR_ HTML element
--   `options` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** options object
+-   `ref`  
+-   `options` **[object][1]** options object
+-   `elementId` **[string][3]** HTML element ID _OR_ HTML element
 
-Returns **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** a new Typed object
+Returns **[object][1]** a new Typed object
+
+### write
+
+#### Parameters
+
+-   `string`   (optional, default `''`)
+-   `options`   (optional, default `{}`)
 
 ### toggle
 
@@ -226,6 +233,18 @@ Destroy this instance of Typed
 
 Reset Typed and optionally restarts
 
-**Parameters**
+#### Parameters
 
--   `restart` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?= nser** 
+-   `restart` **[boolean][5]**  (optional, default `true`)
+
+[1]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[2]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[3]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[4]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[5]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+
+[6]: #typed

@@ -1,5 +1,6 @@
-import { initializer } from './initializer.js';
-import { htmlParser } from './html-parser.js';
+import raf from 'raf'
+import { initializer } from './common/initializer.js/index.js'
+import { htmlParser } from './common/html-parser.js/index.js'
 
 /**
  * Welcome to Typed.js!
@@ -8,11 +9,122 @@ import { htmlParser } from './html-parser.js';
  * @returns {object} a new Typed object
  */
 export default class Typed {
-  constructor(elementId, options) {
+  constructor(ref, options) {
     // Initialize it up
-    initializer.load(this, options, elementId);
-    // All systems go!
-    this.begin();
+    initializer.load(this, options, ref)
+    return this
+  }
+
+  state = {
+    queue: [],
+    eventLoop: null,
+    eventLoopState: {
+      paused: false,
+      pauseUntil: null,
+    },
+    lastFrameTime: null,
+  }
+
+  elements = {
+    container: null,
+    wrapper: document.createElement('span'),
+    cursor: document.createElement('span'),
+  }
+
+  start = () => {
+    this.state.eventLoopState.paused = false
+    this.runEventLoop()
+
+    return this
+  }
+
+  pause = () => {
+    this.state.eventLoopPaused = true
+
+    return this
+  }
+
+  stop = () => {
+    if (this.state.eventLoop) {
+      raf.cancel(this.state.eventLoop)
+      this.state.eventLoop = null
+    }
+
+    return this
+  }
+  /**
+   * @public
+   */
+  write(string = '', options = {}) {
+    for (let character of string.split('')) {
+      this.queue.push({ eventName: 'WRITE_TEXT', eventArgs: { character } })
+    }
+
+    return this
+  }
+
+  wait = (milliseconds = 500) => {
+    this.queue.push({ eventName: 'WAIT', eventArgs: { milliseconds } })
+
+    return this
+  }
+
+  erase = (count = null) => {
+    this.queue.push({ eventName: 'ERASE', eventArgs: { count } })
+  }
+
+  runEventLoop = () => {
+    const { queue, eventLoopState, lastFrameTime } = this.state
+    if (!lastFrameTime) {
+      this.state.lastFrameTime = Date.now()
+    }
+
+    const now = Date.now()
+    const delta = now - this.state.lastFrameTime
+
+    this.state.eventLoop = raf(this.runEventLoop)
+
+    if (eventLoopState.paused) {
+      return
+    }
+
+    if (eventLoopState.pauseUntil) {
+      if (now < this.state.pauseUntil) {
+        return
+      }
+
+      // Reset pause time
+      eventLoopState.pauseUntil = null
+    }
+
+    let delay = 0
+
+    if (delta <= delay) {
+      return
+    }
+
+    const queueCopy = [...queue]
+    const { eventName, eventArgs } = queueCopy.shift()
+
+    switch (eventName) {
+      case 'WRITE_TEXT':
+        const { character, node } = eventArgs
+        const textNode = document.createTextNode(character)
+
+        if (node) {
+          node.appendChild(textNode)
+        } else {
+          this.elements.wrapper.appendChild(textNode)
+        }
+
+        break
+      case 'WAIT':
+        break
+      case 'ERASE':
+        break
+      default:
+        break
+    }
   }
 
   /**
@@ -20,7 +132,7 @@ export default class Typed {
    * @public
    */
   toggle() {
-    this.pause.status ? this.start() : this.stop();
+    this.pause.status ? this.start() : this.stop()
   }
 
   /**
@@ -28,11 +140,11 @@ export default class Typed {
    * @public
    */
   stop() {
-    if (this.typingComplete) return;
-    if (this.pause.status) return;
-    this.toggleBlinking(true);
-    this.pause.status = true;
-    this.options.onStop(this.arrayPos, this);
+    if (this.typingComplete) return
+    if (this.pause.status) return
+    this.toggleBlinking(true)
+    this.pause.status = true
+    this.options.onStop(this.arrayPos, this)
   }
 
   /**
@@ -40,15 +152,15 @@ export default class Typed {
    * @public
    */
   start() {
-    if (this.typingComplete) return;
-    if (!this.pause.status) return;
-    this.pause.status = false;
+    if (this.typingComplete) return
+    if (!this.pause.status) return
+    this.pause.status = false
     if (this.pause.typewrite) {
-      this.typewrite(this.pause.curString, this.pause.curStrPos);
+      this.typewrite(this.pause.curString, this.pause.curStrPos)
     } else {
-      this.backspace(this.pause.curString, this.pause.curStrPos);
+      this.backspace(this.pause.curString, this.pause.curStrPos)
     }
-    this.options.onStart(this.arrayPos, this);
+    this.options.onStart(this.arrayPos, this)
   }
 
   /**
@@ -56,8 +168,8 @@ export default class Typed {
    * @public
    */
   destroy() {
-    this.reset(false);
-    this.options.onDestroy(this);
+    this.reset(false)
+    this.options.onDestroy(this)
   }
 
   /**
@@ -66,19 +178,19 @@ export default class Typed {
    * @public
    */
   reset(restart = true) {
-    clearInterval(this.timeout);
-    this.replaceText('');
+    clearInterval(this.timeout)
+    this.replaceText('')
     if (this.cursor && this.cursor.parentNode) {
-      this.cursor.parentNode.removeChild(this.cursor);
-      this.cursor = null;
+      this.cursor.parentNode.removeChild(this.cursor)
+      this.cursor = null
     }
-    this.strPos = 0;
-    this.arrayPos = 0;
-    this.curLoop = 0;
+    this.strPos = 0
+    this.arrayPos = 0
+    this.curLoop = 0
     if (restart) {
-      this.insertCursor();
-      this.options.onReset(this);
-      this.begin();
+      this.insertCursor()
+      this.options.onReset(this)
+      this.begin()
     }
   }
 
@@ -87,20 +199,11 @@ export default class Typed {
    * @private
    */
   begin() {
-    this.options.onBegin(this);
-    this.typingComplete = false;
-    this.shuffleStringsIfNeeded(this);
-    this.insertCursor();
-    if (this.bindInputFocusEvents) this.bindFocusEvents();
-    this.timeout = setTimeout(() => {
-      // Check if there is some text in the element, if yes start by backspacing the default message
-      if (!this.currentElContent || this.currentElContent.length === 0) {
-        this.typewrite(this.strings[this.sequence[this.arrayPos]], this.strPos);
-      } else {
-        // Start typing
-        this.backspace(this.currentElContent, this.currentElContent.length);
-      }
-    }, this.startDelay);
+    this.options.onBegin(this)
+    this.typingComplete = false
+    this.shuffleStringsIfNeeded(this)
+    this.insertCursor()
+    if (this.bindInputFocusEvents) this.bindFocusEvents()
   }
 
   /**
@@ -111,41 +214,41 @@ export default class Typed {
    */
   typewrite(curString, curStrPos) {
     if (this.fadeOut && this.el.classList.contains(this.fadeOutClass)) {
-      this.el.classList.remove(this.fadeOutClass);
-      if (this.cursor) this.cursor.classList.remove(this.fadeOutClass);
+      this.el.classList.remove(this.fadeOutClass)
+      if (this.cursor) this.cursor.classList.remove(this.fadeOutClass)
     }
 
-    const humanize = this.humanizer(this.typeSpeed);
-    let numChars = 1;
+    const humanize = this.humanizer(this.typeSpeed)
+    let numChars = 1
 
     if (this.pause.status === true) {
-      this.setPauseStatus(curString, curStrPos, true);
-      return;
+      this.setPauseStatus(curString, curStrPos, true)
+      return
     }
 
     // contain typing function in a timeout humanize'd delay
     this.timeout = setTimeout(() => {
       // skip over any HTML chars
-      curStrPos = htmlParser.typeHtmlChars(curString, curStrPos, this);
+      curStrPos = htmlParser.typeHtmlChars(curString, curStrPos, this)
 
-      let pauseTime = 0;
-      let substr = curString.substr(curStrPos);
+      let pauseTime = 0
+      let substr = curString.substr(curStrPos)
       // check for an escape character before a pause value
       // format: \^\d+ .. eg: ^1000 .. should be able to print the ^ too using ^^
       // single ^ are removed from string
       if (substr.charAt(0) === '^') {
         if (/^\^\d+/.test(substr)) {
-          let skip = 1; // skip at least 1
-          substr = /\d+/.exec(substr)[0];
-          skip += substr.length;
-          pauseTime = parseInt(substr);
-          this.temporaryPause = true;
-          this.options.onTypingPaused(this.arrayPos, this);
+          let skip = 1 // skip at least 1
+          substr = /\d+/.exec(substr)[0]
+          skip += substr.length
+          pauseTime = parseInt(substr)
+          this.temporaryPause = true
+          this.options.onTypingPaused(this.arrayPos, this)
           // strip out the escape character and pause value so they're not printed
           curString =
             curString.substring(0, curStrPos) +
-            curString.substring(curStrPos + skip);
-          this.toggleBlinking(true);
+            curString.substring(curStrPos + skip)
+          this.toggleBlinking(true)
         }
       }
 
@@ -153,40 +256,40 @@ export default class Typed {
       // "this is a `string to print NOW` ..."
       if (substr.charAt(0) === '`') {
         while (curString.substr(curStrPos + numChars).charAt(0) !== '`') {
-          numChars++;
-          if (curStrPos + numChars > curString.length) break;
+          numChars++
+          if (curStrPos + numChars > curString.length) break
         }
         // strip out the escape characters and append all the string in between
-        const stringBeforeSkip = curString.substring(0, curStrPos);
+        const stringBeforeSkip = curString.substring(0, curStrPos)
         const stringSkipped = curString.substring(
           stringBeforeSkip.length + 1,
           curStrPos + numChars
-        );
-        const stringAfterSkip = curString.substring(curStrPos + numChars + 1);
-        curString = stringBeforeSkip + stringSkipped + stringAfterSkip;
-        numChars--;
+        )
+        const stringAfterSkip = curString.substring(curStrPos + numChars + 1)
+        curString = stringBeforeSkip + stringSkipped + stringAfterSkip
+        numChars--
       }
 
       // timeout for any pause after a character
       this.timeout = setTimeout(() => {
         // Accounts for blinking while paused
-        this.toggleBlinking(false);
+        this.toggleBlinking(false)
 
         // We're done with this sentence!
         if (curStrPos >= curString.length) {
-          this.doneTyping(curString, curStrPos);
+          this.doneTyping(curString, curStrPos)
         } else {
-          this.keepTyping(curString, curStrPos, numChars);
+          this.keepTyping(curString, curStrPos, numChars)
         }
         // end of character pause
         if (this.temporaryPause) {
-          this.temporaryPause = false;
-          this.options.onTypingResumed(this.arrayPos, this);
+          this.temporaryPause = false
+          this.options.onTypingResumed(this.arrayPos, this)
         }
-      }, pauseTime);
+      }, pauseTime)
 
       // humanized value for typing
-    }, humanize);
+    }, humanize)
   }
 
   /**
@@ -198,16 +301,16 @@ export default class Typed {
   keepTyping(curString, curStrPos, numChars) {
     // call before functions if applicable
     if (curStrPos === 0) {
-      this.toggleBlinking(false);
-      this.options.preStringTyped(this.arrayPos, this);
+      this.toggleBlinking(false)
+      this.options.preStringTyped(this.arrayPos, this)
     }
     // start typing each new char into existing string
     // curString: arg, this.el.html: original text inside element
-    curStrPos += numChars;
-    const nextString = curString.substr(0, curStrPos);
-    this.replaceText(nextString);
+    curStrPos += numChars
+    const nextString = curString.substr(0, curStrPos)
+    this.replaceText(nextString)
     // loop the function
-    this.typewrite(curString, curStrPos);
+    this.typewrite(curString, curStrPos)
   }
 
   /**
@@ -218,20 +321,20 @@ export default class Typed {
    */
   doneTyping(curString, curStrPos) {
     // fires callback function
-    this.options.onStringTyped(this.arrayPos, this);
-    this.toggleBlinking(true);
+    this.options.onStringTyped(this.arrayPos, this)
+    this.toggleBlinking(true)
     // is this the final string
     if (this.arrayPos === this.strings.length - 1) {
       // callback that occurs on the last typed string
-      this.complete();
+      this.complete()
       // quit if we wont loop back
       if (this.loop === false || this.curLoop === this.loopCount) {
-        return;
+        return
       }
     }
     this.timeout = setTimeout(() => {
-      this.backspace(curString, curStrPos);
-    }, this.backDelay);
+      this.backspace(curString, curStrPos)
+    }, this.backDelay)
   }
 
   /**
@@ -242,31 +345,31 @@ export default class Typed {
    */
   backspace(curString, curStrPos) {
     if (this.pause.status === true) {
-      this.setPauseStatus(curString, curStrPos, true);
-      return;
+      this.setPauseStatus(curString, curStrPos, true)
+      return
     }
-    if (this.fadeOut) return this.initFadeOut();
+    if (this.fadeOut) return this.initFadeOut()
 
-    this.toggleBlinking(false);
-    const humanize = this.humanizer(this.backSpeed);
+    this.toggleBlinking(false)
+    const humanize = this.humanizer(this.backSpeed)
 
     this.timeout = setTimeout(() => {
-      curStrPos = htmlParser.backSpaceHtmlChars(curString, curStrPos, this);
+      curStrPos = htmlParser.backSpaceHtmlChars(curString, curStrPos, this)
       // replace text with base text + typed characters
-      const curStringAtPosition = curString.substr(0, curStrPos);
-      this.replaceText(curStringAtPosition);
+      const curStringAtPosition = curString.substr(0, curStrPos)
+      this.replaceText(curStringAtPosition)
 
       // if smartBack is enabled
       if (this.smartBackspace) {
         // the remaining part of the current string is equal of the same part of the new string
-        let nextString = this.strings[this.arrayPos + 1];
+        let nextString = this.strings[this.arrayPos + 1]
         if (
           nextString &&
           curStringAtPosition === nextString.substr(0, curStrPos)
         ) {
-          this.stopNum = curStrPos;
+          this.stopNum = curStrPos
         } else {
-          this.stopNum = 0;
+          this.stopNum = 0
         }
       }
 
@@ -274,25 +377,25 @@ export default class Typed {
       // less than the stop number, keep going
       if (curStrPos > this.stopNum) {
         // subtract characters one by one
-        curStrPos--;
+        curStrPos--
         // loop the function
-        this.backspace(curString, curStrPos);
+        this.backspace(curString, curStrPos)
       } else if (curStrPos <= this.stopNum) {
         // if the stop number has been reached, increase
         // array position to next string
-        this.arrayPos++;
+        this.arrayPos++
         // When looping, begin at the beginning after backspace complete
         if (this.arrayPos === this.strings.length) {
-          this.arrayPos = 0;
-          this.options.onLastStringBackspaced();
-          this.shuffleStringsIfNeeded();
-          this.begin();
+          this.arrayPos = 0
+          this.options.onLastStringBackspaced()
+          this.shuffleStringsIfNeeded()
+          this.begin()
         } else {
-          this.typewrite(this.strings[this.sequence[this.arrayPos]], curStrPos);
+          this.typewrite(this.strings[this.sequence[this.arrayPos]], curStrPos)
         }
       }
       // humanized value for typing
-    }, humanize);
+    }, humanize)
   }
 
   /**
@@ -300,11 +403,11 @@ export default class Typed {
    * @private
    */
   complete() {
-    this.options.onComplete(this);
+    this.options.onComplete(this)
     if (this.loop) {
-      this.curLoop++;
+      this.curLoop++
     } else {
-      this.typingComplete = true;
+      this.typingComplete = true
     }
   }
 
@@ -316,9 +419,9 @@ export default class Typed {
    * @private
    */
   setPauseStatus(curString, curStrPos, isTyping) {
-    this.pause.typewrite = isTyping;
-    this.pause.curString = curString;
-    this.pause.curStrPos = curStrPos;
+    this.pause.typewrite = isTyping
+    this.pause.curString = curString
+    this.pause.curStrPos = curStrPos
   }
 
   /**
@@ -327,15 +430,15 @@ export default class Typed {
    * @private
    */
   toggleBlinking(isBlinking) {
-    if (!this.cursor) return;
+    if (!this.cursor) return
     // if in paused state, don't toggle blinking a 2nd time
-    if (this.pause.status) return;
-    if (this.cursorBlinking === isBlinking) return;
-    this.cursorBlinking = isBlinking;
+    if (this.pause.status) return
+    if (this.cursorBlinking === isBlinking) return
+    this.cursorBlinking = isBlinking
     if (isBlinking) {
-      this.cursor.classList.add('typed-cursor--blink');
+      this.cursor.classList.add('typed-cursor--blink')
     } else {
-      this.cursor.classList.remove('typed-cursor--blink');
+      this.cursor.classList.remove('typed-cursor--blink')
     }
   }
 
@@ -345,7 +448,7 @@ export default class Typed {
    * @private
    */
   humanizer(speed) {
-    return Math.round((Math.random() * speed) / 2) + speed;
+    return Math.round((Math.random() * speed) / 2) + speed
   }
 
   /**
@@ -353,8 +456,8 @@ export default class Typed {
    * @private
    */
   shuffleStringsIfNeeded() {
-    if (!this.shuffle) return;
-    this.sequence = this.sequence.sort(() => Math.random() - 0.5);
+    if (!this.shuffle) return
+    this.sequence = this.sequence.sort(() => Math.random() - 0.5)
   }
 
   /**
@@ -362,20 +465,20 @@ export default class Typed {
    * @private
    */
   initFadeOut() {
-    this.el.className += ` ${this.fadeOutClass}`;
-    if (this.cursor) this.cursor.className += ` ${this.fadeOutClass}`;
+    this.el.className += ` ${this.fadeOutClass}`
+    if (this.cursor) this.cursor.className += ` ${this.fadeOutClass}`
     return setTimeout(() => {
-      this.arrayPos++;
-      this.replaceText('');
+      this.arrayPos++
+      this.replaceText('')
 
       // Resets current string if end of loop reached
       if (this.strings.length > this.arrayPos) {
-        this.typewrite(this.strings[this.sequence[this.arrayPos]], 0);
+        this.typewrite(this.strings[this.sequence[this.arrayPos]], 0)
       } else {
-        this.typewrite(this.strings[0], 0);
-        this.arrayPos = 0;
+        this.typewrite(this.strings[0], 0)
+        this.arrayPos = 0
       }
-    }, this.fadeOutDelay);
+    }, this.fadeOutDelay)
   }
 
   /**
@@ -386,14 +489,14 @@ export default class Typed {
    */
   replaceText(str) {
     if (this.attr) {
-      this.el.setAttribute(this.attr, str);
+      this.el.setAttribute(this.attr, str)
     } else {
       if (this.isInput) {
-        this.el.value = str;
+        this.el.value = str
       } else if (this.contentType === 'html') {
-        this.el.innerHTML = str;
+        this.el.innerHTML = str
       } else {
-        this.el.textContent = str;
+        this.el.textContent = str
       }
     }
   }
@@ -404,16 +507,16 @@ export default class Typed {
    * @private
    */
   bindFocusEvents() {
-    if (!this.isInput) return;
-    this.el.addEventListener('focus', (e) => {
-      this.stop();
-    });
-    this.el.addEventListener('blur', (e) => {
+    if (!this.isInput) return
+    this.el.addEventListener('focus', e => {
+      this.stop()
+    })
+    this.el.addEventListener('blur', e => {
       if (this.el.value && this.el.value.length !== 0) {
-        return;
+        return
       }
-      this.start();
-    });
+      this.start()
+    })
   }
 
   /**
@@ -421,12 +524,12 @@ export default class Typed {
    * @private
    */
   insertCursor() {
-    if (!this.showCursor) return;
-    if (this.cursor) return;
-    this.cursor = document.createElement('span');
-    this.cursor.className = 'typed-cursor';
-    this.cursor.innerHTML = this.cursorChar;
+    if (!this.showCursor) return
+    if (this.cursor) return
+    this.cursor = document.createElement('span')
+    this.cursor.className = 'typed-cursor'
+    this.cursor.innerHTML = this.cursorChar
     this.el.parentNode &&
-      this.el.parentNode.insertBefore(this.cursor, this.el.nextSibling);
+      this.el.parentNode.insertBefore(this.cursor, this.el.nextSibling)
   }
 }

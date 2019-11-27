@@ -14,24 +14,24 @@ export default class HTMLParser {
    */
 
   typeHtmlChars(curString, curStrPos, self) {
-    if (self.contentType !== 'html') return curStrPos;
-    const curChar = curString.substr(curStrPos).charAt(0);
+    if (self.contentType !== 'html') return curStrPos
+    const curChar = curString.substr(curStrPos).charAt(0)
     if (curChar === '<' || curChar === '&') {
-      let endTag = '';
+      let endTag = ''
       if (curChar === '<') {
-        endTag = '>';
+        endTag = '>'
       } else {
-        endTag = ';';
+        endTag = ';'
       }
       while (curString.substr(curStrPos + 1).charAt(0) !== endTag) {
-        curStrPos++;
+        curStrPos++
         if (curStrPos + 1 > curString.length) {
-          break;
+          break
         }
       }
-      curStrPos++;
+      curStrPos++
     }
-    return curStrPos;
+    return curStrPos
   }
 
   /**
@@ -43,25 +43,25 @@ export default class HTMLParser {
    * @private
    */
   backSpaceHtmlChars(curString, curStrPos, self) {
-    if (self.contentType !== 'html') return curStrPos;
-    const curChar = curString.substr(curStrPos).charAt(0);
+    if (self.contentType !== 'html') return curStrPos
+    const curChar = curString.substr(curStrPos).charAt(0)
     if (curChar === '>' || curChar === ';') {
-      let endTag = '';
+      let endTag = ''
       if (curChar === '>') {
-        endTag = '<';
+        endTag = '<'
       } else {
-        endTag = '&';
+        endTag = '&'
       }
       while (curString.substr(curStrPos - 1).charAt(0) !== endTag) {
-        curStrPos--;
+        curStrPos--
         if (curStrPos < 0) {
-          break;
+          break
         }
       }
-      curStrPos--;
+      curStrPos--
     }
-    return curStrPos;
+    return curStrPos
   }
 }
 
-export let htmlParser = new HTMLParser();
+export let htmlParser = new HTMLParser()

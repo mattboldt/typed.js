@@ -1,25 +1,18 @@
----
-extends: standard
-rules:
-  semi: 0
-  no-extra-semi: 0
-  space-before-function-paren: [error, never]
-
-plugins:
-  - standard
-
-parserOptions:
-  sourceType: module
-  ecmaFeatures:
-    modules: true
-
 env:
-  amd: true
   browser: true
   es6: true
-  jquery: true
-  node: true
-
+extends:
+  - 'prettier'
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
+parser: babel-eslint
+parserOptions:
+  ecmaVersion: 2018
+  sourceType: module
+plugins: []
+# Be sure rules do not conflict with prettier
+rules: {}
 overrides:
-  - files: ["./demos*.js"]
-    excludedFiles: "./demos/*.js"
+  - files: ['./demos*.js']
+    excludedFiles: './demos/*.js'

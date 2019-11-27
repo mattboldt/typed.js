@@ -5,6 +5,18 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Launch Firefox Parcel",
+      "type": "firefox",
+      "request": "launch",
+      "url": "http://localhost:1234",
+      "trace": true,
+      "webRoot": "${workspaceFolder}",
+      "breakOnLoad": true,
+      "sourceMapPathOverrides": {
+        "../*": "${webRoot}/*"
+      }
+    },
+    {
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
