@@ -1,10 +1,3 @@
-export const DEFAULTS = {
-  CADENCE: {
-    ERASE: [40, 80],
-    AFTER_WRITE: [120, 160],
-  },
-}
-
 export const ELEMENT_TYPES = {
   TEXT: 'TEXT',
   HTML: 'HTML',
@@ -15,4 +8,11 @@ export const EVENTS = {
   ERASE_LAST_CHARACTER: 'ERASE_LAST_CHARACTER',
   ERASE_CHARACTER: 'ERASE_CHARACTER',
   WAIT: 'WAIT',
+}
+
+export const DEFAULTS = {
+  CADENCE: {
+    WRITE_CHARACTERS: [40, 80],
+    ERASE_CHARACTER: [60, 90],
+  },
 }

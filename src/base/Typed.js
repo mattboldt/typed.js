@@ -77,14 +77,17 @@ class Typed {
   }
 
   addToQueue = (name, options) => {
-    this.state.queue.push({ eventName: name, eventArgs: options })
+    this.state.queue.push({ name, options })
   }
 
   /**
    * @public
    */
   write = (string = '', options = {}) => {
-    this.addToQueue(EVENTS.WRITE_CHARACTERS, { characters: string.split('') })
+    this.addToQueue(EVENTS.WRITE_CHARACTERS, {
+      characters: string.split(''),
+      ...options,
+    })
     return this
   }
 
@@ -100,16 +103,15 @@ class Typed {
     return this
   }
 
-  erase = (count = null) => {
+  erase = (count = null, options = {}) => {
     // If no count provided, fetch the length of the last string
     if (!count) {
-      count = this.state.queue.find(
-        e => e.eventName === EVENTS.WRITE_CHARACTERS
-      ).eventArgs.characters.length
+      count = this.state.queue.find(e => e.name === EVENTS.WRITE_CHARACTERS)
+        .options.characters.length
     }
 
     for (let i in Array(count).fill(null)) {
-      this.addToQueue(EVENTS.ERASE_CHARACTER)
+      this.addToQueue(EVENTS.ERASE_CHARACTER, options)
     }
     return this
   }
@@ -151,29 +153,22 @@ class Typed {
 
     const queueCopy = [...queue]
     const currentEvent = queueCopy.shift()
-
-    let delay = 0
+    const { name, options } = currentEvent
 
     // Check if frame should run or be
     // skipped based on fps interval
-    if (
-      currentEvent.eventName === EVENTS.ERASE_LAST_CHARACTER ||
-      currentEvent.eventName === EVENTS.ERASE_CHARACTER
-    ) {
-      delay = this.rand(...DEFAULTS.CADENCE.ERASE)
-    } else {
-      delay = this.rand(...DEFAULTS.CADENCE.AFTER_WRITE)
-    }
+    const cadence = options.speed
+      ? this.delayRange(options.speed)
+      : DEFAULTS.CADENCE[currentEvent.name]
+    const delay = cadence ? this.rand(...cadence) : 0
 
     if (delta <= delay) {
       return
     }
 
-    const { eventName, eventArgs } = currentEvent
-
-    switch (eventName) {
+    switch (name) {
       case EVENTS.WRITE_CHARACTERS:
-        const { characters, node } = eventArgs
+        const { characters, node } = options
         const textNode = document.createTextNode(characters.shift())
 
         if (node) {
@@ -190,14 +185,14 @@ class Typed {
         // If another char exists, add it back to the top of the queue
         if (characters.length) {
           queueCopy.unshift({
-            eventName: EVENTS.WRITE_CHARACTERS,
-            eventArgs: { characters, node },
+            name: EVENTS.WRITE_CHARACTERS,
+            options: { ...options, characters },
           })
         }
 
         break
       case EVENTS.WAIT:
-        const { milliseconds } = eventArgs
+        const { milliseconds } = options
         eventLoopState.pauseUntil = now + milliseconds * 1000
 
         break
@@ -209,8 +204,8 @@ class Typed {
           // Remove extra node as current deleted one is just an empty wrapper node
           if (type === ELEMENT_TYPES.HTML) {
             queue.unshift({
-              eventName: EVENT_NAMES.ERASE_LAST_CHARACTER,
-              eventArgs: {},
+              name: EVENT_NAMES.ERASE_LAST_CHARACTER,
+              options: {},
             })
           }
         }
@@ -223,7 +218,7 @@ class Typed {
     if (this.options.loop) {
       if (
         currentEvent.eventName !== EVENT_NAMES.REMOVE_LAST_VISIBLE_NODE &&
-        !(currentEvent.eventArgs && currentEvent.eventArgs.temp)
+        !(currentEvent.options && currentEvent.options.temp)
       ) {
         this.state.historyQueue = [...this.state.historyQueue, currentEvent]
       }
@@ -231,6 +226,11 @@ class Typed {
 
     this.state.queue = queueCopy
     this.state.lastFrameTime = now
+  }
+
+  delayRange(speed = 1) {
+    const ms = speed * 100
+    return [ms - 20, ms + 20]
   }
 
   rand(max, min) {

@@ -20,6 +20,9 @@
         v2.write('Hello')
           .wait(1)
           .erase()
+          .write('This is another string <p>With html</p>', { speed: 0.5 })
+          .erase(9, { speed: 0.1 })
+          .write('out html</p>')
           .start()
       })
     </script>
