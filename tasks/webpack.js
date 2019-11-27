@@ -10,9 +10,6 @@ const banner = `
   License(s): ${pkg.license}
 `
 
-const hotMiddlewareScript =
-  'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'
-
 export const config = {
   mode: 'development',
   entry: {
@@ -60,7 +57,6 @@ export const scripts = () => {
   return new Promise(resolve =>
     webpack(config, (err, stats) => {
       if (err) console.log('Webpack', err)
-      console.log('GOT HERE')
 
       console.log(
         stats.toString({

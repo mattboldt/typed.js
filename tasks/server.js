@@ -17,9 +17,8 @@ export function server() {
       webpackDevMiddleware(bundler, { writeToDisk: true }),
       webpackHotMiddleware(bundler),
     ],
+    files: ['src/**/*.ts'],
   }
 
   browser.init(config)
-
-  gulp.watch('src/base/*.ts').on('change', () => browser.reload())
 }
