@@ -3,6 +3,10 @@ import { initializer } from '../common/initializer.js'
 import { htmlParser } from '../common/html-parser'
 import { DEFAULTS, ELEMENT_TYPES, EVENTS } from '../common/constants'
 
+interface TypedOptions {
+  autoload?: boolean
+}
+
 /**
  * Welcome to Typed.js!
  * @param {string} elementId HTML element ID _OR_ HTML element
@@ -10,7 +14,7 @@ import { DEFAULTS, ELEMENT_TYPES, EVENTS } from '../common/constants'
  * @returns {object} a new Typed object
  */
 class Typed {
-  constructor(ref, options = {}) {
+  constructor(ref, options: TypedOptions = {}) {
     // Initialize it up
     // initializer.load(this, options, ref)
     if (typeof ref === 'string') {
@@ -62,7 +66,7 @@ class Typed {
   }
 
   pause = () => {
-    this.state.eventLoopPaused = true
+    this.state.eventLoopState.paused = true
 
     return this
   }
@@ -133,7 +137,7 @@ class Typed {
       // Reset event queue if we are looping
       this.state.queue = [...this.state.historyQueue]
       this.state.historyQueue = []
-      this.options = { ...this.state.options }
+      // this.options = { ...this.state.options }
     }
 
     this.state.eventLoop = raf(this.runEventLoop)
@@ -160,7 +164,7 @@ class Typed {
     const cadence = options.speed
       ? this.delayRange(options.speed)
       : DEFAULTS.CADENCE[currentEvent.name]
-    const delay = cadence ? this.rand(...cadence) : 0
+    const delay = cadence ? this.rand(cadence) : 0
 
     if (delta <= delay) {
       return
@@ -204,7 +208,7 @@ class Typed {
           // Remove extra node as current deleted one is just an empty wrapper node
           if (type === ELEMENT_TYPES.HTML) {
             queue.unshift({
-              name: EVENT_NAMES.ERASE_LAST_CHARACTER,
+              name: EVENTS.ERASE_LAST_CHARACTER,
               options: {},
             })
           }
@@ -217,7 +221,7 @@ class Typed {
     // Add que item to called queue if we are looping
     if (this.options.loop) {
       if (
-        currentEvent.eventName !== EVENT_NAMES.REMOVE_LAST_VISIBLE_NODE &&
+        currentEvent.eventName !== EVENTS.REMOVE_LAST_VISIBLE_NODE &&
         !(currentEvent.options && currentEvent.options.temp)
       ) {
         this.state.historyQueue = [...this.state.historyQueue, currentEvent]
@@ -233,7 +237,8 @@ class Typed {
     return [ms - 20, ms + 20]
   }
 
-  rand(max, min) {
+  rand(args: number[]) {
+    const [max, min] = args
     return Math.floor(Math.random() * (max - min + 1)) + min
   }
 }

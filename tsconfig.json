@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "lib": ["es2018", "dom"],
+    "module": "es6",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "target": "es5",
+    "jsx": "react",
+    "types": ["webpack", "webpack-env"],
+    "baseUrl": ".",
+    "paths": {}
+  },
+  "files": ["src/index.ts"],
+  "exclude": ["**/*.spec.ts", "node_modules", "vendor", "public"],
+  "compileOnSave": false,
+  "include": ["./app/javascript/**/*.tsx", "./app/javascript/**/*.ts"]
+}

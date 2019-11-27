@@ -1,29 +1,18 @@
 ---
 engines:
-  csslint:
-    enabled: false
   duplication:
     enabled: true
     config:
       languages:
-        - ruby
         - javascript
-        - python
-        - php
   eslint:
     enabled: true
   fixme:
     enabled: false
 ratings:
   paths:
-    - "**.css"
-    - "**.inc"
-    - "**.js"
-    - "**.jsx"
-    - "**.module"
-    - "**.php"
-    - "**.py"
-    - "**.rb"
+    - '**.js'
+    - '**.jsx'
 exclude_paths:
   - dist/
   - lib/
