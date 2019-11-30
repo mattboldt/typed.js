@@ -125,15 +125,15 @@ class Typed {
   public erase = (count = null, options = {}) => {
     // If no count provided, fetch the length of the last string
     if (!count) {
-      const previous = this.state.queue.find(
-        e => e.name === EVENTS.WRITE_CHARACTERS || e.name === EVENTS.WRITE_HTML
-      )
+      const previous = [...this.state.queue]
+        .reverse()
+        .find(e => e.name === EVENTS.WRITE_CHARACTERS)
       if (previous) {
-        count = previous.options.nodes.length
+        count = previous.options.nodeList.length
       }
     }
 
-    for (let i in Array(count || 0).fill(null)) {
+    for (let _i in Array(count || 0).fill(null)) {
       this.dispatch(EVENTS.ERASE_CHARACTER, options)
     }
     return this
@@ -141,16 +141,25 @@ class Typed {
 
   private writeText(string, options) {
     this.dispatch(EVENTS.WRITE_CHARACTERS, {
-      nodes: string.split(''),
+      nodeList: string.split(''),
       ...options,
     })
   }
 
   private writeHTML(string, options) {
-    const fragment = this.parseHTML(string)
+    const nodeList = this.parseHTML(string)
 
-    if (fragment) {
-      this.dispatch(EVENTS.WRITE_HTML, { fragment, ...options })
+    for (let node of nodeList) {
+      if (node && node.nodeName !== '#text') {
+        // Attach empty node but save raw content
+        const string = node.innerHTML
+        node.innerHTML = ''
+
+        this.dispatch(EVENTS.WRITE_HTML, { ...options, nodeList: node })
+        this.write(string, { parentNode: node })
+      } else if (node.textContent) {
+        this.write(node.textContent, { options })
+      }
     }
   }
 
@@ -163,16 +172,14 @@ class Typed {
     return simpleHTMLRegex.test(string)
   }
 
-  private parseHTML(string) {
-    const fragment = document.createDocumentFragment()
+  private parseHTML(string): any[] {
     const el = document.createElement('div')
     el.innerHTML = string
-    fragment.appendChild(el)
 
-    if (fragment.childElementCount > 0) {
-      return fragment.childNodes[0]
+    if (el.childElementCount > 0) {
+      return Array.from(el.childNodes)
     } else {
-      return null
+      return []
     }
   }
 

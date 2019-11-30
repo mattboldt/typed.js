@@ -9,7 +9,8 @@
   "main": "dist/Typed.js",
   "scripts": {
     "start": "NODE_ENV=development gulp",
-    "build": "NODE_ENV=production gulp build"
+    "build": "NODE_ENV=production gulp build",
+    "test": "mocha --require test/babel-register.js --extension 'ts' --spec 'test/**/*' --watch"
   },
   "keywords": [
     "Native JavaScript",
@@ -29,6 +30,7 @@
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
     "@babel/register": "^7.7.4",
+    "@types/mocha": "^5.2.7",
     "@types/raf": "^3.4.0",
     "@types/webpack": "^4.39.5",
     "@types/webpack-env": "^1.14.1",

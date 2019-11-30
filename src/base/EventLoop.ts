@@ -46,7 +46,8 @@ export function EventLoop() {
 
   const queueCopy = [...this.state.queue]
   const currentEvent = queueCopy.shift()
-  const { name, options } = currentEvent
+  const { name, options = {} } = currentEvent
+  const { nodeList, parentNode } = options
 
   // Check if frame should run or be
   // skipped based on fps interval
@@ -61,8 +62,8 @@ export function EventLoop() {
 
   switch (name) {
     case EVENTS.WRITE_CHARACTERS:
-      const { nodes, parentNode } = options
-      const textNode = document.createTextNode(nodes.shift())
+      // Append the first character and continue
+      const textNode = document.createTextNode(nodeList.shift())
 
       if (parentNode) {
         parentNode.appendChild(textNode)
@@ -75,31 +76,27 @@ export function EventLoop() {
         node: textNode,
       })
 
-      // If another char exists, add it back to the top of the queue
-      if (nodes.length > 0) {
+      // If more characters exist, add this event the top of the queue
+      if (nodeList.length > 0) {
         queueCopy.unshift({
           name: EVENTS.WRITE_CHARACTERS,
-          options: { ...options, nodes },
+          options: { ...options, nodeList },
         })
       }
       break
 
     case EVENTS.WRITE_HTML:
-      const { fragment } = options
-      const htmlNodes = fragment.childNodes.values()
-
-      for (let node of htmlNodes) {
-        if (node && node.nodeName !== '#text') {
-          // Attach empty node but save raw content
-          const string = node.innerHTML
-          node.innerHTML = ''
-          this.elements.wrapper.appendChild(node)
-
-          this.write(string, { node })
-        } else if (node.textContent) {
-          this.write(node.textContent)
-        }
+      if (parentNode) {
+        parentNode.appendChild(nodeList)
+      } else {
+        this.elements.wrapper.appendChild(nodeList)
       }
+
+      this.state.visibleElements.push({
+        type: ELEMENT_TYPES.HTML,
+        node: nodeList,
+        parentNode: parentNode || this.elements.wrapper,
+      })
       break
 
     case EVENTS.WAIT:
@@ -110,14 +107,20 @@ export function EventLoop() {
 
     case EVENTS.ERASE_CHARACTER:
       if (this.state.visibleElements.length) {
-        const { type, node } = this.state.visibleElements.pop()
-        node.parentNode.removeChild(node)
+        const { type, node, parentNode } = this.state.visibleElements.pop()
+
+        if (parentNode) {
+          parentNode.removeChild(node)
+        } else {
+          node.parentNode.removeChild(node)
+        }
 
         // Remove extra node as current deleted one is just an empty wrapper node
         if (type === ELEMENT_TYPES.HTML) {
           queueCopy.unshift({
             name: EVENTS.ERASE_CHARACTER,
             ...options,
+            parentNode,
           })
         }
       }
