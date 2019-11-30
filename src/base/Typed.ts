@@ -15,46 +15,27 @@ interface TypedOptions {
  * @returns {object} a new Typed object
  */
 class Typed {
-  constructor(ref, options: TypedOptions = {}) {
-    // Initialize it up
-    // initializer.load(this, options, ref)
-    if (typeof ref === 'string') {
-      this.elements.container = document.querySelector(ref)
-    } else {
-      this.elements.container = ref
-    }
-
-    this.elements.container.appendChild(this.elements.wrapper)
-
-    this.options = { ...this.options, ...options }
-
-    if (options.autoload) {
-      this.writeAll().start()
-    }
-
-    this.runEventLoop = EventLoop.bind(this)
-    return this
-  }
-
   runEventLoop = null
 
   state = {
     queue: [],
     historyQueue: [],
     eventLoop: null,
-    eventLoopState: {
-      paused: false,
-      pauseUntil: null,
-    },
-    lastFrameTime: null,
+    pause: false,
+    pauseUntil: null,
+    lastFrameAt: null,
     visibleElements: [],
   }
 
-  options = {
+  globalOptions = {
+    cursor: '|',
+    cursorClassName: 'TypedJS_cursor',
+    wrapperClassName: 'TypedJS_wrapper',
     loop: false,
     strings: [],
     cadence: 'human',
     html: true,
+    autoload: false,
   }
 
   elements = {
@@ -63,20 +44,52 @@ class Typed {
     cursor: document.createElement('span'),
   }
 
-  start = () => {
-    this.state.eventLoopState.paused = false
+  initialGlobalOptions = null
+
+  constructor($el, options: TypedOptions = {}) {
+    this.globalOptions = { ...this.globalOptions, ...options }
+    this.initialGlobalOptions = { ...this.globalOptions }
+    this.runEventLoop = EventLoop.bind(this)
+    this.setupDOM($el)
+
+    if (this.globalOptions.autoload) {
+      this.writeAll().start()
+    }
+
+    return this
+  }
+
+  private setupDOM = $el => {
+    if (typeof $el === 'string') {
+      this.elements.container = document.querySelector($el)
+    } else {
+      this.elements.container = $el
+    }
+
+    this.elements.wrapper.className = this.globalOptions.wrapperClassName
+    this.elements.cursor.className = this.globalOptions.cursorClassName
+
+    this.elements.cursor.innerHTML = this.globalOptions.cursor
+    this.elements.container.innerHTML = ''
+
+    this.elements.container.appendChild(this.elements.wrapper)
+    this.elements.container.appendChild(this.elements.cursor)
+  }
+
+  public start = () => {
+    this.state.pause = false
     this.runEventLoop()
 
     return this
   }
 
-  pause = () => {
-    this.state.eventLoopState.paused = true
+  public pause = () => {
+    this.state.pause = true
 
     return this
   }
 
-  stop = () => {
+  public stop = () => {
     if (this.state.eventLoop) {
       raf.cancel(this.state.eventLoop)
       this.state.eventLoop = null
@@ -85,44 +98,86 @@ class Typed {
     return this
   }
 
-  addToQueue = (name, options) => {
-    this.state.queue.push({ name, options })
-  }
-
   /**
    * @public
    */
-  write = (string = '', options = {}) => {
-    this.addToQueue(EVENTS.WRITE_CHARACTERS, {
-      characters: string.split(''),
-      ...options,
-    })
-    return this
-  }
-
-  writeAll = () => {
-    for (let string of this.options.strings) {
-      this.addToQueue(EVENTS.WRITE_CHARACTERS, { characters: string.split('') })
+  public write = (string = '', options = {}) => {
+    if (this.shouldRenderHTML(string, options)) {
+      this.writeHTML(string, options)
+    } else {
+      this.writeText(string, options)
     }
     return this
   }
 
-  wait = (milliseconds = 500) => {
-    this.addToQueue('WAIT', { milliseconds })
+  public writeAll = () => {
+    for (let string of this.globalOptions.strings) {
+      this.write(string)
+    }
     return this
   }
 
-  erase = (count = null, options = {}) => {
+  public wait = (milliseconds = 500) => {
+    this.dispatch('WAIT', { milliseconds })
+    return this
+  }
+
+  public erase = (count = null, options = {}) => {
     // If no count provided, fetch the length of the last string
     if (!count) {
-      count = this.state.queue.find(e => e.name === EVENTS.WRITE_CHARACTERS)
-        .options.characters.length
+      const previous = this.state.queue.find(
+        e => e.name === EVENTS.WRITE_CHARACTERS || e.name === EVENTS.WRITE_HTML
+      )
+      if (previous) {
+        count = previous.options.nodes.length
+      }
     }
 
-    for (let i in Array(count).fill(null)) {
-      this.addToQueue(EVENTS.ERASE_CHARACTER, options)
+    for (let i in Array(count || 0).fill(null)) {
+      this.dispatch(EVENTS.ERASE_CHARACTER, options)
     }
     return this
+  }
+
+  private writeText(string, options) {
+    this.dispatch(EVENTS.WRITE_CHARACTERS, {
+      nodes: string.split(''),
+      ...options,
+    })
+  }
+
+  private writeHTML(string, options) {
+    const fragment = this.parseHTML(string)
+
+    if (fragment) {
+      this.dispatch(EVENTS.WRITE_HTML, { fragment, ...options })
+    }
+  }
+
+  private shouldRenderHTML(string, options) {
+    if (options.html && options.html === false) {
+      return string
+    }
+
+    const simpleHTMLRegex = /<[a-z][\s\S]*>/i
+    return simpleHTMLRegex.test(string)
+  }
+
+  private parseHTML(string) {
+    const fragment = document.createDocumentFragment()
+    const el = document.createElement('div')
+    el.innerHTML = string
+    fragment.appendChild(el)
+
+    if (fragment.childElementCount > 0) {
+      return fragment.childNodes[0]
+    } else {
+      return null
+    }
+  }
+
+  private dispatch = (name, options) => {
+    this.state.queue.push({ name, options })
   }
 }
 
