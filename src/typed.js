@@ -199,8 +199,6 @@ export default class Typed {
           } else {
             this.keepTyping(curString, curStrPos, numChars);
           }
-          // fire event char typing
-          this.options.onTypingChar(this);
           // end of character pause
           if (this.temporaryPause) {
             this.temporaryPause = false;
@@ -242,6 +240,8 @@ export default class Typed {
    * @private
    */
   keepTyping(curString, curStrPos, numChars) {
+    // fire event char typing
+    this.options.onTypingChar(this);
     // call before functions if applicable
     if (curStrPos === 0) {
       this.toggleBlinking(false);
