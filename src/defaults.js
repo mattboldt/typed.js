@@ -102,8 +102,11 @@ const defaults = {
   /**
    * Before char typing
    * @param {Typed} self
+   * @param {string} curString the current string in the strings array
+   * @param {number} curStrPos the current position in the curString
+   * @param {number} numChars number for chars
    */
-  onTypingChar: (self) => {},
+  onTypingChar: (self, curString, curStrPos, numChars) => {},
 
   /**
    * Before remove a char

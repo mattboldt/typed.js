@@ -241,7 +241,7 @@ export default class Typed {
    */
   keepTyping(curString, curStrPos, numChars) {
     // fire event char typing
-    this.options.onTypingChar(this);
+    this.options.onTypingChar(this, curString, curStrPos, numChars);
     // call before functions if applicable
     if (curStrPos === 0) {
       this.toggleBlinking(false);
