@@ -16,6 +16,5 @@
   },
   "files": ["src/**/*.ts", "test/**/*.ts"],
   "exclude": ["node_modules", "vendor", "public"],
-  "compileOnSave": false,
-  "include": ["./app/javascript/**/*.tsx", "./app/javascript/**/*.ts"]
+  "compileOnSave": false
 }

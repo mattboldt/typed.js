@@ -59,23 +59,6 @@ class Typed {
     return this
   }
 
-  private setupDOM = $el => {
-    if (typeof $el === 'string') {
-      this.elements.container = document.querySelector($el)
-    } else {
-      this.elements.container = $el
-    }
-
-    this.elements.wrapper.className = this.globalOptions.wrapperClassName
-    this.elements.cursor.className = this.globalOptions.cursorClassName
-
-    this.elements.cursor.innerHTML = this.globalOptions.cursor
-    this.elements.container.innerHTML = ''
-
-    this.elements.container.appendChild(this.elements.wrapper)
-    this.elements.container.appendChild(this.elements.cursor)
-  }
-
   public start = () => {
     this.state.pause = false
     this.runEventLoop()
@@ -137,6 +120,23 @@ class Typed {
       this.dispatch(EVENTS.ERASE_CHARACTER, options)
     }
     return this
+  }
+
+  private setupDOM = $el => {
+    if (typeof $el === 'string') {
+      this.elements.container = document.querySelector($el)
+    } else {
+      this.elements.container = $el
+    }
+
+    this.elements.wrapper.className = this.globalOptions.wrapperClassName
+    this.elements.cursor.className = this.globalOptions.cursorClassName
+
+    this.elements.cursor.innerHTML = this.globalOptions.cursor
+    this.elements.container.innerHTML = ''
+
+    this.elements.container.appendChild(this.elements.wrapper)
+    this.elements.container.appendChild(this.elements.cursor)
   }
 
   private writeText(string, options) {
