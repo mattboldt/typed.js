@@ -1,4 +1,4 @@
-import raf from 'raf'
+import * as raf from 'raf'
 import { DEFAULTS, ELEMENT_TYPES, EVENTS } from '../common/constants'
 
 export function EventLoop() {
@@ -140,4 +140,11 @@ export function EventLoop() {
 
   this.state.queue = queueCopy
   this.state.lastFrameAt = now
+}
+
+export function stopEventLoop() {
+  if (this.state.eventLoop) {
+    raf.cancel(this.state.eventLoop)
+    this.state.eventLoop = null
+  }
 }

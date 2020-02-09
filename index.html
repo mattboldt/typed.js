@@ -16,17 +16,21 @@
     </script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        const v2 = new Typed('#typed')
-        v2.write('Hello')
-          .wait(1)
-          .erase()
-          .write('This is another string <i>With html</i>')
-          .erase(5)
-          .write('<strong>out html</strong>')
-          .wait(1)
-          .erase(8)
-          .write('whoa!')
-          .start()
+        const v2 = new Typed('#typed', {
+          autoload: true, strings: ['Hello', 'with <strong>html</strong>']
+        })
+        // v2.write('Hello')
+        //   .wait(1)
+        //   .erase()
+        //   .write('This is <a href="http://google.com">another</a> string <i>With html</i>')
+        //   .erase(5)
+        //   .write('<strong>out html</strong>')
+        //   .wait(1)
+        //   .erase(12)
+        //   .write('whoa!')
+        //   .wait(1)
+        //   .erase(22)
+        //   .start()
       })
     </script>
   </head>

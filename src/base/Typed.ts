@@ -1,8 +1,7 @@
-import raf from 'raf'
 import { initializer } from '../common/initializer.js'
 import { htmlParser } from '../common/html-parser'
 import { DEFAULTS, ELEMENT_TYPES, EVENTS } from '../common/constants'
-import { EventLoop } from './EventLoop'
+import { EventLoop, stopEventLoop } from './EventLoop'
 
 interface TypedOptions {
   autoload?: boolean
@@ -59,24 +58,21 @@ class Typed {
     return this
   }
 
-  public start = () => {
+  public start() {
     this.state.pause = false
     this.runEventLoop()
 
     return this
   }
 
-  public pause = () => {
+  public pause() {
     this.state.pause = true
 
     return this
   }
 
   public stop = () => {
-    if (this.state.eventLoop) {
-      raf.cancel(this.state.eventLoop)
-      this.state.eventLoop = null
-    }
+    stopEventLoop()
 
     return this
   }
@@ -84,7 +80,7 @@ class Typed {
   /**
    * @public
    */
-  public write = (string = '', options = {}) => {
+  public write(string = '', options = {}) {
     if (this.shouldRenderHTML(string, options)) {
       this.writeHTML(string, options)
     } else {
@@ -93,19 +89,25 @@ class Typed {
     return this
   }
 
-  public writeAll = () => {
-    for (let string of this.globalOptions.strings) {
+  public writeAll() {
+    this.globalOptions.strings.forEach((string, index, strings) => {
       this.write(string)
-    }
+
+      if (index + 1 < strings.length) {
+        this.wait(1)
+        this.erase(string.length)
+      }
+    })
+
     return this
   }
 
-  public wait = (milliseconds = 500) => {
+  public wait(milliseconds = 500) {
     this.dispatch('WAIT', { milliseconds })
     return this
   }
 
-  public erase = (count = null, options = {}) => {
+  public erase(count = null, options = {}) {
     // If no count provided, fetch the length of the last string
     if (!count) {
       const previous = [...this.state.queue]
@@ -122,7 +124,7 @@ class Typed {
     return this
   }
 
-  private setupDOM = $el => {
+  private setupDOM($el) {
     if (typeof $el === 'string') {
       this.elements.container = document.querySelector($el)
     } else {
@@ -183,7 +185,7 @@ class Typed {
     }
   }
 
-  private dispatch = (name, options) => {
+  private dispatch(name, options) {
     this.state.queue.push({ name, options })
   }
 }

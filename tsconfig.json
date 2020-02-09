@@ -14,7 +14,7 @@
     "baseUrl": ".",
     "paths": {}
   },
-  "files": ["src/**/*.ts", "test/**/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "vendor", "public"],
   "compileOnSave": false
 }
