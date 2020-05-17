@@ -14,25 +14,6 @@
     <script>
       hljs.initHighlightingOnLoad()
     </script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const v2 = new Typed('#typed', {
-          autoload: true, strings: ['Hello', 'with <strong>html</strong>']
-        })
-        // v2.write('Hello')
-        //   .wait(1)
-        //   .erase()
-        //   .write('This is <a href="http://google.com">another</a> string <i>With html</i>')
-        //   .erase(5)
-        //   .write('<strong>out html</strong>')
-        //   .wait(1)
-        //   .erase(12)
-        //   .write('whoa!')
-        //   .wait(1)
-        //   .erase(22)
-        //   .start()
-      })
-    </script>
   </head>
   <body>
     <div class="wrap">
@@ -43,9 +24,7 @@
         <a href="http://www.mattboldt.com/typed.js/docs">Documentation</a> |
         <a href="http://www.mattboldt.com/demos/typed-js">View original demo</a>
         | <a href="http://www.mattboldt.com">View mattboldt.com</a> |
-        <a href="https://twitter.com/atmattb"
-          >Complain to Matt about how awful this is</a
-        >
+        <a href="https://twitter.com/atmattb">Complain to Matt about how awful this is</a>
       </div>
 
       <hr />
@@ -61,8 +40,8 @@
         <span id="typed" style="white-space:pre;"></span>
       </div>
       <button class="toggle">Toggle</button>
-      <button class="start">Start</button>
-      <button class="stop">Stop</button>
+      <button class="start" onclick="javascript:v2.start()">Start</button>
+      <button class="stop" onclick="javascript:v2.pause()">Stop</button>
       <button class="reset">Reset</button>
       <button class="destroy">Destroy</button>
       <button class="loop">Toggle Loop</button>
@@ -189,6 +168,22 @@
     </code>
   </pre>
     </div>
+
+    <script>
+      const v2 = new Typed('#typed')
+      v2.write('Hello')
+        .wait(1)
+        .erase(5)
+        .write('This is <a href="http://google.com">another</a> string <i>With html</i>')
+        .erase(5)
+        .write('<strong>out html</strong>')
+        .wait(1)
+        .erase(13)
+        .write('whoa!')
+        .wait(1)
+        .erase(30)
+        .start()
+    </script>
 
     <script type="text/javascript">
       var _gaq = _gaq || []

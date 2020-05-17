@@ -5,6 +5,13 @@ import { EventLoop, stopEventLoop } from './EventLoop'
 
 interface TypedOptions {
   autoload?: boolean
+  cursor?: string
+  cursorClassName?: string
+  wrapperClassName?: string
+  loop?: boolean
+  strings?: string[]
+  cadence?: string
+  html?: boolean
 }
 
 /**
@@ -17,6 +24,8 @@ class Typed {
   runEventLoop = null
 
   state = {
+    parentOffset: 0,
+    childOffset: 0,
     queue: [],
     historyQueue: [],
     eventLoop: null,
@@ -109,18 +118,19 @@ class Typed {
 
   public erase(count = null, options = {}) {
     // If no count provided, fetch the length of the last string
-    if (!count) {
-      const previous = [...this.state.queue]
-        .reverse()
-        .find(e => e.name === EVENTS.WRITE_CHARACTERS)
-      if (previous) {
-        count = previous.options.nodeList.length
-      }
-    }
+    // if (!count) {
+    //   const previous = [...this.state.queue]
+    //     .reverse()
+    //     .filter(e => e.name === EVENTS.WRITE_CHARACTER)
+    //   if (previous.length > 0) {
+    //     count = previous.reduce((acc, item) => acc + item.options.nodeList.length, 0)
+    //   }
+    // }
 
-    for (let _i in Array(count || 0).fill(null)) {
-      this.dispatch(EVENTS.ERASE_CHARACTER, options)
-    }
+    // for (let _i in Array(count || 0).fill(null)) {
+
+    // }
+    this.dispatch(EVENTS.ERASE_CHARACTERS, { ...options, count })
     return this
   }
 
@@ -150,19 +160,20 @@ class Typed {
 
   private writeHTML(string, options) {
     const nodeList = this.parseHTML(string)
+    this.dispatch(EVENTS.WRITE_HTML, { ...options, nodeList: nodeList })
 
-    for (let node of nodeList) {
-      if (node && node.nodeName !== '#text') {
-        // Attach empty node but save raw content
-        const string = node.innerHTML
-        node.innerHTML = ''
+    // for (let node of nodeList) {
+    //   if (node && node.nodeName !== '#text') {
+    //     // Attach empty node but save raw content
+    //     const string = node.innerHTML
+    //     node.innerHTML = ''
 
-        this.dispatch(EVENTS.WRITE_HTML, { ...options, nodeList: node })
-        this.write(string, { parentNode: node })
-      } else if (node.textContent) {
-        this.write(node.textContent, { options })
-      }
-    }
+    //     this.dispatch(EVENTS.WRITE_HTML, { ...options, nodeList: node })
+    //     this.write(string, { parentNode: node })
+    //   } else if (node.textContent) {
+    //     this.write(node.textContent, { options })
+    //   }
+    // }
   }
 
   private shouldRenderHTML(string, options) {
