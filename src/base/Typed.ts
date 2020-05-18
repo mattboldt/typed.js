@@ -1,6 +1,6 @@
 import { initializer } from '../common/initializer.js'
 import { htmlParser } from '../common/html-parser'
-import { DEFAULTS, ELEMENT_TYPES, EVENTS } from '../common/constants'
+import { DEFAULTS, ELEMENT_TYPES, EVENTS, TASKS } from '../common/constants'
 import { EventLoop, stopEventLoop } from './EventLoop'
 
 interface TypedOptions {
@@ -24,8 +24,9 @@ class Typed {
   runEventLoop = null
 
   state = {
-    parentOffset: 0,
-    childOffset: 0,
+    taskOffset: 0,
+    tasks: [],
+    _tasks: [],
     queue: [],
     historyQueue: [],
     eventLoop: null,
@@ -67,14 +68,16 @@ class Typed {
     return this
   }
 
-  public start() {
+  public start = () => {
     this.state.pause = false
     this.runEventLoop()
+
+    window.state = this.state
 
     return this
   }
 
-  public pause() {
+  public pause = () => {
     this.state.pause = true
 
     return this
@@ -86,19 +89,7 @@ class Typed {
     return this
   }
 
-  /**
-   * @public
-   */
-  public write(string = '', options = {}) {
-    if (this.shouldRenderHTML(string, options)) {
-      this.writeHTML(string, options)
-    } else {
-      this.writeText(string, options)
-    }
-    return this
-  }
-
-  public writeAll() {
+  public writeAll = () => {
     this.globalOptions.strings.forEach((string, index, strings) => {
       this.write(string)
 
@@ -111,30 +102,96 @@ class Typed {
     return this
   }
 
-  public wait(milliseconds = 500) {
-    this.dispatch('WAIT', { milliseconds })
+  /**
+   * @public
+   */
+  public write = (node = '', options = {}) => {
+    this.writeDispatcher(node, options)
     return this
   }
 
-  public erase(count = null, options = {}) {
-    // If no count provided, fetch the length of the last string
-    // if (!count) {
-    //   const previous = [...this.state.queue]
-    //     .reverse()
-    //     .filter(e => e.name === EVENTS.WRITE_CHARACTER)
-    //   if (previous.length > 0) {
-    //     count = previous.reduce((acc, item) => acc + item.options.nodeList.length, 0)
-    //   }
-    // }
-
-    // for (let _i in Array(count || 0).fill(null)) {
-
-    // }
-    this.dispatch(EVENTS.ERASE_CHARACTERS, { ...options, count })
+  public wait = (milliseconds = DEFAULTS.WAIT) => {
+    this.dispatch(TASKS.PAUSE, { milliseconds })
     return this
   }
 
-  private setupDOM($el) {
+  public erase = (count = null) => {
+    this.dispatch(TASKS.ERASE_CHARACTER, { count })
+    return this
+  }
+
+  private writeDispatcher = (node, options = {}) => {
+    if (this.shouldRenderHTML(node, options)) {
+      this.dispatch(TASKS.WRITE_HTML_NODE, { ...options, node })
+    } else {
+      const chars = node.split('')
+
+      chars.forEach(char => {
+        this.dispatch(TASKS.WRITE_CHARACTER, { ...options, node: char })
+      })
+    }
+  }
+
+  private dispatch = (name, options: any = {}) => {
+    switch (name) {
+      case TASKS.WRITE_CHARACTER:
+        this.state.tasks.push({ name, options })
+        break
+      case TASKS.ERASE_CHARACTER:
+        if (options.count) {
+          for (let _i in Array(options.count || 0).fill(null)) {
+            this.state.tasks.push({ name })
+          }
+        } else {
+          this.state.tasks.push({ name: TASKS.ERASE_CHARACTERS })
+        }
+        break
+      case TASKS.PAUSE:
+        this.state.tasks.push({ name, options })
+        break
+      case TASKS.WRITE_HTML_NODE:
+        const nodeList = this.parseHTML(options.node)
+
+        nodeList.forEach(node => {
+          if (node && node.nodeName !== '#text') {
+            // Attach empty node but save raw content
+            const string = node.innerHTML
+            node.innerHTML = ''
+
+            // Add HTML node task to queue
+            this.state.tasks.push({ name, options: { ...options, node } })
+
+            // Enqueue the rest of the string regularly
+            this.writeDispatcher(string, { parentNode: node })
+          } else if (node.textContent) {
+            this.writeDispatcher(node.textContent)
+          }
+        })
+        break
+    }
+  }
+
+  private shouldRenderHTML = (node, options) => {
+    if (options.html && options.html === false) {
+      return node
+    }
+
+    const simpleHTMLRegex = /<[a-z][\s\S]*>/i
+    return simpleHTMLRegex.test(node)
+  }
+
+  private parseHTML = (string): any[] => {
+    const el = document.createElement('div')
+    el.innerHTML = string
+
+    if (el.childElementCount > 0) {
+      return Array.from(el.childNodes)
+    } else {
+      return []
+    }
+  }
+
+  private setupDOM = $el => {
     if (typeof $el === 'string') {
       this.elements.container = document.querySelector($el)
     } else {
@@ -149,55 +206,6 @@ class Typed {
 
     this.elements.container.appendChild(this.elements.wrapper)
     this.elements.container.appendChild(this.elements.cursor)
-  }
-
-  private writeText(string, options) {
-    this.dispatch(EVENTS.WRITE_CHARACTERS, {
-      nodeList: string.split(''),
-      ...options,
-    })
-  }
-
-  private writeHTML(string, options) {
-    const nodeList = this.parseHTML(string)
-    this.dispatch(EVENTS.WRITE_HTML, { ...options, nodeList: nodeList })
-
-    // for (let node of nodeList) {
-    //   if (node && node.nodeName !== '#text') {
-    //     // Attach empty node but save raw content
-    //     const string = node.innerHTML
-    //     node.innerHTML = ''
-
-    //     this.dispatch(EVENTS.WRITE_HTML, { ...options, nodeList: node })
-    //     this.write(string, { parentNode: node })
-    //   } else if (node.textContent) {
-    //     this.write(node.textContent, { options })
-    //   }
-    // }
-  }
-
-  private shouldRenderHTML(string, options) {
-    if (options.html && options.html === false) {
-      return string
-    }
-
-    const simpleHTMLRegex = /<[a-z][\s\S]*>/i
-    return simpleHTMLRegex.test(string)
-  }
-
-  private parseHTML(string): any[] {
-    const el = document.createElement('div')
-    el.innerHTML = string
-
-    if (el.childElementCount > 0) {
-      return Array.from(el.childNodes)
-    } else {
-      return []
-    }
-  }
-
-  private dispatch(name, options) {
-    this.state.queue.push({ name, options })
   }
 }
 

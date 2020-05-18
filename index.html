@@ -174,14 +174,14 @@
       v2.write('Hello')
         .wait(1)
         .erase(5)
-        .write('This is <a href="http://google.com">another</a> string <i>With html</i>')
+        .write('This is <a href="http://google.com">another</a> string With html')
         .erase(5)
-        .write('<strong>out html</strong>')
+        .write('<strong><i>out html</i></strong>')
         .wait(1)
         .erase(13)
         .write('whoa!')
         .wait(1)
-        .erase(30)
+        .erase()
         .start()
     </script>
 

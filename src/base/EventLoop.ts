@@ -1,5 +1,5 @@
 import * as raf from 'raf'
-import { DEFAULTS, ELEMENT_TYPES, EVENTS } from '../common/constants'
+import { DEFAULTS, ELEMENT_TYPES, TASKS, SUBTASKS } from '../common/constants'
 
 export function EventLoop() {
   const delayRange = (speed = 1) => {
@@ -12,13 +12,8 @@ export function EventLoop() {
     return Math.floor(Math.random() * (max - min + 1)) + min
   }
 
-  const iterateChildNode = length => {
-    if (this.state.childOffset === length - 1) {
-      this.state.childOffset = 0
-      this.state.parentOffset += 1
-    } else {
-      this.state.childOffset += 1
-    }
+  if (this.state._tasks.length === 0) {
+    this.state._tasks = [...this.state.tasks]
   }
 
   if (!this.state.lastFrameAt) {
@@ -28,16 +23,14 @@ export function EventLoop() {
   const now = Date.now()
   const delta = now - this.state.lastFrameAt
 
-  if (this.state.parentOffset === this.state.queue.length) {
+  if (this.state.taskOffset === this.state.tasks.length) {
     if (!this.globalOptions.loop) {
       return
     }
 
-    // Reset event queue if we are looping
-    this.state.parentOffset = 0
-    this.state.childOffset = 0
-    this.state.queue = [...this.state.historyQueue]
-    this.state.historyQueue = []
+    this.state.taskOffset = 0
+    // Reset task queue if we are looping
+    this.state.tasks = [...this.state._tasks]
     this.globalOptions = { ...this.initialGlobalOptions }
   }
 
@@ -55,10 +48,9 @@ export function EventLoop() {
     this.state.pauseUntil = null
   }
 
-  const currentJob = this.state.queue[this.state.parentOffset]
-  const { name, options = {} } = currentJob
-  const { nodeList, parentNode } = options
-  let currentNode
+  const currentTask = this.state.tasks[this.state.taskOffset]
+  const { name, options = {} } = currentTask
+  const { node, parentNode } = options
 
   // Check if frame should run or be
   // skipped based on fps interval
@@ -70,9 +62,8 @@ export function EventLoop() {
   }
 
   switch (name) {
-    case EVENTS.WRITE_CHARACTERS:
-      currentNode = nodeList[this.state.childOffset]
-      const textNode = document.createTextNode(currentNode)
+    case TASKS.WRITE_CHARACTER:
+      const textNode = document.createTextNode(node)
 
       if (parentNode) {
         parentNode.appendChild(textNode)
@@ -83,67 +74,63 @@ export function EventLoop() {
       this.state.visibleElements.push({
         type: ELEMENT_TYPES.TEXT,
         node: textNode,
+        parentNode: parentNode,
       })
-      iterateChildNode(nodeList.length)
+
       break
 
-    case EVENTS.WRITE_HTML:
-      currentNode = nodeList[this.state.childOffset]
+    case TASKS.WRITE_HTML_NODE:
       if (parentNode) {
-        parentNode.appendChild(currentNode)
+        parentNode.appendChild(node)
       } else {
-        this.elements.wrapper.appendChild(currentNode)
+        this.elements.wrapper.appendChild(node)
       }
 
       this.state.visibleElements.push({
         type: ELEMENT_TYPES.HTML,
-        node: currentNode,
+        node: node,
         parentNode: parentNode,
       })
-      iterateChildNode(nodeList.length)
-      break
-
-    case EVENTS.WAIT:
-      const { milliseconds } = options
-      this.state.pauseUntil = now + milliseconds * 1000
-      this.state.parentOffset += 1
 
       break
-
-    case EVENTS.ERASE_CHARACTERS:
+    case TASKS.ERASE_CHARACTER:
       if (this.state.visibleElements.length) {
         const { type, node, parentNode } = this.state.visibleElements.pop()
 
-        // if (parentNode) {
-        //   debugger
-        //   parentNode.parentNode.removeChild(parentNode)
-        // }
-        node.parentNode.removeChild(node)
+        if (parentNode) {
+          parentNode.removeChild(node)
+        } else {
+          node.parentNode.removeChild(node)
+        }
+
         // Remove extra node as current deleted one is just an empty wrapper node
         // if (type === ELEMENT_TYPES.HTML) {
-        //   this.state.queue.unshift({
-        //     name: EVENTS.ERASE_CHARACTER,
+        //   this.state.queue.splice(this.state.taskOffset + 1, 0, {
+        //     name: TASKS.ERASE_CHARACTER,
         //     ...options,
         //     parentNode,
         //   })
         // }
-        console.log(options.count)
-        iterateChildNode(options.count)
       }
+
+      break
+    case TASKS.ERASE_CHARACTERS:
+      const count = this.state.visibleElements.length
+
+      for (let _i in Array(count || 0).fill(null)) {
+        this.state.tasks.splice(this.state.taskOffset + 1, 0, {
+          name: TASKS.ERASE_CHARACTER,
+        })
+      }
+      break
+    case TASKS.PAUSE:
+      const { milliseconds } = options
+      this.state.pauseUntil = now + milliseconds * 1000
 
       break
   }
 
-  // Add queue item to called queue if we are looping
-  if (this.globalOptions.loop) {
-    if (
-      currentJob.eventName !== EVENTS.ERASE_CHARACTER &&
-      !(currentJob.options && currentJob.options.temp)
-    ) {
-      this.state.historyQueue.push(currentJob)
-    }
-  }
-
+  this.state.taskOffset += 1
   this.state.lastFrameAt = now
 }
 
