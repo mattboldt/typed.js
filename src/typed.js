@@ -425,7 +425,7 @@ export default class Typed {
     if (this.cursor) return;
     this.cursor = document.createElement('span');
     this.cursor.className = 'typed-cursor';
-    this.cursor.setAttribute("aria-hidden", true);
+    this.cursor.setAttribute('aria-hidden', true);
     this.cursor.innerHTML = this.cursorChar;
     this.el.parentNode &&
       this.el.parentNode.insertBefore(this.cursor, this.el.nextSibling);
