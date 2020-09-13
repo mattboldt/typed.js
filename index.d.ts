@@ -10,9 +10,9 @@ declare module 'typed.js' {
      */
     strings?: string[];
     /**
-     * ID of element containing string children
+     * ID or instance of HTML element of element containing string children
      */
-    stringsElement?: string;
+    stringsElement?: string | Element;
     /**
      * type speed in milliseconds
      */
