@@ -242,7 +242,7 @@ export default class Typed {
    */
   backspace(curString, curStrPos) {
     if (this.pause.status === true) {
-      this.setPauseStatus(curString, curStrPos, true);
+      this.setPauseStatus(curString, curStrPos, false);
       return;
     }
     if (this.fadeOut) return this.initFadeOut();
