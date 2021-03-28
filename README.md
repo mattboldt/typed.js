@@ -153,6 +153,10 @@ Check out the Vue.js component: https://github.com/Orlandster/vue-typed-js
 
 Check out the WebComponent: https://github.com/Orlandster/wc-typed-js
 
+### Use with Svelte
+
+Check out the Svelte component: https://github.com/Los-Crackitos/svelte-typed-js
+
 ## Customization
 
 ```javascript
