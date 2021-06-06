@@ -44,6 +44,20 @@ var options = {
 var typed = new Typed('.element', options);
 ```
 
+### Use with ReactJS
+
+Hook-based function component: https://jsfiddle.net/mattboldt/60h9an7y/
+
+Class component: https://jsfiddle.net/mattboldt/ovat9jmp/
+
+### Use with Vue.js
+
+Check out the Vue.js component: https://github.com/Orlandster/vue-typed-js
+
+### Use it as WebComponent
+
+Check out the WebComponent: https://github.com/Orlandster/wc-typed-js
+
 ## Wonderful sites that have used (or are using) Typed.js
 
 https://github.com/features/package-registry
@@ -140,18 +154,6 @@ CSS animations are built upon initialization in JavaScript. But, you can customi
 .typed-fade-out {
 }
 ```
-
-### Use with ReactJS
-
-Check out this example React app using Typed.js in a component: https://jsfiddle.net/mattboldt/ovat9jmp/
-
-### Use with Vue.js
-
-Check out the Vue.js component: https://github.com/Orlandster/vue-typed-js
-
-### Use it as WebComponent
-
-Check out the WebComponent: https://github.com/Orlandster/wc-typed-js
 
 ## Customization
 
