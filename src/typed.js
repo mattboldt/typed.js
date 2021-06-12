@@ -170,7 +170,7 @@ export default class Typed {
       // handle extra wide chars
       const bytes = this.getBytesForCharCode(substr.charCodeAt(0))
       if (bytes > 1) {
-        numChars += bytes - 1;
+        numChars += bytes;
       };
 
       // timeout for any pause after a character
