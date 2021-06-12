@@ -167,6 +167,12 @@ export default class Typed {
         numChars--;
       }
 
+      // handle extra wide chars
+      const bytes = this.getBytesForCharCode(substr.charCodeAt(0))
+      if (bytes > 1) {
+        numChars += bytes;
+      };
+
       // timeout for any pause after a character
       this.timeout = setTimeout(() => {
         // Accounts for blinking while paused
@@ -270,11 +276,15 @@ export default class Typed {
         }
       }
 
+      // determine byte width of character
+      const charCode = curString.charCodeAt(curStrPos - 1);
+      const bytes = this.getBytesForCharCode(charCode);
+
       // if the number (id of character in current string) is
       // less than the stop number, keep going
       if (curStrPos > this.stopNum) {
         // subtract characters one by one
-        curStrPos--;
+        curStrPos -= bytes;
         // loop the function
         this.backspace(curString, curStrPos);
       } else if (curStrPos <= this.stopNum) {
@@ -293,6 +303,20 @@ export default class Typed {
       }
       // humanized value for typing
     }, humanize);
+  }
+
+  /**
+   * Get byte width of char from charCode
+   * @private
+   */
+  getBytesForCharCode(c) {
+    return c < (1 << 7) ? 1
+           : c < (1 << 11) ? 2
+           : c < (1 << 16) ? 3
+           : c < (1 << 21) ? 4
+           : c < (1 << 26) ? 5
+           : c < (1 << 31) ? 6
+           : 1;
   }
 
   /**

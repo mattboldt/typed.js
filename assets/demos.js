@@ -64,7 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
     strings: [
       'Some <i>strings</i> with',
       'Some <strong>HTML</strong>',
-      'Chars &times; &copy;'
+      'Chars &times; &copy;',
+      'Unicode ❗ 🚀'
     ],
     typeSpeed: 0,
     backSpeed: 0,
@@ -79,7 +80,8 @@ document.addEventListener('DOMContentLoaded', function() {
     strings: [
       'My strings are: <i>strings</i> with',
       'My strings are: <strong>HTML</strong>',
-      'My strings are: Chars &times; &copy;'
+      'My strings are: Chars &times; &copy;',
+      'My strings are: Unicode ❗ 🚀'
     ],
     typeSpeed: 0,
     backSpeed: 0,
@@ -100,7 +102,8 @@ document.addEventListener('DOMContentLoaded', function() {
     strings: [
       '1 Some <i>strings</i> with',
       '2 Some <strong>HTML</strong>',
-      '3 Chars &times; &copy;'
+      '3 Chars &times; &copy;',
+      '4 Unicode ❗ 🚀'
     ],
     typeSpeed: 0,
     backSpeed: 0,
