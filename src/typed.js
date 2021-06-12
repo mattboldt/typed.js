@@ -125,11 +125,6 @@ export default class Typed {
 
     // contain typing function in a timeout humanize'd delay
     this.timeout = setTimeout(() => {
-      // handle extra wide chars
-      const charCode = curString.charCodeAt(curStrPos);
-      const bytes = this.getBytesForCharCode(charCode);
-      curStrPos += bytes - 1;
-
       // skip over any HTML chars
       curStrPos = htmlParser.typeHtmlChars(curString, curStrPos, this);
 
@@ -171,6 +166,12 @@ export default class Typed {
         curString = stringBeforeSkip + stringSkipped + stringAfterSkip;
         numChars--;
       }
+
+      // handle extra wide chars
+      const bytes = this.getBytesForCharCode(substr.charCodeAt(0))
+      if (bytes > 1) {
+        numChars += bytes - 1;
+      };
 
       // timeout for any pause after a character
       this.timeout = setTimeout(() => {
