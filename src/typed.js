@@ -242,7 +242,7 @@ export default class Typed {
    */
   backspace(curString, curStrPos) {
     if (this.pause.status === true) {
-      this.setPauseStatus(curString, curStrPos, true);
+      this.setPauseStatus(curString, curStrPos, false);
       return;
     }
     if (this.fadeOut) return this.initFadeOut();
@@ -425,6 +425,7 @@ export default class Typed {
     if (this.cursor) return;
     this.cursor = document.createElement('span');
     this.cursor.className = 'typed-cursor';
+    this.cursor.setAttribute('aria-hidden', true);
     this.cursor.innerHTML = this.cursorChar;
     this.el.parentNode &&
       this.el.parentNode.insertBefore(this.cursor, this.el.nextSibling);

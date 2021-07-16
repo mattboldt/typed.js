@@ -25,7 +25,7 @@ bower install typed.js
 #### CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 ```
 
 #### Setup
@@ -43,6 +43,20 @@ var options = {
 
 var typed = new Typed('.element', options);
 ```
+
+### Use with ReactJS
+
+Hook-based function component: https://jsfiddle.net/mattboldt/60h9an7y/
+
+Class component: https://jsfiddle.net/mattboldt/ovat9jmp/
+
+### Use with Vue.js
+
+Check out the Vue.js component: https://github.com/Orlandster/vue-typed-js
+
+### Use it as WebComponent
+
+Check out the WebComponent: https://github.com/Orlandster/wc-typed-js
 
 ## Wonderful sites that have used (or are using) Typed.js
 
