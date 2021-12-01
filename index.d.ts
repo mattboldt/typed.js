@@ -4,7 +4,7 @@
  */
 
 declare module 'typed.js' {
-  interface TypedOptions {
+  export interface TypedOptions {
     /**
      * strings to be typed
      */
