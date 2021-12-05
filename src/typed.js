@@ -187,6 +187,7 @@ export default class Typed {
 
       // humanized value for typing
     }, humanize);
+    this.options.onCharAppended(substr.charAt(0), this);
   }
 
   /**

@@ -121,6 +121,8 @@ declare module 'typed.js' {
      * After destroy
      */
     onDestroy?(self: Typed): void;
+
+    onCharAppended: (char: string, self: Typed) => {};
   }
 
   export default class Typed {
