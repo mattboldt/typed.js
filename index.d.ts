@@ -122,6 +122,9 @@ declare module 'typed.js' {
      */
     onDestroy?(self: Typed): void;
 
+    /**
+     * After a character has been appended.
+     */
     onCharAppended: (char: string, self: Typed) => {};
   }
 

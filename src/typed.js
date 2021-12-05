@@ -184,10 +184,10 @@ export default class Typed {
           this.options.onTypingResumed(this.arrayPos, this);
         }
       }, pauseTime);
+      this.options.onCharAppended(substr.charAt(0), this);
 
       // humanized value for typing
     }, humanize);
-    this.options.onCharAppended(substr.charAt(0), this);
   }
 
   /**

@@ -1,17 +1,23 @@
 {
   "name": "@jeecabs/typed.js",
-  "version": "2.0.12",
-  // "homepage": "https://github.com/mattboldt/typed.js",
-  // "repository": "https://github.com/mattboldt/typed.js",
+  "version": "2.0.13",
+  "homepage": "https://github.com/Jeecabs/typed.js",
+  "repository": "https://github.com/Jeecabs/typed.js",
   "license": "MIT",
-  // "author": "Jeecabs",
+  "author": "Jeecabs",
   "description": "A JavaScript Typing Animation Library",
   "main": "lib/typed.js",
   "keywords": [
     "typed",
     "animation"
   ],
-  "contributors": [{"name":"Matt Boldt", "email": "me@mattboldt.com"}],
+  "scripts": {"gulp": "gulp"},
+  "contributors": [
+    {
+      "name": "Matt Boldt",
+      "email": "me@mattboldt.com"
+    }
+  ],
   "devDependencies": {
     "babel": "^5.8.23",
     "babel-core": "^5.8.24",

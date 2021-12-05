@@ -161,10 +161,10 @@ const defaults = {
   onDestroy: (self) => { },
   /**
    * After a character has been appended.
-   * @param {*} char The character that has been appended
-   * @param {*} self 
+   * @param {string} char The character that has been appended
+   * @param {Typed} self
    */
-  onCharAppended: (char, self) =>  { },
+  onCharAppended: (char, self) => { }
 };
 
 export default defaults;
