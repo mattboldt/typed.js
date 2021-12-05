@@ -3,7 +3,7 @@
  * Typed.js version: v2.0.12
  */
 
-declare module 'typed.js' {
+declare module 'typed.js-extra' {
   interface TypedOptions {
     /**
      * strings to be typed
