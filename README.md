@@ -322,6 +322,14 @@ var typed = new Typed('.element', {
    * @param {Typed} self
    */
   onDestroy: (self) => {},
+
+   /**
+   * UNIQUE TO THIS FORK
+   * After a character has been appended.
+   * @param {*} char The character that has been appended
+   * @param {*} self 
+   */
+  onCharAppended: (char, self) =>  { },
 });
 ```
 
