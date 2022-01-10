@@ -56,6 +56,9 @@ export default class Initializer {
     // only backspace what doesn't match the previous string
     self.smartBackspace = self.options.smartBackspace;
 
+    // allow the feature of bulk typing also for backspacing, to delete multiple characters at once
+    self.allowBulkBackspace = self.options.allowBulkBackspace;
+
     // amount of time to wait before backspacing
     self.backDelay = self.options.backDelay;
 

@@ -115,6 +115,8 @@ export default class Typed {
       if (this.cursor) this.cursor.classList.remove(this.fadeOutClass);
     }
 
+    this.bulkBreakpoints = void 0;
+
     const humanize = this.humanizer(this.typeSpeed);
     let numChars = 1;
 
@@ -165,6 +167,13 @@ export default class Typed {
         const stringAfterSkip = curString.substring(curStrPos + numChars + 1);
         curString = stringBeforeSkip + stringSkipped + stringAfterSkip;
         numChars--;
+
+        if (this.allowBulkBackspace) {
+          // As we don't have the "`" character when backspacing,
+          // we need to keep track of the places where we bulk typed something
+          this.bulkTypeBreakpoints = this.bulkTypeBreakpoints || {};
+          this.bulkTypeBreakpoints[curStrPos + numChars] = numChars;
+        }
       }
 
       // timeout for any pause after a character
@@ -246,6 +255,7 @@ export default class Typed {
       return;
     }
     if (this.fadeOut) return this.initFadeOut();
+    let numChars = 1;
 
     this.toggleBlinking(false);
     const humanize = this.humanizer(this.backSpeed);
@@ -255,6 +265,19 @@ export default class Typed {
       // replace text with base text + typed characters
       const curStringAtPosition = curString.substr(0, curStrPos);
       this.replaceText(curStringAtPosition);
+
+      // check for skip characters formatted as
+      // "this is a `string to print NOW` ..."
+
+      // We use the information that we saved when bulk typing the words,
+      // because we don't have any traces of them anymore when backspacing
+      // (there are no ` or any other symbol that allows us to know that we
+      // are bulk backtyping)
+      if (this.allowBulkBackspace && this.bulkTypeBreakpoints[curStrPos]) {
+        numChars = this.bulkTypeBreakpoints[curStrPos];
+        const stringAfterSkip = curString.substring(0, curStrPos);
+        curString = stringAfterSkip;
+      }
 
       // if smartBack is enabled
       if (this.smartBackspace) {
@@ -273,8 +296,10 @@ export default class Typed {
       // if the number (id of character in current string) is
       // less than the stop number, keep going
       if (curStrPos > this.stopNum) {
-        // subtract characters one by one
-        curStrPos--;
+        // subtract characters one by one (or more than one if we are bulk backspacing)
+        curStrPos -= numChars;
+        // reset the numChars to go one by one again after bulk backspacing
+        numChars = 1;
         // loop the function
         this.backspace(curString, curStrPos);
       } else if (curStrPos <= this.stopNum) {
