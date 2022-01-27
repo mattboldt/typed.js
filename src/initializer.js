@@ -47,6 +47,9 @@ export default class Initializer {
     // typing speed
     self.typeSpeed = self.options.typeSpeed;
 
+    // humanize speed
+    self.humanizeSpeed = self.options.humanizeSpeed;
+
     // add a delay before typing starts
     self.startDelay = self.options.startDelay;
 

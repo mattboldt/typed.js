@@ -33,6 +33,11 @@ const defaults = {
   backSpeed: 0,
 
   /**
+   * @property {boolean} humanizeSpeed humanize speed through randomizing
+   */
+  humanizeSpeed: true,
+
+  /**
    * @property {boolean} smartBackspace only backspace what doesn't match the previous string
    */
   smartBackspace: true,

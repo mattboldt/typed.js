@@ -345,6 +345,7 @@ export default class Typed {
    * @private
    */
   humanizer(speed) {
+    if (!this.humanizeSpeed) return speed;
     return Math.round((Math.random() * speed) / 2) + speed;
   }
 
