@@ -13,7 +13,7 @@ const defaults = {
     'These are the default values...',
     'You know what you should do?',
     'Use your own!',
-    'Have a great day!'
+    'Have a great day!',
   ],
   stringsElement: null,
 
@@ -158,7 +158,7 @@ const defaults = {
    * After destroy
    * @param {Typed} self
    */
-  onDestroy: (self) => {}
+  onDestroy: (self) => {},
 };
 
 export default defaults;
