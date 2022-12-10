@@ -1,48 +1,51 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Typed.js - Type your heart out</title>
-  <script src="dist/typed.umd.js"></script>
-  <script src="assets/demos.js"></script>
-  <link href="assets/demos.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Typed.js - Type your heart out</title>
+    <script src="dist/typed.umd.js"></script>
+    <script src="assets/demos.js"></script>
+    <link href="assets/demos.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1 class="title">Typed.js</h1>
 
-<div class="wrap">
-  <h1 class="title">Typed.js</h1>
+      <div class="links">
+        <a href="https://github.com/mattboldt/typed.js">GitHub</a> |
+        <a href="http://www.mattboldt.com/typed.js/docs">Documentation</a> |
+        <a href="http://www.mattboldt.com/demos/typed-js">View original demo</a>
+        | <a href="http://www.mattboldt.com">View mattboldt.com</a>
+      </div>
 
-  <div class="links">
-    <a href="https://github.com/mattboldt/typed.js">GitHub</a> |
-    <a href="http://www.mattboldt.com/typed.js/docs">Documentation</a> |
-    <a href="http://www.mattboldt.com/demos/typed-js">View original demo</a> |
-    <a href="http://www.mattboldt.com">View mattboldt.com</a> |
-    <a href="https://twitter.com/atmattb">Complain to Matt about how awful this is</a>
-  </div>
+      <hr />
 
-  <hr>
+      <h2 id="basic">Basic Demo</h2>
+      <div class="type-wrap">
+        <div id="typed-strings">
+          <span>Typed.js^10 is a <strong>JavaScript</strong> library.</span>
+          <p>It <em>types</em> out sentences.</p>
+          <p>`And` `then` `deletes` `them`.</p>
+          <p>Try it out!</p>
+        </div>
+        <span id="typed" style="white-space: pre"></span>
+      </div>
+      <button class="toggle">Toggle</button>
+      <button class="start">Start</button>
+      <button class="stop">Stop</button>
+      <button class="reset">Reset</button>
+      <button class="destroy">Destroy</button>
+      <button class="loop">Toggle Loop</button>
 
-  <h2 id="basic">Basic Demo</h2>
-  <div class="type-wrap">
-    <div id="typed-strings">
-      <span>Typed.js^10 is a <strong>JavaScript</strong> library.</span>
-      <p>It <em>types</em> out sentences.</p>
-      <p>And then deletes them.</p>
-      <p>Try it out!</p>
-    </div>
-    <span id="typed" style="white-space:pre;"></span>
-  </div>
-  <button class="toggle">Toggle</button>
-  <button class="start">Start</button>
-  <button class="stop">Stop</button>
-  <button class="reset">Reset</button>
-  <button class="destroy">Destroy</button>
-  <button class="loop">Toggle Loop</button>
-
-  <pre>
+      <pre>
     <code class="javascript">
   var typed = new Typed("#typed", {
     stringsElement: '#typed-strings',
@@ -66,16 +69,15 @@
     </code>
   </pre>
 
+      <hr />
 
-  <hr>
+      <h2 id="fade">Fade Out</h2>
+      <div class="type-wrap">
+        <span id="typed2" style="white-space: pre"></span>
+      </div>
+      <button class="loop2">Toggle Loop</button>
 
-  <h2 id="fade">Fade Out</h2>
-  <div class="type-wrap">
-    <span id="typed2" style="white-space:pre;"></span>
-  </div>
-  <button class="loop2">Toggle Loop</button>
-
-  <pre>
+      <pre>
     <code class="javascript">
   var typed2 = new Typed('#typed2', {
     strings: ['Some &lt;i&gt;strings&lt;/i&gt; with', 'Some &lt;strong&gt;HTML&lt;/strong&gt;', 'Chars &amp;times; &amp;copy;'],
@@ -87,14 +89,14 @@
     </code>
   </pre>
 
-  <hr>
+      <hr />
 
-  <h2 id="smartBack">Smart Backspace</h2>
-  <div class="type-wrap">
-    <span id="typed3"></span>
-  </div>
+      <h2 id="smartBack">Smart Backspace</h2>
+      <div class="type-wrap">
+        <span id="typed3"></span>
+      </div>
 
-  <pre>
+      <pre>
     <code class="javascript">
   var typed3 = new Typed('#typed3', {
     strings: ['My strings are: &lt;i&gt;strings&lt;/i&gt; with', 'My strings are: &lt;strong&gt;HTML&lt;/strong&gt;', 'My strings are: Chars &amp;times; &amp;copy;'],
@@ -106,14 +108,14 @@
     </code>
   </pre>
 
-  <hr>
+      <hr />
 
-  <h2 id="input">In an input</h2>
-  <div class="type-wrap">
-    <input id="typed4" type="text" style="padding: 10px;">
-  </div>
+      <h2 id="input">In an input</h2>
+      <div class="type-wrap">
+        <input id="typed4" type="text" style="padding: 10px" />
+      </div>
 
-  <pre>
+      <pre>
     <code class="javascript">
   var typed4 = new Typed('#typed4', {
     strings: ['Some strings without', 'Some HTML', 'Chars'],
@@ -126,14 +128,14 @@
     </code>
   </pre>
 
-  <hr>
+      <hr />
 
-  <h2 id="shuffle">Shuffled</h2>
-  <div class="type-wrap">
-    <span id="typed5" style="white-space:pre;"></span>
-  </div>
+      <h2 id="shuffle">Shuffled</h2>
+      <div class="type-wrap">
+        <span id="typed5" style="white-space: pre"></span>
+      </div>
 
-  <pre>
+      <pre>
     <code class="javascript">
   var typed5 = new Typed('#typed5', {
     strings: ['1 Some &lt;i&gt;strings&lt;/i&gt; with', '2 Some &lt;strong&gt;HTML&lt;/strong&gt;', '3 Chars &amp;times; &amp;copy;'],
@@ -147,14 +149,14 @@
     </code>
   </pre>
 
-  <hr>
+      <hr />
 
-  <h2 id="bulk">Bulk Typing</h2>
-  <div class="type-wrap" style="height: 50px;">
-    <span id="typed6" style="white-space:pre;"></span>
-  </div>
+      <h2 id="bulk">Bulk Typing</h2>
+      <div class="type-wrap" style="height: 50px">
+        <span id="typed6" style="white-space: pre"></span>
+      </div>
 
-  <pre>
+      <pre>
     <code class="javascript">
   var typed6 = new Typed('#typed6', {
     strings: ['npm install^1000\n `installing components...` ^1000\n `Fetching from source...`'],
@@ -164,21 +166,24 @@
   });
     </code>
   </pre>
+    </div>
 
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-11539016-1']);
+      _gaq.push(['_trackPageview']);
 
-</div>
-
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-11539016-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-
-</body>
+      (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src =
+          ('https:' == document.location.protocol
+            ? 'https://ssl'
+            : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
 </html>
