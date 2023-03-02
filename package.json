@@ -32,8 +32,8 @@
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.4.1",
-    "webpack": "^1.12.1",
-    "webpack-stream": "^2.1.0",
+    "webpack": "^5.75.0",
+    "webpack-stream": "^7.0.0",
     "lodash": "^4.17.5",
     "mime": "^1.4.1",
     "debug": "^2.6.9"
