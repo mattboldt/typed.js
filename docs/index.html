@@ -1,59 +1,180 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | typed.js</title>
-  <link type="text/css" rel="stylesheet" href="css/style.css">
-  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
-  <script src="script/prettify/prettify.js"></script>
-  <script src="script/manual.js"></script>
-<meta name="description" content="A JavaScript Typing Animation Library"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="typed.js"><meta property="twitter:description" content="A JavaScript Typing Animation Library"></head>
-<body class="layout-container" data-ice="rootContainer">
+  <head>
+    <meta charset="utf-8" />
+    <base data-ice="baseUrl" />
+    <title data-ice="title">Home | typed.js</title>
+    <link type="text/css" rel="stylesheet" href="css/style.css" />
+    <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css" />
+    <script src="script/prettify/prettify.js"></script>
+    <script src="script/manual.js"></script>
+    <meta name="description" content="A JavaScript Typing Animation Library" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:title" content="typed.js" />
+    <meta
+      property="twitter:description"
+      content="A JavaScript Typing Animation Library"
+    />
+  </head>
+  <body class="layout-container" data-ice="rootContainer">
+    <header>
+      <a href="./">Home</a>
 
-<header>
-  <a href="./">Home</a>
-  
-  <a href="identifiers.html">Reference</a>
-  <a href="source.html">Source</a>
-  
-  <div class="search-box">
-  <span>
-    <img src="./image/search.png">
-    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
-  </span>
-    <ul class="search-result"></ul>
-  </div>
-<a style="position:relative; top:3px;" href="https://github.com/mattboldt/typed.js"><img width="20px" src="./image/github.png"></a></header>
+      <a href="identifiers.html">Reference</a>
+      <a href="source.html">Source</a>
 
-<nav class="navigation" data-ice="nav"><div>
-  <ul>
-    
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/html-parser.js~HTMLParser.html">HTMLParser</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/initializer.js~Initializer.html">Initializer</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/typed-using-raf.js~Typed.html">Typed</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/typed.js~Typed.html">Typed</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-defaults">defaults</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-htmlParser">htmlParser</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-initializer">initializer</a></span></span></li>
-</ul>
-</div>
-</nav>
+      <div class="search-box">
+        <span>
+          <img src="./image/search.png" />
+          <span class="search-input-edge"></span
+          ><input class="search-input" /><span class="search-input-edge"></span>
+        </span>
+        <ul class="search-result"></ul>
+      </div>
+      <a
+        style="position: relative; top: 3px"
+        href="https://github.com/mattboldt/typed.js"
+        ><img width="20px" src="./image/github.png"
+      /></a>
+    </header>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><p><a href="https://travis-ci.org/mattboldt/typed.js"><img src="https://travis-ci.org/mattboldt/typed.js.svg?branch=typed-2.0" alt="Build Status"></a>
-<a href="https://codeclimate.com/github/mattboldt/typed.js"><img src="https://codeclimate.com/github/mattboldt/typed.js/badges/gpa.svg" alt="Code Climate"></a>
-<a href><img src="https://img.shields.io/github/release/mattboldt/typed.js.svg" alt="GitHub release"></a>
-<a href="https://img.shields.io/npm/dt/typed.js.svg"><img src="https://img.shields.io/npm/dt/typed.js.svg" alt="npm"></a>
-<a href="https://raw.githubusercontent.com/mattboldt/typed.js/master/LICENSE.txt"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="GitHub license"></a></p>
-<p><img src="https://raw.githubusercontent.com/mattboldt/typed.js/master/logo-cropped.png" width="450px" title="Typed.js"></p>
-<h3 id="-a-href--http---www-mattboldt-com-demos-typed-js---live-demo--a-----a-href--http---mattboldt-github-io-typed-js---view-all-demos--a-----a-href--http---mattboldt-github-io-typed-js-docs--view-full-docs--a-----a-href--http---www-mattboldt-com--mattboldt-com--a-"><a href="http://www.mattboldt.com/demos/typed-js/">Live Demo</a> | <a href="http://mattboldt.github.io/typed.js/">View All Demos</a> | <a href="http://mattboldt.github.io/typed.js/docs">View Full Docs</a> | <a href="http://www.mattboldt.com">mattboldt.com</a></h3><p>Typed.js is a library that types. Enter in any string, and watch it type at the speed you&apos;ve set, backspace what it&apos;s typed, and begin a new sentence for however many strings you&apos;ve set.</p>
-<hr>
-<h2 id="installation">Installation</h2><h4 id="npm">NPM</h4><pre><code><code class="source-code prettyprint">npm install typed.js</code>
-</code></pre><h4 id="yarn">Yarn</h4><pre><code><code class="source-code prettyprint">yarn add typed.js</code>
-</code></pre><h4 id="cdn">CDN</h4><pre><code class="lang-html"><code class="source-code prettyprint">&lt;script src=&quot;https://cdn.jsdelivr.net/npm/typed.js@2.0.12&quot;&gt;&lt;/script&gt;</code>
+    <nav class="navigation" data-ice="nav">
+      <div>
+        <ul>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/html-parser.js~HTMLParser.html"
+                  >HTMLParser</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/initializer.js~Initializer.html"
+                  >Initializer</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/typed-using-raf.js~Typed.html"
+                  >Typed</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-class">C</span
+            ><span data-ice="name"
+              ><span
+                ><a href="class/src/typed.js~Typed.html">Typed</a></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-variable">V</span
+            ><span data-ice="name"
+              ><span
+                ><a href="variable/index.html#static-variable-defaults"
+                  >defaults</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-variable">V</span
+            ><span data-ice="name"
+              ><span
+                ><a href="variable/index.html#static-variable-htmlParser"
+                  >htmlParser</a
+                ></span
+              ></span
+            >
+          </li>
+          <li data-ice="doc">
+            <span data-ice="kind" class="kind-variable">V</span
+            ><span data-ice="name"
+              ><span
+                ><a href="variable/index.html#static-variable-initializer"
+                  >initializer</a
+                ></span
+              ></span
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="content" data-ice="content">
+      <div data-ice="index" class="github-markdown">
+        <p>
+          <a href="https://travis-ci.org/mattboldt/typed.js"
+            ><img
+              src="https://travis-ci.org/mattboldt/typed.js.svg?branch=typed-2.0"
+              alt="Build Status"
+          /></a>
+          <a href="https://codeclimate.com/github/mattboldt/typed.js"
+            ><img
+              src="https://codeclimate.com/github/mattboldt/typed.js/badges/gpa.svg"
+              alt="Code Climate"
+          /></a>
+          <a href
+            ><img
+              src="https://img.shields.io/github/release/mattboldt/typed.js.svg"
+              alt="GitHub release"
+          /></a>
+          <a href="https://img.shields.io/npm/dt/typed.js.svg"
+            ><img src="https://img.shields.io/npm/dt/typed.js.svg" alt="npm"
+          /></a>
+          <a
+            href="https://raw.githubusercontent.com/mattboldt/typed.js/master/LICENSE.txt"
+            ><img
+              src="https://img.shields.io/badge/license-MIT-blue.svg"
+              alt="GitHub license"
+          /></a>
+        </p>
+        <p>
+          <img
+            src="https://raw.githubusercontent.com/mattboldt/typed.js/master/logo-cropped.png"
+            width="450px"
+            title="Typed.js"
+          />
+        </p>
+        <h3
+          id="-a-href--http---www-mattboldt-com-demos-typed-js---live-demo--a-----a-href--http---mattboldt-github-io-typed-js---view-all-demos--a-----a-href--http---mattboldt-github-io-typed-js-docs--view-full-docs--a-----a-href--http---www-mattboldt-com--mattboldt-com--a-"
+        >
+          <a href="http://www.mattboldt.com/demos/typed-js/">Live Demo</a> |
+          <a href="http://mattboldt.github.io/typed.js/">View All Demos</a> |
+          <a href="http://mattboldt.github.io/typed.js/docs">View Full Docs</a>
+          | <a href="http://www.mattboldt.com">mattboldt.com</a>
+        </h3>
+        <p>
+          Typed.js is a library that types. Enter in any string, and watch it
+          type at the speed you&apos;ve set, backspace what it&apos;s typed, and
+          begin a new sentence for however many strings you&apos;ve set.
+        </p>
+        <hr />
+        <h2 id="installation">Installation</h2>
+        <h4 id="npm">NPM</h4>
+        <pre><code><code class="source-code prettyprint">npm install typed.js</code>
 </code></pre>
-<h4 id="setup">Setup</h4><p>This is really all you need to get going.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">// Can also be included with a regular script tag
+        <h4 id="yarn">Yarn</h4>
+        <pre><code><code class="source-code prettyprint">yarn add typed.js</code>
+</code></pre>
+        <h4 id="cdn">CDN</h4>
+        <pre><code class="lang-html"><code class="source-code prettyprint">&lt;script src=&quot;https://cdn.jsdelivr.net/npm/typed.js@2.0.13&quot;&gt;&lt;/script&gt;</code>
+</code></pre>
+        <h4 id="setup">Setup</h4>
+        <p>This is really all you need to get going.</p>
+        <pre><code class="lang-javascript"><code class="source-code prettyprint">// Can also be included with a regular script tag
 import Typed from &apos;typed.js&apos;;
 
 var options = {
@@ -63,57 +184,120 @@ var options = {
 
 var typed = new Typed(&apos;.element&apos;, options);</code>
 </code></pre>
-<h3 id="use-with-reactjs">Use with ReactJS</h3><p>Hook-based function component: <a href="https://jsfiddle.net/mattboldt/60h9an7y/">https://jsfiddle.net/mattboldt/60h9an7y/</a></p>
-<p>Class component: <a href="https://jsfiddle.net/mattboldt/ovat9jmp/">https://jsfiddle.net/mattboldt/ovat9jmp/</a></p>
-<h3 id="use-with-vue-js">Use with Vue.js</h3><p>Check out the Vue.js component: <a href="https://github.com/Orlandster/vue-typed-js">https://github.com/Orlandster/vue-typed-js</a></p>
-<h3 id="use-it-as-webcomponent">Use it as WebComponent</h3><p>Check out the WebComponent: <a href="https://github.com/Orlandster/wc-typed-js">https://github.com/Orlandster/wc-typed-js</a></p>
-<h2 id="wonderful-sites-that-have-used--or-are-using--typed-js">Wonderful sites that have used (or are using) Typed.js</h2><p><a href="https://github.com/features/package-registry">https://github.com/features/package-registry</a></p>
-<p><a href="https://slack.com/">https://slack.com/</a></p>
-<p><a href="https://envato.com/">https://envato.com/</a></p>
-<p><a href="https://gorails.com/">https://gorails.com/</a></p>
-<p><a href="https://productmap.co/">https://productmap.co/</a></p>
-<p><a href="https://www.typed.com/">https://www.typed.com/</a></p>
-<p><a href="https://apeiron.io">https://apeiron.io</a></p>
-<p><a href="https://git.market/">https://git.market/</a></p>
-<p><a href="https://commando.io/">https://commando.io/</a></p>
-<p><a href="http://testdouble.com/agency.html">http://testdouble.com/agency.html</a></p>
-<p><a href="https://www.capitalfactory.com/">https://www.capitalfactory.com/</a></p>
-<p><a href="http://www.maxcdn.com/">http://www.maxcdn.com/</a></p>
-<p><a href="https://www.powerauth.com/">https://www.powerauth.com/</a></p>
-<hr>
-<h3 id="strings-from-static-html--seo-friendly-">Strings from static HTML (SEO Friendly)</h3><p>Rather than using the <code>strings</code> array to insert strings, you can place an HTML <code>div</code> on the page and read from it.
-This allows bots and search engines, as well as users with JavaScript disabled, to see your text on the page.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">&lt;script&gt;
+        <h3 id="use-with-reactjs">Use with ReactJS</h3>
+        <p>
+          Hook-based function component:
+          <a href="https://jsfiddle.net/mattboldt/60h9an7y/"
+            >https://jsfiddle.net/mattboldt/60h9an7y/</a
+          >
+        </p>
+        <p>
+          Class component:
+          <a href="https://jsfiddle.net/mattboldt/ovat9jmp/"
+            >https://jsfiddle.net/mattboldt/ovat9jmp/</a
+          >
+        </p>
+        <h3 id="use-with-vue-js">Use with Vue.js</h3>
+        <p>
+          Check out the Vue.js component:
+          <a href="https://github.com/Orlandster/vue-typed-js"
+            >https://github.com/Orlandster/vue-typed-js</a
+          >
+        </p>
+        <h3 id="use-it-as-webcomponent">Use it as WebComponent</h3>
+        <p>
+          Check out the WebComponent:
+          <a href="https://github.com/Orlandster/wc-typed-js"
+            >https://github.com/Orlandster/wc-typed-js</a
+          >
+        </p>
+        <h2 id="wonderful-sites-that-have-used--or-are-using--typed-js">
+          Wonderful sites that have used (or are using) Typed.js
+        </h2>
+        <p>
+          <a href="https://github.com/features/package-registry"
+            >https://github.com/features/package-registry</a
+          >
+        </p>
+        <p><a href="https://slack.com/">https://slack.com/</a></p>
+        <p><a href="https://envato.com/">https://envato.com/</a></p>
+        <p><a href="https://gorails.com/">https://gorails.com/</a></p>
+        <p><a href="https://productmap.co/">https://productmap.co/</a></p>
+        <p><a href="https://www.typed.com/">https://www.typed.com/</a></p>
+        <p><a href="https://apeiron.io">https://apeiron.io</a></p>
+        <p><a href="https://git.market/">https://git.market/</a></p>
+        <p><a href="https://commando.io/">https://commando.io/</a></p>
+        <p>
+          <a href="http://testdouble.com/agency.html"
+            >http://testdouble.com/agency.html</a
+          >
+        </p>
+        <p>
+          <a href="https://www.capitalfactory.com/"
+            >https://www.capitalfactory.com/</a
+          >
+        </p>
+        <p><a href="http://www.maxcdn.com/">http://www.maxcdn.com/</a></p>
+        <p>
+          <a href="https://www.powerauth.com/">https://www.powerauth.com/</a>
+        </p>
+        <hr />
+        <h3 id="strings-from-static-html--seo-friendly-">
+          Strings from static HTML (SEO Friendly)
+        </h3>
+        <p>
+          Rather than using the <code>strings</code> array to insert strings,
+          you can place an HTML <code>div</code> on the page and read from it.
+          This allows bots and search engines, as well as users with JavaScript
+          disabled, to see your text on the page.
+        </p>
+        <pre><code class="lang-javascript"><code class="source-code prettyprint">&lt;script&gt;
   var typed = new Typed(&apos;#typed&apos;, {
     stringsElement: &apos;#typed-strings&apos;
   });
 &lt;/script&gt;</code>
 </code></pre>
-<pre><code class="lang-html"><code class="source-code prettyprint">&lt;div id=&quot;typed-strings&quot;&gt;
+        <pre><code class="lang-html"><code class="source-code prettyprint">&lt;div id=&quot;typed-strings&quot;&gt;
   &lt;p&gt;Typed.js is a &lt;strong&gt;JavaScript&lt;/strong&gt; library.&lt;/p&gt;
   &lt;p&gt;It &lt;em&gt;types&lt;/em&gt; out sentences.&lt;/p&gt;
 &lt;/div&gt;
 &lt;span id=&quot;typed&quot;&gt;&lt;/span&gt;</code>
 </code></pre>
-<h3 id="type-pausing">Type Pausing</h3><p>You can pause in the middle of a string for a given amount of time by including an escape character.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;.element&apos;, {
+        <h3 id="type-pausing">Type Pausing</h3>
+        <p>
+          You can pause in the middle of a string for a given amount of time by
+          including an escape character.
+        </p>
+        <pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;.element&apos;, {
   // Waits 1000ms after typing &quot;First&quot;
   strings: [&apos;First ^1000 sentence.&apos;, &apos;Second sentence.&apos;],
 });</code>
 </code></pre>
-<h3 id="smart-backspacing">Smart Backspacing</h3><p>In the following example, this would only backspace the words after &quot;This is a&quot;</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;.element&apos;, {
+        <h3 id="smart-backspacing">Smart Backspacing</h3>
+        <p>
+          In the following example, this would only backspace the words after
+          &quot;This is a&quot;
+        </p>
+        <pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;.element&apos;, {
   strings: [&apos;This is a JavaScript library&apos;, &apos;This is an ES6 module&apos;],
   smartBackspace: true, // Default value
 });</code>
 </code></pre>
-<h3 id="bulk-typing">Bulk Typing</h3><p>The following example would emulate how a terminal acts when typing a command and seeing its result.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;.element&apos;, {
+        <h3 id="bulk-typing">Bulk Typing</h3>
+        <p>
+          The following example would emulate how a terminal acts when typing a
+          command and seeing its result.
+        </p>
+        <pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;.element&apos;, {
   strings: [&apos;git push --force ^1000\n `pushed to origin with option force`&apos;],
 });</code>
 </code></pre>
-<h3 id="css">CSS</h3><p>CSS animations are built upon initialization in JavaScript. But, you can customize them at your will! These classes are:</p>
-<pre><code class="lang-css"><code class="source-code prettyprint">/* Cursor */
+        <h3 id="css">CSS</h3>
+        <p>
+          CSS animations are built upon initialization in JavaScript. But, you
+          can customize them at your will! These classes are:
+        </p>
+        <pre><code class="lang-css"><code class="source-code prettyprint">/* Cursor */
 .typed-cursor {
 }
 
@@ -121,7 +305,8 @@ This allows bots and search engines, as well as users with JavaScript disabled, 
 .typed-fade-out {
 }</code>
 </code></pre>
-<h2 id="customization">Customization</h2><pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;.element&apos;, {
+        <h2 id="customization">Customization</h2>
+        <pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;.element&apos;, {
   /**
    * @property {array} strings strings to be typed
    * @property {string} stringsElement ID of element containing string children
@@ -278,22 +463,39 @@ This allows bots and search engines, as well as users with JavaScript disabled, 
   onDestroy: (self) =&gt; {},
 });</code>
 </code></pre>
-<h2 id="contributing">Contributing</h2><h3 id="-a-href-----github-contributing-md--view-contribution-guidelines--a-"><a href="./.github/CONTRIBUTING.md">View Contribution Guidelines</a></h3><h2 id="end">end</h2><p>Thanks for checking this out. If you have any questions, I&apos;ll be on <a href="https://twitter.com/atmattb">Twitter</a>.</p>
-<p>If you&apos;re using this, let me know! I&apos;d love to see it.</p>
-<p>It would also be great if you mentioned me or my website somewhere. <a href="http://www.mattboldt.com">www.mattboldt.com</a></p>
-</div>
-</div>
+        <h2 id="contributing">Contributing</h2>
+        <h3
+          id="-a-href-----github-contributing-md--view-contribution-guidelines--a-"
+        >
+          <a href="./.github/CONTRIBUTING.md">View Contribution Guidelines</a>
+        </h3>
+        <h2 id="end">end</h2>
+        <p>
+          Thanks for checking this out. If you have any questions, I&apos;ll be
+          on <a href="https://twitter.com/atmattb">Twitter</a>.
+        </p>
+        <p>If you&apos;re using this, let me know! I&apos;d love to see it.</p>
+        <p>
+          It would also be great if you mentioned me or my website somewhere.
+          <a href="http://www.mattboldt.com">www.mattboldt.com</a>
+        </p>
+      </div>
+    </div>
 
-<footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
-</footer>
+    <footer class="footer">
+      Generated by
+      <a href="https://esdoc.org"
+        >ESDoc<span data-ice="esdocVersion">(1.1.0)</span
+        ><img src="./image/esdoc-logo-mini-black.png"
+      /></a>
+    </footer>
 
-<script src="script/search_index.js"></script>
-<script src="script/search.js"></script>
-<script src="script/pretty-print.js"></script>
-<script src="script/inherited-summary.js"></script>
-<script src="script/test-summary.js"></script>
-<script src="script/inner-link.js"></script>
-<script src="script/patch-for-local.js"></script>
-</body>
+    <script src="script/search_index.js"></script>
+    <script src="script/search.js"></script>
+    <script src="script/pretty-print.js"></script>
+    <script src="script/inherited-summary.js"></script>
+    <script src="script/test-summary.js"></script>
+    <script src="script/inner-link.js"></script>
+    <script src="script/patch-for-local.js"></script>
+  </body>
 </html>

@@ -29,7 +29,7 @@ yarn add typed.js
 #### CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.13"></script>
 ```
 
 #### Setup
