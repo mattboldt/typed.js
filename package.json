@@ -25,9 +25,6 @@
     "animation"
   ],
   "devDependencies": {
-    "esdoc": "^1.1.0",
-    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
-    "esdoc-standard-plugin": "^1.0.0",
     "microbundle": "^0.15.1"
   },
   "scripts": {
