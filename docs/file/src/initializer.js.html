@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/initializer.js | typed.js</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="A JavaScript Typing Animation Library"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="typed.js"><meta property="twitter:description" content="A JavaScript Typing Animation Library"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/mattboldt/typed.js"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/html-parser.js~HTMLParser.html">HTMLParser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/initializer.js~Initializer.html">Initializer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/typed-using-raf.js~Typed.html">Typed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/typed.js~Typed.html">Typed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-defaults">defaults</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-htmlParser">htmlParser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-initializer">initializer</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/initializer.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import defaults from &apos;./defaults.js&apos;;
+/**
+ * Initialize the Typed object
+ */
+
+export default class Initializer {
+  /**
+   * Load up defaults &amp; options on the Typed instance
+   * @param {Typed} self instance of Typed
+   * @param {object} options options object
+   * @param {string} elementId HTML element ID _OR_ instance of HTML element
+   * @private
+   */
+
+  load(self, options, elementId) {
+    // chosen element to manipulate text
+    if (typeof elementId === &apos;string&apos;) {
+      self.el = document.querySelector(elementId);
+    } else {
+      self.el = elementId;
+    }
+
+    self.options = { ...defaults, ...options };
+
+    // attribute to type into
+    self.isInput = self.el.tagName.toLowerCase() === &apos;input&apos;;
+    self.attr = self.options.attr;
+    self.bindInputFocusEvents = self.options.bindInputFocusEvents;
+
+    // show cursor
+    self.showCursor = self.isInput ? false : self.options.showCursor;
+
+    // custom cursor
+    self.cursorChar = self.options.cursorChar;
+
+    // Is the cursor blinking
+    self.cursorBlinking = true;
+
+    // text content of element
+    self.elContent = self.attr
+      ? self.el.getAttribute(self.attr)
+      : self.el.textContent;
+
+    // html or plain text
+    self.contentType = self.options.contentType;
+
+    // typing speed
+    self.typeSpeed = self.options.typeSpeed;
+
+    // add a delay before typing starts
+    self.startDelay = self.options.startDelay;
+
+    // backspacing speed
+    self.backSpeed = self.options.backSpeed;
+
+    // only backspace what doesn&apos;t match the previous string
+    self.smartBackspace = self.options.smartBackspace;
+
+    // amount of time to wait before backspacing
+    self.backDelay = self.options.backDelay;
+
+    // Fade out instead of backspace
+    self.fadeOut = self.options.fadeOut;
+    self.fadeOutClass = self.options.fadeOutClass;
+    self.fadeOutDelay = self.options.fadeOutDelay;
+
+    // variable to check whether typing is currently paused
+    self.isPaused = false;
+
+    // input strings of text
+    self.strings = self.options.strings.map((s) =&gt; s.trim());
+
+    // div containing strings
+    if (typeof self.options.stringsElement === &apos;string&apos;) {
+      self.stringsElement = document.querySelector(self.options.stringsElement);
+    } else {
+      self.stringsElement = self.options.stringsElement;
+    }
+
+    if (self.stringsElement) {
+      self.strings = [];
+      self.stringsElement.style.cssText =
+        &apos;clip: rect(0 0 0 0);clip-path:inset(50%);height:1px;overflow:hidden;position:absolute;white-space:nowrap;width:1px;&apos;;
+
+      const strings = Array.prototype.slice.apply(self.stringsElement.children);
+      const stringsLength = strings.length;
+
+      if (stringsLength) {
+        for (let i = 0; i &lt; stringsLength; i += 1) {
+          const stringEl = strings[i];
+          self.strings.push(stringEl.innerHTML.trim());
+        }
+      }
+    }
+
+    // character number position of current string
+    self.strPos = 0;
+
+    // current array position
+    self.arrayPos = 0;
+
+    // index of string to stop backspacing on
+    self.stopNum = 0;
+
+    // Looping logic
+    self.loop = self.options.loop;
+    self.loopCount = self.options.loopCount;
+    self.curLoop = 0;
+
+    // shuffle the strings
+    self.shuffle = self.options.shuffle;
+    // the order of strings
+    self.sequence = [];
+
+    self.pause = {
+      status: false,
+      typewrite: true,
+      curString: &apos;&apos;,
+      curStrPos: 0,
+    };
+
+    // When the typing is complete (when not looped)
+    self.typingComplete = false;
+
+    // Set the order in which the strings are typed
+    for (let i in self.strings) {
+      self.sequence[i] = i;
+    }
+
+    // If there is some text in the element
+    self.currentElContent = this.getCurrentElContent(self);
+
+    self.autoInsertCss = self.options.autoInsertCss;
+
+    this.appendAnimationCss(self);
+  }
+
+  getCurrentElContent(self) {
+    let elContent = &apos;&apos;;
+    if (self.attr) {
+      elContent = self.el.getAttribute(self.attr);
+    } else if (self.isInput) {
+      elContent = self.el.value;
+    } else if (self.contentType === &apos;html&apos;) {
+      elContent = self.el.innerHTML;
+    } else {
+      elContent = self.el.textContent;
+    }
+    return elContent;
+  }
+
+  appendAnimationCss(self) {
+    const cssDataName = &apos;data-typed-js-css&apos;;
+    if (!self.autoInsertCss) {
+      return;
+    }
+    if (!self.showCursor &amp;&amp; !self.fadeOut) {
+      return;
+    }
+    if (document.querySelector(`[${cssDataName}]`)) {
+      return;
+    }
+
+    let css = document.createElement(&apos;style&apos;);
+    css.type = &apos;text/css&apos;;
+    css.setAttribute(cssDataName, true);
+
+    let innerCss = &apos;&apos;;
+    if (self.showCursor) {
+      innerCss += `
+        .typed-cursor{
+          opacity: 1;
+        }
+        .typed-cursor.typed-cursor--blink{
+          animation: typedjsBlink 0.7s infinite;
+          -webkit-animation: typedjsBlink 0.7s infinite;
+                  animation: typedjsBlink 0.7s infinite;
+        }
+        @keyframes typedjsBlink{
+          50% { opacity: 0.0; }
+        }
+        @-webkit-keyframes typedjsBlink{
+          0% { opacity: 1; }
+          50% { opacity: 0.0; }
+          100% { opacity: 1; }
+        }
+      `;
+    }
+
+    if (self.fadeOut) {
+      innerCss += `
+        .typed-fade-out{
+          opacity: 0;
+          transition: opacity .25s;
+        }
+        .typed-cursor.typed-cursor--blink.typed-fade-out{
+          -webkit-animation: 0;
+          animation: 0;
+        }
+      `;
+    }
+    if (css.length === 0) {
+      return;
+    }
+    css.innerHTML = innerCss;
+    document.body.appendChild(css);
+  }
+}
+
+export let initializer = new Initializer();
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

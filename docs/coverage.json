@@ -1,0 +1,65 @@
+{
+  "coverage": "61.84%",
+  "expectCount": 76,
+  "actualCount": 47,
+  "files": {
+    "src/defaults.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/html-parser.js": {
+      "expectCount": 4,
+      "actualCount": 3,
+      "undocumentLines": [
+        67
+      ]
+    },
+    "src/initializer.js": {
+      "expectCount": 5,
+      "actualCount": 2,
+      "undocumentLines": [
+        138,
+        152,
+        210
+      ]
+    },
+    "src/typed-using-raf.js": {
+      "expectCount": 35,
+      "actualCount": 21,
+      "undocumentLines": [
+        12,
+        74,
+        76,
+        77,
+        78,
+        92,
+        105,
+        147,
+        152,
+        179,
+        208,
+        301,
+        368,
+        391
+      ]
+    },
+    "src/typed.js": {
+      "expectCount": 31,
+      "actualCount": 20,
+      "undocumentLines": [
+        11,
+        73,
+        75,
+        76,
+        77,
+        91,
+        95,
+        142,
+        267,
+        334,
+        357
+      ]
+    }
+  }
+}

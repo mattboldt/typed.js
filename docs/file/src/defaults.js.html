@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/defaults.js | typed.js</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="A JavaScript Typing Animation Library"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="typed.js"><meta property="twitter:description" content="A JavaScript Typing Animation Library"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/mattboldt/typed.js"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/html-parser.js~HTMLParser.html">HTMLParser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/initializer.js~Initializer.html">Initializer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/typed-using-raf.js~Typed.html">Typed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/typed.js~Typed.html">Typed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-defaults">defaults</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-htmlParser">htmlParser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-initializer">initializer</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/defaults.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * Defaults &amp; options
+ * @returns {object} Typed defaults &amp; options
+ * @public
+ */
+
+const defaults = {
+  /**
+   * @property {array} strings strings to be typed
+   * @property {string} stringsElement ID of element containing string children
+   */
+  strings: [
+    &apos;These are the default values...&apos;,
+    &apos;You know what you should do?&apos;,
+    &apos;Use your own!&apos;,
+    &apos;Have a great day!&apos;,
+  ],
+  stringsElement: null,
+
+  /**
+   * @property {number} typeSpeed type speed in milliseconds
+   */
+  typeSpeed: 0,
+
+  /**
+   * @property {number} startDelay time before typing starts in milliseconds
+   */
+  startDelay: 0,
+
+  /**
+   * @property {number} backSpeed backspacing speed in milliseconds
+   */
+  backSpeed: 0,
+
+  /**
+   * @property {boolean} smartBackspace only backspace what doesn&apos;t match the previous string
+   */
+  smartBackspace: true,
+
+  /**
+   * @property {boolean} shuffle shuffle the strings
+   */
+  shuffle: false,
+
+  /**
+   * @property {number} backDelay time before backspacing in milliseconds
+   */
+  backDelay: 700,
+
+  /**
+   * @property {boolean} fadeOut Fade out instead of backspace
+   * @property {string} fadeOutClass css class for fade animation
+   * @property {boolean} fadeOutDelay Fade out delay in milliseconds
+   */
+  fadeOut: false,
+  fadeOutClass: &apos;typed-fade-out&apos;,
+  fadeOutDelay: 500,
+
+  /**
+   * @property {boolean} loop loop strings
+   * @property {number} loopCount amount of loops
+   */
+  loop: false,
+  loopCount: Infinity,
+
+  /**
+   * @property {boolean} showCursor show cursor
+   * @property {string} cursorChar character for cursor
+   * @property {boolean} autoInsertCss insert CSS for cursor and fadeOut into HTML &lt;head&gt;
+   */
+  showCursor: true,
+  cursorChar: &apos;|&apos;,
+  autoInsertCss: true,
+
+  /**
+   * @property {string} attr attribute for typing
+   * Ex: input placeholder, value, or just HTML text
+   */
+  attr: null,
+
+  /**
+   * @property {boolean} bindInputFocusEvents bind to focus and blur if el is text input
+   */
+  bindInputFocusEvents: false,
+
+  /**
+   * @property {string} contentType &apos;html&apos; or &apos;null&apos; for plaintext
+   */
+  contentType: &apos;html&apos;,
+
+  /**
+   * Before it begins typing
+   * @param {Typed} self
+   */
+  onBegin: (self) =&gt; {},
+
+  /**
+   * All typing is complete
+   * @param {Typed} self
+   */
+  onComplete: (self) =&gt; {},
+
+  /**
+   * Before each string is typed
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
+  preStringTyped: (arrayPos, self) =&gt; {},
+
+  /**
+   * After each string is typed
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
+  onStringTyped: (arrayPos, self) =&gt; {},
+
+  /**
+   * During looping, after last string is typed
+   * @param {Typed} self
+   */
+  onLastStringBackspaced: (self) =&gt; {},
+
+  /**
+   * Typing has been stopped
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
+  onTypingPaused: (arrayPos, self) =&gt; {},
+
+  /**
+   * Typing has been started after being stopped
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
+  onTypingResumed: (arrayPos, self) =&gt; {},
+
+  /**
+   * After reset
+   * @param {Typed} self
+   */
+  onReset: (self) =&gt; {},
+
+  /**
+   * After stop
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
+  onStop: (arrayPos, self) =&gt; {},
+
+  /**
+   * After start
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
+  onStart: (arrayPos, self) =&gt; {},
+
+  /**
+   * After destroy
+   * @param {Typed} self
+   */
+  onDestroy: (self) =&gt; {},
+};
+
+export default defaults;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

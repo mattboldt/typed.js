@@ -1,2187 +1,299 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-  <meta charset='utf-8' />
-  <title>  | Documentation</title>
-  <meta name='viewport' content='width=device-width,initial-scale=1'>
-  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
-  <link href='assets/style.css' type='text/css' rel='stylesheet' />
-  <link href='assets/github.css' type='text/css' rel='stylesheet' />
-</head>
-<body class='documentation'>
-  <div class='max-width-4 mx-auto'>
-    <div class='clearfix md-mxn2'>
-      <div class='fixed xs-hide fix-3 overflow-auto max-height-100'>
-        <div class='py1 px2'>
-          <h3 class='mb0 no-anchor'></h3>
-          <div class='mb1'><code></code></div>
-          <input
-            placeholder='Filter'
-            id='filter-input'
-            class='col12 block input'
-            type='text' />
-          <div id='toc'>
-            <ul class='list-reset h5 py1-ul'>
-              
-                
-                <li><a
-                  href='#defaults'
-                  class=" toggle-sibling">
-                  defaults
-                  <span class='icon'>▸</span>
-                </a>
-                
-                <div class='toggle-target display-none'>
-                  
-                  <ul class='list-reset py1-ul pl1'>
-                    <li class='h5'><span>Static members</span></li>
-                    
-                      <li><a
-                        href='#defaults.strings'
-                        class='regular pre-open'>
-                        .strings
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.typeSpeed'
-                        class='regular pre-open'>
-                        .typeSpeed
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.startDelay'
-                        class='regular pre-open'>
-                        .startDelay
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.backSpeed'
-                        class='regular pre-open'>
-                        .backSpeed
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.smartBackspace'
-                        class='regular pre-open'>
-                        .smartBackspace
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.shuffle'
-                        class='regular pre-open'>
-                        .shuffle
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.backDelay'
-                        class='regular pre-open'>
-                        .backDelay
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.fadeOut'
-                        class='regular pre-open'>
-                        .fadeOut
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.loop'
-                        class='regular pre-open'>
-                        .loop
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.showCursor'
-                        class='regular pre-open'>
-                        .showCursor
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.attr'
-                        class='regular pre-open'>
-                        .attr
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.bindInputFocusEvents'
-                        class='regular pre-open'>
-                        .bindInputFocusEvents
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.contentType'
-                        class='regular pre-open'>
-                        .contentType
-                      </a></li>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl">
+  <title data-ice="title">Home | typed.js</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="A JavaScript Typing Animation Library"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="typed.js"><meta property="twitter:description" content="A JavaScript Typing Animation Library"></head>
+<body class="layout-container" data-ice="rootContainer">
 
-                      <li><a
-                        href='#defaults.onBegin'
-                        class='regular pre-open'>
-                        .onBegin
-                      </a></li>
-
-                      <li><a
-                        href='#defaults.onComplete'
-                        class='regular pre-open'>
-                        .onComplete
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.preStringTyped'
-                        class='regular pre-open'>
-                        .preStringTyped
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.onStringTyped'
-                        class='regular pre-open'>
-                        .onStringTyped
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.onLastStringBackspaced'
-                        class='regular pre-open'>
-                        .onLastStringBackspaced
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.onTypingPaused'
-                        class='regular pre-open'>
-                        .onTypingPaused
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.onTypingResumed'
-                        class='regular pre-open'>
-                        .onTypingResumed
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.onReset'
-                        class='regular pre-open'>
-                        .onReset
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.onStop'
-                        class='regular pre-open'>
-                        .onStop
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.onStart'
-                        class='regular pre-open'>
-                        .onStart
-                      </a></li>
-                    
-                      <li><a
-                        href='#defaults.onDestroy'
-                        class='regular pre-open'>
-                        .onDestroy
-                      </a></li>
-                    
-                    </ul>
-                  
-                  
-                  
-                </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#htmlparser'
-                  class="">
-                  HTMLParser
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#initializer'
-                  class="">
-                  Initializer
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#typed'
-                  class=" toggle-sibling">
-                  Typed
-                  <span class='icon'>▸</span>
-                </a>
-                
-                <div class='toggle-target display-none'>
-                  
-                  
-                    <ul class='list-reset py1-ul pl1'>
-                      <li class='h5'><span>Instance members</span></li>
-                      
-                      <li><a
-                        href='#Typed#toggle'
-                        class='regular pre-open'>
-                        #toggle
-                      </a></li>
-                      
-                      <li><a
-                        href='#Typed#stop'
-                        class='regular pre-open'>
-                        #stop
-                      </a></li>
-                      
-                      <li><a
-                        href='#Typed#start'
-                        class='regular pre-open'>
-                        #start
-                      </a></li>
-                      
-                      <li><a
-                        href='#Typed#destroy'
-                        class='regular pre-open'>
-                        #destroy
-                      </a></li>
-                      
-                      <li><a
-                        href='#Typed#reset'
-                        class='regular pre-open'>
-                        #reset
-                      </a></li>
-                      
-                    </ul>
-                  
-                  
-                </div>
-                
-                </li>
-              
-            </ul>
-          </div>
-          <div class='mt1 h6 quiet'>
-            <a href='http://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
-          </div>
-        </div>
-      </div>
-      <div class='fix-margin-3'>
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
+<header>
+  <a href="./">Home</a>
   
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='defaults'>
-      defaults
-    </h3>
-    
-    
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
   </div>
-  
+<a style="position:relative; top:3px;" href="https://github.com/mattboldt/typed.js"><img width="20px" src="./image/github.png"></a></header>
 
-  <p>Defaults &#x26; options</p>
-
-
-  <div class='pre p1 fill-light mt0'>defaults</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
     
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
-        Typed defaults &#x26; options
-
-      
-    
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Static Members</div>
-    <div class="clearfix">
-  
-    <div class='border-bottom' id='defaults.strings'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>strings</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  
-
-  <div class='pre p1 fill-light mt0'>strings</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>strings</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a>)</code>
-          : strings to be typed
-
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>stringsElement</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          : ID of element containing string children
-
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.typeSpeed'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>typeSpeed</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  
-
-  <div class='pre p1 fill-light mt0'>typeSpeed</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>typeSpeed</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-          : type speed in milliseconds
-
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.startDelay'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>startDelay</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  
-
-  <div class='pre p1 fill-light mt0'>startDelay</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>startDelay</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-          : time before typing starts in milliseconds
-
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.backSpeed'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>backSpeed</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  
-
-  <div class='pre p1 fill-light mt0'>backSpeed</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>backSpeed</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-          : backspacing speed in milliseconds
-
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.smartBackspace'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>smartBackspace</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  
-
-  <div class='pre p1 fill-light mt0'>smartBackspace</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>smartBackspace</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
-          : only backspace what doesn't match the previous string
-
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.shuffle'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>shuffle</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  
-
-  <div class='pre p1 fill-light mt0'>shuffle</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>shuffle</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
-          : shuffle the strings
-
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.backDelay'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>backDelay</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  
-
-  <div class='pre p1 fill-light mt0'>backDelay</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>backDelay</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-          : time before backspacing in milliseconds
-
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.fadeOut'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>fadeOut</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  
-
-  <div class='pre p1 fill-light mt0'>fadeOut</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>fadeOut</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
-          : Fade out instead of backspace
-
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>fadeOutClass</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          : css class for fade animation
-
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>fadeOutDelay</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
-          : Fade out delay in milliseconds
-
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.loop'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>loop</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  
-
-  <div class='pre p1 fill-light mt0'>loop</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>loop</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
-          : loop strings
-
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>loopCount</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-          : amount of loops
-
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.showCursor'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>showCursor</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  
-
-  <div class='pre p1 fill-light mt0'>showCursor</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>showCursor</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
-          : show cursor
-
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>cursorChar</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          : character for cursor
-
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>autoInsertCss</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
-          : insert CSS for cursor and fadeOut into HTML 
-<head>
-
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.attr'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>attr</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  
-
-  <div class='pre p1 fill-light mt0'>attr</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>attr</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          : attribute for typing
-Ex: input placeholder, value, or just HTML text
-
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.bindInputFocusEvents'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>bindInputFocusEvents</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  
-
-  <div class='pre p1 fill-light mt0'>bindInputFocusEvents</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>bindInputFocusEvents</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
-          : bind to focus and blur if el is text input
-
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.contentType'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>contentType</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  
-
-  <div class='pre p1 fill-light mt0'>contentType</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-      
-        <div class='space-bottom0'>
-          <span class='code bold'>contentType</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          : 'html' or 'null' for plaintext
-
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.onBegin'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>onBegin(self)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Before it begins typing</p>
-
-  <div class='pre p1 fill-light mt0'>onBegin(self: <a href="#typed">Typed</a>)</div>
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>self</span> <code class='quiet'>(<a href="#typed">Typed</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-</section>
-
-      </div>
-    </div>
-
-    <div class='border-bottom' id='defaults.onComplete'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>onComplete(self)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>All typing is complete</p>
-
-
-  <div class='pre p1 fill-light mt0'>onComplete(self: <a href="#typed">Typed</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>self</span> <code class='quiet'>(<a href="#typed">Typed</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.preStringTyped'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>preStringTyped(arrayPos, self)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Before each string is typed</p>
-
-
-  <div class='pre p1 fill-light mt0'>preStringTyped(arrayPos: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, self: <a href="#typed">Typed</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>arrayPos</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>self</span> <code class='quiet'>(<a href="#typed">Typed</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.onStringTyped'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>onStringTyped(arrayPos, self)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>After each string is typed</p>
-
-
-  <div class='pre p1 fill-light mt0'>onStringTyped(arrayPos: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, self: <a href="#typed">Typed</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>arrayPos</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>self</span> <code class='quiet'>(<a href="#typed">Typed</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.onLastStringBackspaced'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>onLastStringBackspaced(self)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>During looping, after last string is typed</p>
-
-
-  <div class='pre p1 fill-light mt0'>onLastStringBackspaced(self: <a href="#typed">Typed</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>self</span> <code class='quiet'>(<a href="#typed">Typed</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.onTypingPaused'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>onTypingPaused(arrayPos, self)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Typing has been stopped</p>
-
-
-  <div class='pre p1 fill-light mt0'>onTypingPaused(arrayPos: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, self: <a href="#typed">Typed</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>arrayPos</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>self</span> <code class='quiet'>(<a href="#typed">Typed</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.onTypingResumed'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>onTypingResumed(arrayPos, self)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Typing has been started after being stopped</p>
-
-
-  <div class='pre p1 fill-light mt0'>onTypingResumed(arrayPos: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, self: <a href="#typed">Typed</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>arrayPos</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>self</span> <code class='quiet'>(<a href="#typed">Typed</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.onReset'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>onReset(self)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>After reset</p>
-
-
-  <div class='pre p1 fill-light mt0'>onReset(self: <a href="#typed">Typed</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>self</span> <code class='quiet'>(<a href="#typed">Typed</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.onStop'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>onStop(arrayPos, self)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>After stop</p>
-
-
-  <div class='pre p1 fill-light mt0'>onStop(arrayPos: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, self: <a href="#typed">Typed</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>arrayPos</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>self</span> <code class='quiet'>(<a href="#typed">Typed</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.onStart'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>onStart(arrayPos, self)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>After start</p>
-
-
-  <div class='pre p1 fill-light mt0'>onStart(arrayPos: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, self: <a href="#typed">Typed</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>arrayPos</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>self</span> <code class='quiet'>(<a href="#typed">Typed</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='defaults.onDestroy'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>onDestroy(self)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>After destroy</p>
-
-
-  <div class='pre p1 fill-light mt0'>onDestroy(self: <a href="#typed">Typed</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>self</span> <code class='quiet'>(<a href="#typed">Typed</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/html-parser.js~HTMLParser.html">HTMLParser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/initializer.js~Initializer.html">Initializer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/typed-using-raf.js~Typed.html">Typed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/typed.js~Typed.html">Typed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-defaults">defaults</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-htmlParser">htmlParser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-initializer">initializer</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><p><a href="https://travis-ci.org/mattboldt/typed.js"><img src="https://travis-ci.org/mattboldt/typed.js.svg?branch=typed-2.0" alt="Build Status"></a>
+<a href="https://codeclimate.com/github/mattboldt/typed.js"><img src="https://codeclimate.com/github/mattboldt/typed.js/badges/gpa.svg" alt="Code Climate"></a>
+<a href><img src="https://img.shields.io/github/release/mattboldt/typed.js.svg" alt="GitHub release"></a>
+<a href="https://img.shields.io/npm/dt/typed.js.svg"><img src="https://img.shields.io/npm/dt/typed.js.svg" alt="npm"></a>
+<a href="https://raw.githubusercontent.com/mattboldt/typed.js/master/LICENSE.txt"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="GitHub license"></a></p>
+<p><img src="https://raw.githubusercontent.com/mattboldt/typed.js/master/logo-cropped.png" width="450px" title="Typed.js"></p>
+<h3 id="-a-href--http---www-mattboldt-com-demos-typed-js---live-demo--a-----a-href--http---mattboldt-github-io-typed-js---view-all-demos--a-----a-href--http---mattboldt-github-io-typed-js-docs--view-full-docs--a-----a-href--http---www-mattboldt-com--mattboldt-com--a-"><a href="http://www.mattboldt.com/demos/typed-js/">Live Demo</a> | <a href="http://mattboldt.github.io/typed.js/">View All Demos</a> | <a href="http://mattboldt.github.io/typed.js/docs">View Full Docs</a> | <a href="http://www.mattboldt.com">mattboldt.com</a></h3><p>Typed.js is a library that types. Enter in any string, and watch it type at the speed you&apos;ve set, backspace what it&apos;s typed, and begin a new sentence for however many strings you&apos;ve set.</p>
+<hr>
+<h2 id="installation">Installation</h2><h4 id="npm">NPM</h4><pre><code><code class="source-code prettyprint">npm install typed.js</code>
+</code></pre><h4 id="yarn">Yarn</h4><pre><code><code class="source-code prettyprint">yarn add typed.js</code>
+</code></pre><h4 id="cdn">CDN</h4><pre><code class="lang-html"><code class="source-code prettyprint">&lt;script src=&quot;https://cdn.jsdelivr.net/npm/typed.js@2.0.12&quot;&gt;&lt;/script&gt;</code>
+</code></pre>
+<h4 id="setup">Setup</h4><p>This is really all you need to get going.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">// Can also be included with a regular script tag
+import Typed from &apos;typed.js&apos;;
+
+var options = {
+  strings: [&apos;&lt;i&gt;First&lt;/i&gt; sentence.&apos;, &apos;&amp;amp; a second sentence.&apos;],
+  typeSpeed: 40,
+};
+
+var typed = new Typed(&apos;.element&apos;, options);</code>
+</code></pre>
+<h3 id="use-with-reactjs">Use with ReactJS</h3><p>Hook-based function component: <a href="https://jsfiddle.net/mattboldt/60h9an7y/">https://jsfiddle.net/mattboldt/60h9an7y/</a></p>
+<p>Class component: <a href="https://jsfiddle.net/mattboldt/ovat9jmp/">https://jsfiddle.net/mattboldt/ovat9jmp/</a></p>
+<h3 id="use-with-vue-js">Use with Vue.js</h3><p>Check out the Vue.js component: <a href="https://github.com/Orlandster/vue-typed-js">https://github.com/Orlandster/vue-typed-js</a></p>
+<h3 id="use-it-as-webcomponent">Use it as WebComponent</h3><p>Check out the WebComponent: <a href="https://github.com/Orlandster/wc-typed-js">https://github.com/Orlandster/wc-typed-js</a></p>
+<h2 id="wonderful-sites-that-have-used--or-are-using--typed-js">Wonderful sites that have used (or are using) Typed.js</h2><p><a href="https://github.com/features/package-registry">https://github.com/features/package-registry</a></p>
+<p><a href="https://slack.com/">https://slack.com/</a></p>
+<p><a href="https://envato.com/">https://envato.com/</a></p>
+<p><a href="https://gorails.com/">https://gorails.com/</a></p>
+<p><a href="https://productmap.co/">https://productmap.co/</a></p>
+<p><a href="https://www.typed.com/">https://www.typed.com/</a></p>
+<p><a href="https://apeiron.io">https://apeiron.io</a></p>
+<p><a href="https://git.market/">https://git.market/</a></p>
+<p><a href="https://commando.io/">https://commando.io/</a></p>
+<p><a href="http://testdouble.com/agency.html">http://testdouble.com/agency.html</a></p>
+<p><a href="https://www.capitalfactory.com/">https://www.capitalfactory.com/</a></p>
+<p><a href="http://www.maxcdn.com/">http://www.maxcdn.com/</a></p>
+<p><a href="https://www.powerauth.com/">https://www.powerauth.com/</a></p>
+<hr>
+<h3 id="strings-from-static-html--seo-friendly-">Strings from static HTML (SEO Friendly)</h3><p>Rather than using the <code>strings</code> array to insert strings, you can place an HTML <code>div</code> on the page and read from it.
+This allows bots and search engines, as well as users with JavaScript disabled, to see your text on the page.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">&lt;script&gt;
+  var typed = new Typed(&apos;#typed&apos;, {
+    stringsElement: &apos;#typed-strings&apos;
+  });
+&lt;/script&gt;</code>
+</code></pre>
+<pre><code class="lang-html"><code class="source-code prettyprint">&lt;div id=&quot;typed-strings&quot;&gt;
+  &lt;p&gt;Typed.js is a &lt;strong&gt;JavaScript&lt;/strong&gt; library.&lt;/p&gt;
+  &lt;p&gt;It &lt;em&gt;types&lt;/em&gt; out sentences.&lt;/p&gt;
+&lt;/div&gt;
+&lt;span id=&quot;typed&quot;&gt;&lt;/span&gt;</code>
+</code></pre>
+<h3 id="type-pausing">Type Pausing</h3><p>You can pause in the middle of a string for a given amount of time by including an escape character.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;.element&apos;, {
+  // Waits 1000ms after typing &quot;First&quot;
+  strings: [&apos;First ^1000 sentence.&apos;, &apos;Second sentence.&apos;],
+});</code>
+</code></pre>
+<h3 id="smart-backspacing">Smart Backspacing</h3><p>In the following example, this would only backspace the words after &quot;This is a&quot;</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;.element&apos;, {
+  strings: [&apos;This is a JavaScript library&apos;, &apos;This is an ES6 module&apos;],
+  smartBackspace: true, // Default value
+});</code>
+</code></pre>
+<h3 id="bulk-typing">Bulk Typing</h3><p>The following example would emulate how a terminal acts when typing a command and seeing its result.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;.element&apos;, {
+  strings: [&apos;git push --force ^1000\n `pushed to origin with option force`&apos;],
+});</code>
+</code></pre>
+<h3 id="css">CSS</h3><p>CSS animations are built upon initialization in JavaScript. But, you can customize them at your will! These classes are:</p>
+<pre><code class="lang-css"><code class="source-code prettyprint">/* Cursor */
+.typed-cursor {
+}
+
+/* If fade out option is set */
+.typed-fade-out {
+}</code>
+</code></pre>
+<h2 id="customization">Customization</h2><pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;.element&apos;, {
+  /**
+   * @property {array} strings strings to be typed
+   * @property {string} stringsElement ID of element containing string children
+   */
+  strings: [
+    &apos;These are the default values...&apos;,
+    &apos;You know what you should do?&apos;,
+    &apos;Use your own!&apos;,
+    &apos;Have a great day!&apos;,
+  ],
+  stringsElement: null,
+
+  /**
+   * @property {number} typeSpeed type speed in milliseconds
+   */
+  typeSpeed: 0,
+
+  /**
+   * @property {number} startDelay time before typing starts in milliseconds
+   */
+  startDelay: 0,
+
+  /**
+   * @property {number} backSpeed backspacing speed in milliseconds
+   */
+  backSpeed: 0,
+
+  /**
+   * @property {boolean} smartBackspace only backspace what doesn&apos;t match the previous string
+   */
+  smartBackspace: true,
+
+  /**
+   * @property {boolean} shuffle shuffle the strings
+   */
+  shuffle: false,
+
+  /**
+   * @property {number} backDelay time before backspacing in milliseconds
+   */
+  backDelay: 700,
+
+  /**
+   * @property {boolean} fadeOut Fade out instead of backspace
+   * @property {string} fadeOutClass css class for fade animation
+   * @property {boolean} fadeOutDelay Fade out delay in milliseconds
+   */
+  fadeOut: false,
+  fadeOutClass: &apos;typed-fade-out&apos;,
+  fadeOutDelay: 500,
+
+  /**
+   * @property {boolean} loop loop strings
+   * @property {number} loopCount amount of loops
+   */
+  loop: false,
+  loopCount: Infinity,
+
+  /**
+   * @property {boolean} showCursor show cursor
+   * @property {string} cursorChar character for cursor
+   * @property {boolean} autoInsertCss insert CSS for cursor and fadeOut into HTML &lt;head&gt;
+   */
+  showCursor: true,
+  cursorChar: &apos;|&apos;,
+  autoInsertCss: true,
+
+  /**
+   * @property {string} attr attribute for typing
+   * Ex: input placeholder, value, or just HTML text
+   */
+  attr: null,
+
+  /**
+   * @property {boolean} bindInputFocusEvents bind to focus and blur if el is text input
+   */
+  bindInputFocusEvents: false,
+
+  /**
+   * @property {string} contentType &apos;html&apos; or &apos;null&apos; for plaintext
+   */
+  contentType: &apos;html&apos;,
+
+  /**
+   * Before it begins typing
+   * @param {Typed} self
+   */
+  onBegin: (self) =&gt; {},
+
+  /**
+   * All typing is complete
+   * @param {Typed} self
+   */
+  onComplete: (self) =&gt; {},
+
+  /**
+   * Before each string is typed
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
+  preStringTyped: (arrayPos, self) =&gt; {},
+
+  /**
+   * After each string is typed
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
+  onStringTyped: (arrayPos, self) =&gt; {},
+
+  /**
+   * During looping, after last string is typed
+   * @param {Typed} self
+   */
+  onLastStringBackspaced: (self) =&gt; {},
+
+  /**
+   * Typing has been stopped
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
+  onTypingPaused: (arrayPos, self) =&gt; {},
+
+  /**
+   * Typing has been started after being stopped
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
+  onTypingResumed: (arrayPos, self) =&gt; {},
+
+  /**
+   * After reset
+   * @param {Typed} self
+   */
+  onReset: (self) =&gt; {},
+
+  /**
+   * After stop
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
+  onStop: (arrayPos, self) =&gt; {},
+
+  /**
+   * After start
+   * @param {number} arrayPos
+   * @param {Typed} self
+   */
+  onStart: (arrayPos, self) =&gt; {},
+
+  /**
+   * After destroy
+   * @param {Typed} self
+   */
+  onDestroy: (self) =&gt; {},
+});</code>
+</code></pre>
+<h2 id="contributing">Contributing</h2><h3 id="-a-href-----github-contributing-md--view-contribution-guidelines--a-"><a href="./.github/CONTRIBUTING.md">View Contribution Guidelines</a></h3><h2 id="end">end</h2><p>Thanks for checking this out. If you have any questions, I&apos;ll be on <a href="https://twitter.com/atmattb">Twitter</a>.</p>
+<p>If you&apos;re using this, let me know! I&apos;d love to see it.</p>
+<p>It would also be great if you mentioned me or my website somewhere. <a href="http://www.mattboldt.com">www.mattboldt.com</a></p>
+</div>
 </div>
 
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='htmlparser'>
-      HTMLParser
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>TODO: These methods can probably be combined somehow
-Parse HTML tags &#x26; HTML Characters</p>
-
-
-  <div class='pre p1 fill-light mt0'>new HTMLParser()</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='initializer'>
-      Initializer
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Initialize the Typed object</p>
-
-
-  <div class='pre p1 fill-light mt0'>new Initializer()</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='typed'>
-      Typed
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Welcome to Typed.js!</p>
-
-
-  <div class='pre p1 fill-light mt0'>new Typed(elementId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>elementId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    HTML element ID 
-<em>OR</em>
- HTML element
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
-	    options object
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
-        a new Typed object
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
-    <div class="clearfix">
-  
-    <div class='border-bottom' id='Typed#toggle'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>toggle()</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Toggle start() and stop() of the Typed instance</p>
-
-
-  <div class='pre p1 fill-light mt0'>toggle()</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='Typed#stop'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>stop()</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Stop typing / backspacing and enable cursor blinking</p>
-
-
-  <div class='pre p1 fill-light mt0'>stop()</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='Typed#start'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>start()</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Start typing / backspacing after being stopped</p>
-
-
-  <div class='pre p1 fill-light mt0'>start()</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='Typed#destroy'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>destroy()</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Destroy this instance of Typed</p>
-
-
-  <div class='pre p1 fill-light mt0'>destroy()</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='Typed#reset'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>reset(restart?)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Reset Typed and optionally restarts</p>
-
-
-  <div class='pre p1 fill-light mt0'>reset(restart: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?= nser)</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>restart</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?= nser)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-</div>
-
-  
-
-  
-</section>
-
-          
-        
-      </div>
-    </div>
-  </div>
-  <script src='assets/anchor.js'></script>
-  <script src='assets/site.js'></script>
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
 </body>
 </html>
