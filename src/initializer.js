@@ -79,7 +79,9 @@ export default class Initializer {
 
     if (self.stringsElement) {
       self.strings = [];
-      self.stringsElement.style.display = 'none';
+      self.stringsElement.style.cssText =
+        'clip: rect(0 0 0 0);clip-path:inset(50%);height:1px;overflow:hidden;position:absolute;white-space:nowrap;width:1px;';
+
       const strings = Array.prototype.slice.apply(self.stringsElement.children);
       const stringsLength = strings.length;
 
@@ -114,7 +116,7 @@ export default class Initializer {
       status: false,
       typewrite: true,
       curString: '',
-      curStrPos: 0
+      curStrPos: 0,
     };
 
     // When the typing is complete (when not looped)
@@ -184,6 +186,7 @@ export default class Initializer {
         }
       `;
     }
+
     if (self.fadeOut) {
       innerCss += `
         .typed-fade-out{

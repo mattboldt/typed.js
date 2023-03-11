@@ -14,12 +14,16 @@ Typed.js is a library that types. Enter in any string, and watch it type at the 
 
 ## Installation
 
-#### Choose One
+#### NPM
 
 ```
 npm install typed.js
+```
+
+#### Yarn
+
+```
 yarn add typed.js
-bower install typed.js
 ```
 
 #### CDN
@@ -38,7 +42,7 @@ import Typed from 'typed.js';
 
 var options = {
   strings: ['<i>First</i> sentence.', '&amp; a second sentence.'],
-  typeSpeed: 40
+  typeSpeed: 40,
 };
 
 var typed = new Typed('.element', options);
@@ -116,7 +120,7 @@ You can pause in the middle of a string for a given amount of time by including 
 ```javascript
 var typed = new Typed('.element', {
   // Waits 1000ms after typing "First"
-  strings: ['First ^1000 sentence.', 'Second sentence.']
+  strings: ['First ^1000 sentence.', 'Second sentence.'],
 });
 ```
 
@@ -127,7 +131,7 @@ In the following example, this would only backspace the words after "This is a"
 ```javascript
 var typed = new Typed('.element', {
   strings: ['This is a JavaScript library', 'This is an ES6 module'],
-  smartBackspace: true // Default value
+  smartBackspace: true, // Default value
 });
 ```
 
@@ -137,7 +141,7 @@ The following example would emulate how a terminal acts when typing a command an
 
 ```javascript
 var typed = new Typed('.element', {
-  strings: ['git push --force ^1000\n `pushed to origin with option force`']
+  strings: ['git push --force ^1000\n `pushed to origin with option force`'],
 });
 ```
 
@@ -167,7 +171,7 @@ var typed = new Typed('.element', {
     'These are the default values...',
     'You know what you should do?',
     'Use your own!',
-    'Have a great day!'
+    'Have a great day!',
   ],
   stringsElement: null,
 
@@ -312,7 +316,7 @@ var typed = new Typed('.element', {
    * After destroy
    * @param {Typed} self
    */
-  onDestroy: (self) => {}
+  onDestroy: (self) => {},
 });
 ```
 
