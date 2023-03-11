@@ -14,7 +14,30 @@ Typed.js is a library that types. Enter in any string, and watch it type at the 
 
 ## Installation
 
-For use with a build tool like [Vite](https://vitejs.dev/), install with NPM or Yarn.
+### CDN
+
+For use directly in the browser via `<script>` tag:
+
+```html
+  <!-- Element to contain animated typing -->
+  <span id="element"></span>
+
+  <!-- Load library from the CDN -->
+  <script src="https://unpkg.com/typed.js@2.0.132/dist/typed.umd.js"></script>
+
+  <!-- Setup and start animation! -->
+  <script>
+    var typed = new Typed('#element', {
+      strings: ['<i>First</i> sentence.', '&amp; a second sentence.'],
+      typeSpeed: 40,
+    });
+  </script>
+</body>
+```
+
+### As an ESModule
+
+For use with a build tool like [Vite](https://vitejs.dev/), and/or in a React application, install with NPM or Yarn.
 
 #### NPM
 
@@ -28,33 +51,41 @@ npm install typed.js
 yarn add typed.js
 ```
 
-#### CDN
-
-For use directly in the browser via `<script>` tag:
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.132/dist/typed.umd.js"></script>
-```
-
-#### Setup
-
-This is really all you need to get going.
-
-```javascript
-// Can also be included with a regular script tag
-import Typed from 'typed.js';
-
-var options = {
-  strings: ['<i>First</i> sentence.', '&amp; a second sentence.'],
-  typeSpeed: 40,
-};
-
-var typed = new Typed('.element', options);
-```
-
 ### Use with ReactJS
 
-Hook-based function component: https://jsfiddle.net/mattboldt/60h9an7y/
+```js
+import React from 'react';
+import Typed from 'typed.js';
+
+function MyComponent() {
+  // Create reference to store the DOM element containing the animation
+  const el = React.useRef(null);
+
+  React.useEffect(() => {
+    const typed = new Typed(el.current, {
+      strings: [
+        'Some <i>strings</i> are italic',
+        'Some <strong>strings</strong> are bold',
+        'HTML characters &times; &copy;',
+      ],
+      typeSpeed: 50,
+    });
+
+    return () => {
+      // Destroy Typed instance during cleanup to stop animation
+      typed.destroy();
+    };
+  }, []);
+
+  return (
+    <div className="App">
+      <span ref={el} />
+    </div>
+  );
+}
+```
+
+More complex hook-based function component: https://jsfiddle.net/mattboldt/60h9an7y/
 
 Class component: https://jsfiddle.net/mattboldt/ovat9jmp/
 
@@ -122,7 +153,7 @@ This allows bots and search engines, as well as users with JavaScript disabled, 
 You can pause in the middle of a string for a given amount of time by including an escape character.
 
 ```javascript
-var typed = new Typed('.element', {
+var typed = new Typed('#element', {
   // Waits 1000ms after typing "First"
   strings: ['First ^1000 sentence.', 'Second sentence.'],
 });
@@ -133,7 +164,7 @@ var typed = new Typed('.element', {
 In the following example, this would only backspace the words after "This is a"
 
 ```javascript
-var typed = new Typed('.element', {
+var typed = new Typed('#element', {
   strings: ['This is a JavaScript library', 'This is an ES6 module'],
   smartBackspace: true, // Default value
 });
@@ -144,7 +175,7 @@ var typed = new Typed('.element', {
 The following example would emulate how a terminal acts when typing a command and seeing its result.
 
 ```javascript
-var typed = new Typed('.element', {
+var typed = new Typed('#element', {
   strings: ['git push --force ^1000\n `pushed to origin with option force`'],
 });
 ```
@@ -166,7 +197,7 @@ CSS animations are built upon initialization in JavaScript. But, you can customi
 ## Customization
 
 ```javascript
-var typed = new Typed('.element', {
+var typed = new Typed('#element', {
   /**
    * @property {array} strings strings to be typed
    * @property {string} stringsElement ID of element containing string children
