@@ -14,6 +14,8 @@ Typed.js is a library that types. Enter in any string, and watch it type at the 
 
 ## Installation
 
+For use with a build tool like [Vite](https://vitejs.dev/), install with NPM or Yarn.
+
 #### NPM
 
 ```
@@ -28,8 +30,10 @@ yarn add typed.js
 
 #### CDN
 
+For use directly in the browser via `<script>` tag:
+
 ```html
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.13"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.13/dist/typed.umd.js"></script>
 ```
 
 #### Setup
