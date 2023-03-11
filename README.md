@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/mattboldt/typed.js.svg?branch=typed-2.0)](https://travis-ci.org/mattboldt/typed.js)
 [![Code Climate](https://codeclimate.com/github/mattboldt/typed.js/badges/gpa.svg)](https://codeclimate.com/github/mattboldt/typed.js)
 [![GitHub release](https://img.shields.io/github/release/mattboldt/typed.js.svg)]()
 [![npm](https://img.shields.io/npm/dt/typed.js.svg)](https://img.shields.io/npm/dt/typed.js.svg)
@@ -16,6 +15,10 @@ Typed.js is a library that types. Enter in any string, and watch it type at the 
 
 ### CDN
 
+```html
+<script src="https://unpkg.com/typed.js@2.0.132/dist/typed.umd.js"></script>
+```
+
 For use directly in the browser via `<script>` tag:
 
 ```html
@@ -29,7 +32,7 @@ For use directly in the browser via `<script>` tag:
   <script>
     var typed = new Typed('#element', {
       strings: ['<i>First</i> sentence.', '&amp; a second sentence.'],
-      typeSpeed: 40,
+      typeSpeed: 50,
     });
   </script>
 </body>
@@ -51,7 +54,18 @@ npm install typed.js
 yarn add typed.js
 ```
 
-### Use with ReactJS
+#### General ESM Usage
+
+```js
+import Typed from 'typed.js';
+
+const typed = new Typed('#element', {
+  strings: ['<i>First</i> sentence.', '&amp; a second sentence.'],
+  typeSpeed: 50,
+});
+```
+
+### ReactJS Usage
 
 ```js
 import React from 'react';
@@ -63,11 +77,7 @@ function MyComponent() {
 
   React.useEffect(() => {
     const typed = new Typed(el.current, {
-      strings: [
-        'Some <i>strings</i> are italic',
-        'Some <strong>strings</strong> are bold',
-        'HTML characters &times; &copy;',
-      ],
+      strings: ['<i>First</i> sentence.', '&amp; a second sentence.'],
       typeSpeed: 50,
     });
 
