@@ -33,7 +33,7 @@ yarn add typed.js
 For use directly in the browser via `<script>` tag:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.13/dist/typed.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.13.1/dist/typed.umd.js"></script>
 ```
 
 #### Setup
