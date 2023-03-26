@@ -14,14 +14,14 @@ cd typed.js
 
 Then, make sure you have all the development dependencies installed.
 ```
-yarn install
+npm install
 ```
 (note: you will need Node.js, `yarn`, and `gulp` installed globally on your system)
 
 To get things going:
 ```
-gulp serve
-open http://localhost:3000
+npm run dev
+open index.html
 ```
 There you will see a list of pre-made demos showing each feature of Typed.js in action.
 
@@ -36,7 +36,7 @@ You need to include a demo of your changes (new features, a bug fix, etc) in a f
 To include your branch's version of Typed.js, simply add this JavaScript url as a dependency in JSFiddle, and remove the default:
 
 ```
-https://rawgit.com/<YOUR GITHUB USERNAME>/typed.js/<YOUR BRANCH NAME>/lib/typed.min.js
+https://cdn.jsdelivr.net/gh/<YOUR GITHUB USERNAME>/typed.js@<YOUR BRANCH NAME>/dist/typed.umd.js
 ```
 
 Include a link to the fiddle in the details of your pull request.
