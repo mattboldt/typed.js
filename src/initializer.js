@@ -96,6 +96,22 @@ export default class Initializer {
     // character number position of current string
     self.strPos = 0;
 
+    // If there is some text in the element
+    self.currentElContent = this.getCurrentElContent(self);
+
+    if (self.currentElContent && self.currentElContent.length > 0) {
+      self.strPos = self.currentElContent.length - 1;
+      self.strings.unshift(self.currentElContent);
+    }
+
+    // the order of strings
+    self.sequence = [];
+
+    // Set the order in which the strings are typed
+    for (let i in self.strings) {
+      self.sequence[i] = i;
+    }
+
     // current array position
     self.arrayPos = 0;
 
@@ -109,8 +125,6 @@ export default class Initializer {
 
     // shuffle the strings
     self.shuffle = self.options.shuffle;
-    // the order of strings
-    self.sequence = [];
 
     self.pause = {
       status: false,
@@ -122,17 +136,12 @@ export default class Initializer {
     // When the typing is complete (when not looped)
     self.typingComplete = false;
 
-    // Set the order in which the strings are typed
-    for (let i in self.strings) {
-      self.sequence[i] = i;
-    }
-
-    // If there is some text in the element
-    self.currentElContent = this.getCurrentElContent(self);
-
     self.autoInsertCss = self.options.autoInsertCss;
 
-    this.appendAnimationCss(self);
+    if (self.autoInsertCss) {
+      this.appendCursorAnimationCss(self);
+      this.appendFadeOutAnimationCss(self);
+    }
   }
 
   getCurrentElContent(self) {
@@ -149,25 +158,17 @@ export default class Initializer {
     return elContent;
   }
 
-  appendAnimationCss(self) {
-    const cssDataName = 'data-typed-js-css';
-    if (!self.autoInsertCss) {
-      return;
-    }
-    if (!self.showCursor && !self.fadeOut) {
-      return;
-    }
-    if (document.querySelector(`[${cssDataName}]`)) {
+  appendCursorAnimationCss(self) {
+    const cssDataName = 'data-typed-js-cursor-css';
+
+    if (!self.showCursor || document.querySelector(`[${cssDataName}]`)) {
       return;
     }
 
     let css = document.createElement('style');
-    css.type = 'text/css';
-    css.setAttribute(cssDataName, true);
+    css.setAttribute(cssDataName, 'true');
 
-    let innerCss = '';
-    if (self.showCursor) {
-      innerCss += `
+    css.innerHTML = `
         .typed-cursor{
           opacity: 1;
         }
@@ -185,10 +186,21 @@ export default class Initializer {
           100% { opacity: 1; }
         }
       `;
+
+    document.body.appendChild(css);
+  }
+
+  appendFadeOutAnimationCss(self) {
+    const cssDataName = 'data-typed-fadeout-js-css';
+
+    if (!self.fadeOut || document.querySelector(`[${cssDataName}]`)) {
+      return;
     }
 
-    if (self.fadeOut) {
-      innerCss += `
+    let css = document.createElement('style');
+    css.setAttribute(cssDataName, 'true');
+
+    css.innerHTML = `
         .typed-fade-out{
           opacity: 0;
           transition: opacity .25s;
@@ -198,11 +210,7 @@ export default class Initializer {
           animation: 0;
         }
       `;
-    }
-    if (css.length === 0) {
-      return;
-    }
-    css.innerHTML = innerCss;
+
     document.body.appendChild(css);
   }
 }

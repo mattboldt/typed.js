@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     typeSpeed: 20,
     backSpeed: 20,
     startDelay: 100,
-    loop: false,
+    loop: true,
     loopCount: Infinity,
     onBegin: function (self) {
       prettyLog('onBegin ' + self);

@@ -93,12 +93,12 @@ export default class Typed {
     this.insertCursor();
     if (this.bindInputFocusEvents) this.bindFocusEvents();
     this.timeout = setTimeout(() => {
-      // Check if there is some text in the element, if yes start by backspacing the default message
-      if (!this.currentElContent || this.currentElContent.length === 0) {
+      // If the strPos is 0, we're starting from the beginning of a string
+      // else, we're starting with a previous string that needs to be backspaced first
+      if (this.strPos === 0) {
         this.typewrite(this.strings[this.sequence[this.arrayPos]], this.strPos);
       } else {
-        // Start typing
-        this.backspace(this.currentElContent, this.currentElContent.length);
+        this.backspace(this.strings[this.sequence[this.arrayPos]], this.strPos);
       }
     }, this.startDelay);
   }
@@ -129,7 +129,7 @@ export default class Typed {
       curStrPos = htmlParser.typeHtmlChars(curString, curStrPos, this);
 
       let pauseTime = 0;
-      let substr = curString.substr(curStrPos);
+      let substr = curString.substring(curStrPos);
       // check for an escape character before a pause value
       // format: \^\d+ .. eg: ^1000 .. should be able to print the ^ too using ^^
       // single ^ are removed from string
@@ -152,7 +152,7 @@ export default class Typed {
       // check for skip characters formatted as
       // "this is a `string to print NOW` ..."
       if (substr.charAt(0) === '`') {
-        while (curString.substr(curStrPos + numChars).charAt(0) !== '`') {
+        while (curString.substring(curStrPos + numChars).charAt(0) !== '`') {
           numChars++;
           if (curStrPos + numChars > curString.length) break;
         }
@@ -204,7 +204,7 @@ export default class Typed {
     // start typing each new char into existing string
     // curString: arg, this.el.html: original text inside element
     curStrPos += numChars;
-    const nextString = curString.substr(0, curStrPos);
+    const nextString = curString.substring(0, curStrPos);
     this.replaceText(nextString);
     // loop the function
     this.typewrite(curString, curStrPos);
@@ -253,7 +253,7 @@ export default class Typed {
     this.timeout = setTimeout(() => {
       curStrPos = htmlParser.backSpaceHtmlChars(curString, curStrPos, this);
       // replace text with base text + typed characters
-      const curStringAtPosition = curString.substr(0, curStrPos);
+      const curStringAtPosition = curString.substring(0, curStrPos);
       this.replaceText(curStringAtPosition);
 
       // if smartBack is enabled
@@ -262,7 +262,7 @@ export default class Typed {
         let nextString = this.strings[this.arrayPos + 1];
         if (
           nextString &&
-          curStringAtPosition === nextString.substr(0, curStrPos)
+          curStringAtPosition === nextString.substring(0, curStrPos)
         ) {
           this.stopNum = curStrPos;
         } else {

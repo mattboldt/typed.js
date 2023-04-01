@@ -15,7 +15,7 @@ export default class HTMLParser {
 
   typeHtmlChars(curString, curStrPos, self) {
     if (self.contentType !== 'html') return curStrPos;
-    const curChar = curString.substr(curStrPos).charAt(0);
+    const curChar = curString.substring(curStrPos).charAt(0);
     if (curChar === '<' || curChar === '&') {
       let endTag = '';
       if (curChar === '<') {
@@ -23,7 +23,7 @@ export default class HTMLParser {
       } else {
         endTag = ';';
       }
-      while (curString.substr(curStrPos + 1).charAt(0) !== endTag) {
+      while (curString.substring(curStrPos + 1).charAt(0) !== endTag) {
         curStrPos++;
         if (curStrPos + 1 > curString.length) {
           break;
@@ -44,7 +44,7 @@ export default class HTMLParser {
    */
   backSpaceHtmlChars(curString, curStrPos, self) {
     if (self.contentType !== 'html') return curStrPos;
-    const curChar = curString.substr(curStrPos).charAt(0);
+    const curChar = curString.substring(curStrPos).charAt(0);
     if (curChar === '>' || curChar === ';') {
       let endTag = '';
       if (curChar === '>') {
@@ -52,7 +52,7 @@ export default class HTMLParser {
       } else {
         endTag = '&';
       }
-      while (curString.substr(curStrPos - 1).charAt(0) !== endTag) {
+      while (curString.substring(curStrPos - 1).charAt(0) !== endTag) {
         curStrPos--;
         if (curStrPos < 0) {
           break;
