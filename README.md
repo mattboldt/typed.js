@@ -3,7 +3,7 @@
 This fork strictly exists to replicate the solution for:
 https://stackoverflow.com/questions/49291904/play-sound-at-each-char-with-typedjs
 
-Where a callback `onCharAppended` is exposes for when each character is typed to allow for playing a sound or other events on each character typed.
+Where two callbacks `onCharAppended` and `onCharRemoved` are exposed for when each character is typed and removed respectively. This allows for playing a sound or triggering other events on each character typed or removed.
 
 # Original Repo's Readme
 
