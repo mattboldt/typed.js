@@ -11,11 +11,17 @@
     "typed",
     "animation"
   ],
-  "scripts": {"gulp": "gulp"},
+  "scripts": {
+    "gulp": "gulp"
+  },
   "contributors": [
     {
       "name": "Matt Boldt",
       "email": "me@mattboldt.com"
+    },
+    {
+      "name": "Lachlan Jacobs",
+      "email": "lach.jacobs@gmail.com"
     }
   ],
   "devDependencies": {
