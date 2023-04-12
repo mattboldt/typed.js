@@ -236,11 +236,11 @@ export default class Typed {
   }
 
   /**
-   * Backspaces 1 character at a time
-   * @param {string} curString the current string in the strings array
-   * @param {number} curStrPos the current position in the curString
-   * @private
-   */
+ * Backspaces 1 character at a time
+ * @param {string} curString the current string in the strings array
+ * @param {number} curStrPos the current position in the curString
+ * @private
+ */
   backspace(curString, curStrPos) {
     if (this.pause.status === true) {
       this.setPauseStatus(curString, curStrPos, false);
@@ -256,6 +256,9 @@ export default class Typed {
       // replace text with base text + typed characters
       const curStringAtPosition = curString.substr(0, curStrPos);
       this.replaceText(curStringAtPosition);
+
+      // Call the onCharRemoved callback
+      this.options.onCharRemoved(curString.charAt(curStrPos), this);
 
       // if smartBack is enabled
       if (this.smartBackspace) {
@@ -295,6 +298,7 @@ export default class Typed {
       // humanized value for typing
     }, humanize);
   }
+
 
   /**
    * Full animation is complete
