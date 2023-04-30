@@ -84,6 +84,10 @@ declare module 'typed.js' {
      */
     contentType?: string;
     /**
+     * Before it begins typing the first string
+     */
+    onBegin?(self: Typed): void;
+    /**
      * All typing is complete
      */
     onComplete?(self: Typed): void;

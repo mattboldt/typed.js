@@ -609,7 +609,7 @@
     "__docId__": 50,
     "kind": "file",
     "name": "src/html-parser.js",
-    "content": "/**\n * TODO: These methods can probably be combined somehow\n * Parse HTML tags & HTML Characters\n */\n\nexport default class HTMLParser {\n  /**\n   * Type HTML tags & HTML Characters\n   * @param {string} curString Current string\n   * @param {number} curStrPos Position in current string\n   * @param {Typed} self instance of Typed\n   * @returns {number} a new string position\n   * @private\n   */\n\n  typeHtmlChars(curString, curStrPos, self) {\n    if (self.contentType !== 'html') return curStrPos;\n    const curChar = curString.substr(curStrPos).charAt(0);\n    if (curChar === '<' || curChar === '&') {\n      let endTag = '';\n      if (curChar === '<') {\n        endTag = '>';\n      } else {\n        endTag = ';';\n      }\n      while (curString.substr(curStrPos + 1).charAt(0) !== endTag) {\n        curStrPos++;\n        if (curStrPos + 1 > curString.length) {\n          break;\n        }\n      }\n      curStrPos++;\n    }\n    return curStrPos;\n  }\n\n  /**\n   * Backspace HTML tags and HTML Characters\n   * @param {string} curString Current string\n   * @param {number} curStrPos Position in current string\n   * @param {Typed} self instance of Typed\n   * @returns {number} a new string position\n   * @private\n   */\n  backSpaceHtmlChars(curString, curStrPos, self) {\n    if (self.contentType !== 'html') return curStrPos;\n    const curChar = curString.substr(curStrPos).charAt(0);\n    if (curChar === '>' || curChar === ';') {\n      let endTag = '';\n      if (curChar === '>') {\n        endTag = '<';\n      } else {\n        endTag = '&';\n      }\n      while (curString.substr(curStrPos - 1).charAt(0) !== endTag) {\n        curStrPos--;\n        if (curStrPos < 0) {\n          break;\n        }\n      }\n      curStrPos--;\n    }\n    return curStrPos;\n  }\n}\n\nexport let htmlParser = new HTMLParser();\n",
+    "content": "/**\n * TODO: These methods can probably be combined somehow\n * Parse HTML tags & HTML Characters\n */\n\nexport default class HTMLParser {\n  /**\n   * Type HTML tags & HTML Characters\n   * @param {string} curString Current string\n   * @param {number} curStrPos Position in current string\n   * @param {Typed} self instance of Typed\n   * @returns {number} a new string position\n   * @private\n   */\n\n  typeHtmlChars(curString, curStrPos, self) {\n    if (self.contentType !== 'html') return curStrPos;\n    const curChar = curString.substring(curStrPos).charAt(0);\n    if (curChar === '<' || curChar === '&') {\n      let endTag = '';\n      if (curChar === '<') {\n        endTag = '>';\n      } else {\n        endTag = ';';\n      }\n      while (curString.substring(curStrPos + 1).charAt(0) !== endTag) {\n        curStrPos++;\n        if (curStrPos + 1 > curString.length) {\n          break;\n        }\n      }\n      curStrPos++;\n    }\n    return curStrPos;\n  }\n\n  /**\n   * Backspace HTML tags and HTML Characters\n   * @param {string} curString Current string\n   * @param {number} curStrPos Position in current string\n   * @param {Typed} self instance of Typed\n   * @returns {number} a new string position\n   * @private\n   */\n  backSpaceHtmlChars(curString, curStrPos, self) {\n    if (self.contentType !== 'html') return curStrPos;\n    const curChar = curString.substring(curStrPos).charAt(0);\n    if (curChar === '>' || curChar === ';') {\n      let endTag = '';\n      if (curChar === '>') {\n        endTag = '<';\n      } else {\n        endTag = '&';\n      }\n      while (curString.substring(curStrPos - 1).charAt(0) !== endTag) {\n        curStrPos--;\n        if (curStrPos < 0) {\n          break;\n        }\n      }\n      curStrPos--;\n    }\n    return curStrPos;\n  }\n}\n\nexport let htmlParser = new HTMLParser();\n",
     "static": true,
     "longname": "/Users/mattboldt/Documents/dev/Repos/typedjs/src/html-parser.js",
     "access": "public",
@@ -755,7 +755,7 @@
     "__docId__": 55,
     "kind": "file",
     "name": "src/initializer.js",
-    "content": "import defaults from './defaults.js';\n/**\n * Initialize the Typed object\n */\n\nexport default class Initializer {\n  /**\n   * Load up defaults & options on the Typed instance\n   * @param {Typed} self instance of Typed\n   * @param {object} options options object\n   * @param {string} elementId HTML element ID _OR_ instance of HTML element\n   * @private\n   */\n\n  load(self, options, elementId) {\n    // chosen element to manipulate text\n    if (typeof elementId === 'string') {\n      self.el = document.querySelector(elementId);\n    } else {\n      self.el = elementId;\n    }\n\n    self.options = { ...defaults, ...options };\n\n    // attribute to type into\n    self.isInput = self.el.tagName.toLowerCase() === 'input';\n    self.attr = self.options.attr;\n    self.bindInputFocusEvents = self.options.bindInputFocusEvents;\n\n    // show cursor\n    self.showCursor = self.isInput ? false : self.options.showCursor;\n\n    // custom cursor\n    self.cursorChar = self.options.cursorChar;\n\n    // Is the cursor blinking\n    self.cursorBlinking = true;\n\n    // text content of element\n    self.elContent = self.attr\n      ? self.el.getAttribute(self.attr)\n      : self.el.textContent;\n\n    // html or plain text\n    self.contentType = self.options.contentType;\n\n    // typing speed\n    self.typeSpeed = self.options.typeSpeed;\n\n    // add a delay before typing starts\n    self.startDelay = self.options.startDelay;\n\n    // backspacing speed\n    self.backSpeed = self.options.backSpeed;\n\n    // only backspace what doesn't match the previous string\n    self.smartBackspace = self.options.smartBackspace;\n\n    // amount of time to wait before backspacing\n    self.backDelay = self.options.backDelay;\n\n    // Fade out instead of backspace\n    self.fadeOut = self.options.fadeOut;\n    self.fadeOutClass = self.options.fadeOutClass;\n    self.fadeOutDelay = self.options.fadeOutDelay;\n\n    // variable to check whether typing is currently paused\n    self.isPaused = false;\n\n    // input strings of text\n    self.strings = self.options.strings.map((s) => s.trim());\n\n    // div containing strings\n    if (typeof self.options.stringsElement === 'string') {\n      self.stringsElement = document.querySelector(self.options.stringsElement);\n    } else {\n      self.stringsElement = self.options.stringsElement;\n    }\n\n    if (self.stringsElement) {\n      self.strings = [];\n      self.stringsElement.style.cssText =\n        'clip: rect(0 0 0 0);clip-path:inset(50%);height:1px;overflow:hidden;position:absolute;white-space:nowrap;width:1px;';\n\n      const strings = Array.prototype.slice.apply(self.stringsElement.children);\n      const stringsLength = strings.length;\n\n      if (stringsLength) {\n        for (let i = 0; i < stringsLength; i += 1) {\n          const stringEl = strings[i];\n          self.strings.push(stringEl.innerHTML.trim());\n        }\n      }\n    }\n\n    // character number position of current string\n    self.strPos = 0;\n\n    // current array position\n    self.arrayPos = 0;\n\n    // index of string to stop backspacing on\n    self.stopNum = 0;\n\n    // Looping logic\n    self.loop = self.options.loop;\n    self.loopCount = self.options.loopCount;\n    self.curLoop = 0;\n\n    // shuffle the strings\n    self.shuffle = self.options.shuffle;\n    // the order of strings\n    self.sequence = [];\n\n    self.pause = {\n      status: false,\n      typewrite: true,\n      curString: '',\n      curStrPos: 0,\n    };\n\n    // When the typing is complete (when not looped)\n    self.typingComplete = false;\n\n    // Set the order in which the strings are typed\n    for (let i in self.strings) {\n      self.sequence[i] = i;\n    }\n\n    // If there is some text in the element\n    self.currentElContent = this.getCurrentElContent(self);\n\n    self.autoInsertCss = self.options.autoInsertCss;\n\n    this.appendAnimationCss(self);\n  }\n\n  getCurrentElContent(self) {\n    let elContent = '';\n    if (self.attr) {\n      elContent = self.el.getAttribute(self.attr);\n    } else if (self.isInput) {\n      elContent = self.el.value;\n    } else if (self.contentType === 'html') {\n      elContent = self.el.innerHTML;\n    } else {\n      elContent = self.el.textContent;\n    }\n    return elContent;\n  }\n\n  appendAnimationCss(self) {\n    const cssDataName = 'data-typed-js-css';\n    if (!self.autoInsertCss) {\n      return;\n    }\n    if (!self.showCursor && !self.fadeOut) {\n      return;\n    }\n    if (document.querySelector(`[${cssDataName}]`)) {\n      return;\n    }\n\n    let css = document.createElement('style');\n    css.type = 'text/css';\n    css.setAttribute(cssDataName, true);\n\n    let innerCss = '';\n    if (self.showCursor) {\n      innerCss += `\n        .typed-cursor{\n          opacity: 1;\n        }\n        .typed-cursor.typed-cursor--blink{\n          animation: typedjsBlink 0.7s infinite;\n          -webkit-animation: typedjsBlink 0.7s infinite;\n                  animation: typedjsBlink 0.7s infinite;\n        }\n        @keyframes typedjsBlink{\n          50% { opacity: 0.0; }\n        }\n        @-webkit-keyframes typedjsBlink{\n          0% { opacity: 1; }\n          50% { opacity: 0.0; }\n          100% { opacity: 1; }\n        }\n      `;\n    }\n\n    if (self.fadeOut) {\n      innerCss += `\n        .typed-fade-out{\n          opacity: 0;\n          transition: opacity .25s;\n        }\n        .typed-cursor.typed-cursor--blink.typed-fade-out{\n          -webkit-animation: 0;\n          animation: 0;\n        }\n      `;\n    }\n    if (css.length === 0) {\n      return;\n    }\n    css.innerHTML = innerCss;\n    document.body.appendChild(css);\n  }\n}\n\nexport let initializer = new Initializer();\n",
+    "content": "import defaults from './defaults.js';\n/**\n * Initialize the Typed object\n */\n\nexport default class Initializer {\n  /**\n   * Load up defaults & options on the Typed instance\n   * @param {Typed} self instance of Typed\n   * @param {object} options options object\n   * @param {string} elementId HTML element ID _OR_ instance of HTML element\n   * @private\n   */\n\n  load(self, options, elementId) {\n    // chosen element to manipulate text\n    if (typeof elementId === 'string') {\n      self.el = document.querySelector(elementId);\n    } else {\n      self.el = elementId;\n    }\n\n    self.options = { ...defaults, ...options };\n\n    // attribute to type into\n    self.isInput = self.el.tagName.toLowerCase() === 'input';\n    self.attr = self.options.attr;\n    self.bindInputFocusEvents = self.options.bindInputFocusEvents;\n\n    // show cursor\n    self.showCursor = self.isInput ? false : self.options.showCursor;\n\n    // custom cursor\n    self.cursorChar = self.options.cursorChar;\n\n    // Is the cursor blinking\n    self.cursorBlinking = true;\n\n    // text content of element\n    self.elContent = self.attr\n      ? self.el.getAttribute(self.attr)\n      : self.el.textContent;\n\n    // html or plain text\n    self.contentType = self.options.contentType;\n\n    // typing speed\n    self.typeSpeed = self.options.typeSpeed;\n\n    // add a delay before typing starts\n    self.startDelay = self.options.startDelay;\n\n    // backspacing speed\n    self.backSpeed = self.options.backSpeed;\n\n    // only backspace what doesn't match the previous string\n    self.smartBackspace = self.options.smartBackspace;\n\n    // amount of time to wait before backspacing\n    self.backDelay = self.options.backDelay;\n\n    // Fade out instead of backspace\n    self.fadeOut = self.options.fadeOut;\n    self.fadeOutClass = self.options.fadeOutClass;\n    self.fadeOutDelay = self.options.fadeOutDelay;\n\n    // variable to check whether typing is currently paused\n    self.isPaused = false;\n\n    // input strings of text\n    self.strings = self.options.strings.map((s) => s.trim());\n\n    // div containing strings\n    if (typeof self.options.stringsElement === 'string') {\n      self.stringsElement = document.querySelector(self.options.stringsElement);\n    } else {\n      self.stringsElement = self.options.stringsElement;\n    }\n\n    if (self.stringsElement) {\n      self.strings = [];\n      self.stringsElement.style.cssText =\n        'clip: rect(0 0 0 0);clip-path:inset(50%);height:1px;overflow:hidden;position:absolute;white-space:nowrap;width:1px;';\n\n      const strings = Array.prototype.slice.apply(self.stringsElement.children);\n      const stringsLength = strings.length;\n\n      if (stringsLength) {\n        for (let i = 0; i < stringsLength; i += 1) {\n          const stringEl = strings[i];\n          self.strings.push(stringEl.innerHTML.trim());\n        }\n      }\n    }\n\n    // character number position of current string\n    self.strPos = 0;\n\n    // If there is some text in the element\n    self.currentElContent = this.getCurrentElContent(self);\n\n    if (self.currentElContent && self.currentElContent.length > 0) {\n      self.strPos = self.currentElContent.length - 1;\n      self.strings.unshift(self.currentElContent);\n    }\n\n    // the order of strings\n    self.sequence = [];\n\n    // Set the order in which the strings are typed\n    for (let i in self.strings) {\n      self.sequence[i] = i;\n    }\n\n    // current array position\n    self.arrayPos = 0;\n\n    // index of string to stop backspacing on\n    self.stopNum = 0;\n\n    // Looping logic\n    self.loop = self.options.loop;\n    self.loopCount = self.options.loopCount;\n    self.curLoop = 0;\n\n    // shuffle the strings\n    self.shuffle = self.options.shuffle;\n\n    self.pause = {\n      status: false,\n      typewrite: true,\n      curString: '',\n      curStrPos: 0,\n    };\n\n    // When the typing is complete (when not looped)\n    self.typingComplete = false;\n\n    self.autoInsertCss = self.options.autoInsertCss;\n\n    if (self.autoInsertCss) {\n      this.appendCursorAnimationCss(self);\n      this.appendFadeOutAnimationCss(self);\n    }\n  }\n\n  getCurrentElContent(self) {\n    let elContent = '';\n    if (self.attr) {\n      elContent = self.el.getAttribute(self.attr);\n    } else if (self.isInput) {\n      elContent = self.el.value;\n    } else if (self.contentType === 'html') {\n      elContent = self.el.innerHTML;\n    } else {\n      elContent = self.el.textContent;\n    }\n    return elContent;\n  }\n\n  appendCursorAnimationCss(self) {\n    const cssDataName = 'data-typed-js-cursor-css';\n\n    if (!self.showCursor || document.querySelector(`[${cssDataName}]`)) {\n      return;\n    }\n\n    let css = document.createElement('style');\n    css.setAttribute(cssDataName, 'true');\n\n    css.innerHTML = `\n        .typed-cursor{\n          opacity: 1;\n        }\n        .typed-cursor.typed-cursor--blink{\n          animation: typedjsBlink 0.7s infinite;\n          -webkit-animation: typedjsBlink 0.7s infinite;\n                  animation: typedjsBlink 0.7s infinite;\n        }\n        @keyframes typedjsBlink{\n          50% { opacity: 0.0; }\n        }\n        @-webkit-keyframes typedjsBlink{\n          0% { opacity: 1; }\n          50% { opacity: 0.0; }\n          100% { opacity: 1; }\n        }\n      `;\n\n    document.body.appendChild(css);\n  }\n\n  appendFadeOutAnimationCss(self) {\n    const cssDataName = 'data-typed-fadeout-js-css';\n\n    if (!self.fadeOut || document.querySelector(`[${cssDataName}]`)) {\n      return;\n    }\n\n    let css = document.createElement('style');\n    css.setAttribute(cssDataName, 'true');\n\n    css.innerHTML = `\n        .typed-fade-out{\n          opacity: 0;\n          transition: opacity .25s;\n        }\n        .typed-cursor.typed-cursor--blink.typed-fade-out{\n          -webkit-animation: 0;\n          animation: 0;\n        }\n      `;\n\n    document.body.appendChild(css);\n  }\n}\n\nexport let initializer = new Initializer();\n",
     "static": true,
     "longname": "/Users/mattboldt/Documents/dev/Repos/typedjs/src/initializer.js",
     "access": "public",
@@ -828,7 +828,7 @@
     "longname": "src/initializer.js~Initializer#getCurrentElContent",
     "access": "public",
     "description": null,
-    "lineNumber": 138,
+    "lineNumber": 147,
     "undocument": true,
     "params": [
       {
@@ -843,15 +843,15 @@
   {
     "__docId__": 59,
     "kind": "method",
-    "name": "appendAnimationCss",
+    "name": "appendCursorAnimationCss",
     "memberof": "src/initializer.js~Initializer",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/initializer.js~Initializer#appendAnimationCss",
+    "longname": "src/initializer.js~Initializer#appendCursorAnimationCss",
     "access": "public",
     "description": null,
-    "lineNumber": 152,
+    "lineNumber": 161,
     "undocument": true,
     "params": [
       {
@@ -863,6 +863,27 @@
   },
   {
     "__docId__": 60,
+    "kind": "method",
+    "name": "appendFadeOutAnimationCss",
+    "memberof": "src/initializer.js~Initializer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/initializer.js~Initializer#appendFadeOutAnimationCss",
+    "access": "public",
+    "description": null,
+    "lineNumber": 193,
+    "undocument": true,
+    "params": [
+      {
+        "name": "self",
+        "types": ["*"]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 61,
     "kind": "variable",
     "name": "initializer",
     "memberof": "src/initializer.js",
@@ -873,736 +894,17 @@
     "importPath": "typed.js/src/initializer.js",
     "importStyle": "{initializer}",
     "description": null,
-    "lineNumber": 210,
+    "lineNumber": 218,
     "undocument": true,
     "type": {
       "types": ["src/initializer.js~Initializer"]
     }
   },
   {
-    "__docId__": 61,
-    "kind": "file",
-    "name": "src/typed-using-raf.js",
-    "content": "import raf from 'raf';\nimport { initializer } from './initializer.js';\nimport { htmlParser } from './html-parser.js';\n\n/**\n * Welcome to Typed.js!\n * @param {string} elementId HTML element ID _OR_ HTML element\n * @param {object} options options object\n * @returns {object} a new Typed object\n */\nexport default class Typed {\n  constructor(elementId, options) {\n    // Initialize it up\n    initializer.load(this, options, elementId);\n    // All systems go!\n    this.begin();\n  }\n\n  /**\n   * Toggle start() and stop() of the Typed instance\n   * @public\n   */\n  toggle() {\n    this.pause.status ? this.start() : this.stop();\n  }\n\n  /**\n   * Stop typing / backspacing and enable cursor blinking\n   * @public\n   */\n  stop() {\n    if (this.typingComplete) return;\n    if (this.pause.status) return;\n    this.toggleBlinking(true);\n    this.pause.status = true;\n    this.options.onStop(this.arrayPos, this);\n  }\n\n  /**\n   * Start typing / backspacing after being stopped\n   * @public\n   */\n  start() {\n    if (this.typingComplete) return;\n    if (!this.pause.status) return;\n    this.pause.status = false;\n    if (this.pause.typewrite) {\n      this.typewrite(this.pause.curString, this.pause.curStrPos);\n    } else {\n      this.backspace(this.pause.curString, this.pause.curStrPos);\n    }\n    this.options.onStart(this.arrayPos, this);\n  }\n\n  /**\n   * Destroy this instance of Typed\n   * @public\n   */\n  destroy() {\n    this.reset(false);\n    this.options.onDestroy(this);\n  }\n\n  /**\n   * Reset Typed and optionally restarts\n   * @param {boolean} restart\n   * @public\n   */\n  reset(restart = true) {\n    clearInterval(this.timeout);\n    this.replaceText('');\n    if (this.cursor && this.cursor.parentNode) {\n      this.cursor.parentNode.removeChild(this.cursor);\n      this.cursor = null;\n    }\n    this.strPos = 0;\n    this.arrayPos = 0;\n    this.curLoop = 0;\n    if (restart) {\n      this.insertCursor();\n      this.options.onReset(this);\n      this.begin();\n    }\n  }\n\n  /**\n   * Sets up the typing animation\n   * @private\n   */\n  begin() {\n    this.options.onBegin(this);\n    this.typingComplete = false;\n    this.shuffleStringsIfNeeded(this);\n    this.insertCursor();\n    if (this.bindInputFocusEvents) this.bindFocusEvents();\n    raf((timestamp) => this.beginAnimation(timestamp));\n  }\n\n  /**\n   * Begins the typing animation\n   * @private\n   */\n  beginAnimation(timestamp) {\n    if (this._beginAnimationStart === undefined) {\n      this._beginAnimationStart = timestamp;\n    }\n\n    if (this.startDelay > 0) {\n      const elapsed = timestamp - this._beginAnimationStart;\n      if (elapsed < this.startDelay) {\n        raf((timestamp) => this.beginAnimation(timestamp));\n        return;\n      }\n    }\n\n    this._beginAnimationStart = undefined;\n\n    // Check if there is some text in the element, if yes start by backspacing the default message\n    if (!this.currentElContent || this.currentElContent.length === 0) {\n      this.typewrite(this.strings[this.sequence[this.arrayPos]], this.strPos);\n    } else {\n      // Start typing\n      this.backspace(this.currentElContent, this.currentElContent.length);\n    }\n  }\n\n  /**\n   * Called for each character typed\n   * @param {string} curString the current string in the strings array\n   * @param {number} curStrPos the current position in the curString\n   * @private\n   */\n  typewrite(curString, curStrPos) {\n    if (this.fadeOut && this.el.classList.contains(this.fadeOutClass)) {\n      this.el.classList.remove(this.fadeOutClass);\n      if (this.cursor) this.cursor.classList.remove(this.fadeOutClass);\n    }\n\n    if (this.pause.status === true) {\n      this.setPauseStatus(curString, curStrPos, true);\n      return;\n    }\n\n    raf((timestamp) => this.typewriteStep(curString, curStrPos, timestamp));\n  }\n\n  typewriteStep(curString, curStrPos, timestamp) {\n    const humanize = this.humanizer(this.typeSpeed);\n    let numChars = 1;\n\n    if (this._typewriteStart === undefined) {\n      this._typewriteStart = timestamp;\n    }\n\n    if (humanize > 0) {\n      const elapsed = timestamp - this._typewriteStart;\n      if (elapsed <= humanize) {\n        raf((t) => this.typewriteStep(curString, curStrPos, t));\n        return;\n      }\n    }\n\n    this._typewriteStart = undefined;\n\n    // skip over any HTML chars\n    curStrPos = htmlParser.typeHtmlChars(curString, curStrPos, this);\n\n    let pauseTime = 0;\n    let substr = curString.substring(curStrPos);\n    // check for an escape character before a pause value\n    // format: \\^\\d+ .. eg: ^1000 .. should be able to print the ^ too using ^^\n    // single ^ are removed from string\n    if (substr.charAt(0) === '^') {\n      if (/^\\^\\d+/.test(substr)) {\n        let skip = 1; // skip at least 1\n        substr = /\\d+/.exec(substr)[0];\n        skip += substr.length;\n        pauseTime = parseInt(substr);\n        this.temporaryPause = true;\n        this.options.onTypingPaused(this.arrayPos, this);\n        // strip out the escape character and pause value so they're not printed\n        curString =\n          curString.substring(0, curStrPos) +\n          curString.substring(curStrPos + skip);\n        this.toggleBlinking(true);\n      }\n    }\n\n    // check for skip characters formatted as\n    // \"this is a `string to print NOW` ...\"\n    if (substr.charAt(0) === '`') {\n      while (curString.substring(curStrPos + numChars).charAt(0) !== '`') {\n        numChars++;\n        if (curStrPos + numChars > curString.length) break;\n      }\n      // strip out the escape characters and append all the string in between\n      const stringBeforeSkip = curString.substring(0, curStrPos);\n      const stringSkipped = curString.substring(\n        stringBeforeSkip.length + 1,\n        curStrPos + numChars\n      );\n      const stringAfterSkip = curString.substring(curStrPos + numChars + 1);\n      curString = stringBeforeSkip + stringSkipped + stringAfterSkip;\n      numChars--;\n    }\n\n    // timeout for any pause after a character\n    this.timeout = setTimeout(() => {\n      // Accounts for blinking while paused\n      this.toggleBlinking(false);\n\n      // We're done with this sentence!\n      if (curStrPos >= curString.length) {\n        this.doneTyping(curString, curStrPos);\n      } else {\n        this.keepTyping(curString, curStrPos, numChars);\n      }\n      // end of character pause\n      if (this.temporaryPause) {\n        this.temporaryPause = false;\n        this.options.onTypingResumed(this.arrayPos, this);\n      }\n    }, pauseTime);\n  }\n\n  /**\n   * Continue to the next string & begin typing\n   * @param {string} curString the current string in the strings array\n   * @param {number} curStrPos the current position in the curString\n   * @private\n   */\n  keepTyping(curString, curStrPos, numChars) {\n    // call before functions if applicable\n    if (curStrPos === 0) {\n      this.toggleBlinking(false);\n      this.options.preStringTyped(this.arrayPos, this);\n    }\n    // start typing each new char into existing string\n    // curString: arg, this.el.html: original text inside element\n    curStrPos += numChars;\n    const nextString = curString.substring(0, curStrPos);\n    this.replaceText(nextString);\n    // loop the function\n    this.typewrite(curString, curStrPos);\n  }\n\n  /**\n   * We're done typing the current string\n   * @param {string} curString the current string in the strings array\n   * @param {number} curStrPos the current position in the curString\n   * @private\n   */\n  doneTyping(curString, curStrPos) {\n    // fires callback function\n    this.options.onStringTyped(this.arrayPos, this);\n    this.toggleBlinking(true);\n    // is this the final string\n    if (this.arrayPos === this.strings.length - 1) {\n      // callback that occurs on the last typed string\n      this.complete();\n      // quit if we wont loop back\n      if (this.loop === false || this.curLoop === this.loopCount) {\n        return;\n      }\n    }\n    this.timeout = setTimeout(() => {\n      this.backspace(curString, curStrPos);\n    }, this.backDelay);\n  }\n\n  /**\n   * Backspaces 1 character at a time\n   * @param {string} curString the current string in the strings array\n   * @param {number} curStrPos the current position in the curString\n   * @private\n   */\n  backspace(curString, curStrPos) {\n    if (this.pause.status === true) {\n      this.setPauseStatus(curString, curStrPos, false);\n      return;\n    }\n    if (this.fadeOut) return this.initFadeOut();\n\n    this.toggleBlinking(false);\n    const humanize = this.humanizer(this.backSpeed);\n\n    this.timeout = setTimeout(() => {\n      curStrPos = htmlParser.backSpaceHtmlChars(curString, curStrPos, this);\n      // replace text with base text + typed characters\n      const curStringAtPosition = curString.substring(0, curStrPos);\n      this.replaceText(curStringAtPosition);\n\n      // if smartBack is enabled\n      if (this.smartBackspace) {\n        // the remaining part of the current string is equal of the same part of the new string\n        let nextString = this.strings[this.arrayPos + 1];\n        if (\n          nextString &&\n          curStringAtPosition === nextString.substring(0, curStrPos)\n        ) {\n          this.stopNum = curStrPos;\n        } else {\n          this.stopNum = 0;\n        }\n      }\n\n      // if the number (id of character in current string) is\n      // less than the stop number, keep going\n      if (curStrPos > this.stopNum) {\n        // subtract characters one by one\n        curStrPos--;\n        // loop the function\n        this.backspace(curString, curStrPos);\n      } else if (curStrPos <= this.stopNum) {\n        // if the stop number has been reached, increase\n        // array position to next string\n        this.arrayPos++;\n        // When looping, begin at the beginning after backspace complete\n        if (this.arrayPos === this.strings.length) {\n          this.arrayPos = 0;\n          this.options.onLastStringBackspaced();\n          this.shuffleStringsIfNeeded();\n          this.begin();\n        } else {\n          this.typewrite(this.strings[this.sequence[this.arrayPos]], curStrPos);\n        }\n      }\n      // humanized value for typing\n    }, humanize);\n  }\n\n  /**\n   * Full animation is complete\n   * @private\n   */\n  complete() {\n    this.options.onComplete(this);\n    if (this.loop) {\n      this.curLoop++;\n    } else {\n      this.typingComplete = true;\n    }\n  }\n\n  /**\n   * Has the typing been stopped\n   * @param {string} curString the current string in the strings array\n   * @param {number} curStrPos the current position in the curString\n   * @param {boolean} isTyping\n   * @private\n   */\n  setPauseStatus(curString, curStrPos, isTyping) {\n    this.pause.typewrite = isTyping;\n    this.pause.curString = curString;\n    this.pause.curStrPos = curStrPos;\n  }\n\n  /**\n   * Toggle the blinking cursor\n   * @param {boolean} isBlinking\n   * @private\n   */\n  toggleBlinking(isBlinking) {\n    if (!this.cursor) return;\n    // if in paused state, don't toggle blinking a 2nd time\n    if (this.pause.status) return;\n    if (this.cursorBlinking === isBlinking) return;\n    this.cursorBlinking = isBlinking;\n    if (isBlinking) {\n      this.cursor.classList.add('typed-cursor--blink');\n    } else {\n      this.cursor.classList.remove('typed-cursor--blink');\n    }\n  }\n\n  /**\n   * Speed in MS to type\n   * @param {number} speed\n   * @private\n   */\n  humanizer(speed) {\n    return Math.round((Math.random() * speed) / 2) + speed;\n  }\n\n  /**\n   * Shuffle the sequence of the strings array\n   * @private\n   */\n  shuffleStringsIfNeeded() {\n    if (!this.shuffle) return;\n    this.sequence = this.sequence.sort(() => Math.random() - 0.5);\n  }\n\n  /**\n   * Adds a CSS class to fade out current string\n   * @private\n   */\n  initFadeOut() {\n    this.el.className += ` ${this.fadeOutClass}`;\n    if (this.cursor) this.cursor.className += ` ${this.fadeOutClass}`;\n    return setTimeout(() => {\n      this.arrayPos++;\n      this.replaceText('');\n\n      // Resets current string if end of loop reached\n      if (this.strings.length > this.arrayPos) {\n        this.typewrite(this.strings[this.sequence[this.arrayPos]], 0);\n      } else {\n        this.typewrite(this.strings[0], 0);\n        this.arrayPos = 0;\n      }\n    }, this.fadeOutDelay);\n  }\n\n  /**\n   * Replaces current text in the HTML element\n   * depending on element type\n   * @param {string} str\n   * @private\n   */\n  replaceText(str) {\n    if (this.attr) {\n      this.el.setAttribute(this.attr, str);\n    } else {\n      if (this.isInput) {\n        this.el.value = str;\n      } else if (this.contentType === 'html') {\n        this.el.innerHTML = str;\n      } else {\n        this.el.textContent = str;\n      }\n    }\n  }\n\n  /**\n   * If using input elements, bind focus in order to\n   * start and stop the animation\n   * @private\n   */\n  bindFocusEvents() {\n    if (!this.isInput) return;\n    this.el.addEventListener('focus', (e) => {\n      this.stop();\n    });\n    this.el.addEventListener('blur', (e) => {\n      if (this.el.value && this.el.value.length !== 0) {\n        return;\n      }\n      this.start();\n    });\n  }\n\n  /**\n   * On init, insert the cursor element\n   * @private\n   */\n  insertCursor() {\n    if (!this.showCursor) return;\n    if (this.cursor) return;\n    this.cursor = document.createElement('span');\n    this.cursor.className = 'typed-cursor';\n    this.cursor.setAttribute('aria-hidden', true);\n    this.cursor.innerHTML = this.cursorChar;\n    this.el.parentNode &&\n      this.el.parentNode.insertBefore(this.cursor, this.el.nextSibling);\n  }\n}\n",
-    "static": true,
-    "longname": "/Users/mattboldt/Documents/dev/Repos/typedjs/src/typed-using-raf.js",
-    "access": "public",
-    "description": null,
-    "lineNumber": 1
-  },
-  {
     "__docId__": 62,
-    "kind": "class",
-    "name": "Typed",
-    "memberof": "src/typed-using-raf.js",
-    "static": true,
-    "longname": "src/typed-using-raf.js~Typed",
-    "access": "public",
-    "export": true,
-    "importPath": "typed.js/src/typed-using-raf.js",
-    "importStyle": "Typed",
-    "description": "Welcome to Typed.js!",
-    "lineNumber": 11,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{object} a new Typed object"
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": ["string"],
-        "spread": false,
-        "optional": false,
-        "name": "elementId",
-        "description": "HTML element ID _OR_ HTML element"
-      },
-      {
-        "nullable": null,
-        "types": ["object"],
-        "spread": false,
-        "optional": false,
-        "name": "options",
-        "description": "options object"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": ["object"],
-      "spread": false,
-      "description": "a new Typed object"
-    },
-    "interface": false
-  },
-  {
-    "__docId__": 63,
-    "kind": "constructor",
-    "name": "constructor",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#constructor",
-    "access": "public",
-    "description": null,
-    "lineNumber": 12,
-    "undocument": true
-  },
-  {
-    "__docId__": 64,
-    "kind": "method",
-    "name": "toggle",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#toggle",
-    "access": "public",
-    "description": "Toggle start() and stop() of the Typed instance",
-    "lineNumber": 23,
-    "params": [],
-    "return": null
-  },
-  {
-    "__docId__": 65,
-    "kind": "method",
-    "name": "stop",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#stop",
-    "access": "public",
-    "description": "Stop typing / backspacing and enable cursor blinking",
-    "lineNumber": 31,
-    "params": [],
-    "return": null
-  },
-  {
-    "__docId__": 66,
-    "kind": "method",
-    "name": "start",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#start",
-    "access": "public",
-    "description": "Start typing / backspacing after being stopped",
-    "lineNumber": 43,
-    "params": [],
-    "return": null
-  },
-  {
-    "__docId__": 67,
-    "kind": "method",
-    "name": "destroy",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#destroy",
-    "access": "public",
-    "description": "Destroy this instance of Typed",
-    "lineNumber": 59,
-    "params": [],
-    "return": null
-  },
-  {
-    "__docId__": 68,
-    "kind": "method",
-    "name": "reset",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#reset",
-    "access": "public",
-    "description": "Reset Typed and optionally restarts",
-    "lineNumber": 69,
-    "params": [
-      {
-        "nullable": null,
-        "types": ["boolean"],
-        "spread": false,
-        "optional": false,
-        "name": "restart",
-        "description": ""
-      }
-    ],
-    "return": null
-  },
-  {
-    "__docId__": 69,
-    "kind": "member",
-    "name": "cursor",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#cursor",
-    "access": "public",
-    "description": null,
-    "lineNumber": 74,
-    "undocument": true,
-    "type": {
-      "types": ["*"]
-    }
-  },
-  {
-    "__docId__": 70,
-    "kind": "member",
-    "name": "strPos",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#strPos",
-    "access": "public",
-    "description": null,
-    "lineNumber": 76,
-    "undocument": true,
-    "type": {
-      "types": ["number"]
-    }
-  },
-  {
-    "__docId__": 71,
-    "kind": "member",
-    "name": "arrayPos",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#arrayPos",
-    "access": "public",
-    "description": null,
-    "lineNumber": 77,
-    "undocument": true,
-    "type": {
-      "types": ["number"]
-    }
-  },
-  {
-    "__docId__": 72,
-    "kind": "member",
-    "name": "curLoop",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#curLoop",
-    "access": "public",
-    "description": null,
-    "lineNumber": 78,
-    "undocument": true,
-    "type": {
-      "types": ["number"]
-    }
-  },
-  {
-    "__docId__": 73,
-    "kind": "method",
-    "name": "begin",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#begin",
-    "access": "private",
-    "description": "Sets up the typing animation",
-    "lineNumber": 90,
-    "params": [],
-    "return": null
-  },
-  {
-    "__docId__": 74,
-    "kind": "member",
-    "name": "typingComplete",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#typingComplete",
-    "access": "public",
-    "description": null,
-    "lineNumber": 92,
-    "undocument": true,
-    "type": {
-      "types": ["boolean"]
-    }
-  },
-  {
-    "__docId__": 75,
-    "kind": "method",
-    "name": "beginAnimation",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#beginAnimation",
-    "access": "private",
-    "description": "Begins the typing animation",
-    "lineNumber": 103,
-    "params": [
-      {
-        "name": "timestamp",
-        "types": ["*"]
-      }
-    ],
-    "return": null
-  },
-  {
-    "__docId__": 76,
-    "kind": "member",
-    "name": "_beginAnimationStart",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#_beginAnimationStart",
-    "access": "private",
-    "description": null,
-    "lineNumber": 105,
-    "undocument": true,
-    "type": {
-      "types": ["*"]
-    }
-  },
-  {
-    "__docId__": 78,
-    "kind": "method",
-    "name": "typewrite",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#typewrite",
-    "access": "private",
-    "description": "Called for each character typed",
-    "lineNumber": 133,
-    "params": [
-      {
-        "nullable": null,
-        "types": ["string"],
-        "spread": false,
-        "optional": false,
-        "name": "curString",
-        "description": "the current string in the strings array"
-      },
-      {
-        "nullable": null,
-        "types": ["number"],
-        "spread": false,
-        "optional": false,
-        "name": "curStrPos",
-        "description": "the current position in the curString"
-      }
-    ],
-    "return": null
-  },
-  {
-    "__docId__": 79,
-    "kind": "method",
-    "name": "typewriteStep",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#typewriteStep",
-    "access": "public",
-    "description": null,
-    "lineNumber": 147,
-    "undocument": true,
-    "params": [
-      {
-        "name": "curString",
-        "types": ["*"]
-      },
-      {
-        "name": "curStrPos",
-        "types": ["*"]
-      },
-      {
-        "name": "timestamp",
-        "types": ["*"]
-      }
-    ],
-    "return": null
-  },
-  {
-    "__docId__": 80,
-    "kind": "member",
-    "name": "_typewriteStart",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#_typewriteStart",
-    "access": "private",
-    "description": null,
-    "lineNumber": 152,
-    "undocument": true,
-    "type": {
-      "types": ["*"]
-    }
-  },
-  {
-    "__docId__": 82,
-    "kind": "member",
-    "name": "temporaryPause",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#temporaryPause",
-    "access": "public",
-    "description": null,
-    "lineNumber": 179,
-    "undocument": true,
-    "type": {
-      "types": ["boolean"]
-    }
-  },
-  {
-    "__docId__": 83,
-    "kind": "member",
-    "name": "timeout",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#timeout",
-    "access": "public",
-    "description": null,
-    "lineNumber": 208,
-    "undocument": true,
-    "type": {
-      "types": ["*"]
-    }
-  },
-  {
-    "__docId__": 85,
-    "kind": "method",
-    "name": "keepTyping",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#keepTyping",
-    "access": "private",
-    "description": "Continue to the next string & begin typing",
-    "lineNumber": 232,
-    "params": [
-      {
-        "nullable": null,
-        "types": ["string"],
-        "spread": false,
-        "optional": false,
-        "name": "curString",
-        "description": "the current string in the strings array"
-      },
-      {
-        "nullable": null,
-        "types": ["number"],
-        "spread": false,
-        "optional": false,
-        "name": "curStrPos",
-        "description": "the current position in the curString"
-      }
-    ],
-    "return": null
-  },
-  {
-    "__docId__": 86,
-    "kind": "method",
-    "name": "doneTyping",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#doneTyping",
-    "access": "private",
-    "description": "We're done typing the current string",
-    "lineNumber": 253,
-    "params": [
-      {
-        "nullable": null,
-        "types": ["string"],
-        "spread": false,
-        "optional": false,
-        "name": "curString",
-        "description": "the current string in the strings array"
-      },
-      {
-        "nullable": null,
-        "types": ["number"],
-        "spread": false,
-        "optional": false,
-        "name": "curStrPos",
-        "description": "the current position in the curString"
-      }
-    ],
-    "return": null
-  },
-  {
-    "__docId__": 88,
-    "kind": "method",
-    "name": "backspace",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#backspace",
-    "access": "private",
-    "description": "Backspaces 1 character at a time",
-    "lineNumber": 277,
-    "params": [
-      {
-        "nullable": null,
-        "types": ["string"],
-        "spread": false,
-        "optional": false,
-        "name": "curString",
-        "description": "the current string in the strings array"
-      },
-      {
-        "nullable": null,
-        "types": ["number"],
-        "spread": false,
-        "optional": false,
-        "name": "curStrPos",
-        "description": "the current position in the curString"
-      }
-    ],
-    "return": {
-      "types": ["*"]
-    }
-  },
-  {
-    "__docId__": 90,
-    "kind": "member",
-    "name": "stopNum",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#stopNum",
-    "access": "public",
-    "description": null,
-    "lineNumber": 301,
-    "undocument": true,
-    "type": {
-      "types": ["*"]
-    }
-  },
-  {
-    "__docId__": 93,
-    "kind": "method",
-    "name": "complete",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#complete",
-    "access": "private",
-    "description": "Full animation is complete",
-    "lineNumber": 336,
-    "params": [],
-    "return": null
-  },
-  {
-    "__docId__": 95,
-    "kind": "method",
-    "name": "setPauseStatus",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#setPauseStatus",
-    "access": "private",
-    "description": "Has the typing been stopped",
-    "lineNumber": 352,
-    "params": [
-      {
-        "nullable": null,
-        "types": ["string"],
-        "spread": false,
-        "optional": false,
-        "name": "curString",
-        "description": "the current string in the strings array"
-      },
-      {
-        "nullable": null,
-        "types": ["number"],
-        "spread": false,
-        "optional": false,
-        "name": "curStrPos",
-        "description": "the current position in the curString"
-      },
-      {
-        "nullable": null,
-        "types": ["boolean"],
-        "spread": false,
-        "optional": false,
-        "name": "isTyping",
-        "description": ""
-      }
-    ],
-    "return": null
-  },
-  {
-    "__docId__": 96,
-    "kind": "method",
-    "name": "toggleBlinking",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#toggleBlinking",
-    "access": "private",
-    "description": "Toggle the blinking cursor",
-    "lineNumber": 363,
-    "params": [
-      {
-        "nullable": null,
-        "types": ["boolean"],
-        "spread": false,
-        "optional": false,
-        "name": "isBlinking",
-        "description": ""
-      }
-    ],
-    "return": null
-  },
-  {
-    "__docId__": 97,
-    "kind": "member",
-    "name": "cursorBlinking",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#cursorBlinking",
-    "access": "public",
-    "description": null,
-    "lineNumber": 368,
-    "undocument": true,
-    "type": {
-      "types": ["*"]
-    }
-  },
-  {
-    "__docId__": 98,
-    "kind": "method",
-    "name": "humanizer",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#humanizer",
-    "access": "private",
-    "description": "Speed in MS to type",
-    "lineNumber": 381,
-    "params": [
-      {
-        "nullable": null,
-        "types": ["number"],
-        "spread": false,
-        "optional": false,
-        "name": "speed",
-        "description": ""
-      }
-    ],
-    "return": {
-      "types": ["*"]
-    }
-  },
-  {
-    "__docId__": 99,
-    "kind": "method",
-    "name": "shuffleStringsIfNeeded",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#shuffleStringsIfNeeded",
-    "access": "private",
-    "description": "Shuffle the sequence of the strings array",
-    "lineNumber": 389,
-    "params": [],
-    "return": null
-  },
-  {
-    "__docId__": 100,
-    "kind": "member",
-    "name": "sequence",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#sequence",
-    "access": "public",
-    "description": null,
-    "lineNumber": 391,
-    "undocument": true,
-    "type": {
-      "types": ["*"]
-    }
-  },
-  {
-    "__docId__": 101,
-    "kind": "method",
-    "name": "initFadeOut",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#initFadeOut",
-    "access": "private",
-    "description": "Adds a CSS class to fade out current string",
-    "lineNumber": 398,
-    "params": [],
-    "return": {
-      "types": ["*"]
-    }
-  },
-  {
-    "__docId__": 103,
-    "kind": "method",
-    "name": "replaceText",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#replaceText",
-    "access": "private",
-    "description": "Replaces current text in the HTML element\ndepending on element type",
-    "lineNumber": 421,
-    "params": [
-      {
-        "nullable": null,
-        "types": ["string"],
-        "spread": false,
-        "optional": false,
-        "name": "str",
-        "description": ""
-      }
-    ],
-    "return": null
-  },
-  {
-    "__docId__": 104,
-    "kind": "method",
-    "name": "bindFocusEvents",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#bindFocusEvents",
-    "access": "private",
-    "description": "If using input elements, bind focus in order to\nstart and stop the animation",
-    "lineNumber": 440,
-    "params": [],
-    "return": null
-  },
-  {
-    "__docId__": 105,
-    "kind": "method",
-    "name": "insertCursor",
-    "memberof": "src/typed-using-raf.js~Typed",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/typed-using-raf.js~Typed#insertCursor",
-    "access": "private",
-    "description": "On init, insert the cursor element",
-    "lineNumber": 457,
-    "params": [],
-    "return": null
-  },
-  {
-    "__docId__": 107,
     "kind": "file",
     "name": "src/typed.js",
-    "content": "import { initializer } from './initializer.js';\nimport { htmlParser } from './html-parser.js';\n\n/**\n * Welcome to Typed.js!\n * @param {string} elementId HTML element ID _OR_ HTML element\n * @param {object} options options object\n * @returns {object} a new Typed object\n */\nexport default class Typed {\n  constructor(elementId, options) {\n    // Initialize it up\n    initializer.load(this, options, elementId);\n    // All systems go!\n    this.begin();\n  }\n\n  /**\n   * Toggle start() and stop() of the Typed instance\n   * @public\n   */\n  toggle() {\n    this.pause.status ? this.start() : this.stop();\n  }\n\n  /**\n   * Stop typing / backspacing and enable cursor blinking\n   * @public\n   */\n  stop() {\n    if (this.typingComplete) return;\n    if (this.pause.status) return;\n    this.toggleBlinking(true);\n    this.pause.status = true;\n    this.options.onStop(this.arrayPos, this);\n  }\n\n  /**\n   * Start typing / backspacing after being stopped\n   * @public\n   */\n  start() {\n    if (this.typingComplete) return;\n    if (!this.pause.status) return;\n    this.pause.status = false;\n    if (this.pause.typewrite) {\n      this.typewrite(this.pause.curString, this.pause.curStrPos);\n    } else {\n      this.backspace(this.pause.curString, this.pause.curStrPos);\n    }\n    this.options.onStart(this.arrayPos, this);\n  }\n\n  /**\n   * Destroy this instance of Typed\n   * @public\n   */\n  destroy() {\n    this.reset(false);\n    this.options.onDestroy(this);\n  }\n\n  /**\n   * Reset Typed and optionally restarts\n   * @param {boolean} restart\n   * @public\n   */\n  reset(restart = true) {\n    clearInterval(this.timeout);\n    this.replaceText('');\n    if (this.cursor && this.cursor.parentNode) {\n      this.cursor.parentNode.removeChild(this.cursor);\n      this.cursor = null;\n    }\n    this.strPos = 0;\n    this.arrayPos = 0;\n    this.curLoop = 0;\n    if (restart) {\n      this.insertCursor();\n      this.options.onReset(this);\n      this.begin();\n    }\n  }\n\n  /**\n   * Begins the typing animation\n   * @private\n   */\n  begin() {\n    this.options.onBegin(this);\n    this.typingComplete = false;\n    this.shuffleStringsIfNeeded(this);\n    this.insertCursor();\n    if (this.bindInputFocusEvents) this.bindFocusEvents();\n    this.timeout = setTimeout(() => {\n      // Check if there is some text in the element, if yes start by backspacing the default message\n      if (!this.currentElContent || this.currentElContent.length === 0) {\n        this.typewrite(this.strings[this.sequence[this.arrayPos]], this.strPos);\n      } else {\n        // Start typing\n        this.backspace(this.currentElContent, this.currentElContent.length);\n      }\n    }, this.startDelay);\n  }\n\n  /**\n   * Called for each character typed\n   * @param {string} curString the current string in the strings array\n   * @param {number} curStrPos the current position in the curString\n   * @private\n   */\n  typewrite(curString, curStrPos) {\n    if (this.fadeOut && this.el.classList.contains(this.fadeOutClass)) {\n      this.el.classList.remove(this.fadeOutClass);\n      if (this.cursor) this.cursor.classList.remove(this.fadeOutClass);\n    }\n\n    const humanize = this.humanizer(this.typeSpeed);\n    let numChars = 1;\n\n    if (this.pause.status === true) {\n      this.setPauseStatus(curString, curStrPos, true);\n      return;\n    }\n\n    // contain typing function in a timeout humanize'd delay\n    this.timeout = setTimeout(() => {\n      // skip over any HTML chars\n      curStrPos = htmlParser.typeHtmlChars(curString, curStrPos, this);\n\n      let pauseTime = 0;\n      let substr = curString.substr(curStrPos);\n      // check for an escape character before a pause value\n      // format: \\^\\d+ .. eg: ^1000 .. should be able to print the ^ too using ^^\n      // single ^ are removed from string\n      if (substr.charAt(0) === '^') {\n        if (/^\\^\\d+/.test(substr)) {\n          let skip = 1; // skip at least 1\n          substr = /\\d+/.exec(substr)[0];\n          skip += substr.length;\n          pauseTime = parseInt(substr);\n          this.temporaryPause = true;\n          this.options.onTypingPaused(this.arrayPos, this);\n          // strip out the escape character and pause value so they're not printed\n          curString =\n            curString.substring(0, curStrPos) +\n            curString.substring(curStrPos + skip);\n          this.toggleBlinking(true);\n        }\n      }\n\n      // check for skip characters formatted as\n      // \"this is a `string to print NOW` ...\"\n      if (substr.charAt(0) === '`') {\n        while (curString.substr(curStrPos + numChars).charAt(0) !== '`') {\n          numChars++;\n          if (curStrPos + numChars > curString.length) break;\n        }\n        // strip out the escape characters and append all the string in between\n        const stringBeforeSkip = curString.substring(0, curStrPos);\n        const stringSkipped = curString.substring(\n          stringBeforeSkip.length + 1,\n          curStrPos + numChars\n        );\n        const stringAfterSkip = curString.substring(curStrPos + numChars + 1);\n        curString = stringBeforeSkip + stringSkipped + stringAfterSkip;\n        numChars--;\n      }\n\n      // timeout for any pause after a character\n      this.timeout = setTimeout(() => {\n        // Accounts for blinking while paused\n        this.toggleBlinking(false);\n\n        // We're done with this sentence!\n        if (curStrPos >= curString.length) {\n          this.doneTyping(curString, curStrPos);\n        } else {\n          this.keepTyping(curString, curStrPos, numChars);\n        }\n        // end of character pause\n        if (this.temporaryPause) {\n          this.temporaryPause = false;\n          this.options.onTypingResumed(this.arrayPos, this);\n        }\n      }, pauseTime);\n\n      // humanized value for typing\n    }, humanize);\n  }\n\n  /**\n   * Continue to the next string & begin typing\n   * @param {string} curString the current string in the strings array\n   * @param {number} curStrPos the current position in the curString\n   * @private\n   */\n  keepTyping(curString, curStrPos, numChars) {\n    // call before functions if applicable\n    if (curStrPos === 0) {\n      this.toggleBlinking(false);\n      this.options.preStringTyped(this.arrayPos, this);\n    }\n    // start typing each new char into existing string\n    // curString: arg, this.el.html: original text inside element\n    curStrPos += numChars;\n    const nextString = curString.substr(0, curStrPos);\n    this.replaceText(nextString);\n    // loop the function\n    this.typewrite(curString, curStrPos);\n  }\n\n  /**\n   * We're done typing the current string\n   * @param {string} curString the current string in the strings array\n   * @param {number} curStrPos the current position in the curString\n   * @private\n   */\n  doneTyping(curString, curStrPos) {\n    // fires callback function\n    this.options.onStringTyped(this.arrayPos, this);\n    this.toggleBlinking(true);\n    // is this the final string\n    if (this.arrayPos === this.strings.length - 1) {\n      // callback that occurs on the last typed string\n      this.complete();\n      // quit if we wont loop back\n      if (this.loop === false || this.curLoop === this.loopCount) {\n        return;\n      }\n    }\n    this.timeout = setTimeout(() => {\n      this.backspace(curString, curStrPos);\n    }, this.backDelay);\n  }\n\n  /**\n   * Backspaces 1 character at a time\n   * @param {string} curString the current string in the strings array\n   * @param {number} curStrPos the current position in the curString\n   * @private\n   */\n  backspace(curString, curStrPos) {\n    if (this.pause.status === true) {\n      this.setPauseStatus(curString, curStrPos, false);\n      return;\n    }\n    if (this.fadeOut) return this.initFadeOut();\n\n    this.toggleBlinking(false);\n    const humanize = this.humanizer(this.backSpeed);\n\n    this.timeout = setTimeout(() => {\n      curStrPos = htmlParser.backSpaceHtmlChars(curString, curStrPos, this);\n      // replace text with base text + typed characters\n      const curStringAtPosition = curString.substr(0, curStrPos);\n      this.replaceText(curStringAtPosition);\n\n      // if smartBack is enabled\n      if (this.smartBackspace) {\n        // the remaining part of the current string is equal of the same part of the new string\n        let nextString = this.strings[this.arrayPos + 1];\n        if (\n          nextString &&\n          curStringAtPosition === nextString.substr(0, curStrPos)\n        ) {\n          this.stopNum = curStrPos;\n        } else {\n          this.stopNum = 0;\n        }\n      }\n\n      // if the number (id of character in current string) is\n      // less than the stop number, keep going\n      if (curStrPos > this.stopNum) {\n        // subtract characters one by one\n        curStrPos--;\n        // loop the function\n        this.backspace(curString, curStrPos);\n      } else if (curStrPos <= this.stopNum) {\n        // if the stop number has been reached, increase\n        // array position to next string\n        this.arrayPos++;\n        // When looping, begin at the beginning after backspace complete\n        if (this.arrayPos === this.strings.length) {\n          this.arrayPos = 0;\n          this.options.onLastStringBackspaced();\n          this.shuffleStringsIfNeeded();\n          this.begin();\n        } else {\n          this.typewrite(this.strings[this.sequence[this.arrayPos]], curStrPos);\n        }\n      }\n      // humanized value for typing\n    }, humanize);\n  }\n\n  /**\n   * Full animation is complete\n   * @private\n   */\n  complete() {\n    this.options.onComplete(this);\n    if (this.loop) {\n      this.curLoop++;\n    } else {\n      this.typingComplete = true;\n    }\n  }\n\n  /**\n   * Has the typing been stopped\n   * @param {string} curString the current string in the strings array\n   * @param {number} curStrPos the current position in the curString\n   * @param {boolean} isTyping\n   * @private\n   */\n  setPauseStatus(curString, curStrPos, isTyping) {\n    this.pause.typewrite = isTyping;\n    this.pause.curString = curString;\n    this.pause.curStrPos = curStrPos;\n  }\n\n  /**\n   * Toggle the blinking cursor\n   * @param {boolean} isBlinking\n   * @private\n   */\n  toggleBlinking(isBlinking) {\n    if (!this.cursor) return;\n    // if in paused state, don't toggle blinking a 2nd time\n    if (this.pause.status) return;\n    if (this.cursorBlinking === isBlinking) return;\n    this.cursorBlinking = isBlinking;\n    if (isBlinking) {\n      this.cursor.classList.add('typed-cursor--blink');\n    } else {\n      this.cursor.classList.remove('typed-cursor--blink');\n    }\n  }\n\n  /**\n   * Speed in MS to type\n   * @param {number} speed\n   * @private\n   */\n  humanizer(speed) {\n    return Math.round((Math.random() * speed) / 2) + speed;\n  }\n\n  /**\n   * Shuffle the sequence of the strings array\n   * @private\n   */\n  shuffleStringsIfNeeded() {\n    if (!this.shuffle) return;\n    this.sequence = this.sequence.sort(() => Math.random() - 0.5);\n  }\n\n  /**\n   * Adds a CSS class to fade out current string\n   * @private\n   */\n  initFadeOut() {\n    this.el.className += ` ${this.fadeOutClass}`;\n    if (this.cursor) this.cursor.className += ` ${this.fadeOutClass}`;\n    return setTimeout(() => {\n      this.arrayPos++;\n      this.replaceText('');\n\n      // Resets current string if end of loop reached\n      if (this.strings.length > this.arrayPos) {\n        this.typewrite(this.strings[this.sequence[this.arrayPos]], 0);\n      } else {\n        this.typewrite(this.strings[0], 0);\n        this.arrayPos = 0;\n      }\n    }, this.fadeOutDelay);\n  }\n\n  /**\n   * Replaces current text in the HTML element\n   * depending on element type\n   * @param {string} str\n   * @private\n   */\n  replaceText(str) {\n    if (this.attr) {\n      this.el.setAttribute(this.attr, str);\n    } else {\n      if (this.isInput) {\n        this.el.value = str;\n      } else if (this.contentType === 'html') {\n        this.el.innerHTML = str;\n      } else {\n        this.el.textContent = str;\n      }\n    }\n  }\n\n  /**\n   * If using input elements, bind focus in order to\n   * start and stop the animation\n   * @private\n   */\n  bindFocusEvents() {\n    if (!this.isInput) return;\n    this.el.addEventListener('focus', (e) => {\n      this.stop();\n    });\n    this.el.addEventListener('blur', (e) => {\n      if (this.el.value && this.el.value.length !== 0) {\n        return;\n      }\n      this.start();\n    });\n  }\n\n  /**\n   * On init, insert the cursor element\n   * @private\n   */\n  insertCursor() {\n    if (!this.showCursor) return;\n    if (this.cursor) return;\n    this.cursor = document.createElement('span');\n    this.cursor.className = 'typed-cursor';\n    this.cursor.setAttribute('aria-hidden', true);\n    this.cursor.innerHTML = this.cursorChar;\n    this.el.parentNode &&\n      this.el.parentNode.insertBefore(this.cursor, this.el.nextSibling);\n  }\n}\n",
+    "content": "import { initializer } from './initializer.js';\nimport { htmlParser } from './html-parser.js';\n\n/**\n * Welcome to Typed.js!\n * @param {string} elementId HTML element ID _OR_ HTML element\n * @param {object} options options object\n * @returns {object} a new Typed object\n */\nexport default class Typed {\n  constructor(elementId, options) {\n    // Initialize it up\n    initializer.load(this, options, elementId);\n    // All systems go!\n    this.begin();\n  }\n\n  /**\n   * Toggle start() and stop() of the Typed instance\n   * @public\n   */\n  toggle() {\n    this.pause.status ? this.start() : this.stop();\n  }\n\n  /**\n   * Stop typing / backspacing and enable cursor blinking\n   * @public\n   */\n  stop() {\n    if (this.typingComplete) return;\n    if (this.pause.status) return;\n    this.toggleBlinking(true);\n    this.pause.status = true;\n    this.options.onStop(this.arrayPos, this);\n  }\n\n  /**\n   * Start typing / backspacing after being stopped\n   * @public\n   */\n  start() {\n    if (this.typingComplete) return;\n    if (!this.pause.status) return;\n    this.pause.status = false;\n    if (this.pause.typewrite) {\n      this.typewrite(this.pause.curString, this.pause.curStrPos);\n    } else {\n      this.backspace(this.pause.curString, this.pause.curStrPos);\n    }\n    this.options.onStart(this.arrayPos, this);\n  }\n\n  /**\n   * Destroy this instance of Typed\n   * @public\n   */\n  destroy() {\n    this.reset(false);\n    this.options.onDestroy(this);\n  }\n\n  /**\n   * Reset Typed and optionally restarts\n   * @param {boolean} restart\n   * @public\n   */\n  reset(restart = true) {\n    clearInterval(this.timeout);\n    this.replaceText('');\n    if (this.cursor && this.cursor.parentNode) {\n      this.cursor.parentNode.removeChild(this.cursor);\n      this.cursor = null;\n    }\n    this.strPos = 0;\n    this.arrayPos = 0;\n    this.curLoop = 0;\n    if (restart) {\n      this.insertCursor();\n      this.options.onReset(this);\n      this.begin();\n    }\n  }\n\n  /**\n   * Begins the typing animation\n   * @private\n   */\n  begin() {\n    this.options.onBegin(this);\n    this.typingComplete = false;\n    this.shuffleStringsIfNeeded(this);\n    this.insertCursor();\n    if (this.bindInputFocusEvents) this.bindFocusEvents();\n    this.timeout = setTimeout(() => {\n      // If the strPos is 0, we're starting from the beginning of a string\n      // else, we're starting with a previous string that needs to be backspaced first\n      if (this.strPos === 0) {\n        this.typewrite(this.strings[this.sequence[this.arrayPos]], this.strPos);\n      } else {\n        this.backspace(this.strings[this.sequence[this.arrayPos]], this.strPos);\n      }\n    }, this.startDelay);\n  }\n\n  /**\n   * Called for each character typed\n   * @param {string} curString the current string in the strings array\n   * @param {number} curStrPos the current position in the curString\n   * @private\n   */\n  typewrite(curString, curStrPos) {\n    if (this.fadeOut && this.el.classList.contains(this.fadeOutClass)) {\n      this.el.classList.remove(this.fadeOutClass);\n      if (this.cursor) this.cursor.classList.remove(this.fadeOutClass);\n    }\n\n    const humanize = this.humanizer(this.typeSpeed);\n    let numChars = 1;\n\n    if (this.pause.status === true) {\n      this.setPauseStatus(curString, curStrPos, true);\n      return;\n    }\n\n    // contain typing function in a timeout humanize'd delay\n    this.timeout = setTimeout(() => {\n      // skip over any HTML chars\n      curStrPos = htmlParser.typeHtmlChars(curString, curStrPos, this);\n\n      let pauseTime = 0;\n      let substr = curString.substring(curStrPos);\n      // check for an escape character before a pause value\n      // format: \\^\\d+ .. eg: ^1000 .. should be able to print the ^ too using ^^\n      // single ^ are removed from string\n      if (substr.charAt(0) === '^') {\n        if (/^\\^\\d+/.test(substr)) {\n          let skip = 1; // skip at least 1\n          substr = /\\d+/.exec(substr)[0];\n          skip += substr.length;\n          pauseTime = parseInt(substr);\n          this.temporaryPause = true;\n          this.options.onTypingPaused(this.arrayPos, this);\n          // strip out the escape character and pause value so they're not printed\n          curString =\n            curString.substring(0, curStrPos) +\n            curString.substring(curStrPos + skip);\n          this.toggleBlinking(true);\n        }\n      }\n\n      // check for skip characters formatted as\n      // \"this is a `string to print NOW` ...\"\n      if (substr.charAt(0) === '`') {\n        while (curString.substring(curStrPos + numChars).charAt(0) !== '`') {\n          numChars++;\n          if (curStrPos + numChars > curString.length) break;\n        }\n        // strip out the escape characters and append all the string in between\n        const stringBeforeSkip = curString.substring(0, curStrPos);\n        const stringSkipped = curString.substring(\n          stringBeforeSkip.length + 1,\n          curStrPos + numChars\n        );\n        const stringAfterSkip = curString.substring(curStrPos + numChars + 1);\n        curString = stringBeforeSkip + stringSkipped + stringAfterSkip;\n        numChars--;\n      }\n\n      // timeout for any pause after a character\n      this.timeout = setTimeout(() => {\n        // Accounts for blinking while paused\n        this.toggleBlinking(false);\n\n        // We're done with this sentence!\n        if (curStrPos >= curString.length) {\n          this.doneTyping(curString, curStrPos);\n        } else {\n          this.keepTyping(curString, curStrPos, numChars);\n        }\n        // end of character pause\n        if (this.temporaryPause) {\n          this.temporaryPause = false;\n          this.options.onTypingResumed(this.arrayPos, this);\n        }\n      }, pauseTime);\n\n      // humanized value for typing\n    }, humanize);\n  }\n\n  /**\n   * Continue to the next string & begin typing\n   * @param {string} curString the current string in the strings array\n   * @param {number} curStrPos the current position in the curString\n   * @private\n   */\n  keepTyping(curString, curStrPos, numChars) {\n    // call before functions if applicable\n    if (curStrPos === 0) {\n      this.toggleBlinking(false);\n      this.options.preStringTyped(this.arrayPos, this);\n    }\n    // start typing each new char into existing string\n    // curString: arg, this.el.html: original text inside element\n    curStrPos += numChars;\n    const nextString = curString.substring(0, curStrPos);\n    this.replaceText(nextString);\n    // loop the function\n    this.typewrite(curString, curStrPos);\n  }\n\n  /**\n   * We're done typing the current string\n   * @param {string} curString the current string in the strings array\n   * @param {number} curStrPos the current position in the curString\n   * @private\n   */\n  doneTyping(curString, curStrPos) {\n    // fires callback function\n    this.options.onStringTyped(this.arrayPos, this);\n    this.toggleBlinking(true);\n    // is this the final string\n    if (this.arrayPos === this.strings.length - 1) {\n      // callback that occurs on the last typed string\n      this.complete();\n      // quit if we wont loop back\n      if (this.loop === false || this.curLoop === this.loopCount) {\n        return;\n      }\n    }\n    this.timeout = setTimeout(() => {\n      this.backspace(curString, curStrPos);\n    }, this.backDelay);\n  }\n\n  /**\n   * Backspaces 1 character at a time\n   * @param {string} curString the current string in the strings array\n   * @param {number} curStrPos the current position in the curString\n   * @private\n   */\n  backspace(curString, curStrPos) {\n    if (this.pause.status === true) {\n      this.setPauseStatus(curString, curStrPos, false);\n      return;\n    }\n    if (this.fadeOut) return this.initFadeOut();\n\n    this.toggleBlinking(false);\n    const humanize = this.humanizer(this.backSpeed);\n\n    this.timeout = setTimeout(() => {\n      curStrPos = htmlParser.backSpaceHtmlChars(curString, curStrPos, this);\n      // replace text with base text + typed characters\n      const curStringAtPosition = curString.substring(0, curStrPos);\n      this.replaceText(curStringAtPosition);\n\n      // if smartBack is enabled\n      if (this.smartBackspace) {\n        // the remaining part of the current string is equal of the same part of the new string\n        let nextString = this.strings[this.arrayPos + 1];\n        if (\n          nextString &&\n          curStringAtPosition === nextString.substring(0, curStrPos)\n        ) {\n          this.stopNum = curStrPos;\n        } else {\n          this.stopNum = 0;\n        }\n      }\n\n      // if the number (id of character in current string) is\n      // less than the stop number, keep going\n      if (curStrPos > this.stopNum) {\n        // subtract characters one by one\n        curStrPos--;\n        // loop the function\n        this.backspace(curString, curStrPos);\n      } else if (curStrPos <= this.stopNum) {\n        // if the stop number has been reached, increase\n        // array position to next string\n        this.arrayPos++;\n        // When looping, begin at the beginning after backspace complete\n        if (this.arrayPos === this.strings.length) {\n          this.arrayPos = 0;\n          this.options.onLastStringBackspaced();\n          this.shuffleStringsIfNeeded();\n          this.begin();\n        } else {\n          this.typewrite(this.strings[this.sequence[this.arrayPos]], curStrPos);\n        }\n      }\n      // humanized value for typing\n    }, humanize);\n  }\n\n  /**\n   * Full animation is complete\n   * @private\n   */\n  complete() {\n    this.options.onComplete(this);\n    if (this.loop) {\n      this.curLoop++;\n    } else {\n      this.typingComplete = true;\n    }\n  }\n\n  /**\n   * Has the typing been stopped\n   * @param {string} curString the current string in the strings array\n   * @param {number} curStrPos the current position in the curString\n   * @param {boolean} isTyping\n   * @private\n   */\n  setPauseStatus(curString, curStrPos, isTyping) {\n    this.pause.typewrite = isTyping;\n    this.pause.curString = curString;\n    this.pause.curStrPos = curStrPos;\n  }\n\n  /**\n   * Toggle the blinking cursor\n   * @param {boolean} isBlinking\n   * @private\n   */\n  toggleBlinking(isBlinking) {\n    if (!this.cursor) return;\n    // if in paused state, don't toggle blinking a 2nd time\n    if (this.pause.status) return;\n    if (this.cursorBlinking === isBlinking) return;\n    this.cursorBlinking = isBlinking;\n    if (isBlinking) {\n      this.cursor.classList.add('typed-cursor--blink');\n    } else {\n      this.cursor.classList.remove('typed-cursor--blink');\n    }\n  }\n\n  /**\n   * Speed in MS to type\n   * @param {number} speed\n   * @private\n   */\n  humanizer(speed) {\n    return Math.round((Math.random() * speed) / 2) + speed;\n  }\n\n  /**\n   * Shuffle the sequence of the strings array\n   * @private\n   */\n  shuffleStringsIfNeeded() {\n    if (!this.shuffle) return;\n    this.sequence = this.sequence.sort(() => Math.random() - 0.5);\n  }\n\n  /**\n   * Adds a CSS class to fade out current string\n   * @private\n   */\n  initFadeOut() {\n    this.el.className += ` ${this.fadeOutClass}`;\n    if (this.cursor) this.cursor.className += ` ${this.fadeOutClass}`;\n    return setTimeout(() => {\n      this.arrayPos++;\n      this.replaceText('');\n\n      // Resets current string if end of loop reached\n      if (this.strings.length > this.arrayPos) {\n        this.typewrite(this.strings[this.sequence[this.arrayPos]], 0);\n      } else {\n        this.typewrite(this.strings[0], 0);\n        this.arrayPos = 0;\n      }\n    }, this.fadeOutDelay);\n  }\n\n  /**\n   * Replaces current text in the HTML element\n   * depending on element type\n   * @param {string} str\n   * @private\n   */\n  replaceText(str) {\n    if (this.attr) {\n      this.el.setAttribute(this.attr, str);\n    } else {\n      if (this.isInput) {\n        this.el.value = str;\n      } else if (this.contentType === 'html') {\n        this.el.innerHTML = str;\n      } else {\n        this.el.textContent = str;\n      }\n    }\n  }\n\n  /**\n   * If using input elements, bind focus in order to\n   * start and stop the animation\n   * @private\n   */\n  bindFocusEvents() {\n    if (!this.isInput) return;\n    this.el.addEventListener('focus', (e) => {\n      this.stop();\n    });\n    this.el.addEventListener('blur', (e) => {\n      if (this.el.value && this.el.value.length !== 0) {\n        return;\n      }\n      this.start();\n    });\n  }\n\n  /**\n   * On init, insert the cursor element\n   * @private\n   */\n  insertCursor() {\n    if (!this.showCursor) return;\n    if (this.cursor) return;\n    this.cursor = document.createElement('span');\n    this.cursor.className = 'typed-cursor';\n    this.cursor.setAttribute('aria-hidden', true);\n    this.cursor.innerHTML = this.cursorChar;\n    this.el.parentNode &&\n      this.el.parentNode.insertBefore(this.cursor, this.el.nextSibling);\n  }\n}\n",
     "static": true,
     "longname": "/Users/mattboldt/Documents/dev/Repos/typedjs/src/typed.js",
     "access": "public",
@@ -1610,7 +912,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 108,
+    "__docId__": 63,
     "kind": "class",
     "name": "Typed",
     "memberof": "src/typed.js",
@@ -1655,7 +957,7 @@
     "interface": false
   },
   {
-    "__docId__": 109,
+    "__docId__": 64,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/typed.js~Typed",
@@ -1669,7 +971,7 @@
     "undocument": true
   },
   {
-    "__docId__": 110,
+    "__docId__": 65,
     "kind": "method",
     "name": "toggle",
     "memberof": "src/typed.js~Typed",
@@ -1684,7 +986,7 @@
     "return": null
   },
   {
-    "__docId__": 111,
+    "__docId__": 66,
     "kind": "method",
     "name": "stop",
     "memberof": "src/typed.js~Typed",
@@ -1699,7 +1001,7 @@
     "return": null
   },
   {
-    "__docId__": 112,
+    "__docId__": 67,
     "kind": "method",
     "name": "start",
     "memberof": "src/typed.js~Typed",
@@ -1714,7 +1016,7 @@
     "return": null
   },
   {
-    "__docId__": 113,
+    "__docId__": 68,
     "kind": "method",
     "name": "destroy",
     "memberof": "src/typed.js~Typed",
@@ -1729,7 +1031,7 @@
     "return": null
   },
   {
-    "__docId__": 114,
+    "__docId__": 69,
     "kind": "method",
     "name": "reset",
     "memberof": "src/typed.js~Typed",
@@ -1753,7 +1055,7 @@
     "return": null
   },
   {
-    "__docId__": 115,
+    "__docId__": 70,
     "kind": "member",
     "name": "cursor",
     "memberof": "src/typed.js~Typed",
@@ -1768,7 +1070,7 @@
     }
   },
   {
-    "__docId__": 116,
+    "__docId__": 71,
     "kind": "member",
     "name": "strPos",
     "memberof": "src/typed.js~Typed",
@@ -1783,7 +1085,7 @@
     }
   },
   {
-    "__docId__": 117,
+    "__docId__": 72,
     "kind": "member",
     "name": "arrayPos",
     "memberof": "src/typed.js~Typed",
@@ -1798,7 +1100,7 @@
     }
   },
   {
-    "__docId__": 118,
+    "__docId__": 73,
     "kind": "member",
     "name": "curLoop",
     "memberof": "src/typed.js~Typed",
@@ -1813,7 +1115,7 @@
     }
   },
   {
-    "__docId__": 119,
+    "__docId__": 74,
     "kind": "method",
     "name": "begin",
     "memberof": "src/typed.js~Typed",
@@ -1828,7 +1130,7 @@
     "return": null
   },
   {
-    "__docId__": 120,
+    "__docId__": 75,
     "kind": "member",
     "name": "typingComplete",
     "memberof": "src/typed.js~Typed",
@@ -1843,7 +1145,7 @@
     }
   },
   {
-    "__docId__": 121,
+    "__docId__": 76,
     "kind": "member",
     "name": "timeout",
     "memberof": "src/typed.js~Typed",
@@ -1858,7 +1160,7 @@
     }
   },
   {
-    "__docId__": 122,
+    "__docId__": 77,
     "kind": "method",
     "name": "typewrite",
     "memberof": "src/typed.js~Typed",
@@ -1890,7 +1192,7 @@
     "return": null
   },
   {
-    "__docId__": 124,
+    "__docId__": 79,
     "kind": "member",
     "name": "temporaryPause",
     "memberof": "src/typed.js~Typed",
@@ -1905,7 +1207,7 @@
     }
   },
   {
-    "__docId__": 127,
+    "__docId__": 82,
     "kind": "method",
     "name": "keepTyping",
     "memberof": "src/typed.js~Typed",
@@ -1937,7 +1239,7 @@
     "return": null
   },
   {
-    "__docId__": 128,
+    "__docId__": 83,
     "kind": "method",
     "name": "doneTyping",
     "memberof": "src/typed.js~Typed",
@@ -1969,7 +1271,7 @@
     "return": null
   },
   {
-    "__docId__": 130,
+    "__docId__": 85,
     "kind": "method",
     "name": "backspace",
     "memberof": "src/typed.js~Typed",
@@ -2003,7 +1305,7 @@
     }
   },
   {
-    "__docId__": 132,
+    "__docId__": 87,
     "kind": "member",
     "name": "stopNum",
     "memberof": "src/typed.js~Typed",
@@ -2018,7 +1320,7 @@
     }
   },
   {
-    "__docId__": 135,
+    "__docId__": 90,
     "kind": "method",
     "name": "complete",
     "memberof": "src/typed.js~Typed",
@@ -2033,7 +1335,7 @@
     "return": null
   },
   {
-    "__docId__": 137,
+    "__docId__": 92,
     "kind": "method",
     "name": "setPauseStatus",
     "memberof": "src/typed.js~Typed",
@@ -2073,7 +1375,7 @@
     "return": null
   },
   {
-    "__docId__": 138,
+    "__docId__": 93,
     "kind": "method",
     "name": "toggleBlinking",
     "memberof": "src/typed.js~Typed",
@@ -2097,7 +1399,7 @@
     "return": null
   },
   {
-    "__docId__": 139,
+    "__docId__": 94,
     "kind": "member",
     "name": "cursorBlinking",
     "memberof": "src/typed.js~Typed",
@@ -2112,7 +1414,7 @@
     }
   },
   {
-    "__docId__": 140,
+    "__docId__": 95,
     "kind": "method",
     "name": "humanizer",
     "memberof": "src/typed.js~Typed",
@@ -2138,7 +1440,7 @@
     }
   },
   {
-    "__docId__": 141,
+    "__docId__": 96,
     "kind": "method",
     "name": "shuffleStringsIfNeeded",
     "memberof": "src/typed.js~Typed",
@@ -2153,7 +1455,7 @@
     "return": null
   },
   {
-    "__docId__": 142,
+    "__docId__": 97,
     "kind": "member",
     "name": "sequence",
     "memberof": "src/typed.js~Typed",
@@ -2168,7 +1470,7 @@
     }
   },
   {
-    "__docId__": 143,
+    "__docId__": 98,
     "kind": "method",
     "name": "initFadeOut",
     "memberof": "src/typed.js~Typed",
@@ -2185,7 +1487,7 @@
     }
   },
   {
-    "__docId__": 145,
+    "__docId__": 100,
     "kind": "method",
     "name": "replaceText",
     "memberof": "src/typed.js~Typed",
@@ -2209,7 +1511,7 @@
     "return": null
   },
   {
-    "__docId__": 146,
+    "__docId__": 101,
     "kind": "method",
     "name": "bindFocusEvents",
     "memberof": "src/typed.js~Typed",
@@ -2224,7 +1526,7 @@
     "return": null
   },
   {
-    "__docId__": 147,
+    "__docId__": 102,
     "kind": "method",
     "name": "insertCursor",
     "memberof": "src/typed.js~Typed",
@@ -2240,7 +1542,7 @@
   },
   {
     "kind": "index",
-    "content": "[![Build Status](https://travis-ci.org/mattboldt/typed.js.svg?branch=typed-2.0)](https://travis-ci.org/mattboldt/typed.js)\n[![Code Climate](https://codeclimate.com/github/mattboldt/typed.js/badges/gpa.svg)](https://codeclimate.com/github/mattboldt/typed.js)\n[![GitHub release](https://img.shields.io/github/release/mattboldt/typed.js.svg)]()\n[![npm](https://img.shields.io/npm/dt/typed.js.svg)](https://img.shields.io/npm/dt/typed.js.svg)\n[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/mattboldt/typed.js/master/LICENSE.txt)\n\n<img src=\"https://raw.githubusercontent.com/mattboldt/typed.js/master/logo-cropped.png\" width=\"450px\" title=\"Typed.js\" />\n\n### [Live Demo](http://www.mattboldt.com/demos/typed-js/) | [View All Demos](http://mattboldt.github.io/typed.js/) | [View Full Docs](http://mattboldt.github.io/typed.js/docs) | [mattboldt.com](http://www.mattboldt.com)\n\nTyped.js is a library that types. Enter in any string, and watch it type at the speed you've set, backspace what it's typed, and begin a new sentence for however many strings you've set.\n\n---\n\n## Installation\n\n#### NPM\n\n```\nnpm install typed.js\n```\n\n#### Yarn\n\n```\nyarn add typed.js\n```\n\n#### CDN\n\n```html\n<script src=\"https://cdn.jsdelivr.net/npm/typed.js@2.0.15\"></script>\n```\n\n#### Setup\n\nThis is really all you need to get going.\n\n```javascript\n// Can also be included with a regular script tag\nimport Typed from 'typed.js';\n\nvar options = {\n  strings: ['<i>First</i> sentence.', '&amp; a second sentence.'],\n  typeSpeed: 40,\n};\n\nvar typed = new Typed('.element', options);\n```\n\n### Use with ReactJS\n\nHook-based function component: https://jsfiddle.net/mattboldt/60h9an7y/\n\nClass component: https://jsfiddle.net/mattboldt/ovat9jmp/\n\n### Use with Vue.js\n\nCheck out the Vue.js component: https://github.com/Orlandster/vue-typed-js\n\n### Use it as WebComponent\n\nCheck out the WebComponent: https://github.com/Orlandster/wc-typed-js\n\n## Wonderful sites that have used (or are using) Typed.js\n\nhttps://github.com/features/package-registry\n\nhttps://slack.com/\n\nhttps://envato.com/\n\nhttps://gorails.com/\n\nhttps://productmap.co/\n\nhttps://www.typed.com/\n\nhttps://apeiron.io\n\nhttps://git.market/\n\nhttps://commando.io/\n\nhttp://testdouble.com/agency.html\n\nhttps://www.capitalfactory.com/\n\nhttp://www.maxcdn.com/\n\nhttps://www.powerauth.com/\n\n---\n\n### Strings from static HTML (SEO Friendly)\n\nRather than using the `strings` array to insert strings, you can place an HTML `div` on the page and read from it.\nThis allows bots and search engines, as well as users with JavaScript disabled, to see your text on the page.\n\n```javascript\n<script>\n  var typed = new Typed('#typed', {\n    stringsElement: '#typed-strings'\n  });\n</script>\n```\n\n```html\n<div id=\"typed-strings\">\n  <p>Typed.js is a <strong>JavaScript</strong> library.</p>\n  <p>It <em>types</em> out sentences.</p>\n</div>\n<span id=\"typed\"></span>\n```\n\n### Type Pausing\n\nYou can pause in the middle of a string for a given amount of time by including an escape character.\n\n```javascript\nvar typed = new Typed('.element', {\n  // Waits 1000ms after typing \"First\"\n  strings: ['First ^1000 sentence.', 'Second sentence.'],\n});\n```\n\n### Smart Backspacing\n\nIn the following example, this would only backspace the words after \"This is a\"\n\n```javascript\nvar typed = new Typed('.element', {\n  strings: ['This is a JavaScript library', 'This is an ES6 module'],\n  smartBackspace: true, // Default value\n});\n```\n\n### Bulk Typing\n\nThe following example would emulate how a terminal acts when typing a command and seeing its result.\n\n```javascript\nvar typed = new Typed('.element', {\n  strings: ['git push --force ^1000\\n `pushed to origin with option force`'],\n});\n```\n\n### CSS\n\nCSS animations are built upon initialization in JavaScript. But, you can customize them at your will! These classes are:\n\n```css\n/* Cursor */\n.typed-cursor {\n}\n\n/* If fade out option is set */\n.typed-fade-out {\n}\n```\n\n## Customization\n\n```javascript\nvar typed = new Typed('.element', {\n  /**\n   * @property {array} strings strings to be typed\n   * @property {string} stringsElement ID of element containing string children\n   */\n  strings: [\n    'These are the default values...',\n    'You know what you should do?',\n    'Use your own!',\n    'Have a great day!',\n  ],\n  stringsElement: null,\n\n  /**\n   * @property {number} typeSpeed type speed in milliseconds\n   */\n  typeSpeed: 0,\n\n  /**\n   * @property {number} startDelay time before typing starts in milliseconds\n   */\n  startDelay: 0,\n\n  /**\n   * @property {number} backSpeed backspacing speed in milliseconds\n   */\n  backSpeed: 0,\n\n  /**\n   * @property {boolean} smartBackspace only backspace what doesn't match the previous string\n   */\n  smartBackspace: true,\n\n  /**\n   * @property {boolean} shuffle shuffle the strings\n   */\n  shuffle: false,\n\n  /**\n   * @property {number} backDelay time before backspacing in milliseconds\n   */\n  backDelay: 700,\n\n  /**\n   * @property {boolean} fadeOut Fade out instead of backspace\n   * @property {string} fadeOutClass css class for fade animation\n   * @property {boolean} fadeOutDelay Fade out delay in milliseconds\n   */\n  fadeOut: false,\n  fadeOutClass: 'typed-fade-out',\n  fadeOutDelay: 500,\n\n  /**\n   * @property {boolean} loop loop strings\n   * @property {number} loopCount amount of loops\n   */\n  loop: false,\n  loopCount: Infinity,\n\n  /**\n   * @property {boolean} showCursor show cursor\n   * @property {string} cursorChar character for cursor\n   * @property {boolean} autoInsertCss insert CSS for cursor and fadeOut into HTML <head>\n   */\n  showCursor: true,\n  cursorChar: '|',\n  autoInsertCss: true,\n\n  /**\n   * @property {string} attr attribute for typing\n   * Ex: input placeholder, value, or just HTML text\n   */\n  attr: null,\n\n  /**\n   * @property {boolean} bindInputFocusEvents bind to focus and blur if el is text input\n   */\n  bindInputFocusEvents: false,\n\n  /**\n   * @property {string} contentType 'html' or 'null' for plaintext\n   */\n  contentType: 'html',\n\n  /**\n   * Before it begins typing\n   * @param {Typed} self\n   */\n  onBegin: (self) => {},\n\n  /**\n   * All typing is complete\n   * @param {Typed} self\n   */\n  onComplete: (self) => {},\n\n  /**\n   * Before each string is typed\n   * @param {number} arrayPos\n   * @param {Typed} self\n   */\n  preStringTyped: (arrayPos, self) => {},\n\n  /**\n   * After each string is typed\n   * @param {number} arrayPos\n   * @param {Typed} self\n   */\n  onStringTyped: (arrayPos, self) => {},\n\n  /**\n   * During looping, after last string is typed\n   * @param {Typed} self\n   */\n  onLastStringBackspaced: (self) => {},\n\n  /**\n   * Typing has been stopped\n   * @param {number} arrayPos\n   * @param {Typed} self\n   */\n  onTypingPaused: (arrayPos, self) => {},\n\n  /**\n   * Typing has been started after being stopped\n   * @param {number} arrayPos\n   * @param {Typed} self\n   */\n  onTypingResumed: (arrayPos, self) => {},\n\n  /**\n   * After reset\n   * @param {Typed} self\n   */\n  onReset: (self) => {},\n\n  /**\n   * After stop\n   * @param {number} arrayPos\n   * @param {Typed} self\n   */\n  onStop: (arrayPos, self) => {},\n\n  /**\n   * After start\n   * @param {number} arrayPos\n   * @param {Typed} self\n   */\n  onStart: (arrayPos, self) => {},\n\n  /**\n   * After destroy\n   * @param {Typed} self\n   */\n  onDestroy: (self) => {},\n});\n```\n\n## Contributing\n\n### [View Contribution Guidelines](./.github/CONTRIBUTING.md)\n\n## end\n\nThanks for checking this out. If you have any questions, I'll be on [Twitter](https://twitter.com/atmattb).\n\nIf you're using this, let me know! I'd love to see it.\n\nIt would also be great if you mentioned me or my website somewhere. [www.mattboldt.com](http://www.mattboldt.com)\n",
+    "content": "[![Code Climate](https://codeclimate.com/github/mattboldt/typed.js/badges/gpa.svg)](https://codeclimate.com/github/mattboldt/typed.js)\n[![GitHub release](https://img.shields.io/github/release/mattboldt/typed.js.svg)]()\n[![npm](https://img.shields.io/npm/dt/typed.js.svg)](https://img.shields.io/npm/dt/typed.js.svg)\n[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/mattboldt/typed.js/master/LICENSE.txt)\n\n<img src=\"https://raw.githubusercontent.com/mattboldt/typed.js/master/logo-cropped.png\" width=\"450px\" title=\"Typed.js\" />\n\n### [Live Demo](http://www.mattboldt.com/demos/typed-js/) | [View All Demos](http://mattboldt.github.io/typed.js/) | [View Full Docs](http://mattboldt.github.io/typed.js/docs) | [mattboldt.com](http://www.mattboldt.com)\n\nTyped.js is a library that types. Enter in any string, and watch it type at the speed you've set, backspace what it's typed, and begin a new sentence for however many strings you've set.\n\n---\n\n## Installation\n\n### CDN\n\n```html\n<script src=\"https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js\"></script>\n```\n\nFor use directly in the browser via `<script>` tag:\n\n```html\n  <!-- Element to contain animated typing -->\n  <span id=\"element\"></span>\n\n  <!-- Load library from the CDN -->\n  <script src=\"https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js\"></script>\n\n  <!-- Setup and start animation! -->\n  <script>\n    var typed = new Typed('#element', {\n      strings: ['<i>First</i> sentence.', '&amp; a second sentence.'],\n      typeSpeed: 50,\n    });\n  </script>\n</body>\n```\n\n### As an ESModule\n\nFor use with a build tool like [Vite](https://vitejs.dev/), and/or in a React application, install with NPM or Yarn.\n\n#### NPM\n\n```\nnpm install typed.js\n```\n\n#### Yarn\n\n```\nyarn add typed.js\n```\n\n#### General ESM Usage\n\n```js\nimport Typed from 'typed.js';\n\nconst typed = new Typed('#element', {\n  strings: ['<i>First</i> sentence.', '&amp; a second sentence.'],\n  typeSpeed: 50,\n});\n```\n\n### ReactJS Usage\n\n```js\nimport React from 'react';\nimport Typed from 'typed.js';\n\nfunction MyComponent() {\n  // Create reference to store the DOM element containing the animation\n  const el = React.useRef(null);\n\n  React.useEffect(() => {\n    const typed = new Typed(el.current, {\n      strings: ['<i>First</i> sentence.', '&amp; a second sentence.'],\n      typeSpeed: 50,\n    });\n\n    return () => {\n      // Destroy Typed instance during cleanup to stop animation\n      typed.destroy();\n    };\n  }, []);\n\n  return (\n    <div className=\"App\">\n      <span ref={el} />\n    </div>\n  );\n}\n```\n\nMore complex hook-based function component: https://jsfiddle.net/mattboldt/60h9an7y/\n\nClass component: https://jsfiddle.net/mattboldt/ovat9jmp/\n\n### Use with Vue.js\n\nCheck out the Vue.js component: https://github.com/Orlandster/vue-typed-js\n\n### Use it as WebComponent\n\nCheck out the WebComponent: https://github.com/Orlandster/wc-typed-js\n\n## Wonderful sites that have used (or are using) Typed.js\n\nhttps://github.com/features/package-registry\n\nhttps://slack.com/\n\nhttps://envato.com/\n\nhttps://gorails.com/\n\nhttps://productmap.co/\n\nhttps://www.typed.com/\n\nhttps://apeiron.io\n\nhttps://git.market/\n\nhttps://commando.io/\n\nhttp://testdouble.com/agency.html\n\nhttps://www.capitalfactory.com/\n\nhttp://www.maxcdn.com/\n\nhttps://www.powerauth.com/\n\n---\n\n### Strings from static HTML (SEO Friendly)\n\nRather than using the `strings` array to insert strings, you can place an HTML `div` on the page and read from it.\nThis allows bots and search engines, as well as users with JavaScript disabled, to see your text on the page.\n\n```javascript\n<script>\n  var typed = new Typed('#typed', {\n    stringsElement: '#typed-strings'\n  });\n</script>\n```\n\n```html\n<div id=\"typed-strings\">\n  <p>Typed.js is a <strong>JavaScript</strong> library.</p>\n  <p>It <em>types</em> out sentences.</p>\n</div>\n<span id=\"typed\"></span>\n```\n\n### Type Pausing\n\nYou can pause in the middle of a string for a given amount of time by including an escape character.\n\n```javascript\nvar typed = new Typed('#element', {\n  // Waits 1000ms after typing \"First\"\n  strings: ['First ^1000 sentence.', 'Second sentence.'],\n});\n```\n\n### Smart Backspacing\n\nIn the following example, this would only backspace the words after \"This is a\"\n\n```javascript\nvar typed = new Typed('#element', {\n  strings: ['This is a JavaScript library', 'This is an ES6 module'],\n  smartBackspace: true, // Default value\n});\n```\n\n### Bulk Typing\n\nThe following example would emulate how a terminal acts when typing a command and seeing its result.\n\n```javascript\nvar typed = new Typed('#element', {\n  strings: ['git push --force ^1000\\n `pushed to origin with option force`'],\n});\n```\n\n### CSS\n\nCSS animations are built upon initialization in JavaScript. But, you can customize them at your will! These classes are:\n\n```css\n/* Cursor */\n.typed-cursor {\n}\n\n/* If fade out option is set */\n.typed-fade-out {\n}\n```\n\n## Customization\n\n```javascript\nvar typed = new Typed('#element', {\n  /**\n   * @property {array} strings strings to be typed\n   * @property {string} stringsElement ID of element containing string children\n   */\n  strings: [\n    'These are the default values...',\n    'You know what you should do?',\n    'Use your own!',\n    'Have a great day!',\n  ],\n  stringsElement: null,\n\n  /**\n   * @property {number} typeSpeed type speed in milliseconds\n   */\n  typeSpeed: 0,\n\n  /**\n   * @property {number} startDelay time before typing starts in milliseconds\n   */\n  startDelay: 0,\n\n  /**\n   * @property {number} backSpeed backspacing speed in milliseconds\n   */\n  backSpeed: 0,\n\n  /**\n   * @property {boolean} smartBackspace only backspace what doesn't match the previous string\n   */\n  smartBackspace: true,\n\n  /**\n   * @property {boolean} shuffle shuffle the strings\n   */\n  shuffle: false,\n\n  /**\n   * @property {number} backDelay time before backspacing in milliseconds\n   */\n  backDelay: 700,\n\n  /**\n   * @property {boolean} fadeOut Fade out instead of backspace\n   * @property {string} fadeOutClass css class for fade animation\n   * @property {boolean} fadeOutDelay Fade out delay in milliseconds\n   */\n  fadeOut: false,\n  fadeOutClass: 'typed-fade-out',\n  fadeOutDelay: 500,\n\n  /**\n   * @property {boolean} loop loop strings\n   * @property {number} loopCount amount of loops\n   */\n  loop: false,\n  loopCount: Infinity,\n\n  /**\n   * @property {boolean} showCursor show cursor\n   * @property {string} cursorChar character for cursor\n   * @property {boolean} autoInsertCss insert CSS for cursor and fadeOut into HTML <head>\n   */\n  showCursor: true,\n  cursorChar: '|',\n  autoInsertCss: true,\n\n  /**\n   * @property {string} attr attribute for typing\n   * Ex: input placeholder, value, or just HTML text\n   */\n  attr: null,\n\n  /**\n   * @property {boolean} bindInputFocusEvents bind to focus and blur if el is text input\n   */\n  bindInputFocusEvents: false,\n\n  /**\n   * @property {string} contentType 'html' or 'null' for plaintext\n   */\n  contentType: 'html',\n\n  /**\n   * Before it begins typing\n   * @param {Typed} self\n   */\n  onBegin: (self) => {},\n\n  /**\n   * All typing is complete\n   * @param {Typed} self\n   */\n  onComplete: (self) => {},\n\n  /**\n   * Before each string is typed\n   * @param {number} arrayPos\n   * @param {Typed} self\n   */\n  preStringTyped: (arrayPos, self) => {},\n\n  /**\n   * After each string is typed\n   * @param {number} arrayPos\n   * @param {Typed} self\n   */\n  onStringTyped: (arrayPos, self) => {},\n\n  /**\n   * During looping, after last string is typed\n   * @param {Typed} self\n   */\n  onLastStringBackspaced: (self) => {},\n\n  /**\n   * Typing has been stopped\n   * @param {number} arrayPos\n   * @param {Typed} self\n   */\n  onTypingPaused: (arrayPos, self) => {},\n\n  /**\n   * Typing has been started after being stopped\n   * @param {number} arrayPos\n   * @param {Typed} self\n   */\n  onTypingResumed: (arrayPos, self) => {},\n\n  /**\n   * After reset\n   * @param {Typed} self\n   */\n  onReset: (self) => {},\n\n  /**\n   * After stop\n   * @param {number} arrayPos\n   * @param {Typed} self\n   */\n  onStop: (arrayPos, self) => {},\n\n  /**\n   * After start\n   * @param {number} arrayPos\n   * @param {Typed} self\n   */\n  onStart: (arrayPos, self) => {},\n\n  /**\n   * After destroy\n   * @param {Typed} self\n   */\n  onDestroy: (self) => {},\n});\n```\n\n## Contributing\n\n### [View Contribution Guidelines](./.github/CONTRIBUTING.md)\n\n## end\n\nThanks for checking this out. If you have any questions, I'll be on [Twitter](https://twitter.com/atmattb).\n\nIf you're using this, let me know! I'd love to see it.\n\nIt would also be great if you mentioned me or my website somewhere. [www.mattboldt.com](http://www.mattboldt.com)\n",
     "longname": "/Users/mattboldt/Documents/dev/Repos/typedjs/README.md",
     "name": "./README.md",
     "static": true,
@@ -2248,7 +1550,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"typed.js\",\n  \"version\": \"2.0.15\",\n  \"homepage\": \"https://github.com/mattboldt/typed.js\",\n  \"repository\": \"https://github.com/mattboldt/typed.js\",\n  \"license\": \"MIT\",\n  \"author\": \"Matt Boldt\",\n  \"description\": \"A JavaScript Typing Animation Library\",\n  \"type\": \"module\",\n  \"source\": \"src/typed.js\",\n  \"types\": \"./index.d.ts\",\n  \"files\": [\n    \"dist\",\n    \"index.d.ts\"\n  ],\n  \"exports\": {\n    \"require\": \"./dist/typed.cjs\",\n    \"import\": \"./dist/typed.module.js\"\n  },\n  \"main\": \"./dist/typed.cjs\",\n  \"module\": \"./dist/typed.module.js\",\n  \"unpkg\": \"./dist/typed.umd.js\",\n  \"keywords\": [\n    \"typed\",\n    \"animation\"\n  ],\n  \"devDependencies\": {\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"microbundle\": \"^0.15.1\"\n  },\n  \"scripts\": {\n    \"build\": \"microbundle --name=Typed\",\n    \"dev\": \"microbundle --name=Typed watch\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"typed.js\",\n  \"version\": \"2.0.16\",\n  \"homepage\": \"https://github.com/mattboldt/typed.js\",\n  \"repository\": \"https://github.com/mattboldt/typed.js\",\n  \"license\": \"MIT\",\n  \"author\": \"Matt Boldt\",\n  \"description\": \"A JavaScript Typing Animation Library\",\n  \"type\": \"module\",\n  \"source\": \"src/typed.js\",\n  \"types\": \"./index.d.ts\",\n  \"files\": [\n    \"dist\",\n    \"index.d.ts\"\n  ],\n  \"exports\": {\n    \"require\": \"./dist/typed.cjs\",\n    \"import\": \"./dist/typed.module.js\"\n  },\n  \"main\": \"./dist/typed.cjs\",\n  \"module\": \"./dist/typed.module.js\",\n  \"unpkg\": \"./dist/typed.umd.js\",\n  \"keywords\": [\n    \"typed\",\n    \"animation\"\n  ],\n  \"devDependencies\": {\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"microbundle\": \"^0.15.1\"\n  },\n  \"scripts\": {\n    \"build\": \"microbundle --name=Typed\",\n    \"dev\": \"microbundle --name=Typed watch\"\n  }\n}\n",
     "longname": "/Users/mattboldt/Documents/dev/Repos/typedjs/package.json",
     "name": "package.json",
     "static": true,

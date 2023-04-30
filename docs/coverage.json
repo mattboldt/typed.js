@@ -1,7 +1,7 @@
 {
-  "coverage": "61.84%",
-  "expectCount": 76,
-  "actualCount": 47,
+  "coverage": "61.9%",
+  "expectCount": 42,
+  "actualCount": 26,
   "files": {
     "src/defaults.js": {
       "expectCount": 1,
@@ -16,32 +16,13 @@
       ]
     },
     "src/initializer.js": {
-      "expectCount": 5,
+      "expectCount": 6,
       "actualCount": 2,
       "undocumentLines": [
-        138,
-        152,
-        210
-      ]
-    },
-    "src/typed-using-raf.js": {
-      "expectCount": 35,
-      "actualCount": 21,
-      "undocumentLines": [
-        12,
-        74,
-        76,
-        77,
-        78,
-        92,
-        105,
         147,
-        152,
-        179,
-        208,
-        301,
-        368,
-        391
+        161,
+        193,
+        218
       ]
     },
     "src/typed.js": {

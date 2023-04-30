@@ -1,123 +1,46 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <base data-ice="baseUrl" href="../../" />
-    <title data-ice="title">src/typed.js | typed.js</title>
-    <link type="text/css" rel="stylesheet" href="css/style.css" />
-    <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css" />
-    <script src="script/prettify/prettify.js"></script>
-    <script src="script/manual.js"></script>
-    <meta name="description" content="A JavaScript Typing Animation Library" />
-    <meta property="twitter:card" content="summary" />
-    <meta property="twitter:title" content="typed.js" />
-    <meta
-      property="twitter:description"
-      content="A JavaScript Typing Animation Library"
-    />
-  </head>
-  <body class="layout-container" data-ice="rootContainer">
-    <header>
-      <a href="./">Home</a>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/typed.js | typed.js</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="A JavaScript Typing Animation Library"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="typed.js"><meta property="twitter:description" content="A JavaScript Typing Animation Library"></head>
+<body class="layout-container" data-ice="rootContainer">
 
-      <a href="identifiers.html">Reference</a>
-      <a href="source.html">Source</a>
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/mattboldt/typed.js"><img width="20px" src="./image/github.png"></a></header>
 
-      <div class="search-box">
-        <span>
-          <img src="./image/search.png" />
-          <span class="search-input-edge"></span
-          ><input class="search-input" /><span class="search-input-edge"></span>
-        </span>
-        <ul class="search-result"></ul>
-      </div>
-      <a
-        style="position: relative; top: 3px"
-        href="https://github.com/mattboldt/typed.js"
-        ><img width="20px" src="./image/github.png"
-      /></a>
-    </header>
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/html-parser.js~HTMLParser.html">HTMLParser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/initializer.js~Initializer.html">Initializer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/typed.js~Typed.html">Typed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-defaults">defaults</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-htmlParser">htmlParser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-initializer">initializer</a></span></span></li>
+</ul>
+</div>
+</nav>
 
-    <nav class="navigation" data-ice="nav">
-      <div>
-        <ul>
-          <li data-ice="doc">
-            <span data-ice="kind" class="kind-class">C</span
-            ><span data-ice="name"
-              ><span
-                ><a href="class/src/html-parser.js~HTMLParser.html"
-                  >HTMLParser</a
-                ></span
-              ></span
-            >
-          </li>
-          <li data-ice="doc">
-            <span data-ice="kind" class="kind-class">C</span
-            ><span data-ice="name"
-              ><span
-                ><a href="class/src/initializer.js~Initializer.html"
-                  >Initializer</a
-                ></span
-              ></span
-            >
-          </li>
-          <li data-ice="doc">
-            <span data-ice="kind" class="kind-class">C</span
-            ><span data-ice="name"
-              ><span
-                ><a href="class/src/typed-using-raf.js~Typed.html"
-                  >Typed</a
-                ></span
-              ></span
-            >
-          </li>
-          <li data-ice="doc">
-            <span data-ice="kind" class="kind-class">C</span
-            ><span data-ice="name"
-              ><span
-                ><a href="class/src/typed.js~Typed.html">Typed</a></span
-              ></span
-            >
-          </li>
-          <li data-ice="doc">
-            <span data-ice="kind" class="kind-variable">V</span
-            ><span data-ice="name"
-              ><span
-                ><a href="variable/index.html#static-variable-defaults"
-                  >defaults</a
-                ></span
-              ></span
-            >
-          </li>
-          <li data-ice="doc">
-            <span data-ice="kind" class="kind-variable">V</span
-            ><span data-ice="name"
-              ><span
-                ><a href="variable/index.html#static-variable-htmlParser"
-                  >htmlParser</a
-                ></span
-              ></span
-            >
-          </li>
-          <li data-ice="doc">
-            <span data-ice="kind" class="kind-variable">V</span
-            ><span data-ice="name"
-              ><span
-                ><a href="variable/index.html#static-variable-initializer"
-                  >initializer</a
-                ></span
-              ></span
-            >
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <div class="content" data-ice="content">
-      <h1 data-ice="title">src/typed.js</h1>
-      <pre
-        class="source-code line-number raw-source-code"
-      ><code class="prettyprint linenums" data-ice="content">import { initializer } from &apos;./initializer.js&apos;;
+<div class="content" data-ice="content"><h1 data-ice="title">src/typed.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { initializer } from &apos;./initializer.js&apos;;
 import { htmlParser } from &apos;./html-parser.js&apos;;
 
 /**
@@ -212,12 +135,12 @@ export default class Typed {
     this.insertCursor();
     if (this.bindInputFocusEvents) this.bindFocusEvents();
     this.timeout = setTimeout(() =&gt; {
-      // Check if there is some text in the element, if yes start by backspacing the default message
-      if (!this.currentElContent || this.currentElContent.length === 0) {
+      // If the strPos is 0, we&apos;re starting from the beginning of a string
+      // else, we&apos;re starting with a previous string that needs to be backspaced first
+      if (this.strPos === 0) {
         this.typewrite(this.strings[this.sequence[this.arrayPos]], this.strPos);
       } else {
-        // Start typing
-        this.backspace(this.currentElContent, this.currentElContent.length);
+        this.backspace(this.strings[this.sequence[this.arrayPos]], this.strPos);
       }
     }, this.startDelay);
   }
@@ -551,22 +474,19 @@ export default class Typed {
   }
 }
 </code></pre>
-    </div>
 
-    <footer class="footer">
-      Generated by
-      <a href="https://esdoc.org"
-        >ESDoc<span data-ice="esdocVersion">(1.1.0)</span
-        ><img src="./image/esdoc-logo-mini-black.png"
-      /></a>
-    </footer>
+</div>
 
-    <script src="script/search_index.js"></script>
-    <script src="script/search.js"></script>
-    <script src="script/pretty-print.js"></script>
-    <script src="script/inherited-summary.js"></script>
-    <script src="script/test-summary.js"></script>
-    <script src="script/inner-link.js"></script>
-    <script src="script/patch-for-local.js"></script>
-  </body>
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
 </html>

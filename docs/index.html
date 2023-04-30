@@ -65,16 +65,6 @@
             <span data-ice="kind" class="kind-class">C</span
             ><span data-ice="name"
               ><span
-                ><a href="class/src/typed-using-raf.js~Typed.html"
-                  >Typed</a
-                ></span
-              ></span
-            >
-          </li>
-          <li data-ice="doc">
-            <span data-ice="kind" class="kind-class">C</span
-            ><span data-ice="name"
-              ><span
                 ><a href="class/src/typed.js~Typed.html">Typed</a></span
               ></span
             >
@@ -116,11 +106,6 @@
     <div class="content" data-ice="content">
       <div data-ice="index" class="github-markdown">
         <p>
-          <a href="https://travis-ci.org/mattboldt/typed.js"
-            ><img
-              src="https://travis-ci.org/mattboldt/typed.js.svg?branch=typed-2.0"
-              alt="Build Status"
-          /></a>
           <a href="https://codeclimate.com/github/mattboldt/typed.js"
             ><img
               src="https://codeclimate.com/github/mattboldt/typed.js/badges/gpa.svg"
@@ -163,30 +148,75 @@
         </p>
         <hr />
         <h2 id="installation">Installation</h2>
+        <h3 id="cdn">CDN</h3>
+        <pre><code class="lang-html"><code class="source-code prettyprint">&lt;script src=&quot;https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js&quot;&gt;&lt;/script&gt;</code>
+</code></pre>
+        <p>
+          For use directly in the browser via <code>&lt;script&gt;</code> tag:
+        </p>
+        <pre><code class="lang-html"><code class="source-code prettyprint">  &lt;!-- Element to contain animated typing --&gt;
+  &lt;span id=&quot;element&quot;&gt;&lt;/span&gt;
+
+  &lt;!-- Load library from the CDN --&gt;
+  &lt;script src=&quot;https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js&quot;&gt;&lt;/script&gt;
+
+  &lt;!-- Setup and start animation! --&gt;
+  &lt;script&gt;
+    var typed = new Typed(&apos;#element&apos;, {
+      strings: [&apos;&lt;i&gt;First&lt;/i&gt; sentence.&apos;, &apos;&amp;amp; a second sentence.&apos;],
+      typeSpeed: 50,
+    });
+  &lt;/script&gt;
+&lt;/body&gt;</code>
+</code></pre>
+        <h3 id="as-an-esmodule">As an ESModule</h3>
+        <p>
+          For use with a build tool like <a href="https://vitejs.dev/">Vite</a>,
+          and/or in a React application, install with NPM or Yarn.
+        </p>
         <h4 id="npm">NPM</h4>
         <pre><code><code class="source-code prettyprint">npm install typed.js</code>
 </code></pre>
         <h4 id="yarn">Yarn</h4>
         <pre><code><code class="source-code prettyprint">yarn add typed.js</code>
 </code></pre>
-        <h4 id="cdn">CDN</h4>
-        <pre><code class="lang-html"><code class="source-code prettyprint">&lt;script src=&quot;https://cdn.jsdelivr.net/npm/typed.js@2.0.15&quot;&gt;&lt;/script&gt;</code>
+        <h4 id="general-esm-usage">General ESM Usage</h4>
+        <pre><code class="lang-js"><code class="source-code prettyprint">import Typed from &apos;typed.js&apos;;
+
+const typed = new Typed(&apos;#element&apos;, {
+  strings: [&apos;&lt;i&gt;First&lt;/i&gt; sentence.&apos;, &apos;&amp;amp; a second sentence.&apos;],
+  typeSpeed: 50,
+});</code>
 </code></pre>
-        <h4 id="setup">Setup</h4>
-        <p>This is really all you need to get going.</p>
-        <pre><code class="lang-javascript"><code class="source-code prettyprint">// Can also be included with a regular script tag
+        <h3 id="reactjs-usage">ReactJS Usage</h3>
+        <pre><code class="lang-js"><code class="source-code prettyprint">import React from &apos;react&apos;;
 import Typed from &apos;typed.js&apos;;
 
-var options = {
-  strings: [&apos;&lt;i&gt;First&lt;/i&gt; sentence.&apos;, &apos;&amp;amp; a second sentence.&apos;],
-  typeSpeed: 40,
-};
+function MyComponent() {
+  // Create reference to store the DOM element containing the animation
+  const el = React.useRef(null);
 
-var typed = new Typed(&apos;.element&apos;, options);</code>
+  React.useEffect(() =&gt; {
+    const typed = new Typed(el.current, {
+      strings: [&apos;&lt;i&gt;First&lt;/i&gt; sentence.&apos;, &apos;&amp;amp; a second sentence.&apos;],
+      typeSpeed: 50,
+    });
+
+    return () =&gt; {
+      // Destroy Typed instance during cleanup to stop animation
+      typed.destroy();
+    };
+  }, []);
+
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;span ref={el} /&gt;
+    &lt;/div&gt;
+  );
+}</code>
 </code></pre>
-        <h3 id="use-with-reactjs">Use with ReactJS</h3>
         <p>
-          Hook-based function component:
+          More complex hook-based function component:
           <a href="https://jsfiddle.net/mattboldt/60h9an7y/"
             >https://jsfiddle.net/mattboldt/60h9an7y/</a
           >
@@ -268,7 +298,7 @@ var typed = new Typed(&apos;.element&apos;, options);</code>
           You can pause in the middle of a string for a given amount of time by
           including an escape character.
         </p>
-        <pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;.element&apos;, {
+        <pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;#element&apos;, {
   // Waits 1000ms after typing &quot;First&quot;
   strings: [&apos;First ^1000 sentence.&apos;, &apos;Second sentence.&apos;],
 });</code>
@@ -278,7 +308,7 @@ var typed = new Typed(&apos;.element&apos;, options);</code>
           In the following example, this would only backspace the words after
           &quot;This is a&quot;
         </p>
-        <pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;.element&apos;, {
+        <pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;#element&apos;, {
   strings: [&apos;This is a JavaScript library&apos;, &apos;This is an ES6 module&apos;],
   smartBackspace: true, // Default value
 });</code>
@@ -288,7 +318,7 @@ var typed = new Typed(&apos;.element&apos;, options);</code>
           The following example would emulate how a terminal acts when typing a
           command and seeing its result.
         </p>
-        <pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;.element&apos;, {
+        <pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;#element&apos;, {
   strings: [&apos;git push --force ^1000\n `pushed to origin with option force`&apos;],
 });</code>
 </code></pre>
@@ -306,7 +336,7 @@ var typed = new Typed(&apos;.element&apos;, options);</code>
 }</code>
 </code></pre>
         <h2 id="customization">Customization</h2>
-        <pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;.element&apos;, {
+        <pre><code class="lang-javascript"><code class="source-code prettyprint">var typed = new Typed(&apos;#element&apos;, {
   /**
    * @property {array} strings strings to be typed
    * @property {string} stringsElement ID of element containing string children

@@ -31,7 +31,6 @@
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/html-parser.js~HTMLParser.html">HTMLParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/initializer.js~Initializer.html">Initializer</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/typed-using-raf.js~Typed.html">Typed</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/typed.js~Typed.html">Typed</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-defaults">defaults</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-htmlParser">htmlParser</a></span></span></li>
@@ -139,6 +138,22 @@ export default class Initializer {
     // character number position of current string
     self.strPos = 0;
 
+    // If there is some text in the element
+    self.currentElContent = this.getCurrentElContent(self);
+
+    if (self.currentElContent &amp;&amp; self.currentElContent.length &gt; 0) {
+      self.strPos = self.currentElContent.length - 1;
+      self.strings.unshift(self.currentElContent);
+    }
+
+    // the order of strings
+    self.sequence = [];
+
+    // Set the order in which the strings are typed
+    for (let i in self.strings) {
+      self.sequence[i] = i;
+    }
+
     // current array position
     self.arrayPos = 0;
 
@@ -152,8 +167,6 @@ export default class Initializer {
 
     // shuffle the strings
     self.shuffle = self.options.shuffle;
-    // the order of strings
-    self.sequence = [];
 
     self.pause = {
       status: false,
@@ -165,17 +178,12 @@ export default class Initializer {
     // When the typing is complete (when not looped)
     self.typingComplete = false;
 
-    // Set the order in which the strings are typed
-    for (let i in self.strings) {
-      self.sequence[i] = i;
-    }
-
-    // If there is some text in the element
-    self.currentElContent = this.getCurrentElContent(self);
-
     self.autoInsertCss = self.options.autoInsertCss;
 
-    this.appendAnimationCss(self);
+    if (self.autoInsertCss) {
+      this.appendCursorAnimationCss(self);
+      this.appendFadeOutAnimationCss(self);
+    }
   }
 
   getCurrentElContent(self) {
@@ -192,25 +200,17 @@ export default class Initializer {
     return elContent;
   }
 
-  appendAnimationCss(self) {
-    const cssDataName = &apos;data-typed-js-css&apos;;
-    if (!self.autoInsertCss) {
-      return;
-    }
-    if (!self.showCursor &amp;&amp; !self.fadeOut) {
-      return;
-    }
-    if (document.querySelector(`[${cssDataName}]`)) {
+  appendCursorAnimationCss(self) {
+    const cssDataName = &apos;data-typed-js-cursor-css&apos;;
+
+    if (!self.showCursor || document.querySelector(`[${cssDataName}]`)) {
       return;
     }
 
     let css = document.createElement(&apos;style&apos;);
-    css.type = &apos;text/css&apos;;
-    css.setAttribute(cssDataName, true);
+    css.setAttribute(cssDataName, &apos;true&apos;);
 
-    let innerCss = &apos;&apos;;
-    if (self.showCursor) {
-      innerCss += `
+    css.innerHTML = `
         .typed-cursor{
           opacity: 1;
         }
@@ -228,10 +228,21 @@ export default class Initializer {
           100% { opacity: 1; }
         }
       `;
+
+    document.body.appendChild(css);
+  }
+
+  appendFadeOutAnimationCss(self) {
+    const cssDataName = &apos;data-typed-fadeout-js-css&apos;;
+
+    if (!self.fadeOut || document.querySelector(`[${cssDataName}]`)) {
+      return;
     }
 
-    if (self.fadeOut) {
-      innerCss += `
+    let css = document.createElement(&apos;style&apos;);
+    css.setAttribute(cssDataName, &apos;true&apos;);
+
+    css.innerHTML = `
         .typed-fade-out{
           opacity: 0;
           transition: opacity .25s;
@@ -241,11 +252,7 @@ export default class Initializer {
           animation: 0;
         }
       `;
-    }
-    if (css.length === 0) {
-      return;
-    }
-    css.innerHTML = innerCss;
+
     document.body.appendChild(css);
   }
 }
