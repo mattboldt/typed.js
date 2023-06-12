@@ -171,6 +171,7 @@ export default class Initializer {
     css.innerHTML = `
         .typed-cursor{
           opacity: 1;
+          user-select: none;
         }
         .typed-cursor.typed-cursor--blink{
           animation: typedjsBlink 0.7s infinite;
