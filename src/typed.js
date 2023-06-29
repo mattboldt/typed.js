@@ -96,6 +96,7 @@ export default class Typed {
       // If the strPos is 0, we're starting from the beginning of a string
       // else, we're starting with a previous string that needs to be backspaced first
       if (this.strPos === 0) {
+        this.options.preStringTyped(this.arrayPos, this);
         this.typewrite(this.strings[this.sequence[this.arrayPos]], this.strPos);
       } else {
         this.backspace(this.strings[this.sequence[this.arrayPos]], this.strPos);
@@ -199,7 +200,6 @@ export default class Typed {
     // call before functions if applicable
     if (curStrPos === 0) {
       this.toggleBlinking(false);
-      this.options.preStringTyped(this.arrayPos, this);
     }
     // start typing each new char into existing string
     // curString: arg, this.el.html: original text inside element
@@ -288,6 +288,7 @@ export default class Typed {
           this.shuffleStringsIfNeeded();
           this.begin();
         } else {
+          this.options.preStringTyped(this.arrayPos, this);
           this.typewrite(this.strings[this.sequence[this.arrayPos]], curStrPos);
         }
       }
