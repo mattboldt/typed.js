@@ -1,7 +1,7 @@
 (function(){
   function toggle(ev) {
-    var button = ev.target;
-    var parent = ev.target.parentElement;
+    let button = ev.target;
+    let parent = ev.target.parentElement;
     while(parent) {
       if (parent.tagName === 'TABLE' && parent.classList.contains('summary')) break;
       parent = parent.parentElement;
@@ -9,7 +9,7 @@
 
     if (!parent) return;
 
-    var tbody = parent.querySelector('tbody');
+    let tbody = parent.querySelector('tbody');
     if (button.classList.contains('opened')) {
       button.classList.remove('opened');
       button.classList.add('closed');
