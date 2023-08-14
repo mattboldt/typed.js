@@ -5,13 +5,13 @@ anchors.options.placement = 'left';
 anchors.add('h3');
 
 // Filter UI
-var tocElements = document.getElementById('toc')
+let tocElements = document.getElementById('toc')
   .getElementsByTagName('li');
 
 document.getElementById('filter-input')
   .addEventListener('keyup', function (e) {
 
-    var i, element, children;
+    let i, element, children;
 
     // enter key
     if (e.keyCode === 13) {
@@ -25,11 +25,11 @@ document.getElementById('filter-input')
       }
     }
 
-    var match = function () {
+    let match = function () {
       return true;
     };
 
-    var value = this.value.toLowerCase();
+    let value = this.value.toLowerCase();
 
     if (!value.match(/^\s*$/)) {
       match = function (element) {
@@ -48,14 +48,14 @@ document.getElementById('filter-input')
     }
   });
 
-var toggles = document.getElementsByClassName('toggle-step-sibling');
-for (var i = 0; i < toggles.length; i++) {
+let toggles = document.getElementsByClassName('toggle-step-sibling');
+for (let i = 0; i < toggles.length; i++) {
   toggles[i].addEventListener('click', toggleStepSibling);
 }
 
 function toggleStepSibling() {
-  var stepSibling = this.parentNode.parentNode.parentNode.getElementsByClassName('toggle-target')[0];
-  var klass = 'display-none';
+  let stepSibling = this.parentNode.parentNode.parentNode.getElementsByClassName('toggle-target')[0];
+  let klass = 'display-none';
   if (stepSibling.classList.contains(klass)) {
     stepSibling.classList.remove(klass);
     stepSibling.innerHTML = '▾';
@@ -65,15 +65,15 @@ function toggleStepSibling() {
   }
 }
 
-var items = document.getElementsByClassName('toggle-sibling');
-for (var j = 0; j < items.length; j++) {
+let items = document.getElementsByClassName('toggle-sibling');
+for (let j = 0; j < items.length; j++) {
   items[j].addEventListener('click', toggleSibling);
 }
 
 function toggleSibling() {
-  var stepSibling = this.parentNode.getElementsByClassName('toggle-target')[0];
-  var icon = this.getElementsByClassName('icon')[0];
-  var klass = 'display-none';
+  let stepSibling = this.parentNode.getElementsByClassName('toggle-target')[0];
+  let icon = this.getElementsByClassName('icon')[0];
+  let klass = 'display-none';
   if (stepSibling.classList.contains(klass)) {
     stepSibling.classList.remove(klass);
     icon.innerHTML = '▾';
@@ -84,7 +84,7 @@ function toggleSibling() {
 }
 
 function showHashTarget(targetId) {
-  var hashTarget = document.getElementById(targetId);
+  let hashTarget = document.getElementById(targetId);
   // new target is hidden
   if (hashTarget && hashTarget.offsetHeight === 0 &&
     hashTarget.parentNode.parentNode.classList.contains('display-none')) {
@@ -98,8 +98,8 @@ window.addEventListener('hashchange', function() {
 
 showHashTarget(location.hash.substring(1));
 
-var toclinks = document.getElementsByClassName('pre-open');
-for (var k = 0; k < toclinks.length; k++) {
+let toclinks = document.getElementsByClassName('pre-open');
+for (let k = 0; k < toclinks.length; k++) {
   toclinks[k].addEventListener('mousedown', preOpen, false);
 }
 
