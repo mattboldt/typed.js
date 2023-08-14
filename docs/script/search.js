@@ -1,10 +1,10 @@
 (function(){
-  var searchIndex = window.esdocSearchIndex;
-  var searchBox = document.querySelector('.search-box');
-  var input = document.querySelector('.search-input');
-  var result = document.querySelector('.search-result');
-  var selectedIndex = -1;
-  var prevText;
+  let searchIndex = window.esdocSearchIndex;
+  let searchBox = document.querySelector('.search-box');
+  let input = document.querySelector('.search-input');
+  let result = document.querySelector('.search-result');
+  let selectedIndex = -1;
+  let prevText;
 
   // active search box and focus when mouse enter on search box.
   searchBox.addEventListener('mouseenter', function(){
@@ -14,7 +14,7 @@
 
   // search with text when key is upped.
   input.addEventListener('keyup', function(ev){
-    var text = ev.target.value.toLowerCase();
+    let text = ev.target.value.toLowerCase();
     if (!text) {
       result.style.display = 'none';
       result.innerHTML = '';
@@ -24,20 +24,20 @@
     if (text === prevText) return;
     prevText = text;
 
-    var html = {class: [], method: [], member: [], function: [], variable: [], typedef: [], external: [], file: [], test: [], testFile: []};
-    var len = searchIndex.length;
-    var kind;
-    for (var i = 0; i < len; i++) {
-      var pair = searchIndex[i];
+    let html = {class: [], method: [], member: [], function: [], variable: [], typedef: [], external: [], file: [], test: [], testFile: []};
+    let len = searchIndex.length;
+    let kind;
+    for (let i = 0; i < len; i++) {
+      let pair = searchIndex[i];
       if (pair[0].indexOf(text) !== -1) {
         kind = pair[3];
         html[kind].push('<li><a href="' + pair[1] + '">' + pair[2] + '</a></li>');
       }
     }
 
-    var innerHTML = '';
+    let innerHTML = '';
     for (kind in html) {
-      var list = html[kind];
+      let list = html[kind];
       if (!list.length) continue;
       innerHTML += '<li class="search-separator">' + kind + '</li>\n' + list.join('\n');
     }
@@ -50,10 +50,10 @@
   input.addEventListener('keydown', function(ev){
     if (ev.keyCode === 40) {
       // arrow down
-      var current = result.children[selectedIndex];
-      var selected = result.children[selectedIndex + 1];
+      let current = result.children[selectedIndex];
+      let selected = result.children[selectedIndex + 1];
       if (selected && selected.classList.contains('search-separator')) {
-        var selected = result.children[selectedIndex + 2];
+        let selected = result.children[selectedIndex + 2];
         selectedIndex++;
       }
 
@@ -64,10 +64,10 @@
       }
     } else if (ev.keyCode === 38) {
       // arrow up
-      var current = result.children[selectedIndex];
-      var selected = result.children[selectedIndex - 1];
+      let current = result.children[selectedIndex];
+      let selected = result.children[selectedIndex - 1];
       if (selected && selected.classList.contains('search-separator')) {
-        var selected = result.children[selectedIndex - 2];
+        let selected = result.children[selectedIndex - 2];
         selectedIndex--;
       }
 
@@ -78,9 +78,9 @@
       }
     } else if (ev.keyCode === 13) {
       // enter
-      var current = result.children[selectedIndex];
+      let current = result.children[selectedIndex];
       if (current) {
-        var link = current.querySelector('a');
+        let link = current.querySelector('a');
         if (link) location.href = link.href;
       }
     } else {
@@ -92,10 +92,10 @@
 
   // select search result when search result is mouse over.
   result.addEventListener('mousemove', function(ev){
-    var current = result.children[selectedIndex];
+    let current = result.children[selectedIndex];
     if (current) current.classList.remove('selected');
 
-    var li = ev.target;
+    let li = ev.target;
     while (li) {
       if (li.nodeName === 'LI') break;
       li = li.parentElement;
