@@ -19,7 +19,7 @@ function AnchorJS(options) {
   this._applyRemainingDefaultOptions(options);
 
   this.add = function(selector) {
-    var elements,
+    let elements,
         elsWithIds,
         idList,
         elementID,
@@ -131,9 +131,9 @@ function AnchorJS(options) {
   };
 
   this.remove = function(selector) {
-    var domAnchor,
+    let domAnchor,
         elements = document.querySelectorAll(selector);
-    for (var i = 0; i < elements.length; i++) {
+    for (let i = 0; i < elements.length; i++) {
       domAnchor = elements[i].querySelector('.anchorjs-link');
       if (domAnchor) {
         elements[i].removeChild(domAnchor);
@@ -148,7 +148,7 @@ function AnchorJS(options) {
       return;
     }
 
-    var style = document.createElement('style'),
+    let style = document.createElement('style'),
         linkRule =
         ' .anchorjs-link {'                       +
         '   opacity: 0;'                          +
@@ -194,4 +194,4 @@ function AnchorJS(options) {
   };
 }
 
-var anchors = new AnchorJS();
+let anchors = new AnchorJS();
