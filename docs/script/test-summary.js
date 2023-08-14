@@ -1,7 +1,7 @@
 (function(){
   function toggle(ev) {
-    var button = ev.target;
-    var parent = ev.target.parentElement;
+    let button = ev.target;
+    let parent = ev.target.parentElement;
     while(parent) {
       if (parent.tagName === 'TR' && parent.classList.contains('test-interface')) break;
       parent = parent.parentElement;
@@ -9,7 +9,7 @@
 
     if (!parent) return;
 
-    var direction;
+    let direction;
     if (button.classList.contains('opened')) {
       button.classList.remove('opened');
       button.classList.add('closed');
@@ -20,16 +20,16 @@
       direction = 'opened';
     }
 
-    var targetDepth = parseInt(parent.dataset.testDepth, 10) + 1;
-    var nextElement = parent.nextElementSibling;
+    let targetDepth = parseInt(parent.dataset.testDepth, 10) + 1;
+    let nextElement = parent.nextElementSibling;
     while (nextElement) {
-      var depth = parseInt(nextElement.dataset.testDepth, 10);
+      let depth = parseInt(nextElement.dataset.testDepth, 10);
       if (depth >= targetDepth) {
         if (direction === 'opened') {
           if (depth === targetDepth)  nextElement.style.display = '';
         } else if (direction === 'closed') {
           nextElement.style.display = 'none';
-          var innerButton = nextElement.querySelector('.toggle');
+          let innerButton = nextElement.querySelector('.toggle');
           if (innerButton && innerButton.classList.contains('opened')) {
             innerButton.classList.remove('opened');
             innerButton.classList.add('closed');
@@ -42,8 +42,8 @@
     }
   }
 
-  var buttons = document.querySelectorAll('.test-summary tr.test-interface .toggle');
-  for (var i = 0; i < buttons.length; i++) {
+  let buttons = document.querySelectorAll('.test-summary tr.test-interface .toggle');
+  for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', toggle);
   }
 
