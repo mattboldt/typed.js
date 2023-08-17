@@ -241,7 +241,7 @@ var typed = new Typed('#element', {
   smartBackspace: true,
 
   /**
-   * @property {boolean} shuffle shuffle the strings
+   * @property {boolean} shuffle the strings
    */
   shuffle: false,
 
