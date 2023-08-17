@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  var typed = new Typed('#typed', {
+  let typed = new Typed('#typed', {
     stringsElement: '#typed-strings',
     typeSpeed: 20,
     backSpeed: 20,
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
     toggleLoop(typed);
   });
 
-  var typed2 = new Typed('#typed2', {
+  let typed2 = new Typed('#typed2', {
     strings: [
       'Some <i>strings</i> with',
       'Some <strong>HTML</strong>',
