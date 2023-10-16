@@ -15,7 +15,8 @@
   ],
   "exports": {
     "require": "./dist/typed.cjs",
-    "import": "./dist/typed.module.js"
+    "import": "./dist/typed.module.js",
+    "types": "./index.d.ts"
   },
   "main": "./dist/typed.cjs",
   "module": "./dist/typed.module.js",
