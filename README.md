@@ -16,7 +16,7 @@ Typed.js is a library that types. Enter in any string, and watch it type at the 
 ### CDN
 
 ```html
-<script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="https://unpkg.com/typed.js@2.0.17/dist/typed.umd.js"></script>
 ```
 
 For use directly in the browser via `<script>` tag:
@@ -26,7 +26,7 @@ For use directly in the browser via `<script>` tag:
   <span id="element"></span>
 
   <!-- Load library from the CDN -->
-  <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+  <script src="https://unpkg.com/typed.js@2.0.17/dist/typed.umd.js"></script>
 
   <!-- Setup and start animation! -->
   <script>
