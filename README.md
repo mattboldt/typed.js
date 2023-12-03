@@ -109,6 +109,8 @@ Check out the WebComponent: https://github.com/Orlandster/wc-typed-js
 
 ## Wonderful sites that have used (or are using) Typed.js
 
+https://forwardemail.net
+
 https://github.com/features/package-registry
 
 https://slack.com/
