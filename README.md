@@ -111,31 +111,33 @@ Check out the WebComponent: https://github.com/Orlandster/wc-typed-js
 
 https://forwardemail.net
 
+https://codesignal.com
+
 https://github.com/features/package-registry
 
-https://slack.com/
+https://slack.com
 
-https://envato.com/
+https://envato.com
 
-https://gorails.com/
+https://gorails.com
 
-https://productmap.co/
+https://productmap.co
 
-https://www.typed.com/
+https://www.typed.com
 
 https://apeiron.io
 
-https://git.market/
+https://git.market
 
-https://commando.io/
+https://commando.io
 
 http://testdouble.com/agency.html
 
-https://www.capitalfactory.com/
+https://www.capitalfactory.com
 
-http://www.maxcdn.com/
+http://www.maxcdn.com
 
-https://www.powerauth.com/
+https://www.powerauth.com
 
 ---
 
