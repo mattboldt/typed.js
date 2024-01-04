@@ -82,6 +82,27 @@ export default class Typed {
     }
   }
 
+  append(string) {
+    const prevString = this.strings[this.strings.length - 1];
+    this.strings.push(string);
+    this.sequence = this.strings.map((_, i) => i);
+
+    // If typing isn't done yet, it will continue with any appended strings
+    if (!this.typingComplete) return;
+
+    // If typing has completed already, we need to start it up again from where it left off
+    if (this.shouldBackspace) {
+      this.timeout = setTimeout(() => {
+        this.backspace(prevString, prevString.length - 1);
+      }, this.backDelay);
+    } else {
+      this.timeout = setTimeout(() => {
+        this.arrayPos++;
+        this.typewrite(this.strings[this.sequence[this.arrayPos]], 0);
+      }, this.backDelay);
+    }
+  }
+
   /**
    * Begins the typing animation
    * @private
@@ -89,9 +110,11 @@ export default class Typed {
   begin() {
     this.options.onBegin(this);
     this.typingComplete = false;
-    this.shuffleStringsIfNeeded(this);
+    this.shuffleStringsIfNeeded();
     this.insertCursor();
+
     if (this.bindInputFocusEvents) this.bindFocusEvents();
+
     this.timeout = setTimeout(() => {
       // If the strPos is 0, we're starting from the beginning of a string
       // else, we're starting with a previous string that needs to be backspaced first
@@ -201,11 +224,18 @@ export default class Typed {
       this.toggleBlinking(false);
       this.options.preStringTyped(this.arrayPos, this);
     }
-    // start typing each new char into existing string
-    // curString: arg, this.el.html: original text inside element
-    curStrPos += numChars;
-    const nextString = curString.substring(0, curStrPos);
-    this.replaceText(nextString);
+
+    if (this.shouldBackspace) {
+      // start typing each new char into existing string
+      // curString: arg, this.el.html: original text inside element
+      curStrPos += numChars;
+      const nextString = curString.substring(0, curStrPos);
+      this.replaceText(nextString);
+    } else {
+      const nextString = curString.substring(curStrPos, curStrPos + numChars);
+      curStrPos += numChars;
+      this.replaceText(nextString);
+    }
     // loop the function
     this.typewrite(curString, curStrPos);
   }
@@ -221,7 +251,7 @@ export default class Typed {
     this.options.onStringTyped(this.arrayPos, this);
     this.toggleBlinking(true);
     // is this the final string
-    if (this.arrayPos === this.strings.length - 1) {
+    if (this.isFinalString()) {
       // callback that occurs on the last typed string
       this.complete();
       // quit if we wont loop back
@@ -229,9 +259,17 @@ export default class Typed {
         return;
       }
     }
-    this.timeout = setTimeout(() => {
-      this.backspace(curString, curStrPos);
-    }, this.backDelay);
+
+    if (this.shouldBackspace) {
+      this.timeout = setTimeout(() => {
+        this.backspace(curString, curStrPos);
+      }, this.backDelay);
+    } else {
+      this.timeout = setTimeout(() => {
+        this.arrayPos++;
+        this.typewrite(this.strings[this.sequence[this.arrayPos]], 0);
+      }, this.backDelay);
+    }
   }
 
   /**
@@ -278,21 +316,40 @@ export default class Typed {
         // loop the function
         this.backspace(curString, curStrPos);
       } else if (curStrPos <= this.stopNum) {
-        // if the stop number has been reached, increase
-        // array position to next string
-        this.arrayPos++;
-        // When looping, begin at the beginning after backspace complete
-        if (this.arrayPos === this.strings.length) {
-          this.arrayPos = 0;
-          this.options.onLastStringBackspaced();
-          this.shuffleStringsIfNeeded();
-          this.begin();
+        // if the stop number has been reached, we're either done backspacing,
+        // or we need to continue to the next string
+
+        if (this.isFinalString()) {
+          this.lastStringBackspaced();
         } else {
+          this.arrayPos++;
           this.typewrite(this.strings[this.sequence[this.arrayPos]], curStrPos);
         }
       }
       // humanized value for typing
     }, humanize);
+  }
+
+  /**
+   * Are we on the last string in the array?
+   * @private
+   */
+  isFinalString() {
+    return this.arrayPos === this.strings.length - 1;
+  }
+
+  /**
+   * Do stuff after the last string is backspaced
+   * @private
+   */
+  lastStringBackspaced() {
+    this.arrayPos = 0;
+    this.options.onLastStringBackspaced();
+
+    if (this.loop) {
+      this.shuffleStringsIfNeeded();
+      this.begin();
+    }
   }
 
   /**
@@ -385,13 +442,19 @@ export default class Typed {
    * @private
    */
   replaceText(str) {
+    // let currentElContent = this.getCurrentElContent(this);
+
     if (this.attr) {
       this.el.setAttribute(this.attr, str);
     } else {
       if (this.isInput) {
         this.el.value = str;
       } else if (this.contentType === 'html') {
-        this.el.innerHTML = str;
+        if (this.shouldBackspace) {
+          this.el.innerHTML = str;
+        } else {
+          this.el.innerHTML += str;
+        }
       } else {
         this.el.textContent = str;
       }

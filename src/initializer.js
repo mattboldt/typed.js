@@ -59,6 +59,8 @@ export default class Initializer {
     // amount of time to wait before backspacing
     self.backDelay = self.options.backDelay;
 
+    self.shouldBackspace = self.options.shouldBackspace;
+
     // Fade out instead of backspace
     self.fadeOut = self.options.fadeOut;
     self.fadeOutClass = self.options.fadeOutClass;

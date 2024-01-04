@@ -161,6 +161,26 @@
   });
     </code>
   </pre>
+
+      <hr />
+
+      <h2 id="add-dynamically">Adding Strings Dynamically</h2>
+      <input type="text" id="add-dynamically-value" style="padding: 10px" />
+      <button type="button" class="add-string">Add String</button>
+      <div class="type-wrap" style="height: 50px">
+        <span id="typed7" style="white-space: pre"></span>
+      </div>
+
+      <pre>
+    <code class="javascript">
+  var typed6 = new Typed('#typed7', {
+    strings: ['npm install^1000\n `installing components...` ^1000\n `Fetching from source...`'],
+    typeSpeed: 40,
+    backSpeed: 0,
+    loop: true
+  });
+    </code>
+  </pre>
     </div>
 
     <script type="text/javascript">
