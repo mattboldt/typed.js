@@ -48,6 +48,11 @@ const defaults = {
   backDelay: 700,
 
   /**
+   * @property {boolean} shouldBackspace Backspace or just keep typing the next string
+   */
+  shouldBackspace: true,
+
+  /**
    * @property {boolean} fadeOut Fade out instead of backspace
    * @property {string} fadeOutClass css class for fade animation
    * @property {boolean} fadeOutDelay Fade out delay in milliseconds

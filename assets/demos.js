@@ -118,6 +118,19 @@ document.addEventListener('DOMContentLoaded', function () {
     backSpeed: 0,
     loop: true,
   });
+
+  const typed7 = new Typed('#typed7', {
+    strings: ['First string...'],
+    typeSpeed: 40,
+    backSpeed: 0,
+    shouldBackspace: true,
+  });
+
+  document.querySelector('.add-string').addEventListener('click', function () {
+    const val = document.getElementById('add-dynamically-value').value;
+    console.log('Adding string' + val);
+    typed7.append(val);
+  });
 });
 
 function prettyLog(str) {

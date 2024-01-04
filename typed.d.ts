@@ -36,13 +36,15 @@ export default class Typed {
     strPos: number;
     arrayPos: number;
     curLoop: number;
+    append(string: any): void;
+    sequence: any;
+    timeout: any;
     /**
      * Begins the typing animation
      * @private
      */
     private begin;
     typingComplete: boolean;
-    timeout: any;
     /**
      * Called for each character typed
      * @param {string} curString the current string in the strings array
@@ -74,6 +76,16 @@ export default class Typed {
     private backspace;
     stopNum: number;
     /**
+     * Are we on the last string in the array?
+     * @private
+     */
+    private isFinalString;
+    /**
+     * Do stuff after the last string is backspaced
+     * @private
+     */
+    private lastStringBackspaced;
+    /**
      * Full animation is complete
      * @private
      */
@@ -104,7 +116,6 @@ export default class Typed {
      * @private
      */
     private shuffleStringsIfNeeded;
-    sequence: any;
     /**
      * Adds a CSS class to fade out current string
      * @private
