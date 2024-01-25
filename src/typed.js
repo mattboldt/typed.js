@@ -259,7 +259,7 @@ export default class Typed {
       // if smartBack is enabled
       if (this.smartBackspace) {
         // the remaining part of the current string is equal of the same part of the new string
-        let nextString = this.strings[this.arrayPos + 1];
+        let nextString = this.strings[this.sequence[this.arrayPos + 1]];
         if (
           nextString &&
           curStringAtPosition === nextString.substring(0, curStrPos)
