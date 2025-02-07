@@ -99,6 +99,10 @@ More complex hook-based function component: https://jsfiddle.net/mattboldt/60h9a
 
 Class component: https://jsfiddle.net/mattboldt/ovat9jmp/
 
+### Use with Angular
+
+Check out the Angular component: [https://github.com/SkyZeroZx/ngx-typed-writer](https://github.com/SkyZeroZx/ngx-typed-writer)
+
 ### Use with Vue.js
 
 Check out the Vue.js component: https://github.com/Orlandster/vue-typed-js
