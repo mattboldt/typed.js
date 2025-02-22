@@ -139,6 +139,8 @@ http://www.maxcdn.com
 
 https://www.powerauth.com
 
+https://www.devitjobs.com/about
+
 ---
 
 ### Strings from static HTML (SEO Friendly)
