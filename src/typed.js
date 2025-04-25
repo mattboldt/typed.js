@@ -332,6 +332,14 @@ export default class Typed {
     if (this.pause.status) return;
     if (this.cursorBlinking === isBlinking) return;
     this.cursorBlinking = isBlinking;
+    const typedCursor = this.el.querySelector('#cursor');
+    if (typedCursor){
+        if (isBlinking) {
+            typedCursor.classList.add('typed-cursor--blink');
+        } else {
+            typedCursor.classList.remove('typed-cursor--blink');
+        }
+    }
     if (isBlinking) {
       this.cursor.classList.add('typed-cursor--blink');
     } else {
@@ -391,7 +399,7 @@ export default class Typed {
       if (this.isInput) {
         this.el.value = str;
       } else if (this.contentType === 'html') {
-        this.el.innerHTML = str;
+        this.el.innerHTML = str + this.cursor.outerHTML;
       } else {
         this.el.textContent = str;
       }
@@ -424,9 +432,11 @@ export default class Typed {
     if (!this.showCursor) return;
     if (this.cursor) return;
     this.cursor = document.createElement('span');
+    this.cursor.id = "cursor";
     this.cursor.className = 'typed-cursor';
     this.cursor.setAttribute('aria-hidden', true);
     this.cursor.innerHTML = this.cursorChar;
+    if (this.contentType === 'html') return;
     this.el.parentNode &&
       this.el.parentNode.insertBefore(this.cursor, this.el.nextSibling);
   }

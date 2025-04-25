@@ -118,6 +118,18 @@ document.addEventListener('DOMContentLoaded', function () {
     backSpeed: 0,
     loop: true,
   });
+
+  new Typed("#typed7", {
+      stringsElement: '#typed-strings-2',
+      backSpeed: 10,
+      typeSpeed: 30,
+      backDelay: 3000,
+      cursorChar: "🐫",
+      smartBackspace: true,
+      loop: true,
+  });
+
+
 });
 
 function prettyLog(str) {
