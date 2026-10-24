@@ -323,6 +323,10 @@ export default class Typed {
           this.lastStringBackspaced();
         } else {
           this.arrayPos++;
+          // A retained prefix skips keepTyping's curStrPos === 0 callback.
+          if (curStrPos > 0) {
+            this.options.preStringTyped(this.arrayPos, this);
+          }
           this.typewrite(this.strings[this.sequence[this.arrayPos]], curStrPos);
         }
       }

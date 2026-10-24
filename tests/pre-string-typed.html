@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Typed.js shared-prefix callback regression</title>
+<style>
+  body { font: 18px system-ui; max-width: 760px; margin: 3rem auto; padding: 1rem; }
+  #typed { font-size: 1.6rem; }
+  pre { background: #eee; padding: 1rem; white-space: pre-wrap; }
+</style>
+<h1>Shared-prefix callback regression</h1>
+<p>Each string, including an identical next string, must fire preStringTyped once.</p>
+<p><span id="typed"></span></p>
+<p id="status">Running…</p>
+<pre id="events" aria-live="polite"></pre>
+<script src="../dist/typed.umd.js"></script>
+<script>
+  const before = [];
+  const events = document.querySelector('#events');
+  new Typed('#typed', {
+    strings: ['Hello world', 'Hello there', 'Hello there'],
+    typeSpeed: 20,
+    backSpeed: 10,
+    backDelay: 200,
+    smartBackspace: true,
+    loop: false,
+    preStringTyped(position) {
+      before.push(position);
+      events.textContent += `before ${position}\n`;
+    },
+    onStringTyped(position) {
+      events.textContent += `after ${position}\n`;
+    },
+    onComplete() {
+      const pass = JSON.stringify(before) === '[0,1,2]';
+      document.querySelector('#status').textContent =
+        `${pass ? 'PASS' : 'FAIL'}: preStringTyped positions ${JSON.stringify(before)}; expected [0,1,2]`;
+    },
+  });
+</script>
+</html>
